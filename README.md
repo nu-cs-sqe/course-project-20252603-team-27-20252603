@@ -2,8 +2,10 @@
 # PROJECT NAME
 
 ## Contributors
-- PERSON
-- PERSON
+- Olivia Mofus
+- Jerome Bizimana
+- Muye Chen
+- Rishi Ramaiya
 
 ## Dependencies
 - JDK 11
