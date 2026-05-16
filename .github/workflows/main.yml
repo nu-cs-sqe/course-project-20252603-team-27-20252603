@@ -32,3 +32,7 @@ jobs:
 
       - name: Execute Gradle build
         run: ./gradlew build
+      - name: Run Checkstyle
+        run: ./gradlew checkstyleMain checkstyleTest
+      - name: Run SpotBugs
+        run: ./gradlew spotbugsMain spotbugsTest
