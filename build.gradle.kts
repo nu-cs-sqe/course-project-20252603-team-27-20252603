@@ -83,10 +83,10 @@ tasks.jacocoTestReport {
 tasks.build {
     dependsOn("pitest")
 }
-tasks.test {
-    finalizedBy(tasks.jacocoTestReport) // report is always generated after tests run
-    finalizedBy(tasks.pitest)
-}
+//tasks.test {
+//    finalizedBy(tasks.jacocoTestReport) // report is always generated after tests run
+//    finalizedBy(tasks.pitest)
+//}
 
 
 tasks.jacocoTestReport {
