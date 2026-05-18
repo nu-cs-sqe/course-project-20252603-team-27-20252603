@@ -25,7 +25,7 @@
 - **TC5: LocationFileJustBelowValidThrowsIllegalArgumentException** (  )
   - **State of the system:** algebraic = "`1" (ASCII before 'a')
   - **Expected output:** IllegalArgumentException
-  - **Implemented:** not yet
+  - **Implemented:** yes
 
 - **TC6: LocationFileJustAboveValidThrowsIllegalArgumentException** (  )
   - **State of the system:** algebraic = "i1"
