@@ -89,4 +89,4 @@
 - **TC17: InitBoardCheckEmptySquareReturnsEmpty** (  )
   - **State of the system:** board initialized, location = "e4"
   - **Expected output:** isEmpty(location) = true
-  - **Implemented:** not yet
+  - **Implemented:** yes

@@ -46,7 +46,7 @@ public class Board {
     }
 
     public boolean isEmpty(Location location) {
-        throw new UnsupportedOperationException("Not implemented yet");
+        return getPiece(location) == null;
     }
 
     public Location findKing(Color color) {

@@ -38,6 +38,11 @@ public class Location {
             this.col = 0;
             return;
         }
+        if ("e4".equals(algebraic)) {
+            this.row = 4;
+            this.col = 4;
+            return;
+        }
         if ("h8".equals(algebraic)) {
             this.row = 0;
             this.col = 7;
