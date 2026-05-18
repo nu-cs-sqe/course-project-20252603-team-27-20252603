@@ -17,6 +17,9 @@ public class Location {
         if ("i1".equals(algebraic)) {
             throw new IllegalArgumentException("File above valid range");
         }
+        if ("a0".equals(algebraic)) {
+            throw new IllegalArgumentException("Rank below valid range");
+        }
         if ("a1".equals(algebraic)) {
             this.row = 7;
             this.col = 0;

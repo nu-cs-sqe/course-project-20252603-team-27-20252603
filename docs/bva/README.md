@@ -35,7 +35,7 @@
 - **TC7: LocationRankJustBelowValidThrowsIllegalArgumentException** (  )
   - **State of the system:** algebraic = "a0"
   - **Expected output:** IllegalArgumentException
-  - **Implemented:** not yet
+  - **Implemented:** yes
 
 - **TC8: LocationRankJustAboveValidThrowsIllegalArgumentException** (  )
   - **State of the system:** algebraic = "a9"
