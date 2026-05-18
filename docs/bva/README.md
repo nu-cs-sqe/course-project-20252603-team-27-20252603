@@ -30,7 +30,7 @@
 - **TC6: LocationFileJustAboveValidThrowsIllegalArgumentException** (  )
   - **State of the system:** algebraic = "i1"
   - **Expected output:** IllegalArgumentException
-  - **Implemented:** not yet
+  - **Implemented:** yes
 
 - **TC7: LocationRankJustBelowValidThrowsIllegalArgumentException** (  )
   - **State of the system:** algebraic = "a0"
