@@ -48,7 +48,7 @@ public class Location {
             this.col = 7;
             return;
         }
-        throw new UnsupportedOperationException("Only a1 and h8 implemented in this step");
+        throw new UnsupportedOperationException("Only selected coordinates implemented in this step");
     }
 
     public Location(int row, int col) {

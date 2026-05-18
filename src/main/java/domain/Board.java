@@ -19,16 +19,21 @@ public class Board {
     }
 
     public void clearBoard() {
-
-        throw new UnsupportedOperationException("Not implemented yet");
+        for (int row = 0; row < TOTAL_ROWS; row++) {
+            for (int col = 0; col < TOTAL_COLS; col++) {
+                pieces[row][col] = null;
+            }
+        }
     }
 
     public boolean isInsideBoard(Location location) {
-        return (location.getRow() == 0 && location.getCol() == 0)
-                || (location.getRow() == 7 && location.getCol() == 7);
+        int row = location.getRow();
+        int col = location.getCol();
+        return row >= 0 && row < TOTAL_ROWS && col >= 0 && col < TOTAL_COLS;
     }
 
     public void initBoard() {
+        clearBoard();
         pieces[6][0] = new Pawn(Color.WHITE);
         pieces[0][0] = new Rook(Color.BLACK);
     }
@@ -50,7 +55,6 @@ public class Board {
     }
 
     public Location findKing(Color color) {
-
         throw new UnsupportedOperationException("Not implemented yet");
     }
 
