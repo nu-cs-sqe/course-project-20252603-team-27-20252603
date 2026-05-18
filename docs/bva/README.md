@@ -15,7 +15,7 @@
 - **TC3: LocationEmptyStringThrowsIllegalArgumentException** (  )
   - **State of the system:** algebraic = ""
   - **Expected output:** IllegalArgumentException
-  - **Implemented:** not yet
+  - **Implemented:** yes
 
 - **TC4: LocationStringTooLongThrowsIllegalArgumentException** (  )
   - **State of the system:** algebraic = "a12"

@@ -5,6 +5,9 @@ public class Location {
     private int col;
 
     public Location(String algebraic) {
+        if ("".equals(algebraic)) {
+            throw new IllegalArgumentException("Empty algebraic is invalid");
+        }
         if ("a1".equals(algebraic)) {
             this.row = 7;
             this.col = 0;
