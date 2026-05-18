@@ -5,7 +5,7 @@
 - **TC1: LocationValidMinMinReturnsRow7Col0** (  )
   - **State of the system:** algebraic = "a1"
   - **Expected output:** row = 7, col = 0
-  - **Implemented:** not yet
+  - **Implemented:** Yes
 
 - **TC2: LocationValidMaxMaxReturnsRow0Col7** (  )
   - **State of the system:** algebraic = "h8"

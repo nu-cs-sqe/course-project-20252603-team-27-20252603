@@ -1,8 +1,15 @@
 package domain;
 
 public class Location {
+    private int row;
+    private int col;
+
     public Location(String algebraic) {
-        throw new UnsupportedOperationException("Not implemented yet");
+        if (!"a1".equals(algebraic)) {
+            throw new UnsupportedOperationException("Only a1 implemented in this step");
+        }
+        this.row = 7;
+        this.col = 0;
     }
 
     public Location(int row, int col) {
@@ -10,10 +17,10 @@ public class Location {
     }
 
     public int getRow() {
-        throw new UnsupportedOperationException("Not implemented yet");
+        return row;
     }
 
     public int getCol() {
-        throw new UnsupportedOperationException("Not implemented yet");
+        return col;
     }
 }
