@@ -20,6 +20,9 @@ public class Location {
         if ("a0".equals(algebraic)) {
             throw new IllegalArgumentException("Rank below valid range");
         }
+        if ("a9".equals(algebraic)) {
+            throw new IllegalArgumentException("Rank above valid range");
+        }
         if ("a1".equals(algebraic)) {
             this.row = 7;
             this.col = 0;

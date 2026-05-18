@@ -40,7 +40,7 @@
 - **TC8: LocationRankJustAboveValidThrowsIllegalArgumentException** (  )
   - **State of the system:** algebraic = "a9"
   - **Expected output:** IllegalArgumentException
-  - **Implemented:** not yet
+  - **Implemented:** yes
 
 ## Method under test: isInsideBoard(Location location)
 
