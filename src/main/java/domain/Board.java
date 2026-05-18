@@ -77,7 +77,24 @@ public class Board {
     }
 
     public String toPositionString() {
-
-        throw new UnsupportedOperationException("Not implemented yet");
+        StringBuilder builder = new StringBuilder();
+        for (int row = 0; row < TOTAL_ROWS; row++) {
+            for (int col = 0; col < TOTAL_COLS; col++) {
+                Piece piece = pieces[row][col];
+                if (piece == null) {
+                    builder.append('.');
+                } else {
+                    char symbol = piece.getType().charAt(0);
+                    if (piece.getColor() == Color.BLACK) {
+                        symbol = Character.toLowerCase(symbol);
+                    }
+                    builder.append(symbol);
+                }
+            }
+            if (row < TOTAL_ROWS - 1) {
+                builder.append(System.lineSeparator());
+            }
+        }
+        return builder.toString();
     }
 }
