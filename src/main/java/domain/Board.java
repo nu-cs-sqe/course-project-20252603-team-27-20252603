@@ -24,7 +24,8 @@ public class Board {
     }
 
     public boolean isInsideBoard(Location location) {
-        return location.getRow() == 0 && location.getCol() == 0;
+        return (location.getRow() == 0 && location.getCol() == 0)
+                || (location.getRow() == 7 && location.getCol() == 7);
     }
 
     public void initBoard() {
