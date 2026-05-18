@@ -10,7 +10,7 @@
 - **TC2: LocationValidMaxMaxReturnsRow0Col7** (  )
   - **State of the system:** algebraic = "h8"
   - **Expected output:** row = 0, col = 7
-  - **Implemented:** not yet
+  - **Implemented:** yes
 
 - **TC3: LocationEmptyStringThrowsIllegalArgumentException** (  )
   - **State of the system:** algebraic = ""

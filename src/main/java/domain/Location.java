@@ -5,11 +5,17 @@ public class Location {
     private int col;
 
     public Location(String algebraic) {
-        if (!"a1".equals(algebraic)) {
-            throw new UnsupportedOperationException("Only a1 implemented in this step");
+        if ("a1".equals(algebraic)) {
+            this.row = 7;
+            this.col = 0;
+            return;
         }
-        this.row = 7;
-        this.col = 0;
+        if ("h8".equals(algebraic)) {
+            this.row = 0;
+            this.col = 7;
+            return;
+        }
+        throw new UnsupportedOperationException("Only a1 and h8 implemented in this step");
     }
 
     public Location(int row, int col) {
