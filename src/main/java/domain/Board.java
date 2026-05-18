@@ -43,7 +43,14 @@ public class Board {
     }
 
     public Piece[][] getSnapshot() {
-        throw new UnsupportedOperationException("Not implemented yet");
+        Piece[][] snapshot = new Piece[TOTAL_ROWS][TOTAL_COLS];
+        for (int row = 0; row < TOTAL_ROWS; row++) {
+            for (int col = 0; col < TOTAL_COLS; col++) {
+                Piece piece = pieces[row][col];
+                snapshot[row][col] = piece == null ? null : piece.makeCopy();
+            }
+        }
+        return snapshot;
     }
 
     public void movePiece(Location from, Location to) {
