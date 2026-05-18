@@ -72,7 +72,7 @@
 - **TC14: IsInsideBoardColJustAboveValid_ReturnFalse** (  )
   - **State of the system:** location = Location(7, 8)
   - **Expected output:** false
-  - **Implemented:** not yet
+  - **Implemented:** yes
 
 ## Method under test: initBoard()
 
