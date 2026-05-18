@@ -54,7 +54,9 @@ public class Board {
     }
 
     public void movePiece(Location from, Location to) {
-        throw new UnsupportedOperationException("Not implemented yet");
+        Piece movingPiece = getPiece(from);
+        pieces[to.getRow()][to.getCol()] = movingPiece;
+        pieces[from.getRow()][from.getCol()] = null;
     }
 
     public boolean isEmpty(Location location) {

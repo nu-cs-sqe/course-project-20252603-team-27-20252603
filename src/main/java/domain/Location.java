@@ -33,6 +33,11 @@ public class Location {
             this.col = 0;
             return;
         }
+        if ("a3".equals(algebraic)) {
+            this.row = 5;
+            this.col = 0;
+            return;
+        }
         if ("a8".equals(algebraic)) {
             this.row = 0;
             this.col = 0;
