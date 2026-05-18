@@ -67,7 +67,7 @@
 - **TC13: IsInsideBoardRowJustAboveValidReturnFalse** (  )
   - **State of the system:** location = Location(8, 7)
   - **Expected output:** false
-  - **Implemented:** not yet
+  - **Implemented:** yes
 
 - **TC14: IsInsideBoardColJustAboveValid_ReturnFalse** (  )
   - **State of the system:** location = Location(7, 8)
