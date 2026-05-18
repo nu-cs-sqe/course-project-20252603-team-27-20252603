@@ -84,7 +84,7 @@
 - **TC16: InitBoardCheckBlackRookReturnsBlackRook** (  )
   - **State of the system:** board initialized, location = "a8"
   - **Expected output:** Piece is not null, color is BLACK, type is Rook
-  - **Implemented:** not yet
+  - **Implemented:** yes
 
 - **TC17: InitBoardCheckEmptySquareReturnsEmpty** (  )
   - **State of the system:** board initialized, location = "e4"

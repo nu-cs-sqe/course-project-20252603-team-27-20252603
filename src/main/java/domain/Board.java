@@ -30,6 +30,7 @@ public class Board {
 
     public void initBoard() {
         pieces[6][0] = new Pawn(Color.WHITE);
+        pieces[0][0] = new Rook(Color.BLACK);
     }
 
     public Piece getPiece(Location location) {
