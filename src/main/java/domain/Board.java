@@ -24,8 +24,7 @@ public class Board {
     }
 
     public boolean isInsideBoard(Location location) {
-
-        throw new UnsupportedOperationException("Not implemented yet");
+        return location.getRow() == 0 && location.getCol() == 0;
     }
 
     public void initBoard() {

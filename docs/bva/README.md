@@ -47,7 +47,7 @@
 - **TC9: IsInsideBoardBothIndicesMinValidReturnTrue** ( )
   - **State of the system:** location = Location(0, 0)
   - **Expected output:** true
-  - **Implemented:** not yet
+  - **Implemented:** yes
 
 - **TC10: IsInsideBoardBothIndicesMaxValidReturnTrue** (  )
   - **State of the system:** location = Location(7, 7)

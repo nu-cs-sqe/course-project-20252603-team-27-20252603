@@ -37,7 +37,8 @@ public class Location {
     }
 
     public Location(int row, int col) {
-        throw new UnsupportedOperationException("Not implemented yet");
+        this.row = row;
+        this.col = col;
     }
 
     public int getRow() {
