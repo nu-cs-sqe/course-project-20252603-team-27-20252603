@@ -79,7 +79,7 @@
 - **TC15: InitBoardCheckWhitePawnReturnsWhitePawn** (  )
   - **State of the system:** board initialized, location = "a2"
   - **Expected output:** Piece is not null, color is WHITE, type is Pawn
-  - **Implemented:** not yet
+  - **Implemented:** yes
 
 - **TC16: InitBoardCheckBlackRookReturnsBlackRook** (  )
   - **State of the system:** board initialized, location = "a8"

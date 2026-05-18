@@ -29,12 +29,11 @@ public class Board {
     }
 
     public void initBoard() {
-
-        throw new UnsupportedOperationException("Not implemented yet");
+        pieces[6][0] = new Pawn(Color.WHITE);
     }
 
     public Piece getPiece(Location location) {
-        throw new UnsupportedOperationException("Not implemented yet");
+        return pieces[location.getRow()][location.getCol()];
     }
 
     public Piece[][] getSnapshot() {
