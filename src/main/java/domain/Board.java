@@ -36,6 +36,7 @@ public class Board {
         clearBoard();
         pieces[6][0] = new Pawn(Color.WHITE);
         pieces[0][0] = new Rook(Color.BLACK);
+        pieces[7][4] = new King(Color.WHITE);
     }
 
     public Piece getPiece(Location location) {
@@ -64,7 +65,15 @@ public class Board {
     }
 
     public Location findKing(Color color) {
-        throw new UnsupportedOperationException("Not implemented yet");
+        for (int row = 0; row < TOTAL_ROWS; row++) {
+            for (int col = 0; col < TOTAL_COLS; col++) {
+                Piece piece = pieces[row][col];
+                if (piece instanceof King && piece.getColor() == color) {
+                    return new Location(row, col);
+                }
+            }
+        }
+        throw new IllegalStateException("King not found for color: " + color);
     }
 
     public String toPositionString() {
