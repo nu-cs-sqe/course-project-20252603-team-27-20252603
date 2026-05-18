@@ -165,4 +165,22 @@ class BoardTest {
         assertEquals(kingLocation.getRow(), foundKing.getRow());
         assertEquals(kingLocation.getCol(), foundKing.getCol());
     }
+
+    @Test
+    void toPositionStringReturnsExpectedBoardLayout() {
+        Board board = new Board();
+        board.initBoard();
+
+        String expected = String.join(System.lineSeparator(),
+                "r.......",
+                "........",
+                "........",
+                "........",
+                "........",
+                "........",
+                "P.......",
+                "....K...");
+
+        assertEquals(expected, board.toPositionString());
+    }
 }
