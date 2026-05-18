@@ -20,7 +20,7 @@
 - **TC4: LocationStringTooLongThrowsIllegalArgumentException** (  )
   - **State of the system:** algebraic = "a12"
   - **Expected output:** IllegalArgumentException
-  - **Implemented:** not yet
+  - **Implemented:** yes
 
 - **TC5: LocationFileJustBelowValidThrowsIllegalArgumentException** (  )
   - **State of the system:** algebraic = "`1" (ASCII before 'a')

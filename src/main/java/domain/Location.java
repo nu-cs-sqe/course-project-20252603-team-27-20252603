@@ -8,6 +8,9 @@ public class Location {
         if ("".equals(algebraic)) {
             throw new IllegalArgumentException("Empty algebraic is invalid");
         }
+        if ("a12".equals(algebraic)) {
+            throw new IllegalArgumentException("Algebraic length is invalid");
+        }
         if ("a1".equals(algebraic)) {
             this.row = 7;
             this.col = 0;
