@@ -9,6 +9,14 @@ The following chapters of the textbook are considered: Chapter 1, 2, 3, 4, 5, 6,
 Please note that this feedback does not include evaluation of your progress, the proper use of linters, the quality of your test cases, or your compliance of TDD/BDD workflow.  
 You can find the weekly feedback from your dedicated PM/TA for that.
 
+## Week 7 Code Review
+Again, there is no code for me to review yet :(.
+
+Look forward to reviewing more of your domain logic in the next review.
+
+Please approve and merge the PR once the team has read the feedback. Thanks!
+
+
 ## Week 6 Code Review
 There is no code for me to review yet :(.
 Look forward to reviewing more of your domain logic in the next review.
