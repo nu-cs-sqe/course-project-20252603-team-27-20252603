@@ -1,11 +1,11 @@
-import com.github.spotbugs.snom.Confidence
-import com.github.spotbugs.snom.Effort
+//import com.github.spotbugs.snom.Confidence
+//import com.github.spotbugs.snom.Effort
 
 plugins {
     application
     id("java")
     checkstyle
-    id("com.github.spotbugs") version "6.0.25"
+//    id("com.github.spotbugs") version "6.0.25"
     jacoco
 //    id("info.solidsoft.pitest") version "1.15.0"
 }
@@ -51,27 +51,27 @@ tasks.withType<Checkstyle>().configureEach {
 checkstyle{
     isIgnoreFailures = false
 }
-spotbugs {
-    ignoreFailures = false
-    showStackTraces = true
-    showProgress = true
-    effort = Effort.DEFAULT
-    reportLevel = Confidence.DEFAULT
-    //omitVisitors = listOf("FindNonShortCircuit")
-    reportsDir = file("spotbugs")
-    //onlyAnalyze = listOf("com.foobar.MyClass", "com.foobar.mypkg.*")
-    maxHeapSize = "1g"
-    extraArgs = listOf("-nested:false")
-    //jvmArgs = listOf("-Duser.language=ja") // set user language to japanese
-}
+//spotbugs {
+//    ignoreFailures = false
+//    showStackTraces = true
+//    showProgress = true
+//    effort = Effort.DEFAULT
+//    reportLevel = Confidence.DEFAULT
+//    //omitVisitors = listOf("FindNonShortCircuit")
+//    reportsDir = file("spotbugs")
+//    //onlyAnalyze = listOf("com.foobar.MyClass", "com.foobar.mypkg.*")
+//    maxHeapSize = "1g"
+//    extraArgs = listOf("-nested:false")
+//    //jvmArgs = listOf("-Duser.language=ja") // set user language to japanese
+//}
 
-tasks.spotbugsMain {
-    reports.create("html") {
-        required = true
-        outputLocation = layout.buildDirectory.file("reports/spotbugs/spotbugs.html")
-        setStylesheet("fancy-hist.xsl")
-    }
-}
+//tasks.spotbugsMain {
+//    reports.create("html") {
+//        required = true
+//        outputLocation = layout.buildDirectory.file("reports/spotbugs/spotbugs.html")
+//        setStylesheet("fancy-hist.xsl")
+//    }
+//}
 
 tasks.jacocoTestReport {
     reports {

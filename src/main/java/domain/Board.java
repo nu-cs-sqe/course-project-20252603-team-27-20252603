@@ -1,5 +1,6 @@
 package domain;
 
 public class Board {
-    public void initBoard() {}
+	public void initBoard() {
+	}
 }
