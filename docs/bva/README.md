@@ -51,3 +51,14 @@ Here are 2 formats as references. You can use any of them or a revised version o
 - **TC4: NAME OF THE TEST CASE** ( implemented in TC1 )
     - **State of the system**: abc
     - **Expected output**: abc
+
+- **TC1: startNewGame_prepareBoard** ()
+- **State of the system:** player1=P1，player2=p2
+- **Expected output:** a board with two player, initiate all data
+- **Implemented:** 
+
+- **TC1: startNewGame_sameInput** ()
+- **State of the system:** player1=p1，player2=p1
+- **Expected output:** throw Error shows need two different player
+- **Implemented:** 
+
