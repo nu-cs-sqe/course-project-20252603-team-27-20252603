@@ -596,6 +596,65 @@ class PieceTests {
         );
     }
 
+    @ParameterizedTest(name = "Rook path friend-blocked: {0}")
+    @MethodSource("provideFriendObstructedPathCases")
+    void rookMaxMove_friendObstructedPath_invalid(
+            String testName,
+            int fromRow, int fromCol,
+            int blockRow, int blockCol,
+            int toRow, int toCol,
+            Piece destPiece
+    ) {
+        Piece rook = new Piece(PieceType.ROOK, PieceColor.WHITE);
+        Piece friendBlocker = new Piece(PieceType.PAWN, PieceColor.WHITE);
+
+        // 1. SPECIFIC RULES FIRST: Place the friendly blocking piece on the path
+        EasyMock.expect(board.getPiece(matchesLoc(blockRow, blockCol)))
+                .andReturn(friendBlocker).anyTimes();
+
+        // 2. Specify what is sitting at the final destination
+        EasyMock.expect(board.getPiece(matchesLoc(toRow, toCol)))
+                .andReturn(destPiece).anyTimes();
+
+        // 3. GENERIC RULE LAST: Default all other random squares to empty (null)
+        EasyMock.expect(board.getPiece(EasyMock.anyObject(Location.class)))
+                .andReturn(null).anyTimes();
+
+        EasyMock.replay(board);
+
+        // Attempting to move through a piece must always return false
+        assertFalse(rook.canMove(board, new Location(fromRow, fromCol), new Location(toRow, toCol)));
+
+        EasyMock.verify(board);
+    }
+
+    private static Stream<Arguments> provideFriendObstructedPathCases() {
+        Piece friend = new Piece(PieceType.PAWN, PieceColor.WHITE);
+        Piece foe = new Piece(PieceType.PAWN, PieceColor.BLACK);
+
+        return Stream.of(
+                // Forward max slides (From 0,0 to 7,0 | Blocked at 1,0)
+                Arguments.of("RTC25: forward max, blocked, dest empty",  0, 0,  1, 0,  7, 0, null),
+                Arguments.of("RTC26: forward max, blocked, dest friend", 0, 0,  1, 0,  7, 0, friend),
+                Arguments.of("RTC27: forward max, blocked, dest foe",    0, 0,  1, 0,  7, 0, foe),
+
+                // Backward max slides (From 7,0 to 0,0 | Blocked at 6,0)
+                Arguments.of("RTC28: backward max, blocked, dest empty", 7, 0,  6, 0,  0, 0, null),
+                Arguments.of("RTC29: backward max, blocked, dest friend",7, 0,  6, 0,  0, 0, friend),
+                Arguments.of("RTC30: backward max, blocked, dest foe",   7, 0,  6, 0,  0, 0, foe),
+
+                // Left max slides (From 7,7 to 7,0 | Blocked at 7,6)
+                Arguments.of("RTC31: left max, blocked, dest empty",     7, 7,  7, 6,  7, 0, null),
+                Arguments.of("RTC32: left max, blocked, dest friend",    7, 7,  7, 6,  7, 0, friend),
+                Arguments.of("RTC33: left max, blocked, dest foe",       7, 7,  7, 6,  7, 0, foe),
+
+                // Right max slides (From 7,0 to 7,7 | Blocked at 7,1)
+                Arguments.of("RTC34: right max, blocked, dest empty",    7, 0,  7, 1,  7, 7, null),
+                Arguments.of("RTC35: right max, blocked, dest friend",   7, 0,  7, 1,  7, 7, friend),
+                Arguments.of("RTC36: right max, blocked, dest foe",      7, 0,  7, 1,  7, 7, foe)
+        );
+    }
+
     private static Location matchesLoc(int expectedRow, int expectedCol) {
         EasyMock.reportMatcher(new org.easymock.IArgumentMatcher() {
             @Override

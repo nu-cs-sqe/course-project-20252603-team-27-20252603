@@ -79,6 +79,21 @@ public class Piece {
             return false;
         }
 
+        int rowStep = Integer.compare(rowDiff, 0);
+        int colStep = Integer.compare(colDiff, 0);
+
+        int currentRow = from.getRow() + rowStep;
+        int currentCol = from.getCol() + colStep;
+
+        while (currentRow != to.getRow() || currentCol != to.getCol()) {
+            Location intermediate = new Location(currentRow, currentCol);
+            if (board.getPiece(intermediate) != null) {
+                return false;
+            }
+            currentRow += rowStep;
+            currentCol += colStep;
+        }
+
         Piece target = board.getPiece(to);
         return target == null || target.getColor() != this.getColor();
     }
