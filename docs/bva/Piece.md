@@ -33,11 +33,11 @@ Expected output: true
 
 ## Valid move case 3: one space forward diagonal capture
 
-PTC4: Pawn moves one space forward-right, to foe-occupied position, hasMoved
+PTC4: Pawn moves one space forward-right, to foe-occupied position, hasMoved ( :X: )
 State of the system: from (2,1) to (3,2), hasMoved, !isEmpty at (3,2), foe at (3,2)
 Expected output: true
 
-PTC5: Pawn moves one space forward-left, to foe-occupied position, hasMoved
+PTC5: Pawn moves one space forward-left, to foe-occupied position, hasMoved ( :X: )
 State of the system: from (2,1) to (3,0), hasMoved, !isEmpty at (3,0), foe at (3,0)
 Expected output: true
 
