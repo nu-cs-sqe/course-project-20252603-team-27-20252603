@@ -1619,6 +1619,34 @@ class PieceTests {
         );
     }
 
+    @ParameterizedTest(name = "Bishop out-of-bounds invalid: {0}")
+    @MethodSource("provideOutOfBoundsBishopCases")
+    void bishopOutOfBoundsMove_invalid(
+            String testName,
+            int fromRow, int fromCol,
+            int toRow, int toCol
+    ) {
+        Piece bishop = new Piece(PieceType.BISHOP, PieceColor.WHITE);
+
+        // Mocking an empty response fallback safely
+        EasyMock.expect(board.getPiece(EasyMock.anyObject(Location.class))).andReturn(null).anyTimes();
+        EasyMock.replay(board);
+
+        // Any translation off the 8x8 matrix must immediately return false
+        assertFalse(bishop.canMove(board, new Location(fromRow, fromCol), new Location(toRow, toCol)));
+
+        EasyMock.verify(board);
+    }
+
+    private static Stream<Arguments> provideOutOfBoundsBishopCases() {
+        return Stream.of(
+                Arguments.of("BTC61: out-of-bounds top edge",    7, 6,  8, 7),
+                Arguments.of("BTC62: out-of-bounds bottom edge", 0, 1, -1, 0),
+                Arguments.of("BTC63: out-of-bounds left edge",   1, 0,  2, -1),
+                Arguments.of("BTC64: out-of-bounds right edge",  1, 7,  2, 8)
+        );
+    }
+
     private static Location matchesLoc(int expectedRow, int expectedCol) {
         EasyMock.reportMatcher(new org.easymock.IArgumentMatcher() {
             @Override

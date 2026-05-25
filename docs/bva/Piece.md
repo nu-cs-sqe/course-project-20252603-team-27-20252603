@@ -1253,19 +1253,19 @@ Expectation: false
 
 ## Invalid move case 7: out-of-bounds movement
 
-BTC61: Move diagonally out-of-bounds top boundary
+BTC61: Move diagonally out-of-bounds top boundary (:X:)
 State: from (7,6) to (8,7)
 Expectation: false
 
-BTC62: Move diagonally out-of-bounds bottom boundary
+BTC62: Move diagonally out-of-bounds bottom boundary (:X:)
 State: from (0,1) to (-1,0)
 Expectation: false
 
-BTC63: Move diagonally out-of-bounds left boundary
+BTC63: Move diagonally out-of-bounds left boundary (:X:)
 State: from (1,0) to (2,-1)
 Expectation: false
 
-BTC64: Move diagonally out-of-bounds right boundary
+BTC64: Move diagonally out-of-bounds right boundary (:X:)
 State: from (1,7) to (2,8)
 Expectation: false
 
