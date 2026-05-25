@@ -45,7 +45,7 @@ PTC6: Pawn moves one space forward-right, to foe-occupied position, !hasMoved ( 
 State of the system: from (1,1) to (2,2), !hasMoved, !isEmpty at (2,2), foe at (2,2)
 Expected output: true
 
-PTC7: Pawn moves one space forward-left, to foe-occupied position, !hasMoved
+PTC7: Pawn moves one space forward-left, to foe-occupied position, !hasMoved ( :X: )
 State of the system: from (1,1) to (2,0), !hasMoved, !isEmpty at (2,0), foe at (2,0)
 Expected output: true
 
