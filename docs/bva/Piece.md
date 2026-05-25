@@ -51,7 +51,7 @@ Expected output: true
 
 ## Invalid move case 1: one space forward to occupied position
 
-PTC8: Pawn moves one space forward, hasMoved, to foe-occupied position
+PTC8: Pawn moves one space forward, hasMoved, to foe-occupied position (:X:)
 State of the system: from (2,0) to (3,0), hasMoved, !isEmpty at (3,0), foe at (3,0)
 Expected output: false
 
