@@ -1098,35 +1098,35 @@ Expectation: false
 
 ## Invalid move case 3: max spaces, friend/foe-obstructed path, to empty position
 
-BTC25: Move diagonally forward-right, max spaces, to empty position, unclear path
+BTC25: Move diagonally forward-right, max spaces, to empty position, unclear path (:X:)
 State: from (0,0) to (7,7), !isEmpty at (1,1), friend at (1,1), isEmpty at (7,7)
 Expectation: false
 
-BTC26: Move diagonally forward-right, max spaces, to empty position, unclear path
+BTC26: Move diagonally forward-right, max spaces, to empty position, unclear path (:X:)
 State: from (0,0) to (7,7), !isEmpty at (1,1), foe at (1,1), isEmpty at (7,7)
 Expectation: false
 
-BTC27: Move diagonally forward-left, max spaces, to empty position, unclear path
+BTC27: Move diagonally forward-left, max spaces, to empty position, unclear path (:X:)
 State: from (0,7) to (7,0), !isEmpty at (1,6), friend at (1,6), isEmpty at (7,0)
 Expectation: false
 
-BTC28: Move diagonally forward-left, max spaces, to empty position, unclear path
+BTC28: Move diagonally forward-left, max spaces, to empty position, unclear path (:X:)
 State: from (0,7) to (7,0), !isEmpty at (1,6), foe at (1,6), isEmpty at (7,0)
 Expectation: false
 
-BTC29: Move diagonally backward-right, max spaces, to empty position, unclear path
+BTC29: Move diagonally backward-right, max spaces, to empty position, unclear path (:X:)
 State: from (7,0) to (0,7), !isEmpty at (6,1), friend at (6,1), isEmpty at (0,7)
 Expectation: false
 
-BTC30: Move diagonally backward-right, max spaces, to empty position, unclear path
+BTC30: Move diagonally backward-right, max spaces, to empty position, unclear path (:X:)
 State: from (7,0) to (0,7), !isEmpty at (6,1), foe at (6,1), isEmpty at (0,7)
 Expectation: false
 
-BTC31: Move diagonally backward-left, max spaces, to empty position, unclear path
+BTC31: Move diagonally backward-left, max spaces, to empty position, unclear path (:X:)
 State: from (7,7) to (0,0), !isEmpty at (6,6), friend at (6,6), isEmpty at (0,0)
 Expectation: false
 
-BTC32: Move diagonally backward-left, max spaces, to empty position, unclear path
+BTC32: Move diagonally backward-left, max spaces, to empty position, unclear path (:X:)
 State: from (7,7) to (0,0), !isEmpty at (6,6), foe at (6,6), isEmpty at (0,0)
 Expectation: false
 

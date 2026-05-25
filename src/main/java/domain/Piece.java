@@ -118,15 +118,34 @@ public class Piece {
         return target == null || target.getColor() != this.getColor();
     }
 
-    private boolean isValidBishopMove(Board board, Location from, Location to) {
-        int rowDiff = Math.abs(to.getRow() - from.getRow());
-        int colDiff = Math.abs(to.getCol() - from.getCol());
-        boolean isValidDiagonal = (colDiff == rowDiff);
-        if (!isValidDiagonal) {
-            return false;
+    private boolean isDiagonalPathObstructed(Board board, Location from, Location to, int rowDiff, int colDiff) {
+        int rowStep = Integer.compare(rowDiff, 0);
+        int colStep = Integer.compare(colDiff, 0);
+
+        int currentRow = from.getRow() + rowStep;
+        int currentCol = from.getCol() + colStep;
+
+        while (currentRow != to.getRow() || currentCol != to.getCol()) {
+            if (board.getPiece(new Location(currentRow, currentCol)) != null) {
+                return true;
+            }
+            currentRow += rowStep;
+            currentCol += colStep;
         }
 
-        Piece target = board.getPiece(to);
-        return target == null || target.getColor() != this.getColor();
+        return false;
+    }
+
+    private boolean isValidBishopMove(Board board, Location from, Location to) {
+        int rawRowDiff = to.getRow() - from.getRow();
+        int rawColDiff = to.getCol() - from.getCol();
+
+        boolean isValidDiagonal = Math.abs(rawRowDiff) == Math.abs(rawColDiff) && rawRowDiff != 0;
+        if (!isValidDiagonal) { return false; }
+
+       if (isDiagonalPathObstructed(board, from, to, rawRowDiff, rawColDiff)) { return false; }
+
+       Piece target = board.getPiece(to);
+       return target == null || target.getColor() != this.getColor();
     }
 }
