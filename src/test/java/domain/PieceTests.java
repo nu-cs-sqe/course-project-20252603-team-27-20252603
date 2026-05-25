@@ -253,6 +253,47 @@ class PieceTests {
         );
     }
 
+    @ParameterizedTest(name = "Two-space diagonal invalid: {0}")
+    @MethodSource("provideInvalidTwoSpaceDiagonalCases")
+    void pawnTwoSpaceDiagonal_invalid(
+            String testName,
+            int fromRow, int fromCol,
+            int toRow, int toCol,
+            Piece destPiece
+    ) {
+        Piece pawn = new Piece(PieceType.PAWN, PieceColor.WHITE);
+        pawn.setMoved(false); // Testing the first-move context explicitly
+
+        // Tell the board mock what to return at the destination square
+        EasyMock.expect(board.getPiece(matchesLoc(toRow, toCol))).andReturn(destPiece).anyTimes();
+        EasyMock.replay(board);
+
+        // Moving two spaces diagonally forward must always be denied (false)
+        assertFalse(pawn.canMove(board, new Location(fromRow, fromCol), new Location(toRow, toCol)));
+
+        EasyMock.verify(board);
+    }
+
+    private static Stream<Arguments> provideInvalidTwoSpaceDiagonalCases() {
+        Piece foe = new Piece(PieceType.PAWN, PieceColor.BLACK);
+        Piece friend = new Piece(PieceType.PAWN, PieceColor.WHITE);
+
+        return Stream.of(
+                // Empty destination cases
+                Arguments.of("PTC27: forward-right, empty", 1, 0, 3, 2, null),
+                Arguments.of("PTC28: forward-left, empty",  1, 2, 3, 0, null),
+
+                // Foe-occupied destination cases
+                Arguments.of("PTC29: forward-right, foe",   1, 0, 3, 2, foe),
+                Arguments.of("PTC30: forward-left, foe",    1, 2, 3, 0, foe),
+
+                // Friend-occupied destination cases
+                Arguments.of("PTC31: forward-right, friend",1, 0, 3, 2, friend),
+                Arguments.of("PTC32: forward-left, friend", 1, 2, 3, 0, friend)
+        );
+    }
+
+
     private static Location matchesLoc(int expectedRow, int expectedCol) {
         EasyMock.reportMatcher(new org.easymock.IArgumentMatcher() {
             @Override

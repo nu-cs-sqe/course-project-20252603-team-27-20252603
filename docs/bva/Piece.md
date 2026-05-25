@@ -137,27 +137,27 @@ Expected output: false
 
 ## Invalid move case 6: two spaces forward diagonal
 
-PTC27: Pawn moves two spaces forward-right, !hasMoved, to empty position
+PTC27: Pawn moves two spaces forward-right, !hasMoved, to empty position (:X:)
 State of the system: from (1,0) to (3,2), !hasMoved, isEmpty at (3,2)
 Expected output: false
 
-PTC28: Pawn moves two spaces forward-left, !hasMoved, to empty position
+PTC28: Pawn moves two spaces forward-left, !hasMoved, to empty position (:X:)
 State of the system: from (1,2) to (3,0), !hasMoved, isEmpty at (3,0)
 Expected output: false
 
-PTC29: Pawn moves two spaces forward-right, !hasMoved, to foe-occupied position
+PTC29: Pawn moves two spaces forward-right, !hasMoved, to foe-occupied position (:X:)
 State of the system: from (1,0) to (3,2), !hasMoved, !isEmpty at (3,2), foe at (3,2)
 Expected output: false
 
-PTC30: Pawn moves two spaces forward-left, !hasMoved, to foe-occupied position
+PTC30: Pawn moves two spaces forward-left, !hasMoved, to foe-occupied position (:X:)
 State of the system: from (1,2) to (3,0), !hasMoved, !isEmpty at (3,0), foe at (3,0)
 Expected output: false
 
-PTC31: Pawn moves two spaces forward-right, !hasMoved, to friend-occupied position
+PTC31: Pawn moves two spaces forward-right, !hasMoved, to friend-occupied position (:X:)
 State of the system: from (1,0) to (3,2), !hasMoved, !isEmpty at (3,2), friend at (3,2)
 Expected output: false
 
-PTC32: Pawn moves two spaces forward-left, !hasMoved, to friend-occupied position
+PTC32: Pawn moves two spaces forward-left, !hasMoved, to friend-occupied position (:X:)
 State of the system: from (1,2) to (3,0), !hasMoved, !isEmpty at (3,0), friend at (3,0)
 Expected output: false
 
