@@ -1316,6 +1316,39 @@ class PieceTests {
         );
     }
 
+    @ParameterizedTest(name = "Valid Bishop max capture: {0}")
+    @MethodSource("provideValidBishopMaxCaptureCases")
+    void bishopMaxMove_foeOccupied_valid(
+            String testName,
+            int fromRow, int fromCol,
+            int toRow, int toCol
+    ) {
+        Piece bishop = new Piece(PieceType.BISHOP, PieceColor.WHITE);
+        Piece foe = new Piece(PieceType.PAWN, PieceColor.BLACK);
+
+        // 1. SPECIFIC RULE FIRST: Place the enemy piece right at the destination
+        EasyMock.expect(board.getPiece(matchesLoc(toRow, toCol))).andReturn(foe).anyTimes();
+
+        // 2. GENERIC RULE LAST: Assume all intermediate path squares are empty (null)
+        EasyMock.expect(board.getPiece(EasyMock.anyObject(Location.class))).andReturn(null).anyTimes();
+
+        EasyMock.replay(board);
+
+        // Full-length diagonal translations ending on a foe over a clear path must return true
+        assertTrue(bishop.canMove(board, new Location(fromRow, fromCol), new Location(toRow, toCol)));
+
+        EasyMock.verify(board);
+    }
+
+    private static Stream<Arguments> provideValidBishopMaxCaptureCases() {
+        return Stream.of(
+                Arguments.of("BTC13: forward-right max capture (0,0 to 7,7)",  0, 0, 7, 7),
+                Arguments.of("BTC14: forward-left max capture (0,7 to 7,0)",  0, 7, 7, 0),
+                Arguments.of("BTC15: backward-left max capture (7,7 to 0,0)", 7, 7, 0, 0),
+                Arguments.of("BTC16: backward-right max capture (7,0 to 0,7)",7, 0, 0, 7)
+        );
+    }
+
     private static Location matchesLoc(int expectedRow, int expectedCol) {
         EasyMock.reportMatcher(new org.easymock.IArgumentMatcher() {
             @Override

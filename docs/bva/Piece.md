@@ -1044,19 +1044,19 @@ Expectation: true
 
 ## Valid move case 4: max spaces, clear path, to foe-occupied position
 
-BTC13: Move diagonally forward-right max spaces to foe-occupied position, clear path
+BTC13: Move diagonally forward-right max spaces to foe-occupied position, clear path (:X:)
 State: from (0,0) to (7,7), isEmpty from (1,1) to (6,6), !isEmpty at (7,7), foe at (7,7)
 Expectation: true
 
-BTC14: Move diagonally forward-left max spaces to foe-occupied position, clear path
+BTC14: Move diagonally forward-left max spaces to foe-occupied position, clear path (:X:)
 State: from (0,7) to (7,0), isEmpty from (1,6) to (6,1), !isEmpty at (7,0), foe at (7,0)
 Expectation: true
 
-BTC15: Move diagonally backward-right max spaces to foe-occupied position, clear path
+BTC15: Move diagonally backward-right max spaces to foe-occupied position, clear path (:X:)
 State: from (7,7) to (0,0), isEmpty from (6,6) to (1,1), !isEmpty at (0,0), foe at (0,0)
 Expectation: true
 
-BTC16: Move diagonally backward-right max spaces to foe-occupied position, clear path
+BTC16: Move diagonally backward-right max spaces to foe-occupied position, clear path (:X:)
 State: from (7,0) to (0,7), isEmpty from (6,1) to (1,6), !isEmpty at (0,7), foe at (0,7)
 Expectation: true
 
