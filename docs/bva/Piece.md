@@ -1512,7 +1512,7 @@ Expected output: false
 
 ## Invalid move case 6: no movement
 
-KiTC55: King moves to its own current square (distance zero)
+KiTC55: King moves to its own current square (distance zero) (:X:)
 State of the system: from (3,3) to (3,3)
 Expected output: false
 
