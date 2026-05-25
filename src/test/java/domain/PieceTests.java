@@ -1572,6 +1572,53 @@ class PieceTests {
         );
     }
 
+    @ParameterizedTest(name = "Invalid Bishop orthogonal move: {0}")
+    @MethodSource("provideInvalidBishopOrthogonalMoves")
+    void bishopMove_orthogonal_invalid(
+            String testName,
+            int fromRow, int fromCol,
+            int toRow, int toCol,
+            Piece destPiece
+    ) {
+        Piece bishop = new Piece(PieceType.BISHOP, PieceColor.WHITE);
+
+        // Mock the exact piece status of the destination square
+        EasyMock.expect(board.getPiece(matchesLoc(toRow, toCol))).andReturn(destPiece).anyTimes();
+        EasyMock.replay(board);
+
+        // Sidelined orthogonal steps must return false
+        assertFalse(bishop.canMove(board, new Location(fromRow, fromCol), new Location(toRow, toCol)));
+
+        EasyMock.verify(board);
+    }
+
+    private static Stream<Arguments> provideInvalidBishopOrthogonalMoves() {
+        Piece friend = new Piece(PieceType.PAWN, PieceColor.WHITE);
+        Piece foe = new Piece(PieceType.PAWN, PieceColor.BLACK);
+
+        return Stream.of(
+                // Forward (1,0) variants from (0,0)
+                Arguments.of("BTC49: forward one space, empty",  0, 0, 1, 0, null),
+                Arguments.of("BTC50: forward one space, friend", 0, 0, 1, 0, friend),
+                Arguments.of("BTC51: forward one space, foe",    0, 0, 1, 0, foe),
+
+                // Backward (0,0) variants from (1,0)
+                Arguments.of("BTC52: backward one space, empty", 1, 0, 0, 0, null),
+                Arguments.of("BTC53: backward one space, friend",1, 0, 0, 0, friend),
+                Arguments.of("BTC54: backward one space, foe",   1, 0, 0, 0, foe),
+
+                // Left (0,0) variants from (0,1)
+                Arguments.of("BTC55: left one space, empty",     0, 1, 0, 0, null),
+                Arguments.of("BTC56: left one space, friend",    0, 1, 0, 0, friend),
+                Arguments.of("BTC57: left one space, foe",       0, 1, 0, 0, foe),
+
+                // Right (0,1) variants from (0,0)
+                Arguments.of("BTC58: right one space, empty",    0, 0, 0, 1, null),
+                Arguments.of("BTC59: right one space, friend",   0, 0, 0, 1, friend),
+                Arguments.of("BTC60: right one space, foe",      0, 0, 0, 1, foe)
+        );
+    }
+
     private static Location matchesLoc(int expectedRow, int expectedCol) {
         EasyMock.reportMatcher(new org.easymock.IArgumentMatcher() {
             @Override

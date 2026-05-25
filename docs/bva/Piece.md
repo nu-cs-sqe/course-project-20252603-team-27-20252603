@@ -1203,51 +1203,51 @@ Expectation: false
 
 ## Invalid move case 6: improper shape, forward/backward/left/right, to friend/empty/foe position
 
-BTC49: Move one space forward, to empty position
+BTC49: Move one space forward, to empty position (:X:)
 State: from (0,0) to (1,0), isEmpty at (1,0)
 Expectation: false
 
-BTC50: Move one space forward, to friend-occupied position
+BTC50: Move one space forward, to friend-occupied position (:X:)
 State: from (0,0) to (1,0), !isEmpty at (1,0), friend at (1,0)
 Expectation: false
 
-BTC51: Move one space forward, to foe-occupied position
+BTC51: Move one space forward, to foe-occupied position (:X:)
 State: from (0,0) to (1,0), !isEmpty at (1,0), foe at (1,0)
 Expectation: false
 
-BTC52: Move one space backward, to empty position
+BTC52: Move one space backward, to empty position (:X:)
 State: from (1,0) to (0,0), isEmpty at (0,0)
 Expectation: false
 
-BTC53: Move one space backward, to friend-occupied position
+BTC53: Move one space backward, to friend-occupied position (:X:)
 State: from (1,0) to (0,0), !isEmpty at (0,0), friend at (0,0)
 Expectation: false
 
-BTC54: Move one space backward, to foe-occupied position
+BTC54: Move one space backward, to foe-occupied position (:X:)
 State: from (1,0) to (0,0), !isEmpty at (0,0), foe at (0,0)
 Expectation: false
 
-BTC55: Move one space left, to empty position
+BTC55: Move one space left, to empty position (:X:)
 State: from (0,1) to (0,0), isEmpty at (0,0)
 Expectation: false
 
-BTC56: Move one space left, to friend-occupied position
+BTC56: Move one space left, to friend-occupied position (:X:)
 State: from (0,1) to (0,0), !isEmpty at (0,0), friend at (0,0)
 Expectation: false
 
-BTC57: Move one space left, to foe-occupied position
+BTC57: Move one space left, to foe-occupied position (:X:)
 State: from (0,1) to (0,0), !isEmpty at (0,0), foe at (0,0)
 Expectation: false
 
-BTC58: Move one space right, to empty position
+BTC58: Move one space right, to empty position (:X:)
 State: from (0,0) to (0,1), isEmpty at (0,1)
 Expectation: false
 
-BTC59: Move one space right, to friend-occupied position
+BTC59: Move one space right, to friend-occupied position (:X:)
 State: from (0,0) to (0,1), !isEmpty at (0,1), friend at (0,1)
 Expectation: false
 
-BTC60: Move one space right, to foe-occupied position
+BTC60: Move one space right, to foe-occupied position (:X:)
 State: from (0,0) to (0,1), !isEmpty at (0,1), foe at (0,1)
 Expectation: false
 
