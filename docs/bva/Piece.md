@@ -648,35 +648,35 @@ Expected output: true
 
 ## Valid moves case 3: to empty positions, path friend-obstructed
 
-KTC17: Knight moves in valid forward-left L-shape to empty position, friend-obstructed
+KTC17: Knight moves in valid forward-left L-shape to empty position, friend-obstructed (:X:)
 State of the system: from (3,3) to (5,4), isEmpty at (5,4), !isEmpty at (4,3), friend at (4,3)
 Expected output: true
 
-KTC18: Knight moves in valid forward-right L-shape to empty position, friend-obstructed
+KTC18: Knight moves in valid forward-right L-shape to empty position, friend-obstructed (:X:)
 State of the system: from (3,3) to (5,2), isEmpty at (5,2), !isEmpty at (4,3), friend at (4,3)
 Expected output: true
 
-KTC19: Knight moves in valid right-forward L-shape to empty position, friend-obstructed
+KTC19: Knight moves in valid right-forward L-shape to empty position, friend-obstructed (:X:)
 State of the system: from (3,3) to (4,1), isEmpty at (4,1), !isEmpty at (3,2), friend at (3,2)
 Expected output: true
 
-KTC20: Knight moves in valid right-backward L-shape to empty position, friend-obstructed
+KTC20: Knight moves in valid right-backward L-shape to empty position, friend-obstructed (:X:)
 State of the system: from (3,3) to (2,1), isEmpty at (2,1), !isEmpty at (3,2), friend at (3,2)
 Expected output: true
 
-KTC21: Knight moves in valid backward-left L-shape to empty position, friend-obstructed
+KTC21: Knight moves in valid backward-left L-shape to empty position, friend-obstructed (:X:)
 State of the system: from (3,3) to (1,4), isEmpty at (1,4), !isEmpty at (2,3), friend at (2,3)
 Expected output: true
 
-KTC22: Knight moves in valid backward-right L-shape to empty position, friend-obstructed
+KTC22: Knight moves in valid backward-right L-shape to empty position, friend-obstructed (:X:)
 State of the system: from (3,3) to (1,2), isEmpty at (1,2), !isEmpty at (2,3), friend at (2,3)
 Expected output: true
 
-KTC23: Knight moves in valid left-forward L-shape to empty position, friend-obstructed
+KTC23: Knight moves in valid left-forward L-shape to empty position, friend-obstructed (:X:)
 State of the system: from (3,3) to (4,5), isEmpty at (4,5), !isEmpty at (3,4), friend at (3,4)
 Expected output: true
 
-KTC24: Knight moves in valid left-backward L-shape to empty position, friend-obstructed
+KTC24: Knight moves in valid left-backward L-shape to empty position, friend-obstructed (:X:)
 State of the system: from (3,3) to (2,5), isEmpty at (2,5), !isEmpty at (3,4), friend at (3,4)
 Expected output: true
 

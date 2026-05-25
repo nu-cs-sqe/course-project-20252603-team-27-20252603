@@ -866,6 +866,50 @@ class PieceTests {
         );
     }
 
+    @ParameterizedTest(name = "Valid Knight jump (friend path block): {0}")
+    @MethodSource("provideValidKnightFriendObstructedPathCases")
+    void knightLMove_friendObstructedPath_valid(
+            String testName,
+            int fromRow, int fromCol,
+            int blockRow, int blockCol,
+            int toRow, int toCol
+    ) {
+        Piece knight = new Piece(PieceType.KNIGHT, PieceColor.WHITE);
+        Piece friendBlocker = new Piece(PieceType.PAWN, PieceColor.WHITE);
+
+        // 1. Specific Rule: Place a friendly piece right on the intermediate path
+        EasyMock.expect(board.getPiece(matchesLoc(blockRow, blockCol)))
+                .andReturn(friendBlocker).anyTimes();
+
+        // 2. Specific Rule: The final destination square is completely empty (null)
+        EasyMock.expect(board.getPiece(matchesLoc(toRow, toCol)))
+                .andReturn(null).anyTimes();
+
+        // 3. Generic Rule: Any other lookup falls back to empty
+        EasyMock.expect(board.getPiece(EasyMock.anyObject(Location.class)))
+                .andReturn(null).anyTimes();
+
+        EasyMock.replay(board);
+
+        // Knights jump over obstacles, so path obstructions must evaluate to true
+        assertTrue(knight.canMove(board, new Location(fromRow, fromCol), new Location(toRow, toCol)));
+
+        EasyMock.verify(board);
+    }
+
+    private static Stream<Arguments> provideValidKnightFriendObstructedPathCases() {
+        return Stream.of(
+                Arguments.of("KTC17: forward-left, friend on path",  3, 3,  4, 3,  5, 4),
+                Arguments.of("KTC18: forward-right, friend on path", 3, 3,  4, 3,  5, 2),
+                Arguments.of("KTC19: right-forward, friend on path", 3, 3,  3, 2,  4, 1),
+                Arguments.of("KTC20: right-backward, friend on path",3, 3,  3, 2,  2, 1),
+                Arguments.of("KTC21: backward-left, friend on path", 3, 3,  2, 3,  1, 4),
+                Arguments.of("KTC22: backward-right, friend on path",3, 3,  2, 3,  1, 2),
+                Arguments.of("KTC23: left-forward, friend on path",  3, 3,  3, 4,  4, 5),
+                Arguments.of("KTC24: left-backward, friend on path", 3, 3,  3, 4,  2, 5)
+        );
+    }
+
     private static Location matchesLoc(int expectedRow, int expectedCol) {
         EasyMock.reportMatcher(new org.easymock.IArgumentMatcher() {
             @Override
