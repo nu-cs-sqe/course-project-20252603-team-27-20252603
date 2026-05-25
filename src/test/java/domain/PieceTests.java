@@ -350,6 +350,44 @@ class PieceTests {
         );
     }
 
+    @ParameterizedTest(name = "Sideways move invalid: {0}")
+    @MethodSource("provideInvalidSidewaysCases")
+    void pawnSidewaysMove_invalid(
+            String testName,
+            int fromRow, int fromCol,
+            int toRow, int toCol,
+            Piece destPiece
+    ) {
+        Piece pawn = new Piece(PieceType.PAWN, PieceColor.WHITE);
+        pawn.setMoved(true); // Applied to all cases in this batch
+
+        // Tell the board mock what to return at the destination square
+        EasyMock.expect(board.getPiece(matchesLoc(toRow, toCol))).andReturn(destPiece).anyTimes();
+        EasyMock.replay(board);
+
+        // Any attempt to move a pawn sideways (row stays the same, col changes) must return false
+        assertFalse(pawn.canMove(board, new Location(fromRow, fromCol), new Location(toRow, toCol)));
+
+        EasyMock.verify(board);
+    }
+
+    private static Stream<Arguments> provideInvalidSidewaysCases() {
+        Piece foe = new Piece(PieceType.PAWN, PieceColor.BLACK);
+        Piece friend = new Piece(PieceType.PAWN, PieceColor.WHITE);
+
+        return Stream.of(
+                // --- Moving Left (col decreases) ---
+                Arguments.of("PTC51: left, empty",  2, 1, 2, 0, null),
+                Arguments.of("PTC52: left, foe",    2, 1, 2, 0, foe),
+                Arguments.of("PTC53: left, friend", 2, 1, 2, 0, friend),
+
+                // --- Moving Right (col increases) ---
+                Arguments.of("PTC54: right, empty", 2, 0, 2, 1, null),
+                Arguments.of("PTC55: right, foe",   2, 0, 2, 1, foe),
+                Arguments.of("PTC56: right, friend",2, 0, 2, 1, friend)
+        );
+    }
+
     private static Location matchesLoc(int expectedRow, int expectedCol) {
         EasyMock.reportMatcher(new org.easymock.IArgumentMatcher() {
             @Override

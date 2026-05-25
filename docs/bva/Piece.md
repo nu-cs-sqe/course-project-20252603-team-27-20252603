@@ -238,27 +238,27 @@ Expected output: false
 
 ## Invalid move case 8: sideways movement
 
-PTC51: Pawn moves one space left, hasMoved, to empty position
+PTC51: Pawn moves one space left, hasMoved, to empty position (:X:)
 State of the system: from (2,1) to (2,0), hasMoved, isEmpty at (2,0)
 Expected output: false
 
-PTC52: Pawn moves one space left, hasMoved, to foe-occupied position
+PTC52: Pawn moves one space left, hasMoved, to foe-occupied position (:X:)
 State of the system: from (2,1) to (2,0), hasMoved, !isEmpty at (2,0), foe at (2,0)
 Expected output: false
 
-PTC53: Pawn moves one space left, hasMoved, to friend-occupied position
+PTC53: Pawn moves one space left, hasMoved, to friend-occupied position (:X:)
 State of the system: from (2,1) to (2,0), hasMoved, !isEmpty at (2,0), friend at (2,0)
 Expected output: false
 
-PTC54: Pawn moves one space right, hasMoved, to empty position
+PTC54: Pawn moves one space right, hasMoved, to empty position (:X:)
 State of the system: from (2,0) to (2,1), hasMoved, isEmpty at (2,1)
 Expected output: false
 
-PTC55: Pawn moves one space right, hasMoved, to foe-occupied position
+PTC55: Pawn moves one space right, hasMoved, to foe-occupied position (:X:)
 State of the system: from (2,0) to (2,1), hasMoved, !isEmpty at (2,1), foe at (2,1)
 Expected output: false
 
-PTC56: Pawn moves one space right, hasMoved, to friend-occupied position
+PTC56: Pawn moves one space right, hasMoved, to friend-occupied position (:X:)
 State of the system: from (2,0) to (2,1), hasMoved, !isEmpty at (2,1), friend at (2,1)
 Expected output: false
 
