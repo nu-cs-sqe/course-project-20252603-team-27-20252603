@@ -1231,6 +1231,34 @@ class PieceTests {
         );
     }
 
+    @ParameterizedTest(name = "Valid Bishop single step: {0}")
+    @MethodSource("provideValidBishopSingleEmptyMoves")
+    void bishopSingleMove_empty_valid(
+            String testName,
+            int fromRow, int fromCol,
+            int toRow, int toCol
+    ) {
+        Piece bishop = new Piece(PieceType.BISHOP, PieceColor.WHITE);
+
+        // All target squares in this batch are empty (null)
+        EasyMock.expect(board.getPiece(matchesLoc(toRow, toCol))).andReturn(null).anyTimes();
+        EasyMock.replay(board);
+
+        // One-space diagonal translations must return true
+        assertTrue(bishop.canMove(board, new Location(fromRow, fromCol), new Location(toRow, toCol)));
+
+        EasyMock.verify(board);
+    }
+
+    private static Stream<Arguments> provideValidBishopSingleEmptyMoves() {
+        return Stream.of(
+                Arguments.of("BTC1: forward-left (row+1, col-1)",   1, 1, 2, 0),
+                Arguments.of("BTC2: forward-right (row+1, col+1)",  1, 1, 2, 2),
+                Arguments.of("BTC3: backward-right (row-1, col+1)", 1, 1, 0, 2),
+                Arguments.of("BTC4: backward-left (row-1, col-1)",  1, 1, 0, 0)
+        );
+    }
+
     private static Location matchesLoc(int expectedRow, int expectedCol) {
         EasyMock.reportMatcher(new org.easymock.IArgumentMatcher() {
             @Override

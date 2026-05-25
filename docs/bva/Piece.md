@@ -990,19 +990,19 @@ Expected output: true
 
 ## Valid move case 1: one space to empty positions
 
-BTC1: Move diagonally forward-right one space to empty position
+BTC1: Move diagonally forward-right one space to empty position (:X:)
 State: from (1,1) to (2,0), isEmpty at (2,0)
 Expectation: true
 
-BTC2: Move diagonally forward-left one space to empty position
+BTC2: Move diagonally forward-left one space to empty position (:X:)
 State: from (1,1) to (2,2), isEmpty at (2,2)
 Expectation: true
 
-BTC3: Move diagonally backward-left one space to empty position
+BTC3: Move diagonally backward-left one space to empty position (:X:)
 State: from (1,1) to (0,2), isEmpty at (0,2)
 Expectation: true
 
-BTC4: Move diagonally backward-right one space to empty position
+BTC4: Move diagonally backward-right one space to empty position (:X:)
 State: from (1,1) to (0,0), isEmpty at (0,0)
 Expectation: true
 
