@@ -73,6 +73,13 @@ public class Piece {
         int rowDiff = to.getRow() - from.getRow();
         int colDiff = to.getCol() - from.getCol();
 
-        return (rowDiff != 0 && colDiff == 0) || (colDiff != 0 && rowDiff == 0);
+        boolean isStraightLine = (rowDiff != 0 && colDiff == 0) || (colDiff != 0 && rowDiff == 0);
+
+        if (!isStraightLine) {
+            return false;
+        }
+
+        Piece target = board.getPiece(to);
+        return target == null || target.getColor() != this.getColor();
     }
 }

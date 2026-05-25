@@ -367,19 +367,19 @@ Expectation: true
 
 ## Invalid case 1: one-space movement to a friend-occupied position
 
-RTC17: Rook moves forward one space, to friend-occupied position
+RTC17: Rook moves forward one space, to friend-occupied position (:X:)
 State: from (0,0) to (1,0), !isEmpty at (1,0), friend at (1,0)
 Expectation: false
 
-RTC18: Rook moves backward one space, to friend-occupied position
+RTC18: Rook moves backward one space, to friend-occupied position (:X:)
 State: from (1,0) to (0,0), !isEmpty at (0,0), friend at (0,0)
 Expectation: false
 
-RTC19: Rook moves left one space, to friend-occupied position
+RTC19: Rook moves left one space, to friend-occupied position (:X:)
 State: from (1,1) to (1,0), !isEmpty at (1,0), friend at (1,0)
 Expectation: false
 
-RTC20: Rook moves right one space, to friend-occupied position
+RTC20: Rook moves right one space, to friend-occupied position (:X:)
 State: from (0,0) to (0,1), !isEmpty at (0,1), friend at (0,1)
 Expectation: false
 

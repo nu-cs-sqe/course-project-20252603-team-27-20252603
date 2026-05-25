@@ -532,6 +532,35 @@ class PieceTests {
         );
     }
 
+    @ParameterizedTest(name = "Invalid Rook friend block: {0}")
+    @MethodSource("provideFriendBlockedRookSingleMoves")
+    void rookSingleMove_friendOccupied_invalid(
+            String testName,
+            int fromRow, int fromCol,
+            int toRow, int toCol
+    ) {
+        Piece rook = new Piece(PieceType.ROOK, PieceColor.WHITE);
+        Piece friend = new Piece(PieceType.PAWN, PieceColor.WHITE);
+
+        // Mock a friendly piece sitting on the destination square
+        EasyMock.expect(board.getPiece(matchesLoc(toRow, toCol))).andReturn(friend).anyTimes();
+        EasyMock.replay(board);
+
+        // Single orthogonal moves to friendly targets must always return false
+        assertFalse(rook.canMove(board, new Location(fromRow, fromCol), new Location(toRow, toCol)));
+
+        EasyMock.verify(board);
+    }
+
+    private static Stream<Arguments> provideFriendBlockedRookSingleMoves() {
+        return Stream.of(
+                Arguments.of("RTC17: forward, friend",  0, 0, 1, 0),
+                Arguments.of("RTC18: backward, friend", 1, 0, 0, 0),
+                Arguments.of("RTC19: left, friend",     1, 1, 1, 0),
+                Arguments.of("RTC20: right, friend",    0, 0, 0, 1)
+        );
+    }
+
     private static Location matchesLoc(int expectedRow, int expectedCol) {
         EasyMock.reportMatcher(new org.easymock.IArgumentMatcher() {
             @Override
