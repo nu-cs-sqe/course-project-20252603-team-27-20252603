@@ -787,6 +787,20 @@ class PieceTests {
         );
     }
 
+    @Test
+    void rookZeroDistanceMove_invalid() {
+        Piece rook = new Piece(PieceType.ROOK, PieceColor.WHITE);
+
+        // Mock the square to return the rook itself since it is sitting there
+        EasyMock.expect(board.getPiece(matchesLoc(3, 3))).andReturn(rook).anyTimes();
+        EasyMock.replay(board);
+
+        // A piece cannot move to the exact square it already occupies
+        assertFalse(rook.canMove(board, new Location(3, 3), new Location(3, 3)));
+
+        EasyMock.verify(board);
+    }
+
     private static Location matchesLoc(int expectedRow, int expectedCol) {
         EasyMock.reportMatcher(new org.easymock.IArgumentMatcher() {
             @Override

@@ -571,7 +571,7 @@ Expectation: false
 
 ## Invalid case 7: movement to current position (no movement)
 
-RTC65: Rook moves to its own current square (distance zero)
+RTC65: Rook moves to its own current square (distance zero)  (:X:)
 State of the system: from (3,3) to (3,3)
 Expected output: false
 
