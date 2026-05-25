@@ -1840,6 +1840,48 @@ class PieceTests {
         );
     }
 
+    @ParameterizedTest(name = "Invalid King two-space orthogonal: {0}")
+    @MethodSource("provideInvalidKingTwoSpaceOrthogonalMoves")
+    void kingMove_twoSpaceOrthogonal_invalid(
+            String testName,
+            int fromRow, int fromCol,
+            int toRow, int toCol,
+            Piece destPiece
+    ) {
+        Piece king = new Piece(PieceType.KING, PieceColor.WHITE);
+
+        // Mock the target square status according to the test case layout
+        EasyMock.expect(board.getPiece(matchesLoc(toRow, toCol))).andReturn(destPiece).anyTimes();
+        EasyMock.replay(board);
+
+        // Two-space straight line leaps must return false
+        assertFalse(king.canMove(board, new Location(fromRow, fromCol), new Location(toRow, toCol)));
+
+        EasyMock.verify(board);
+    }
+
+    private static Stream<Arguments> provideInvalidKingTwoSpaceOrthogonalMoves() {
+        Piece foe = new Piece(PieceType.PAWN, PieceColor.BLACK);
+
+        return Stream.of(
+                // Forward two spaces (5,3) variants
+                Arguments.of("KiTC27: forward two spaces, empty",  3, 3, 5, 3, null),
+                Arguments.of("KiTC28: forward two spaces, foe",    3, 3, 5, 3, foe),
+
+                // Backward two spaces (1,3) variants
+                Arguments.of("KiTC29: backward two spaces, empty", 3, 3, 1, 3, null),
+                Arguments.of("KiTC30: backward two spaces, foe",   3, 3, 1, 3, foe),
+
+                // Left two spaces (3,1) variants
+                Arguments.of("KiTC31: left two spaces, empty",     3, 3, 3, 1, null),
+                Arguments.of("KiTC32: left two spaces, foe",       3, 3, 3, 1, foe),
+
+                // Right two spaces (3,5) variants
+                Arguments.of("KiTC33: right two spaces, empty",    3, 3, 3, 5, null),
+                Arguments.of("KiTC34: right two spaces, foe",      3, 3, 3, 5, foe)
+        );
+    }
+
     private static Location matchesLoc(int expectedRow, int expectedCol) {
         EasyMock.reportMatcher(new org.easymock.IArgumentMatcher() {
             @Override

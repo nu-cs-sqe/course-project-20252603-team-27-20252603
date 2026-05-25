@@ -1394,35 +1394,35 @@ Expected output: false
 
 ## Invalid move case 3: two-space forward/backward/left/right to empty/foe position
 
-KiTC27: King moves two spaces forward, to empty position
+KiTC27: King moves two spaces forward, to empty position (:X:)
 State of the system: from (3,3) to (5,3), isEmpty at (5,3)
 Expected output: false
 
-KiTC28: King moves two spaces forward, to foe-occupied position
+KiTC28: King moves two spaces forward, to foe-occupied position (:X:)
 State of the system: from (3,3) to (5,3), !isEmpty at (5,3), foe at (5,3)
 Expected output: false
 
-KiTC29: King moves two spaces backward, to empty position
+KiTC29: King moves two spaces backward, to empty position (:X:)
 State of the system: from (3,3) to (1,3), isEmpty at (1,3)
 Expected output: false
 
-KiTC30: King moves two spaces backward, to foe-occupied position
+KiTC30: King moves two spaces backward, to foe-occupied position (:X:)
 State of the system: from (3,3) to (1,3), !isEmpty at (1,3), foe at (1,3)
 Expected output: false
 
-KiTC31: King moves two spaces left, to empty position
+KiTC31: King moves two spaces left, to empty position (:X:)
 State of the system: from (3,3) to (3,1), isEmpty at (3,1)
 Expected output: false
 
-KiTC32: King moves two spaces left, to foe-occupied position
+KiTC32: King moves two spaces left, to foe-occupied position (:X:)
 State of the system: from (3,3) to (3,1), !isEmpty at (3,1), foe at (3,1)
 Expected output: false
 
-KiTC33: King moves two spaces right, to empty position
+KiTC33: King moves two spaces right, to empty position (:X:)
 State of the system: from (3,3) to (3,5), isEmpty at (3,5)
 Expected output: false
 
-KiTC34: King moves two spaces right, to foe-occupied position
+KiTC34: King moves two spaces right, to foe-occupied position (:X:)
 State of the system: from (3,3) to (3,5), !isEmpty at (3,5), foe at (3,5)
 Expected output: false
 
