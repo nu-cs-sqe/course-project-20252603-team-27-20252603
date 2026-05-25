@@ -988,6 +988,53 @@ class PieceTests {
         );
     }
 
+    @ParameterizedTest(name = "Invalid Knight single-diagonal move: {0}")
+    @MethodSource("provideInvalidKnightSingleDiagonalMoves")
+    void knightMove_singleDiagonal_invalid(
+            String testName,
+            int fromRow, int fromCol,
+            int toRow, int toCol,
+            Piece destPiece
+    ) {
+        Piece knight = new Piece(PieceType.KNIGHT, PieceColor.WHITE);
+
+        // Mock the exact piece status of the destination square
+        EasyMock.expect(board.getPiece(matchesLoc(toRow, toCol))).andReturn(destPiece).anyTimes();
+        EasyMock.replay(board);
+
+        // One-space diagonal steps must return false
+        assertFalse(knight.canMove(board, new Location(fromRow, fromCol), new Location(toRow, toCol)));
+
+        EasyMock.verify(board);
+    }
+
+    private static Stream<Arguments> provideInvalidKnightSingleDiagonalMoves() {
+        Piece friend = new Piece(PieceType.PAWN, PieceColor.WHITE);
+        Piece foe = new Piece(PieceType.PAWN, PieceColor.BLACK);
+
+        return Stream.of(
+                // Forward-Right (4,4) variants
+                Arguments.of("KTC41: forward-right, empty",  3, 3, 4, 4, null),
+                Arguments.of("KTC42: forward-right, friend", 3, 3, 4, 4, friend),
+                Arguments.of("KTC43: forward-right, foe",    3, 3, 4, 4, foe),
+
+                // Forward-Left (4,2) variants
+                Arguments.of("KTC44: forward-left, empty",   3, 3, 4, 2, null),
+                Arguments.of("KTC45: forward-left, friend",  3, 3, 4, 2, friend),
+                Arguments.of("KTC46: forward-left, foe",     3, 3, 4, 2, foe),
+
+                // Backward-Right (2,4) variants
+                Arguments.of("KTC47: backward-right, empty", 3, 3, 2, 4, null),
+                Arguments.of("KTC48: backward-right, friend",3, 3, 2, 4, friend),
+                Arguments.of("KTC49: backward-right, foe",   3, 3, 2, 4, foe),
+
+                // Backward-Left (2,2) variants
+                Arguments.of("KTC50: backward-left, empty",  3, 3, 2, 2, null),
+                Arguments.of("KTC51: backward-left, friend", 3, 3, 2, 2, friend),
+                Arguments.of("KTC52: backward-left, foe",    3, 3, 2, 2, foe)
+        );
+    }
+
     private static Location matchesLoc(int expectedRow, int expectedCol) {
         EasyMock.reportMatcher(new org.easymock.IArgumentMatcher() {
             @Override
