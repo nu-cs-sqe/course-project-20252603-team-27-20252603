@@ -1462,51 +1462,51 @@ Expected output: false
 
 ## Invalid move case 5: out-of-bounds
 
-KiTC43: King moves out-of-bounds, top boundary, forward
+KiTC43: King moves out-of-bounds, top boundary, forward (:X:)
 State of the system: from (7,3) to (8,3)
 Expected output: false
 
-KiTC44: King moves out-of-bounds, top boundary, forward-left
+KiTC44: King moves out-of-bounds, top boundary, forward-left (:X:)
 State of the system: from (7,3) to (8,2)
 Expected output: false
 
-KiTC45: King moves out-of-bounds, top boundary, forward-right
+KiTC45: King moves out-of-bounds, top boundary, forward-right (:X:)
 State of the system: from (7,3) to (8,4)
 Expected output: false
 
-KiTC46: King moves out-of-bounds, bottom boundary, backward
+KiTC46: King moves out-of-bounds, bottom boundary, backward (:X:)
 State of the system: from (0,3) to (-1,3)
 Expected output: false
 
-KiTC47: King moves out-of-bounds, bottom boundary, backward-left
+KiTC47: King moves out-of-bounds, bottom boundary, backward-left (:X:)
 State of the system: from (0,3) to (-1,2)
 Expected output: false
 
-KiTC48: King moves out-of-bounds, bottom boundary, backward-right
+KiTC48: King moves out-of-bounds, bottom boundary, backward-right (:X:)
 State of the system: from (0,3) to (-1,4)
 Expected output: false
 
-KiTC49: King moves out-of-bounds, left boundary, left
+KiTC49: King moves out-of-bounds, left boundary, left (:X:)
 State of the system: from (3,0) to (3,-1)
 Expected output: false
 
-KiTC50: King moves out-of-bounds, left boundary, forward-left
+KiTC50: King moves out-of-bounds, left boundary, forward-left (:X:)
 State of the system: from (3,0) to (4,-1)
 Expected output: false
 
-KiTC51: King moves out-of-bounds, left boundary, backward-left
+KiTC51: King moves out-of-bounds, left boundary, backward-left (:X:)
 State of the system: from (3,0) to (2,-1)
 Expected output: false
 
-KiTC52: King moves out-of-bounds, right boundary, right
+KiTC52: King moves out-of-bounds, right boundary, right (:X:)
 State of the system: from (3,7) to (3,8)
 Expected output: false
 
-KiTC53: King moves out-of-bounds, right boundary, forward-right
+KiTC53: King moves out-of-bounds, right boundary, forward-right (:X:)
 State of the system: from (3,7) to (4,8)
 Expected output: false
 
-KiTC54: King moves out-of-bounds, right boundary, backward-right
+KiTC54: King moves out-of-bounds, right boundary, backward-right (:X:)
 State of the system: from (3,7) to (2,8)
 Expected output: false
 

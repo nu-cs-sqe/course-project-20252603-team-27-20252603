@@ -1924,6 +1924,49 @@ class PieceTests {
         );
     }
 
+    @ParameterizedTest(name = "King out-of-bounds invalid: {0}")
+    @MethodSource("provideOutOfBoundsKingCases")
+    void kingOutOfBoundsMove_invalid(
+            String testName,
+            int fromRow, int fromCol,
+            int toRow, int toCol
+    ) {
+        Piece king = new Piece(PieceType.KING, PieceColor.WHITE);
+
+        // Standard empty board fallback configuration
+        EasyMock.expect(board.getPiece(EasyMock.anyObject(Location.class))).andReturn(null).anyTimes();
+        EasyMock.replay(board);
+
+        // Moving outside the matrix indices [0-7] must return false immediately
+        assertFalse(king.canMove(board, new Location(fromRow, fromCol), new Location(toRow, toCol)));
+
+        EasyMock.verify(board);
+    }
+
+    private static Stream<Arguments> provideOutOfBoundsKingCases() {
+        return Stream.of(
+                // Top Boundary Overruns (row 7 -> row 8)
+                Arguments.of("KiTC43: top boundary, straight forward",     7, 3,  8, 3),
+                Arguments.of("KiTC44: top boundary, diagonal forward-left", 7, 3,  8, 2),
+                Arguments.of("KiTC45: top boundary, diagonal forward-right",7, 3,  8, 4),
+
+                // Bottom Boundary Overruns (row 0 -> row -1)
+                Arguments.of("KiTC46: bottom boundary, straight backward",     0, 3, -1, 3),
+                Arguments.of("KiTC47: bottom boundary, diagonal backward-left", 0, 3, -1, 2),
+                Arguments.of("KiTC48: bottom boundary, diagonal backward-right",0, 3, -1, 4),
+
+                // Left Boundary Overruns (col 0 -> col -1)
+                Arguments.of("KiTC49: left boundary, straight left",      3, 0,  3, -1),
+                Arguments.of("KiTC50: left boundary, diagonal forward-left",  3, 0,  4, -1), // Cleaned!
+                Arguments.of("KiTC51: left boundary, diagonal backward-left", 3, 0,  2, -1),
+
+                // Right Boundary Overruns (col 7 -> col 8)
+                Arguments.of("KiTC52: right boundary, straight right",       3, 7,  3, 8),
+                Arguments.of("KiTC53: right boundary, diagonal forward-right", 3, 7,  4, 8),
+                Arguments.of("KiTC54: right boundary, diagonal backward-right",3, 7,  2, 8)
+        );
+    }
+
     private static Location matchesLoc(int expectedRow, int expectedCol) {
         EasyMock.reportMatcher(new org.easymock.IArgumentMatcher() {
             @Override
