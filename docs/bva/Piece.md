@@ -299,35 +299,35 @@ Expected output: false
 
 ## Valid Moves case 1: one-space forward/backward/left/right to empty/foe position
 
-RTC1: Rook moves forward one space to empty position
+RTC1: Rook moves forward one space to empty position (:X:)
 State: from (0,0) to (1,0), isEmpty at (1,0)
 Expectation: true
 
-RTC2: Rook moves forward one space, to foe-occupied position
+RTC2: Rook moves forward one space, to foe-occupied position (:X:)
 State: from (0,0) to (1,0), !isEmpty at (1,0), foe at (1,0)
 Expectation: true
 
-RTC3: Rook moves backward one space to empty position
+RTC3: Rook moves backward one space to empty position (:X:)
 State: from (1,0) to (0,0), isEmpty at (0,0)
 Expectation: true
 
-RTC4: Rook moves backward one space, to foe-occupied position
+RTC4: Rook moves backward one space, to foe-occupied position (:X:)
 State: from (1,0) to (0,0), !isEmpty at (0,0), foe at (0,0)
 Expectation: true
 
-RTC5: Rook moves right one space to empty position
+RTC5: Rook moves right one space to empty position (:X:)
 State: from (1,0) to (1,1), isEmpty at (1,1)
 Expectation: true
 
-RTC6: Rook moves right one space, to foe-occupied position
+RTC6: Rook moves right one space, to foe-occupied position (:X:)
 State: from (1,0) to (1,1), !isEmpty at (1,1), foe at (1,1)
 Expectation: true
 
-RTC7: Rook moves left one space to empty position
+RTC7: Rook moves left one space to empty position (:X:)
 State: from (1,1) to (1,0), isEmpty at (1,0)
 Expectation: true
 
-RTC8: Rook moves left one space, to foe-occupied position
+RTC8: Rook moves left one space, to foe-occupied position (:X:)
 State: from (1,1) to (1,0), !isEmpty at (1,0), foe at (1,0)
 Expectation: true
 

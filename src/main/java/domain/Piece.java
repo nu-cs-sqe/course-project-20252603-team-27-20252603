@@ -25,6 +25,10 @@ public class Piece {
             return isValidPawnMove(board, from, to);
         }
 
+        if (this.pieceType == PieceType.ROOK) {
+            return isValidRookMove(board, from, to);
+        }
+
         return false;
     }
 
@@ -63,5 +67,12 @@ public class Piece {
 
     private boolean isPawnDiagonalCapture(int rowDiff, int colDiff) {
         return rowDiff == 1 && Math.abs(colDiff) == 1;
+    }
+
+    private boolean isValidRookMove(Board board, Location from, Location to) {
+        int rowDiff = to.getRow() - from.getRow();
+        int colDiff = to.getCol() - from.getCol();
+
+        return (rowDiff != 0 && colDiff == 0) || (colDiff != 0 && rowDiff == 0);
     }
 }

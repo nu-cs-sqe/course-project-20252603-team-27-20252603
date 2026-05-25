@@ -442,6 +442,48 @@ class PieceTests {
         );
     }
 
+    @ParameterizedTest(name = "Valid Rook single move: {0}")
+    @MethodSource("provideValidRookSingleMoves")
+    void rookSingleMove_valid(
+            String testName,
+            int fromRow, int fromCol,
+            int toRow, int toCol,
+            Piece destPiece
+    ) {
+        Piece rook = new Piece(PieceType.ROOK, PieceColor.WHITE);
+
+        // Mock what is sitting on the destination square
+        EasyMock.expect(board.getPiece(matchesLoc(toRow, toCol))).andReturn(destPiece).anyTimes();
+        EasyMock.replay(board);
+
+        // Single orthogonal moves to empty/foe targets must return true
+        assertTrue(rook.canMove(board, new Location(fromRow, fromCol), new Location(toRow, toCol)));
+
+        EasyMock.verify(board);
+    }
+
+    private static Stream<Arguments> provideValidRookSingleMoves() {
+        Piece foe = new Piece(PieceType.PAWN, PieceColor.BLACK);
+
+        return Stream.of(
+                // Forward moves
+                Arguments.of("RTC1: forward, empty", 0, 0, 1, 0, null),
+                Arguments.of("RTC2: forward, foe",   0, 0, 1, 0, foe),
+
+                // Backward moves
+                Arguments.of("RTC3: backward, empty",1, 0, 0, 0, null),
+                Arguments.of("RTC4: backward, foe",  1, 0, 0, 0, foe),
+
+                // Right moves
+                Arguments.of("RTC5: right, empty",   1, 0, 1, 1, null),
+                Arguments.of("RTC6: right, foe",     1, 0, 1, 1, foe),
+
+                // Left moves
+                Arguments.of("RTC7: left, empty",    1, 1, 1, 0, null),
+                Arguments.of("RTC8: left, foe",      1, 1, 1, 0, foe)
+        );
+    }
+
     private static Location matchesLoc(int expectedRow, int expectedCol) {
         EasyMock.reportMatcher(new org.easymock.IArgumentMatcher() {
             @Override
