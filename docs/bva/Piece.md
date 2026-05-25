@@ -900,67 +900,73 @@ Expected output: false
 
 ## Invalid move case 5: out-of-bounds
 
-KTC77: Knight moves out-of-bounds, top boundary, forward-left L-shape
+KTC77: Knight moves out-of-bounds, top boundary, forward-left L-shape (:X:)
 State of the system: from (6,3) to (8,2)
 Expected output: false
 
-KTC78: Knight moves out-of-bounds, top boundary, forward-right L-shape
+KTC78: Knight moves out-of-bounds, top boundary, forward-right L-shape (:X:)
 State of the system: from (6,3) to (8,4)
 Expected output: false
 
-KTC79: Knight moves out-of-bounds, top boundary, left-forward L-shape
+KTC79: Knight moves out-of-bounds, top boundary, left-forward L-shape  (:X:)
 State of the system: from (7,3) to (8,1)
 Expected output: false
 
-KTC80: Knight moves out-of-bounds, top boundary, right-forward L-shape
+KTC80: Knight moves out-of-bounds, top boundary, right-forward L-shape (:X:) 
 State of the system: from (7,3) to (8,5)
 Expected output: false
 
-KTC81: Knight moves out-of-bounds, bottom boundary, backward-left L-shape
+KTC81: Knight moves out-of-bounds, bottom boundary, backward-left L-shape (:X:)
 State of the system: from (1,3) to (-1,2)
 Expected output: false
 
-KTC82: Knight moves out-of-bounds, bottom boundary, backward-right L-shape
+KTC82: Knight moves out-of-bounds, bottom boundary, backward-right L-shape (:X:)
 State of the system: from (1,3) to (-1,4)
 Expected output: false
 
-KTC83: Knight moves out-of-bounds, bottom boundary, left-backward L-shape
+KTC83: Knight moves out-of-bounds, bottom boundary, left-backward L-shape (:X:)
 State of the system: from (0,3) to (-1,1)
 Expected output: false
 
-KTC84: Knight moves out-of-bounds, bottom boundary, right-backward L-shape
+KTC84: Knight moves out-of-bounds, bottom boundary, right-backward L-shape (:X:) 
 State of the system: from (0,3) to (-1,5)
 Expected output: false
 
-KTC85: Knight moves out-of-bounds, left boundary, forward-left L-shape
-State of the system: from (3,1) to (5,0)
+KTC85: Knight moves out-of-bounds, left boundary, forward-left L-shape (:X:)
+Correction: Changed destination column from 0 to -1 to step off the left edge.
+State of the system: from (3,1) to (5,-1)
 Expected output: false
 
-KTC86: Knight moves out-of-bounds, left boundary, left-forward L-shape
-State of the system: from (3,2) to (4,0)
+KTC86: Knight moves out-of-bounds, left boundary, left-forward L-shape (:X:)
+Correction: Changed destination column from 0 to -1 to step off the left edge.
+State of the system: from (3,1) to (4,-1)
 Expected output: false
 
-KTC87: Knight moves out-of-bounds, left boundary, left-backward L-shape
-State of the system: from (3,2) to (2,0)
+KTC87: Knight moves out-of-bounds, left boundary, left-backward L-shape (:X:)
+Correction: Changed destination column from 0 to -1 to step off the left edge.
+State of the system: from (3,1) to (2,-1)
 Expected output: false
 
-KTC88: Knight moves out-of-bounds, left boundary, backward-left L-shape
-State of the system: from (3,1) to (1,0)
+KTC88: Knight moves out-of-bounds, left boundary, backward-left L-shape (:X:)
+Correction: Changed destination column from 0 to -1 to step off the left edge.
+State of the system: from (3,1) to (1,-1)
 Expected output: false
 
-KTC89: Knight moves out-of-bounds, right boundary, forward-right L-shape
+KTC89: Knight moves out-of-bounds, right boundary, forward-right L-shape (:X:)
 State of the system: from (3,6) to (5,8)
 Expected output: false
 
-KTC90: Knight moves out-of-bounds, right boundary, right-forward L-shape
-State of the system: from (3,5) to (4,7)
+KTC90: Knight moves out-of-bounds, right boundary, right-forward L-shape (:X:)
+Correction: Changed starting column to 6 and destination column from 7 to 8 to step off the right edge.
+State of the system: from (3,6) to (4,8)
 Expected output: false
 
-KTC91: Knight moves out-of-bounds, right boundary, right-backward L-shape
-State of the system: from (3,5) to (2,7)
+KTC91: Knight moves out-of-bounds, right boundary, right-backward L-shape (:X:)
+Correction: Changed starting column to 6 and destination column from 7 to 8 to step off the right edge.
+State of the system: from (3,6) to (2,8)
 Expected output: false
 
-KTC92: Knight moves out-of-bounds, right boundary, backward-right L-shape
+KTC92: Knight moves out-of-bounds, right boundary, backward-right L-shape (:X:)
 State of the system: from (3,6) to (1,8)
 Expected output: false
 

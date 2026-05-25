@@ -1129,6 +1129,53 @@ class PieceTests {
         );
     }
 
+    @ParameterizedTest(name = "Knight out-of-bounds invalid: {0}")
+    @MethodSource("provideOutOfBoundsKnightCases")
+    void knightOutOfBoundsMove_invalid(
+            String testName,
+            int fromRow, int fromCol,
+            int toRow, int toCol
+    ) {
+        Piece knight = new Piece(PieceType.KNIGHT, PieceColor.WHITE);
+
+        // Mocking an empty response for safety, though the guard clause should intercept first
+        EasyMock.expect(board.getPiece(EasyMock.anyObject(Location.class))).andReturn(null).anyTimes();
+        EasyMock.replay(board);
+
+        // Any move target outside the 0-7 coordinate index matrix must return false
+        assertFalse(knight.canMove(board, new Location(fromRow, fromCol), new Location(toRow, toCol)));
+
+        EasyMock.verify(board);
+    }
+
+    private static Stream<Arguments> provideOutOfBoundsKnightCases() {
+        return Stream.of(
+                // --- Top Boundary (Row > 7) ---
+                Arguments.of("KTC77: top boundary, forward-left",  6, 3, 8, 2),
+                Arguments.of("KTC78: top boundary, forward-right", 6, 3, 8, 4),
+                Arguments.of("KTC79: top boundary, left-forward",  7, 3, 8, 1),
+                Arguments.of("KTC80: top boundary, right-forward", 7, 3, 8, 5),
+
+                // --- Bottom Boundary (Row < 0) ---
+                Arguments.of("KTC81: bottom boundary, backward-left",  1, 3, -1, 2),
+                Arguments.of("KTC82: bottom boundary, backward-right", 1, 3, -1, 4),
+                Arguments.of("KTC83: bottom boundary, left-backward",  0, 3, -1, 1),
+                Arguments.of("KTC84: bottom boundary, right-backward", 0, 3, -1, 5),
+
+                // --- Left Boundary (Col < 0) ---
+                Arguments.of("KTC85: left boundary, forward-left",  3, 1, 5, -1), // Corrected from 5,0
+                Arguments.of("KTC86: left boundary, left-forward",  3, 1, 4, -1), // Corrected from 4,0
+                Arguments.of("KTC87: left boundary, left-backward", 3, 1, 2, -1), // Corrected from 2,0
+                Arguments.of("KTC88: left boundary, backward-left", 3, 1, 1, -1), // Corrected from 1,0
+
+                // --- Right Boundary (Col > 7) ---
+                Arguments.of("KTC89: right boundary, forward-right", 3, 6, 5, 8),
+                Arguments.of("KTC90: right boundary, right-forward", 3, 6, 4, 8), // Corrected from 4,7
+                Arguments.of("KTC91: right boundary, right-backward",3, 6, 2, 8), // Corrected from 2,7
+                Arguments.of("KTC92: right boundary, backward-right",3, 6, 1, 8)
+        );
+    }
+
     private static Location matchesLoc(int expectedRow, int expectedCol) {
         EasyMock.reportMatcher(new org.easymock.IArgumentMatcher() {
             @Override
