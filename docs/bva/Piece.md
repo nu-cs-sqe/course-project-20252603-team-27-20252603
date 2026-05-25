@@ -972,7 +972,7 @@ Expected output: false
 
 ## Invalid move case 6: movement to current position (no movement)
 
-KTC93: Knight moves to its own current square (distance zero)
+KTC93: Knight moves to its own current square (distance zero) (:X:)
 State of the system: from (3,3) to (3,3)
 Expected output: false
 
