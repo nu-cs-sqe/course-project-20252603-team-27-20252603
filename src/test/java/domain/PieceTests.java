@@ -1661,6 +1661,48 @@ class PieceTests {
         EasyMock.verify(board);
     }
 
+    @ParameterizedTest(name = "Valid King orthogonal move: {0}")
+    @MethodSource("provideValidKingOrthogonalCases")
+    void kingMove_orthogonal_valid(
+            String testName,
+            int fromRow, int fromCol,
+            int toRow, int toCol,
+            Piece destPiece
+    ) {
+        Piece king = new Piece(PieceType.KING, PieceColor.WHITE);
+
+        // Mock the destination square's occupancy state (empty or foe)
+        EasyMock.expect(board.getPiece(matchesLoc(toRow, toCol))).andReturn(destPiece).anyTimes();
+        EasyMock.replay(board);
+
+        // One-space orthogonal translations must evaluate to true
+        assertTrue(king.canMove(board, new Location(fromRow, fromCol), new Location(toRow, toCol)));
+
+        EasyMock.verify(board);
+    }
+
+    private static Stream<Arguments> provideValidKingOrthogonalCases() {
+        Piece foe = new Piece(PieceType.PAWN, PieceColor.BLACK);
+
+        return Stream.of(
+                // Forward (4,3) variants
+                Arguments.of("KiTC1: forward, empty",  3, 3, 4, 3, null),
+                Arguments.of("KiTC2: forward, foe",    3, 3, 4, 3, foe),
+
+                // Backward (2,3) variants
+                Arguments.of("KiTC3: backward, empty", 3, 3, 2, 3, null),
+                Arguments.of("KiTC4: backward, foe",   3, 3, 2, 3, foe),
+
+                // Left (3,2) variants
+                Arguments.of("KiTC5: left, empty",     3, 3, 3, 2, null),
+                Arguments.of("KiTC6: left, foe",       3, 3, 3, 2, foe),
+
+                // Right (3,4) variants
+                Arguments.of("KiTC7: right, empty",    3, 3, 3, 4, null),
+                Arguments.of("KiTC8: right, foe",      3, 3, 3, 4, foe)
+        );
+    }
+
     private static Location matchesLoc(int expectedRow, int expectedCol) {
         EasyMock.reportMatcher(new org.easymock.IArgumentMatcher() {
             @Override

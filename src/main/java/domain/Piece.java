@@ -37,6 +37,10 @@ public class Piece {
             return isValidBishopMove(board, from, to);
         }
 
+        if (this.pieceType == PieceType.KING) {
+            return isValidKingMove(board, from, to);
+        }
+
         return false;
     }
 
@@ -147,5 +151,13 @@ public class Piece {
 
        Piece target = board.getPiece(to);
        return target == null || target.getColor() != this.getColor();
+    }
+
+    private boolean isValidKingMove(Board board, Location from, Location to) {
+        int rowDiff = to.getRow() - from.getRow();
+        int colDiff = to.getCol() - from.getCol();
+
+        return (rowDiff != 0 && colDiff == 0) || (colDiff != 0 && rowDiff == 0);
+
     }
 }
