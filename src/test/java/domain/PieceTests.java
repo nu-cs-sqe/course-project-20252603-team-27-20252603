@@ -1811,6 +1811,35 @@ class PieceTests {
         );
     }
 
+    @ParameterizedTest(name = "Invalid King diagonal friend landing: {0}")
+    @MethodSource("provideInvalidKingDiagonalFriendMoves")
+    void kingMove_diagonalFriendOccupied_invalid(
+            String testName,
+            int fromRow, int fromCol,
+            int toRow, int toCol
+    ) {
+        Piece king = new Piece(PieceType.KING, PieceColor.WHITE);
+        Piece friend = new Piece(PieceType.PAWN, PieceColor.WHITE);
+
+        // Mock a friendly teammate sitting directly at the diagonal destination
+        EasyMock.expect(board.getPiece(matchesLoc(toRow, toCol))).andReturn(friend).anyTimes();
+        EasyMock.replay(board);
+
+        // Landing on a friendly piece diagonally must return false
+        assertFalse(king.canMove(board, new Location(fromRow, fromCol), new Location(toRow, toCol)));
+
+        EasyMock.verify(board);
+    }
+
+    private static Stream<Arguments> provideInvalidKingDiagonalFriendMoves() {
+        return Stream.of(
+                Arguments.of("KiTC23: forward-left, friend block",  3, 3, 4, 2),
+                Arguments.of("KiTC24: forward-right, friend block", 3, 3, 4, 4),
+                Arguments.of("KiTC25: backward-left, friend block", 3, 3, 2, 2),
+                Arguments.of("KiTC26: backward-right, friend block", 3, 3, 2, 4)
+        );
+    }
+
     private static Location matchesLoc(int expectedRow, int expectedCol) {
         EasyMock.reportMatcher(new org.easymock.IArgumentMatcher() {
             @Override

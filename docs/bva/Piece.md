@@ -1376,19 +1376,19 @@ Expected output: false
 
 ## Invalid move case 2: one-space diagonal to friend-occupied position
 
-KiTC23: King moves one space forward-left, to friend-occupied position
+KiTC23: King moves one space forward-left, to friend-occupied position (:X:)
 State of the system: from (3,3) to (4,2), !isEmpty at (4,2), friend at (4,2)
 Expected output: false
 
-KiTC24: King moves one space forward-right, to friend-occupied position
+KiTC24: King moves one space forward-right, to friend-occupied position (:X:)
 State of the system: from (3,3) to (4,4), !isEmpty at (4,4), friend at (4,4)
 Expected output: false
 
-KiTC25: King moves one space backward-left, to friend-occupied position
+KiTC25: King moves one space backward-left, to friend-occupied position (:X:)
 State of the system: from (3,3) to (2,2), !isEmpty at (2,2), friend at (2,2)
 Expected output: false
 
-KiTC26: King moves one space backward-right, to friend-occupied position
+KiTC26: King moves one space backward-right, to friend-occupied position (:X:)
 State of the system: from (3,3) to (2,4), !isEmpty at (2,4), friend at (2,4)
 Expected output: false
 
