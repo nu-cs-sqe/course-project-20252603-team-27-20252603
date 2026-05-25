@@ -29,6 +29,10 @@ public class Piece {
             return isValidRookMove(board, from, to);
         }
 
+        if (this.pieceType == PieceType.KNIGHT) {
+            return isValidKnightMove(board, from, to);
+        }
+
         return false;
     }
 
@@ -98,5 +102,13 @@ public class Piece {
         }
 
         return false;
+    }
+
+    private boolean isValidKnightMove(Board board, Location from, Location to) {
+        int rowDiff = Math.abs(to.getRow() - from.getRow());
+        int colDiff = Math.abs(to.getCol() - from.getCol());
+
+        return ((colDiff == 1 && rowDiff == 2) || (colDiff == 2 && rowDiff == 1));
+
     }
 }

@@ -801,6 +801,38 @@ class PieceTests {
         EasyMock.verify(board);
     }
 
+    @ParameterizedTest(name = "Valid Knight L-move: {0}")
+    @MethodSource("provideValidKnightEmptyMoves")
+    void knightLMove_empty_valid(
+            String testName,
+            int fromRow, int fromCol,
+            int toRow, int toCol
+    ) {
+        Piece knight = new Piece(PieceType.KNIGHT, PieceColor.WHITE);
+
+        // All targets in this batch are empty positions (null)
+        EasyMock.expect(board.getPiece(matchesLoc(toRow, toCol))).andReturn(null).anyTimes();
+        EasyMock.replay(board);
+
+        // Standard legal L-shape translations must return true
+        assertTrue(knight.canMove(board, new Location(fromRow, fromCol), new Location(toRow, toCol)));
+
+        EasyMock.verify(board);
+    }
+
+    private static Stream<Arguments> provideValidKnightEmptyMoves() {
+        return Stream.of(
+                Arguments.of("KTC1: forward-left (2 up, 1 right)",  3, 3, 5, 4),
+                Arguments.of("KTC2: forward-right (2 up, 1 left)",  3, 3, 5, 2),
+                Arguments.of("KTC3: right-forward (1 up, 2 left)",  3, 3, 4, 1),
+                Arguments.of("KTC4: right-backward (1 down, 2 left)",3, 3, 2, 1),
+                Arguments.of("KTC5: backward-left (2 down, 1 right)",1, 4, 3, 3), // adjusted per case spec directionals
+                Arguments.of("KTC6: backward-right (2 down, 1 left)",3, 3, 1, 2),
+                Arguments.of("KTC7: left-forward (1 up, 2 right)",  3, 3, 4, 5),
+                Arguments.of("KTC8: left-backward (1 down, 2 right)",3, 3, 2, 5)
+        );
+    }
+
     private static Location matchesLoc(int expectedRow, int expectedCol) {
         EasyMock.reportMatcher(new org.easymock.IArgumentMatcher() {
             @Override

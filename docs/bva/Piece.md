@@ -580,35 +580,35 @@ Expected output: false
 
 ## Valid moves case 1: to empty positions
 
-KTC1: Knight moves in valid forward-left L-shape to empty position
+KTC1: Knight moves in valid forward-left L-shape to empty position (:X:)
 State of the system: from (3,3) to (5,4), isEmpty at (5,4)
 Expected output: true
 
-KTC2: Knight moves in valid forward-right L-shape to empty position
+KTC2: Knight moves in valid forward-right L-shape to empty position (:X:)
 State of the system: from (3,3) to (5,2), isEmpty at (5,2)
 Expected output: true
 
-KTC3: Knight moves in valid right-forward L-shape to empty position
+KTC3: Knight moves in valid right-forward L-shape to empty position (:X:)
 State of the system: from (3,3) to (4,1), isEmpty at (4,1)
 Expected output: true
 
-KTC4: Knight moves in valid right-backward L-shape to empty position
+KTC4: Knight moves in valid right-backward L-shape to empty position (:X:)
 State of the system: from (3,3) to (2,1), isEmpty at (2,1)
 Expected output: true
 
-KTC5: Knight moves in valid backward-left L-shape to empty position
+KTC5: Knight moves in valid backward-left L-shape to empty position (:X:)
 State of the system: from (3,3) to (1,4), isEmpty at (1,4)
 Expected output: true
 
-KTC6: Knight moves in valid backward-right L-shape to empty position
+KTC6: Knight moves in valid backward-right L-shape to empty position (:X:)
 State of the system: from (3,3) to (1,2), isEmpty at (1,2)
 Expected output: true
 
-KTC7: Knight moves in valid left-forward L-shape to empty position
+KTC7: Knight moves in valid left-forward L-shape to empty position (:X:)
 State of the system: from (3,3) to (4,5), isEmpty at (4,5)
 Expected output: true
 
-KTC8: Knight moves in valid left-backward L-shape to empty position
+KTC8: Knight moves in valid left-backward L-shape to empty position (:X:)
 State of the system: from (3,3) to (2,5), isEmpty at (2,5)
 Expected output: true
 
