@@ -1703,6 +1703,48 @@ class PieceTests {
         );
     }
 
+    @ParameterizedTest(name = "Valid King diagonal move: {0}")
+    @MethodSource("provideValidKingDiagonalCases")
+    void kingMove_diagonal_valid(
+            String testName,
+            int fromRow, int fromCol,
+            int toRow, int toCol,
+            Piece destPiece
+    ) {
+        Piece king = new Piece(PieceType.KING, PieceColor.WHITE);
+
+        // Mock the destination square's occupancy state (empty or foe)
+        EasyMock.expect(board.getPiece(matchesLoc(toRow, toCol))).andReturn(destPiece).anyTimes();
+        EasyMock.replay(board);
+
+        // One-space diagonal translations must evaluate to true
+        assertTrue(king.canMove(board, new Location(fromRow, fromCol), new Location(toRow, toCol)));
+
+        EasyMock.verify(board);
+    }
+
+    private static Stream<Arguments> provideValidKingDiagonalCases() {
+        Piece foe = new Piece(PieceType.PAWN, PieceColor.BLACK);
+
+        return Stream.of(
+                // Forward-Left (4,2) variants
+                Arguments.of("KiTC9: forward-left, empty",  3, 3, 4, 2, null),
+                Arguments.of("KiTC10: forward-left, foe",    3, 3, 4, 2, foe),
+
+                // Forward-Right (4,4) variants
+                Arguments.of("KiTC11: forward-right, empty", 3, 3, 4, 4, null),
+                Arguments.of("KiTC12: forward-right, foe",   3, 3, 4, 4, foe),
+
+                // Backward-Left (2,2) variants
+                Arguments.of("KiTC13: backward-left, empty", 3, 3, 2, 2, null),
+                Arguments.of("KiTC14: backward-left, foe",   3, 3, 2, 2, foe),
+
+                // Backward-Right (2,4) variants
+                Arguments.of("KiTC15: backward-right, empty",3, 3, 2, 4, null),
+                Arguments.of("KiTC16: backward-right, foe",  3, 3, 2, 4, foe)
+        );
+    }
+
     private static Location matchesLoc(int expectedRow, int expectedCol) {
         EasyMock.reportMatcher(new org.easymock.IArgumentMatcher() {
             @Override

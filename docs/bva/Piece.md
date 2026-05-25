@@ -1314,35 +1314,35 @@ Expected output: true
 
 ## Valid move case 2: one-space diagonal to empty/foe position
 
-KiTC9: King moves one space forward-left, to empty position
+KiTC9: King moves one space forward-left, to empty position (:X:)
 State of the system: from (3,3) to (4,2), isEmpty at (4,2)
 Expected output: true
 
-KiTC10: King moves one space forward-left, to foe-occupied position
+KiTC10: King moves one space forward-left, to foe-occupied position (:X:)
 State of the system: from (3,3) to (4,2), !isEmpty at (4,2), foe at (4,2)
 Expected output: true
 
-KiTC11: King moves one space forward-right, to empty position
+KiTC11: King moves one space forward-right, to empty position (:X:)
 State of the system: from (3,3) to (4,4), isEmpty at (4,4)
 Expected output: true
 
-KiTC12: King moves one space forward-right, to foe-occupied position
+KiTC12: King moves one space forward-right, to foe-occupied position (:X:)
 State of the system: from (3,3) to (4,4), !isEmpty at (4,4), foe at (4,4)
 Expected output: true
 
-KiTC13: King moves one space backward-left, to empty position
+KiTC13: King moves one space backward-left, to empty position (:X:)
 State of the system: from (3,3) to (2,2), isEmpty at (2,2)
 Expected output: true
 
-KiTC14: King moves one space backward-left, to foe-occupied position
+KiTC14: King moves one space backward-left, to foe-occupied position (:X:)
 State of the system: from (3,3) to (2,2), !isEmpty at (2,2), foe at (2,2)
 Expected output: true
 
-KiTC15: King moves one space backward-right, to empty position
+KiTC15: King moves one space backward-right, to empty position (:X:)
 State of the system: from (3,3) to (2,4), isEmpty at (2,4)
 Expected output: true
 
-KiTC16: King moves one space backward-right, to foe-occupied position
+KiTC16: King moves one space backward-right, to foe-occupied position (:X:)
 State of the system: from (3,3) to (2,4), !isEmpty at (2,4), foe at (2,4)
 Expected output: true
 
