@@ -15,7 +15,7 @@ public class Piece {
 
     public boolean hasMoved() { return moved; }
     public void setMoved(boolean moved) { this.moved = moved; }
-
+    public PieceColor getColor() { return this.pieceColor; }
     public boolean canMove(Board board, Location from, Location to) {
         int rowDiff = to.getRow() - from.getRow();
         int colDiff = to.getCol() - from.getCol();
@@ -26,6 +26,13 @@ public class Piece {
             }
             if (rowDiff == 2 &&  colDiff == 0 && !this.hasMoved()) {
                 return board.getPiece(to) == null;
+            }
+            if (rowDiff == 1 && Math.abs(colDiff) == 1) {
+                Piece target = board.getPiece(to);
+                if (target != null) {
+                    return target.getColor() != this.getColor();
+                }
+                return false;
             }
         }
         return false;

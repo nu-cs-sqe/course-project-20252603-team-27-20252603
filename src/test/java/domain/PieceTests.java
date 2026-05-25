@@ -12,7 +12,7 @@ class PieceTests {
 
     @BeforeEach
     void setUp() {
-        board = EasyMock.createMock(Board.class);
+        board = EasyMock.createNiceMock(Board.class);
     }
 
     @Test
@@ -35,5 +35,18 @@ class PieceTests {
         pawn.setMoved(false);
         assertTrue(pawn.canMove(board, new Location(1, 0), new Location(3, 0)));
     }
+
+    @Test
+    void PTC4_pawnOneDiagonalForwardRight_hasMoved_foeDest() {
+        Piece pawn = new Piece(PieceType.PAWN, PieceColor.WHITE);
+        Piece foePawn = new Piece(PieceType.PAWN, PieceColor.BLACK);
+        pawn.setMoved(true);
+
+        EasyMock.expect(board.getPiece(EasyMock.anyObject(Location.class))).andReturn(foePawn);
+        EasyMock.replay(board);
+
+        assertTrue(pawn.canMove(board, new Location(2, 1), new Location(3, 2)));
+
+        EasyMock.verify(board);    }
 }
 
