@@ -122,6 +122,11 @@ public class Piece {
         int rowDiff = Math.abs(to.getRow() - from.getRow());
         int colDiff = Math.abs(to.getCol() - from.getCol());
         boolean isValidDiagonal = (colDiff == rowDiff);
-        return isValidDiagonal;
+        if (!isValidDiagonal) {
+            return false;
+        }
+
+        Piece target = board.getPiece(to);
+        return target == null || target.getColor() != this.getColor();
     }
 }

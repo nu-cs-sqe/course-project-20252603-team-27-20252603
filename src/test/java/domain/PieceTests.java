@@ -1349,6 +1349,35 @@ class PieceTests {
         );
     }
 
+    @ParameterizedTest(name = "Invalid Bishop friend landing: {0}")
+    @MethodSource("provideInvalidBishopSingleFriendMoves")
+    void bishopSingleMove_friendOccupied_invalid(
+            String testName,
+            int fromRow, int fromCol,
+            int toRow, int toCol
+    ) {
+        Piece bishop = new Piece(PieceType.BISHOP, PieceColor.WHITE);
+        Piece friend = new Piece(PieceType.PAWN, PieceColor.WHITE);
+
+        // Mock a friendly piece sitting directly at the destination square
+        EasyMock.expect(board.getPiece(matchesLoc(toRow, toCol))).andReturn(friend).anyTimes();
+        EasyMock.replay(board);
+
+        // One-space diagonal steps ending on a teammate must return false
+        assertFalse(bishop.canMove(board, new Location(fromRow, fromCol), new Location(toRow, toCol)));
+
+        EasyMock.verify(board);
+    }
+
+    private static Stream<Arguments> provideInvalidBishopSingleFriendMoves() {
+        return Stream.of(
+                Arguments.of("BTC17: forward-left friend block (row+1, col-1)",   1, 1, 2, 0),
+                Arguments.of("BTC18: forward-right friend block (row+1, col+1)",  1, 1, 2, 2),
+                Arguments.of("BTC19: backward-right friend block (row-1, col+1)", 1, 1, 0, 2),
+                Arguments.of("BTC20: backward-left friend block (row-1, col-1)",  1, 1, 0, 0)
+        );
+    }
+
     private static Location matchesLoc(int expectedRow, int expectedCol) {
         EasyMock.reportMatcher(new org.easymock.IArgumentMatcher() {
             @Override

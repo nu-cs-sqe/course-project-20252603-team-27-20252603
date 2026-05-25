@@ -1062,19 +1062,19 @@ Expectation: true
 
 ## Invalid move case 1: one-space to friend-occupied position
 
-BTC17: Move diagonally forward-right one space to friend-occupied position
+BTC17: Move diagonally forward-right one space to friend-occupied position (:X:)
 State: from (1,1) to (2,0), !isEmpty at (2,0), friend at (2,0)
 Expectation: false
 
-BTC18: Move diagonally forward-left one space to friend-occupied position
+BTC18: Move diagonally forward-left one space to friend-occupied position (:X:)
 State: from (1,1) to (2,2), !isEmpty at (2,2), friend at (2,2)
 Expectation: false
 
-BTC19: Move diagonally backward-left one space to friend-occupied position
+BTC19: Move diagonally backward-left one space to friend-occupied position (:X:)
 State: from (1,1) to (0,2), !isEmpty at (0,2), friend at (0,2)
 Expectation: false
 
-BTC20: Move diagonally backward-right one space to friend-occupied position
+BTC20: Move diagonally backward-right one space to friend-occupied position (:X:)
 State: from (1,1) to (0,0), !isEmpty at (0,0), friend at (0,0)
 Expectation: false
 
