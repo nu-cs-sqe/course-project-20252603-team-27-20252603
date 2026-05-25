@@ -759,6 +759,34 @@ class PieceTests {
         );
     }
 
+    @ParameterizedTest(name = "Rook out-of-bounds invalid: {0}")
+    @MethodSource("provideOutOfBoundsRookCases")
+    void rookOutOfBoundsMove_invalid(
+            String testName,
+            int fromRow, int fromCol,
+            int toRow, int toCol
+    ) {
+        Piece rook = new Piece(PieceType.ROOK, PieceColor.WHITE);
+
+        // Mocking an empty response for safety, though the guard clause should intercept first
+        EasyMock.expect(board.getPiece(EasyMock.anyObject(Location.class))).andReturn(null).anyTimes();
+        EasyMock.replay(board);
+
+        // Any move target outside the 0-7 coordinate index matrix must return false
+        assertFalse(rook.canMove(board, new Location(fromRow, fromCol), new Location(toRow, toCol)));
+
+        EasyMock.verify(board);
+    }
+
+    private static Stream<Arguments> provideOutOfBoundsRookCases() {
+        return Stream.of(
+                Arguments.of("RTC61: right out-of-bounds",    0, 7,  0,  8),
+                Arguments.of("RTC62: forward out-of-bounds",  7, 0,  8,  0),
+                Arguments.of("RTC63: backward out-of-bounds", 0, 0, -1,  0),
+                Arguments.of("RTC64: left out-of-bounds",     0, 0,  0, -1)
+        );
+    }
+
     private static Location matchesLoc(int expectedRow, int expectedCol) {
         EasyMock.reportMatcher(new org.easymock.IArgumentMatcher() {
             @Override

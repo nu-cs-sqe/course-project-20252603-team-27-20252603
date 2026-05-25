@@ -553,19 +553,19 @@ Expectation: false
 
 ## Invalid case 6: out-of-bounds movement
 
-RTC61: Rook moves right out-of-bounds
+RTC61: Rook moves right out-of-bounds (:X:)
 State: from (0,7) to (0,8)
 Expectation: false
 
-RTC62: Rook moves forward out-of-bounds
+RTC62: Rook moves forward out-of-bounds (:X:)
 State: from (7,0) to (8,0)
 Expectation: false
 
-RTC63: Rook backward right out-of-bounds
+RTC63: Rook backward right out-of-bounds (:X:)
 State: from (0,0) to (-1,0)
 Expectation: false
 
-RTC64: Rook left forward out-of-bounds
+RTC64: Rook left forward out-of-bounds (:X:)
 State: from (0,0) to (0,-1)
 Expectation: false
 
