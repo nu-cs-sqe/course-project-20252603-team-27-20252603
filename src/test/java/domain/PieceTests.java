@@ -1745,6 +1745,43 @@ class PieceTests {
         );
     }
 
+    @ParameterizedTest(name = "Valid King Castling: {0}")
+    @MethodSource("provideValidCastlingCases")
+    void kingMove_castling_valid(
+            String testName,
+            int fromRow, int fromCol,
+            int toRow, int toCol,
+            int rookRow, int rookCol
+    ) {
+        // Create the King and set history to un-moved
+        Piece king = new Piece(PieceType.KING, PieceColor.WHITE);
+        king.setMoved(false);
+
+        // Create the Rook and set history to un-moved
+        Piece castlingRook = new Piece(PieceType.ROOK, PieceColor.WHITE);
+        castlingRook.setMoved(false);
+
+        // 1. SPECIFIC RULE FIRST: Place the un-moved Rook at its starting corner
+        EasyMock.expect(board.getPiece(matchesLoc(rookRow, rookCol))).andReturn(castlingRook).anyTimes();
+
+        // 2. GENERIC RULE LAST: Assume all intermediate spaces are empty (null)
+        EasyMock.expect(board.getPiece(EasyMock.anyObject(Location.class))).andReturn(null).anyTimes();
+
+        EasyMock.replay(board);
+
+        // Castling moves (2-space horizontal shift on the home row) must return true
+        assertTrue(king.canMove(board, new Location(fromRow, fromCol), new Location(toRow, toCol)));
+
+        EasyMock.verify(board);
+    }
+
+    private static Stream<Arguments> provideValidCastlingCases() {
+        return Stream.of(
+                Arguments.of("KiTC17: Kingside Castling",  0, 4, 0, 6,  0, 7),
+                Arguments.of("KiTC18: Queenside Castling", 0, 4, 0, 2,  0, 0)
+        );
+    }
+
     private static Location matchesLoc(int expectedRow, int expectedCol) {
         EasyMock.reportMatcher(new org.easymock.IArgumentMatcher() {
             @Override

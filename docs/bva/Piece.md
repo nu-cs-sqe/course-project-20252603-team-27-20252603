@@ -1348,11 +1348,11 @@ Expected output: true
 
 ## Valid move case 3: castling
 
-KiTC17: King castles kingside, clear path, neither piece has moved
+KiTC17: King castles kingside, clear path, neither piece has moved (:X:)
 State of the system: from (0,4) to (0,6), isEmpty at (0,5), isEmpty at (0,6), king has not moved, rook at (0,7) has not moved
 Expected output: true
 
-KiTC18: King castles queenside, clear path, neither piece has moved
+KiTC18: King castles queenside, clear path, neither piece has moved (:X:)
 State of the system: from (0,4) to (0,2), isEmpty at (0,3), isEmpty at (0,2), isEmpty at (0,1), king has not moved, rook at (0,0) has not moved
 Expected output: true
 

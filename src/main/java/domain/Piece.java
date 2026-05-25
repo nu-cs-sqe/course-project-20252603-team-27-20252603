@@ -157,6 +157,38 @@ public class Piece {
         int rowDiff = Math.abs(to.getRow() - from.getRow());
         int colDiff = Math.abs(to.getCol() - from.getCol());
 
-        return !((rowDiff == 0 && colDiff == 0) || rowDiff > 1 || colDiff > 1);
+        if (rowDiff == 0 && colDiff == 2 && !this.hasMoved()) {
+            return isValidCastlingAttempt(board, from, to);
+        }
+
+        if ((rowDiff == 0 && colDiff == 0) || rowDiff > 1 || colDiff > 1) {
+            return false;
+        }
+
+        Piece target = board.getPiece(to);
+        return target == null || target.getColor() != this.getColor();
+    }
+
+    private boolean isValidCastlingAttempt(Board board, Location from, Location to) {
+        boolean isKingside = (to.getCol() == 6);
+        int rookSourceCol = isKingside ? 7 : 0;
+
+        Location rookLocation = new Location(from.getRow(), rookSourceCol);
+        Piece rook = board.getPiece(rookLocation);
+
+        if (rook == null || rook.getPieceType() != PieceType.ROOK || rook.getColor() != this.getColor() || rook.hasMoved()) {
+            return false;
+        }
+
+        int startCol = Math.min(from.getCol(), rookSourceCol) + 1;
+        int endCol = Math.max(from.getCol(), rookSourceCol);
+
+        for (int col = startCol; col < endCol; col++) {
+            if (board.getPiece(new Location(from.getRow(), col)) != null) {
+                return false;
+            }
+        }
+
+        return true;
     }
 }
