@@ -17,7 +17,7 @@
 
 ## Valid move case 1: one space forward to empty position
 
-PTC1: Pawn moves one space forward, hasMoved, to empty position
+PTC1: Pawn moves one space forward, hasMoved, to empty position ( :X: )
 State of the system: from (2,0) to (3,0), hasMoved, isEmpty at (3,0)
 Expected output: true
 
