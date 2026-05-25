@@ -4,6 +4,11 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.*;
 import org.easymock.EasyMock;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.Arguments;
+import org.junit.jupiter.params.provider.MethodSource;
+
+import java.util.stream.Stream;
 
 
 class PieceTests {
@@ -153,6 +158,52 @@ class PieceTests {
                 .andReturn(friendPawn); // destination occupied
         EasyMock.replay(board);
         assertFalse(pawn.canMove(board, new Location(1, 0), new Location(3, 0)));
+    }
+
+    @ParameterizedTest(name = "Two forward blocked path: hasMoved=false, blockingPiece={0}")
+    @MethodSource("providePathBlockedMoves")
+    void pawnTwoForward_pathBlocked_invalid_Case3(PieceColor blockingColor) {
+        Piece pawn = new Piece(PieceType.PAWN, PieceColor.WHITE);
+        pawn.setMoved(false);
+
+        Piece blockingPiece = new Piece(PieceType.PAWN, blockingColor);
+
+        // 1. Tell the board to return the blocking piece ONLY at row 2, col 0
+        EasyMock.expect(board.getPiece(matchesLoc(2, 0))).andReturn(blockingPiece).anyTimes();
+
+        // 2. Tell the board to return null (empty) for the destination row 3, col 0
+        EasyMock.expect(board.getPiece(matchesLoc(3, 0))).andReturn(null).anyTimes();
+
+        EasyMock.replay(board);
+
+        // Attempting to move from (1,0) to (3,0) should fail
+        assertFalse(pawn.canMove(board, new Location(1, 0), new Location(3, 0)));
+
+        EasyMock.verify(board);
+    }
+
+    private static Stream<Arguments> providePathBlockedMoves() {
+        return Stream.of(
+                Arguments.of(PieceColor.BLACK), // PTC14: foe in path
+                Arguments.of(PieceColor.WHITE)  // PTC15: friend in path
+        );
+    }
+
+    private static Location matchesLoc(int expectedRow, int expectedCol) {
+        EasyMock.reportMatcher(new org.easymock.IArgumentMatcher() {
+            @Override
+            public boolean matches(Object argument) {
+                if (!(argument instanceof Location)) return false;
+                Location loc = (Location) argument;
+                return loc.getRow() == expectedRow && loc.getCol() == expectedCol;
+            }
+
+            @Override
+            public void appendTo(StringBuffer buffer) {
+                buffer.append("matchesLoc(").append(expectedRow).append(", ").append(expectedCol).append(")");
+            }
+        });
+        return null; // EasyMock matchers always return a dummy value (null) during recording
     }
 
 }

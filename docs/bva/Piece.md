@@ -79,11 +79,11 @@ Expected output: false
 
 ## Invalid move case 3: two spaces forward on first move, piece in path
 
-PTC14: Pawn moves two spaces forward, !hasMoved, foe in path
+PTC14: Pawn moves two spaces forward, !hasMoved, foe in path (:X:)
 State of the system: from (1,0) to (3,0), !hasMoved, !isEmpty at (2,0), foe at (2,0), isEmpty at (3,0)
 Expected output: false
 
-PTC15: Pawn moves two spaces forward, !hasMoved, friend in path
+PTC15: Pawn moves two spaces forward, !hasMoved, friend in path (:X:)
 State of the system: from (1,0) to (3,0), !hasMoved, !isEmpty at (2,0), friend at (2,0), isEmpty at (3,0)
 Expected output: false
 
