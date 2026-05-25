@@ -264,23 +264,23 @@ Expected output: false
 
 ## Invalid move case 9: out-of-bounds
 
-PTC57: Pawn moves one space forward out-of-bounds, top boundary
+PTC57: Pawn moves one space forward out-of-bounds, top boundary (:X:)
 State of the system: from (7,0) to (8,0), hasMoved
 Expected output: false
 
-PTC58: Pawn moves one space forward-right out-of-bounds, top boundary
+PTC58: Pawn moves one space forward-right out-of-bounds, top boundary (:X:)
 State of the system: from (7,0) to (8,1), hasMoved
 Expected output: false
 
-PTC59: Pawn moves one space forward-left out-of-bounds, top boundary
+PTC59: Pawn moves one space forward-left out-of-bounds, top boundary (:X:)
 State of the system: from (7,1) to (8,0), hasMoved
 Expected output: false
 
-PTC60: Pawn moves one space forward-left out-of-bounds, left boundary
+PTC60: Pawn moves one space forward-left out-of-bounds, left boundary (:X:)
 State of the system: from (2,0) to (3,-1), hasMoved
 Expected output: false
 
-PTC61: Pawn moves one space forward-right out-of-bounds, right boundary
+PTC61: Pawn moves one space forward-right out-of-bounds, right boundary (:X:)
 State of the system: from (2,7) to (3,8), hasMoved
 Expected output: false
 

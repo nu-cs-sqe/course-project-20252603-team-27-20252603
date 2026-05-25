@@ -17,6 +17,9 @@ public class Piece {
     public void setMoved(boolean moved) { this.moved = moved; }
     public PieceColor getColor() { return this.pieceColor; }
     public boolean canMove(Board board, Location from, Location to) {
+        if (to.getRow() < 0 || to.getRow() > 7 || to.getCol() < 0 || to.getCol() > 7) {
+            return false;
+        }
         int rowDiff = to.getRow() - from.getRow();
         int colDiff = to.getCol() - from.getCol();
 

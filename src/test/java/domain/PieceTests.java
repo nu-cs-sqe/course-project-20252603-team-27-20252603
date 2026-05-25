@@ -388,6 +388,36 @@ class PieceTests {
         );
     }
 
+    @ParameterizedTest(name = "Out-of-bounds invalid: {0}")
+    @MethodSource("provideOutOfBoundsCases")
+    void pawnOutOfBoundsMove_invalid(
+            String testName,
+            int fromRow, int fromCol,
+            int toRow, int toCol
+    ) {
+        Piece pawn = new Piece(PieceType.PAWN, PieceColor.WHITE);
+        pawn.setMoved(true); // Applied to all cases in this batch
+
+        // Even for out-of-bounds coordinates, our mock safely says the square is empty (null)
+        EasyMock.expect(board.getPiece(matchesLoc(toRow, toCol))).andReturn(null).anyTimes();
+        EasyMock.replay(board);
+
+        // Any attempt to move to a row or column outside 0-7 must return false
+        assertFalse(pawn.canMove(board, new Location(fromRow, fromCol), new Location(toRow, toCol)));
+
+        EasyMock.verify(board);
+    }
+
+    private static Stream<Arguments> provideOutOfBoundsCases() {
+        return Stream.of(
+                Arguments.of("PTC57: top boundary straight", 7, 0,  8,  0),
+                Arguments.of("PTC58: top boundary right",    7, 0,  8,  1),
+                Arguments.of("PTC59: top boundary left",     7, 1,  8,  0),
+                Arguments.of("PTC60: left boundary diagonal", 2, 0,  3, -1),
+                Arguments.of("PTC61: right boundary diagonal",2, 7,  3,  8)
+        );
+    }
+
     private static Location matchesLoc(int expectedRow, int expectedCol) {
         EasyMock.reportMatcher(new org.easymock.IArgumentMatcher() {
             @Override
