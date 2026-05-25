@@ -1026,19 +1026,19 @@ Expectation: true
 
 ## Valid move case 3: max spaces, clear path, to empty position
 
-BTC9: Move diagonally forward-right max spaces to empty position, clear path
+BTC9: Move diagonally forward-right max spaces to empty position, clear path  (:X:)
 State: from (0,0) to (7,7), isEmpty from (1,1) to (7,7)
 Expectation: true
 
-BTC10: Move diagonally forward-left max spaces to empty position, clear path
+BTC10: Move diagonally forward-left max spaces to empty position, clear path (:X:)
 State: from (0,7) to (7,0), isEmpty from (1,6) to (7,0)
 Expectation: true
 
-BTC11: Move diagonally backward-right max spaces to empty position, clear path
+BTC11: Move diagonally backward-right max spaces to empty position, clear path (:X:)
 State: from (7,7) to (0,0), isEmpty from (6,6) to (0,0)
 Expectation: true
 
-BTC12: Move diagonally backward-left max spaces to empty position, clear path
+BTC12: Move diagonally backward-left max spaces to empty position, clear path (:X:)
 State: from (7,0) to (0,7), isEmpty from (6,1) to (0,7)
 Expectation: true
 

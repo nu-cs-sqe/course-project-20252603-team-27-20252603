@@ -1288,6 +1288,34 @@ class PieceTests {
         );
     }
 
+    @ParameterizedTest(name = "Valid Bishop max slide: {0}")
+    @MethodSource("provideValidBishopMaxEmptyMoves")
+    void bishopMaxMove_empty_valid(
+            String testName,
+            int fromRow, int fromCol,
+            int toRow, int toCol
+    ) {
+        Piece bishop = new Piece(PieceType.BISHOP, PieceColor.WHITE);
+
+        // All squares across the board are completely empty (null)
+        EasyMock.expect(board.getPiece(EasyMock.anyObject(Location.class))).andReturn(null).anyTimes();
+        EasyMock.replay(board);
+
+        // Full-length diagonal translations over empty paths must return true
+        assertTrue(bishop.canMove(board, new Location(fromRow, fromCol), new Location(toRow, toCol)));
+
+        EasyMock.verify(board);
+    }
+
+    private static Stream<Arguments> provideValidBishopMaxEmptyMoves() {
+        return Stream.of(
+                Arguments.of("BTC9: forward-right max (0,0 to 7,7)",  0, 0, 7, 7),
+                Arguments.of("BTC10: forward-left max (0,7 to 7,0)",  0, 7, 7, 0),
+                Arguments.of("BTC11: backward-left max (7,7 to 0,0)", 7, 7, 0, 0),
+                Arguments.of("BTC12: backward-right max (7,0 to 0,7)",7, 0, 0, 7)
+        );
+    }
+
     private static Location matchesLoc(int expectedRow, int expectedCol) {
         EasyMock.reportMatcher(new org.easymock.IArgumentMatcher() {
             @Override
