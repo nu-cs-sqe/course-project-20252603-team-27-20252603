@@ -976,6 +976,16 @@ KTC93: Knight moves to its own current square (distance zero) (:X:)
 State of the system: from (3,3) to (3,3)
 Expected output: false
 
+## Valid moves case 5: path foe-obstructed (Jumping Enemy Mechanic)
+
+KTC94: Knight moves in valid forward-left L-shape to empty position, foe-obstructed
+State of the system: from (3,3) to (5,4), isEmpty at (5,4), !isEmpty at (4,3), foe at (4,3)
+Expected output: true
+
+KTC95: Knight moves in valid forward-left L-shape to foe-occupied position, foe-obstructed
+State of the system: from (3,3) to (5,4), !isEmpty at (5,4), foe at (5,4), !isEmpty at (4,3), foe at (4,3)
+Expected output: true
+
 ### PieceType under test: Bishop
 
 ## Valid move case 1: one space to empty positions

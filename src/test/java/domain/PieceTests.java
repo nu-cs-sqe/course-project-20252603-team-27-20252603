@@ -1190,6 +1190,47 @@ class PieceTests {
         EasyMock.verify(board);
     }
 
+    @ParameterizedTest(name = "Valid Knight jump over foe: {0}")
+    @MethodSource("provideValidKnightFoeObstructedPathCases")
+    void knightLMove_foeObstructedPath_valid(
+            String testName,
+            int fromRow, int fromCol,
+            int blockRow, int blockCol,
+            int toRow, int toCol,
+            Piece destPiece
+    ) {
+        Piece knight = new Piece(PieceType.KNIGHT, PieceColor.WHITE);
+        Piece foeBlocker = new Piece(PieceType.PAWN, PieceColor.BLACK);
+
+        // 1. Specific Rule: Place an enemy piece on the intermediate path
+        EasyMock.expect(board.getPiece(matchesLoc(blockRow, blockCol)))
+                .andReturn(foeBlocker).anyTimes();
+
+        // 2. Specific Rule: Setup the final destination target square
+        EasyMock.expect(board.getPiece(matchesLoc(toRow, toCol)))
+                .andReturn(destPiece).anyTimes();
+
+        // 3. Generic Rule: Fallback wildcard for any other coordinate queries
+        EasyMock.expect(board.getPiece(EasyMock.anyObject(Location.class)))
+                .andReturn(null).anyTimes();
+
+        EasyMock.replay(board);
+
+        // Knights jump over enemy pieces equally transparently
+        assertTrue(knight.canMove(board, new Location(fromRow, fromCol), new Location(toRow, toCol)));
+
+        EasyMock.verify(board);
+    }
+
+    private static Stream<Arguments> provideValidKnightFoeObstructedPathCases() {
+        Piece enemyCaptureTarget = new Piece(PieceType.PAWN, PieceColor.BLACK);
+
+        return Stream.of(
+                Arguments.of("KTC94: forward-left, jump enemy to empty square", 3, 3, 4, 3, 5, 4, null),
+                Arguments.of("KTC95: forward-left, jump enemy to capture enemy", 3, 3, 4, 3, 5, 4, enemyCaptureTarget)
+        );
+    }
+
     private static Location matchesLoc(int expectedRow, int expectedCol) {
         EasyMock.reportMatcher(new org.easymock.IArgumentMatcher() {
             @Override
