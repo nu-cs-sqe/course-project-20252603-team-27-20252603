@@ -69,11 +69,11 @@ Expected output: false
 
 ## Invalid move case 2: two spaces forward on first move to occupied position
 
-PTC12: Pawn moves two spaces forward, !hasMoved, to foe-occupied position
+PTC12: Pawn moves two spaces forward, !hasMoved, to foe-occupied position (:X:)
 State of the system: from (1,0) to (3,0), !hasMoved, isEmpty at (2,0), !isEmpty at (3,0), foe at (3,0)
 Expected output: false
 
-PTC13: Pawn moves two spaces forward, !hasMoved, to friend-occupied position
+PTC13: Pawn moves two spaces forward, !hasMoved, to friend-occupied position (:X:)
 State of the system: from (1,0) to (3,0), !hasMoved, isEmpty at (2,0), !isEmpty at (3,0), friend at (3,0)
 Expected output: false
 

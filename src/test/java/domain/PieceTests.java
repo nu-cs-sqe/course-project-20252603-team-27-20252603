@@ -143,5 +143,17 @@ class PieceTests {
         EasyMock.replay(board);
         assertFalse(pawn.canMove(board, new Location(1, 0), new Location(3, 0)));
     }
+
+    @Test
+    void PTC13_pawnTwoForward_notMoved_friendDest() {
+        Piece pawn = new Piece(PieceType.PAWN, PieceColor.WHITE);
+        Piece friendPawn = new Piece(PieceType.PAWN, PieceColor.WHITE);
+        EasyMock.expect(board.getPiece(EasyMock.anyObject(Location.class)))
+                .andReturn(null)        // intermediate square empty
+                .andReturn(friendPawn); // destination occupied
+        EasyMock.replay(board);
+        assertFalse(pawn.canMove(board, new Location(1, 0), new Location(3, 0)));
+    }
+
 }
 
