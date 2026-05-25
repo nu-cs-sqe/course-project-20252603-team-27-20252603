@@ -89,15 +89,15 @@ Expected output: false
 
 ## Invalid move case 4: two spaces forward after having moved
 
-PTC16: Pawn moves two spaces forward, hasMoved, to empty position
+PTC16: Pawn moves two spaces forward, hasMoved, to empty position (:X:)
 State of the system: from (2,0) to (4,0), hasMoved, isEmpty at (3,0), isEmpty at (4,0)
 Expected output: false
 
-PTC17: Pawn moves two spaces forward, hasMoved, to foe-occupied position
+PTC17: Pawn moves two spaces forward, hasMoved, to foe-occupied position (:X:)
 State of the system: from (2,0) to (4,0), hasMoved, isEmpty at (3,0), !isEmpty at (4,0), foe at (4,0)
 Expected output: false
 
-PTC18: Pawn moves two spaces forward, hasMoved, to friend-occupied position
+PTC18: Pawn moves two spaces forward, hasMoved, to friend-occupied position (:X:)
 State of the system: from (2,0) to (4,0), hasMoved, isEmpty at (3,0), !isEmpty at (4,0), friend at (4,0)
 Expected output: false
 

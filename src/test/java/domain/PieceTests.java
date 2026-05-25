@@ -189,6 +189,30 @@ class PieceTests {
         );
     }
 
+    @ParameterizedTest(name = "Two forward after moved: destination contains {0}")
+    @MethodSource("provideAlreadyMovedTwoForwardCases")
+    void pawnTwoForward_alreadyMoved_invalid_Case4(String caseName, Piece destPiece) {
+        Piece pawn = new Piece(PieceType.PAWN, PieceColor.WHITE);
+        pawn.setMoved(true); // Crucial: the pawn HAS moved
+
+        EasyMock.expect(board.getPiece(matchesLoc(3, 0))).andReturn(null).anyTimes();
+        EasyMock.expect(board.getPiece(matchesLoc(4, 0))).andReturn(destPiece).anyTimes();
+
+        EasyMock.replay(board);
+
+        assertFalse(pawn.canMove(board, new Location(2, 0), new Location(4, 0)));
+
+        EasyMock.verify(board);
+    }
+
+    private static Stream<Arguments> provideAlreadyMovedTwoForwardCases() {
+        return Stream.of(
+                Arguments.of("Empty space",  null),                                // PTC16
+                Arguments.of("Foe piece",   new Piece(PieceType.PAWN, PieceColor.BLACK)), // PTC17
+                Arguments.of("Friend piece",new Piece(PieceType.PAWN, PieceColor.WHITE))  // PTC18
+        );
+    }
+
     private static Location matchesLoc(int expectedRow, int expectedCol) {
         EasyMock.reportMatcher(new org.easymock.IArgumentMatcher() {
             @Override
