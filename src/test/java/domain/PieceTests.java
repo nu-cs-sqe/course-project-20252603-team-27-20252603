@@ -1035,6 +1035,53 @@ class PieceTests {
         );
     }
 
+    @ParameterizedTest(name = "Invalid Knight two-diagonal move: {0}")
+    @MethodSource("provideInvalidKnightTwoDiagonalMoves")
+    void knightMove_twoDiagonal_invalid(
+            String testName,
+            int fromRow, int fromCol,
+            int toRow, int toCol,
+            Piece destPiece
+    ) {
+        Piece knight = new Piece(PieceType.KNIGHT, PieceColor.WHITE);
+
+        // Mock the exact piece status of the destination square
+        EasyMock.expect(board.getPiece(matchesLoc(toRow, toCol))).andReturn(destPiece).anyTimes();
+        EasyMock.replay(board);
+
+        // Two-space diagonal steps must return false
+        assertFalse(knight.canMove(board, new Location(fromRow, fromCol), new Location(toRow, toCol)));
+
+        EasyMock.verify(board);
+    }
+
+    private static Stream<Arguments> provideInvalidKnightTwoDiagonalMoves() {
+        Piece friend = new Piece(PieceType.PAWN, PieceColor.WHITE);
+        Piece foe = new Piece(PieceType.PAWN, PieceColor.BLACK);
+
+        return Stream.of(
+                // Forward-Right (5,5) variants
+                Arguments.of("KTC53: forward-right two-diagonals, empty",  3, 3, 5, 5, null),
+                Arguments.of("KTC54: forward-right two-diagonals, friend", 3, 3, 5, 5, friend),
+                Arguments.of("KTC55: forward-right two-diagonals, foe",    3, 3, 5, 5, foe),
+
+                // Forward-Left (5,1) variants
+                Arguments.of("KTC56: forward-left two-diagonals, empty",   3, 3, 5, 1, null),
+                Arguments.of("KTC57: forward-left two-diagonals, friend",  3, 3, 5, 1, friend),
+                Arguments.of("KTC58: forward-left two-diagonals, foe",     3, 3, 5, 1, foe),
+
+                // Backward-Right (1,5) variants
+                Arguments.of("KTC59: backward-right two-diagonals, empty", 3, 3, 1, 5, null),
+                Arguments.of("KTC60: backward-right two-diagonals, friend",3, 3, 1, 5, friend),
+                Arguments.of("KTC61: backward-right two-diagonals, foe",   3, 3, 1, 5, foe),
+
+                // Backward-Left (1,1) variants
+                Arguments.of("KTC62: backward-left two-diagonals, empty",  3, 3, 1, 1, null),
+                Arguments.of("KTC63: backward-left two-diagonals, friend", 3, 3, 1, 1, friend),
+                Arguments.of("KTC64: backward-left two-diagonals, foe",    3, 3, 1, 1, foe)
+        );
+    }
+
     private static Location matchesLoc(int expectedRow, int expectedCol) {
         EasyMock.reportMatcher(new org.easymock.IArgumentMatcher() {
             @Override

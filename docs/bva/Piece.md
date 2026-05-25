@@ -800,51 +800,51 @@ Expected output: false
 
 ## Invalid move case 3: too long L-shape (two-space diagonal)
 
-KTC53: Knight moves two spaces diagonally forward-right, to empty position
+KTC53: Knight moves two spaces diagonally forward-right, to empty position (:X:)
 State of the system: from (3,3) to (5,5), isEmpty at (5,5)
 Expected output: false
 
-KTC54: Knight moves two spaces diagonally forward-right, to friend-occupied position
+KTC54: Knight moves two spaces diagonally forward-right, to friend-occupied position (:X:)
 State of the system: from (3,3) to (5,5), !isEmpty at (5,5), friend at (5,5)
 Expected output: false
 
-KTC55: Knight moves two spaces diagonally forward-right, to foe-occupied position
+KTC55: Knight moves two spaces diagonally forward-right, to foe-occupied position (:X:)
 State of the system: from (3,3) to (5,5), !isEmpty at (5,5), foe at (5,5)
 Expected output: false
 
-KTC56: Knight moves two spaces diagonally forward-left, to empty position
+KTC56: Knight moves two spaces diagonally forward-left, to empty position (:X:)
 State of the system: from (3,3) to (5,1), isEmpty at (5,1)
 Expected output: false
 
-KTC57: Knight moves two spaces diagonally forward-left, to friend-occupied position
+KTC57: Knight moves two spaces diagonally forward-left, to friend-occupied position (:X:)
 State of the system: from (3,3) to (5,1), !isEmpty at (5,1), friend at (5,1)
 Expected output: false
 
-KTC58: Knight moves two spaces diagonally forward-left, to foe-occupied position
+KTC58: Knight moves two spaces diagonally forward-left, to foe-occupied position (:X:)
 State of the system: from (3,3) to (5,1), !isEmpty at (5,1), foe at (5,1)
 Expected output: false
 
-KTC59: Knight moves two spaces diagonally backward-right, to empty position
+KTC59: Knight moves two spaces diagonally backward-right, to empty position (:X:)
 State of the system: from (3,3) to (1,5), isEmpty at (1,5)
 Expected output: false
 
-KTC60: Knight moves two spaces diagonally backward-right, to friend-occupied position
+KTC60: Knight moves two spaces diagonally backward-right, to friend-occupied position (:X:)
 State of the system: from (3,3) to (1,5), !isEmpty at (1,5), friend at (1,5)
 Expected output: false
 
-KTC61: Knight moves two spaces diagonally backward-right, to foe-occupied position
+KTC61: Knight moves two spaces diagonally backward-right, to foe-occupied position (:X:)
 State of the system: from (3,3) to (1,5), !isEmpty at (1,5), foe at (1,5)
 Expected output: false
 
-KTC62: Knight moves two spaces diagonally backward-left, to empty position
+KTC62: Knight moves two spaces diagonally backward-left, to empty position (:X:)
 State of the system: from (3,3) to (1,1), isEmpty at (1,1)
 Expected output: false
 
-KTC63: Knight moves two spaces diagonally backward-left, to friend-occupied position
+KTC63: Knight moves two spaces diagonally backward-left, to friend-occupied position (:X:)
 State of the system: from (3,3) to (1,1), !isEmpty at (1,1), friend at (1,1)
 Expected output: false
 
-KTC64: Knight moves two spaces diagonally backward-left, to foe-occupied position
+KTC64: Knight moves two spaces diagonally backward-left, to foe-occupied position (:X:)
 State of the system: from (3,3) to (1,1), !isEmpty at (1,1), foe at (1,1)
 Expected output: false
 
