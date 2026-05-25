@@ -25,7 +25,8 @@ public class Piece {
                 return board.getPiece(to) == null;
             }
             if (rowDiff == 2 &&  colDiff == 0 && !this.hasMoved()) {
-                return board.getPiece(to) == null;
+                Location intermediateLocation = new Location(from.getRow() + 1, from.getCol());
+                return board.getPiece(intermediateLocation) == null && board.getPiece(to) == null;
             }
             if (rowDiff == 1 && Math.abs(colDiff) == 1) {
                 Piece target = board.getPiece(to);
