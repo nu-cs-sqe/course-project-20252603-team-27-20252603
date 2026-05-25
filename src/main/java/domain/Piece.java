@@ -24,6 +24,9 @@ public class Piece {
             if (rowDiff == 1 && colDiff == 0) {
                 return board.getPiece(to) == null;
             }
+            if (rowDiff == 2 &&  colDiff == 0 && !this.hasMoved()) {
+                return board.getPiece(to) == null;
+            }
         }
         return false;
     }

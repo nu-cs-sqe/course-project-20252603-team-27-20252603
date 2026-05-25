@@ -25,8 +25,15 @@ class PieceTests {
     @Test
     void PTC2_pawnOneForward_hasNotMoved_emptyDest() {
         Piece pawn = new Piece(PieceType.PAWN, PieceColor.WHITE);
-        pawn.setMoved(true);
+        pawn.setMoved(false);
         assertTrue(pawn.canMove(board, new Location(1, 0), new Location(2, 0)));
+    }
+
+    @Test
+    void PTC3_pawnTwoForward_hasNotMoved_emptyDest() {
+        Piece pawn = new Piece(PieceType.PAWN, PieceColor.WHITE);
+        pawn.setMoved(false);
+        assertTrue(pawn.canMove(board, new Location(1, 0), new Location(3, 0)));
     }
 }
 

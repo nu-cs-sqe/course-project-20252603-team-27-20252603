@@ -21,13 +21,13 @@ PTC1: Pawn moves one space forward, hasMoved, to empty position ( :X: )
 State of the system: from (2,0) to (3,0), hasMoved, isEmpty at (3,0)
 Expected output: true
 
-PTC2: Pawn moves one space forward, !hasMoved, to empty position
+PTC2: Pawn moves one space forward, !hasMoved, to empty position ( :X: )
 State of the system: from (1,0) to (2,0), !hasMoved, isEmpty at (2,0)
 Expected output: true
 
 ## Valid move case 2: two spaces forward on first move, clear path, to empty position
 
-PTC3: Pawn moves two spaces forward, !hasMoved, clear path, to empty position
+PTC3: Pawn moves two spaces forward, !hasMoved, clear path, to empty position ( :X: )
 State of the system: from (1,0) to (3,0), !hasMoved, isEmpty at (2,0), isEmpty at (3,0)
 Expected output: true
 
