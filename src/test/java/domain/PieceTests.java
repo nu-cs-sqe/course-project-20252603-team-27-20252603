@@ -955,6 +955,39 @@ class PieceTests {
         );
     }
 
+    @ParameterizedTest(name = "Invalid Knight friend landing: {0}")
+    @MethodSource("provideInvalidKnightFriendMoves")
+    void knightLMove_friendOccupied_invalid(
+            String testName,
+            int fromRow, int fromCol,
+            int toRow, int toCol
+    ) {
+        Piece knight = new Piece(PieceType.KNIGHT, PieceColor.WHITE);
+        Piece friend = new Piece(PieceType.PAWN, PieceColor.WHITE);
+
+        // Mock a friendly piece sitting directly at the destination square
+        EasyMock.expect(board.getPiece(matchesLoc(toRow, toCol))).andReturn(friend).anyTimes();
+        EasyMock.replay(board);
+
+        // Legal geometric shapes ending on a friendly piece must return false
+        assertFalse(knight.canMove(board, new Location(fromRow, fromCol), new Location(toRow, toCol)));
+
+        EasyMock.verify(board);
+    }
+
+    private static Stream<Arguments> provideInvalidKnightFriendMoves() {
+        return Stream.of(
+                Arguments.of("KTC33: forward-left, friend",   3, 3, 5, 4),
+                Arguments.of("KTC34: forward-right, friend", 3, 3, 5, 2),
+                Arguments.of("KTC35: right-forward, friend", 3, 3, 4, 1),
+                Arguments.of("KTC36: right-backward, friend",3, 3, 2, 1),
+                Arguments.of("KTC37: backward-left, friend", 3, 3, 1, 4),
+                Arguments.of("KTC38: backward-right, friend",3, 3, 1, 2),
+                Arguments.of("KTC39: left-forward, friend",  3, 3, 4, 5),
+                Arguments.of("KTC40: left-backward, friend", 3, 3, 2, 5)
+        );
+    }
+
     private static Location matchesLoc(int expectedRow, int expectedCol) {
         EasyMock.reportMatcher(new org.easymock.IArgumentMatcher() {
             @Override

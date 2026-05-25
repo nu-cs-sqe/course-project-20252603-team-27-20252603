@@ -716,35 +716,35 @@ Expected output: true
 
 ## Invalid moves case 1: valid move to friend-occupied position
 
-KTC33: Knight moves in valid forward-left L-shape to friend-occupied position
+KTC33: Knight moves in valid forward-left L-shape to friend-occupied position (:X:)
 State of the system: from (3,3) to (5,4), !isEmpty at (5,4), friend at (5,4)
 Expected output: false
 
-KTC34: Knight moves in valid forward-right L-shape to friend-occupied position
+KTC34: Knight moves in valid forward-right L-shape to friend-occupied position (:X:)
 State of the system: from (3,3) to (5,2), !isEmpty at (5,2), friend at (5,2)
 Expected output: false
 
-KTC35: Knight moves in valid right-forward L-shape to friend-occupied position
+KTC35: Knight moves in valid right-forward L-shape to friend-occupied position (:X:)
 State of the system: from (3,3) to (4,1), !isEmpty at (4,1), friend at (4,1)
 Expected output: false
 
-KTC36: Knight moves in valid right-backward L-shape to friend-occupied position
+KTC36: Knight moves in valid right-backward L-shape to friend-occupied position (:X:)
 State of the system: from (3,3) to (2,1), !isEmpty at (2,1), friend at (2,1)
 Expected output: false
 
-KTC37: Knight moves in valid backward-left L-shape to friend-occupied position
+KTC37: Knight moves in valid backward-left L-shape to friend-occupied position (:X:)
 State of the system: from (3,3) to (1,4), !isEmpty at (1,4), friend at (1,4)
 Expected output: false
 
-KTC38: Knight moves in valid backward-right L-shape to friend-occupied position
+KTC38: Knight moves in valid backward-right L-shape to friend-occupied position (:X:)
 State of the system: from (3,3) to (1,2), !isEmpty at (1,2), friend at (1,2)
 Expected output: false
 
-KTC39: Knight moves in valid left-forward L-shape to friend-occupied position
+KTC39: Knight moves in valid left-forward L-shape to friend-occupied position (:X:)
 State of the system: from (3,3) to (4,5), !isEmpty at (4,5), friend at (4,5)
 Expected output: false
 
-KTC40: Knight moves in valid left-backward L-shape to friend-occupied position
+KTC40: Knight moves in valid left-backward L-shape to friend-occupied position (:X:)
 State of the system: from (3,3) to (2,5), !isEmpty at (2,5), friend at (2,5)
 Expected output: false
 

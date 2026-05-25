@@ -108,7 +108,9 @@ public class Piece {
         int rowDiff = Math.abs(to.getRow() - from.getRow());
         int colDiff = Math.abs(to.getCol() - from.getCol());
 
-        return ((colDiff == 1 && rowDiff == 2) || (colDiff == 2 && rowDiff == 1));
-
+        boolean isValidLShape = ((colDiff == 1 && rowDiff == 2) || (colDiff == 2 && rowDiff == 1));
+        if (!isValidLShape) { return false;}
+        Piece target = board.getPiece(to);
+        return target == null || target.getColor() != this.getColor();
     }
 }
