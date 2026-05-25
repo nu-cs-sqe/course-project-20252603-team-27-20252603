@@ -1378,6 +1378,39 @@ class PieceTests {
         );
     }
 
+    @ParameterizedTest(name = "Invalid Bishop max friend landing: {0}")
+    @MethodSource("provideInvalidBishopMaxFriendCases")
+    void bishopMaxMove_friendOccupied_invalid(
+            String testName,
+            int fromRow, int fromCol,
+            int toRow, int toCol
+    ) {
+        Piece bishop = new Piece(PieceType.BISHOP, PieceColor.WHITE);
+        Piece friend = new Piece(PieceType.PAWN, PieceColor.WHITE);
+
+        // 1. SPECIFIC RULE FIRST: Place the friendly piece right at the destination
+        EasyMock.expect(board.getPiece(matchesLoc(toRow, toCol))).andReturn(friend).anyTimes();
+
+        // 2. GENERIC RULE LAST: Assume all intermediate path squares are empty (null)
+        EasyMock.expect(board.getPiece(EasyMock.anyObject(Location.class))).andReturn(null).anyTimes();
+
+        EasyMock.replay(board);
+
+        // Full-length diagonal translations ending on a friend must return false
+        assertFalse(bishop.canMove(board, new Location(fromRow, fromCol), new Location(toRow, toCol)));
+
+        EasyMock.verify(board);
+    }
+
+    private static Stream<Arguments> provideInvalidBishopMaxFriendCases() {
+        return Stream.of(
+                Arguments.of("BTC21: forward-right max friend landing (0,0 to 7,7)",  0, 0, 7, 7),
+                Arguments.of("BTC22: forward-left max friend landing (0,7 to 7,0)",  0, 7, 7, 0),
+                Arguments.of("BTC23: backward-left max friend landing (7,7 to 0,0)", 7, 7, 0, 0),
+                Arguments.of("BTC24: backward-right max friend landing (7,0 to 0,7)",7, 0, 0, 7)
+        );
+    }
+
     private static Location matchesLoc(int expectedRow, int expectedCol) {
         EasyMock.reportMatcher(new org.easymock.IArgumentMatcher() {
             @Override

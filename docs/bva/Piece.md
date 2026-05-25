@@ -1080,19 +1080,19 @@ Expectation: false
 
 ## Invalid move case 2: max spaces, clear path, to friend-occupied position
 
-BTC21: Move diagonally forward-right max spaces to friend-occupied position, clear path
+BTC21: Move diagonally forward-right max spaces to friend-occupied position, clear path (:X:)
 State: from (0,0) to (7,7), isEmpty from (1,1) to (6,6), !isEmpty at (7,7), friend at (7,7)
 Expectation:false
 
-BTC22: Move diagonally forward-left max spaces to friend-occupied position, clear path
+BTC22: Move diagonally forward-left max spaces to friend-occupied position, clear path (:X:)
 State: from (0,7) to (7,0), isEmpty from (1,6) to (6,1), !isEmpty at (7,0), friend at (7,0)
 Expectation: false
 
-BTC23: Move diagonally backward-right max spaces to friend-occupied position, clear path
+BTC23: Move diagonally backward-right max spaces to friend-occupied position, clear path (:X:)
 State: from (7,7) to (0,0), isEmpty from (6,6) to (1,1), !isEmpty at (0,0), friend at (0,0)
 Expectation: false
 
-BTC24: Move diagonally backward-right max spaces to friend-occupied position, clear path
+BTC24: Move diagonally backward-right max spaces to friend-occupied position, clear path (:X:)
 State: from (7,0) to (0,7), isEmpty from (6,1) to (1,6), !isEmpty at (0,7), friend at (0,7)
 Expectation: false
 
