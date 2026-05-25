@@ -418,6 +418,30 @@ class PieceTests {
         );
     }
 
+    @ParameterizedTest(name = "Zero-distance move invalid: hasMoved={0}")
+    @MethodSource("provideZeroDistanceCases")
+    void pawnZeroDistanceMove_invalid(boolean hasMoved) {
+        Piece pawn = new Piece(PieceType.PAWN, PieceColor.WHITE);
+        pawn.setMoved(hasMoved);
+
+        // A piece is sitting on (2,0) because the pawn itself is there!
+        // Our mock returns the pawn itself if asked about its own square.
+        EasyMock.expect(board.getPiece(matchesLoc(2, 0))).andReturn(pawn).anyTimes();
+        EasyMock.replay(board);
+
+        // Any attempt to move from (2,0) to (2,0) must return false
+        assertFalse(pawn.canMove(board, new Location(2, 0), new Location(2, 0)));
+
+        EasyMock.verify(board);
+    }
+
+    private static Stream<Arguments> provideZeroDistanceCases() {
+        return Stream.of(
+                Arguments.of(true),  // PTC62: has moved before
+                Arguments.of(false) // PTC63: hasn't moved before
+        );
+    }
+
     private static Location matchesLoc(int expectedRow, int expectedCol) {
         EasyMock.reportMatcher(new org.easymock.IArgumentMatcher() {
             @Override

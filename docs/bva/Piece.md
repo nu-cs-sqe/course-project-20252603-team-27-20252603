@@ -286,11 +286,11 @@ Expected output: false
 
 ## Invalid move case 10: movement to same current space (no movement)
 
-PTC62: Pawn moves to its own current square (distance zero), has moved before
+PTC62: Pawn moves to its own current square (distance zero), has moved before (:X:)
 State of the system: from (2,0) to (2,0), hasMoved
 Expected output: false
 
-PTC63: Pawn moves to its own current square (distance zero), hasn’t moved before
+PTC63: Pawn moves to its own current square (distance zero), hasn’t moved before (:X:)
 State of the system: from (2,0) to (2,0), !hasMoved
 Expected output: false
 
