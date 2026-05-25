@@ -453,51 +453,51 @@ Expectation: false
 
 ## Invalid case 4: max-spaces, foe-obstructed path, to empty/friend/foe-occupied position
 
-RTC37: Rook moves forward maximum spaces, foe-obstructed path, to empty position
+RTC37: Rook moves forward maximum spaces, foe-obstructed path, to empty position (:X:)
 State: from (0,0) to (7,0), isEmpty at (7,0), !isEmpty at (1,0), foe at (1,0)
 Expectation: false
 
-RTC38: Rook moves forward maximum spaces, foe-obstructed path, to friend-occupied position
+RTC38: Rook moves forward maximum spaces, foe-obstructed path, to friend-occupied position (:X:)
 State: from (0,0) to (7,0), !isEmpty at (7,0), !isEmpty at (1,0), foe at (1,0), friend at (7,0)
 Expectation: false
 
-RTC39: Rook moves forward maximum spaces, foe-obstructed path, to foe-occupied position
+RTC39: Rook moves forward maximum spaces, foe-obstructed path, to foe-occupied position (:X:)
 State: from (0,0) to (7,0), !isEmpty at (7,0), !isEmpty at (1,0), foe at (1,0), foe at (7,0)
 Expectation: false
 
-RTC40: Rook moves backward maximum spaces, foe-obstructed path, to empty position
+RTC40: Rook moves backward maximum spaces, foe-obstructed path, to empty position (:X:)
 State: from (7,0) to (0,0), isEmpty at (0,0), !isEmpty at (6,0), foe at (6,0)
 Expectation: false
 
-RTC41: Rook moves backward maximum spaces, foe-obstructed path, to friend-occupied position
+RTC41: Rook moves backward maximum spaces, foe-obstructed path, to friend-occupied position (:X:)
 State: from (7,0) to (0,0), !isEmpty at (0,0), !isEmpty at (6,0), foe at (6,0), friend at (0,0)
 Expectation: false
 
-RTC42: Rook moves backward maximum spaces, foe-obstructed path, to foe-occupied position
+RTC42: Rook moves backward maximum spaces, foe-obstructed path, to foe-occupied position (:X:)
 State: from (7,0) to (0,0), !isEmpty at (0,0), !isEmpty at (6,0), foe at (6,0), foe at (0,0)
 Expectation: false
 
-RTC43: Rook moves left maximum spaces, foe-obstructed path, to empty position
+RTC43: Rook moves left maximum spaces, foe-obstructed path, to empty position (:X:)
 State: from (7,7) to (7,0), isEmpty at (7,0), !isEmpty at (7,6), foe at (7,6)
 Expectation: false
 
-RTC44: Rook moves left maximum spaces, foe-obstructed path, to friend-occupied position
+RTC44: Rook moves left maximum spaces, foe-obstructed path, to friend-occupied position (:X:)
 State: from (7,7) to (7,0), !isEmpty at (7,0), !isEmpty at (7,6), foe at (7,6), friend at (7,0)
 Expectation: false
 
-RTC45: Rook moves left maximum spaces, foe-obstructed path, to foe-occupied position
+RTC45: Rook moves left maximum spaces, foe-obstructed path, to foe-occupied position (:X:)
 State: from (7,7) to (7,0), !isEmpty at (7,0), !isEmpty at (7,6), foe at (7,6), foe at (7,0)
 Expectation: false
 
-RTC46: Rook moves right maximum spaces, foe-obstructed path, to empty position
+RTC46: Rook moves right maximum spaces, foe-obstructed path, to empty position (:X:)
 State: from (7,0) to (7,7), isEmpty at (7,7), !isEmpty at (7,1), foe at (7,1)
 Expectation: false
 
-RTC47: Rook moves right maximum spaces, foe-obstructed path, to friend-occupied position
+RTC47: Rook moves right maximum spaces, foe-obstructed path, to friend-occupied position (:X:)
 State: from (7,0) to (7,7), !isEmpty at (7,1), !isEmpty at (7,7), foe at (7,1), friend at (7,7)
 Expectation: false
 
-RTC48: Rook moves right maximum spaces, foe-obstructed path, to foe-occupied position
+RTC48: Rook moves right maximum spaces, foe-obstructed path, to foe-occupied position (:X:)
 State: from (7,0) to (7,7), !isEmpty at (7,1), !isEmpty at (7,7), foe at (7,1), foe at (7,7)
 Expectation: false
 
