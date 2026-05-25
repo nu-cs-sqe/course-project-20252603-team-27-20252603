@@ -385,19 +385,19 @@ Expectation: false
 
 ## Invalid case 2: max-spaces movement, clear path, to a friend-occupied position
 
-RTC21: Rook moves forward maximum spaces, clear path, to friend-occupied position
+RTC21: Rook moves forward maximum spaces, clear path, to friend-occupied position (:X:)
 State: from (0,0) to (7,0), isEmpty from (1,0) to (6,0), !isEmpty at (7,0), friend at (7,0)
 Expectation: false
 
-RTC22: Rook moves backward maximum spaces, clear path, to friend-occupied position
+RTC22: Rook moves backward maximum spaces, clear path, to friend-occupied position (:X:)
 State: from (7,0) to (0,0), isEmpty from (6,0) to (1,0), !isEmpty at (0,0), friend at (0,0)
 Expectation: false
 
-RTC23: Rook moves left maximum spaces, clear path, to friend-occupied position
+RTC23: Rook moves left maximum spaces, clear path, to friend-occupied position (:X:)
 State: from (0,7) to (0,0), isEmpty from (0,6) to (0,1), !isEmpty at (0,0), friend at (0,0)
 Expectation: false
 
-RTC24: Rook moves right maximum spaces, clear path, to friend-occupied position
+RTC24: Rook moves right maximum spaces, clear path, to friend-occupied position (:X:)
 State: from (0,0) to (0,7), isEmpty from (0,1) to (0,6), !isEmpty at (0,7), friend at (0,7)
 Expectation: false
 

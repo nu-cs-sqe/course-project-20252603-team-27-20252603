@@ -561,6 +561,41 @@ class PieceTests {
         );
     }
 
+    @ParameterizedTest(name = "Invalid Rook max slide: {0}")
+    @MethodSource("provideFriendBlockedRookMaxMoves")
+    void rookMaxMove_friendOccupied_invalid(
+            String testName,
+            int fromRow, int fromCol,
+            int toRow, int toCol
+    ) {
+        Piece rook = new Piece(PieceType.ROOK, PieceColor.WHITE);
+        Piece friend = new Piece(PieceType.PAWN, PieceColor.WHITE);
+
+        // 1. Specific rule FIRST: Tell EasyMock exactly what is at the destination
+        EasyMock.expect(board.getPiece(matchesLoc(toRow, toCol)))
+                .andReturn(friend).anyTimes();
+
+        // 2. Generic rule SECOND: Fallback wildcard for all intermediate path squares
+        EasyMock.expect(board.getPiece(EasyMock.anyObject(Location.class)))
+                .andReturn(null).anyTimes();
+
+        EasyMock.replay(board);
+
+        // Max slides to a friendly-occupied target must always return false
+        assertFalse(rook.canMove(board, new Location(fromRow, fromCol), new Location(toRow, toCol)));
+
+        EasyMock.verify(board);
+    }
+
+    private static Stream<Arguments> provideFriendBlockedRookMaxMoves() {
+        return Stream.of(
+                Arguments.of("RTC21: forward max, friend",  0, 0, 7, 0),
+                Arguments.of("RTC22: backward max, friend", 7, 0, 0, 0),
+                Arguments.of("RTC23: left max, friend",     0, 7, 0, 0),
+                Arguments.of("RTC24: right max, friend",    0, 0, 0, 7)
+        );
+    }
+
     private static Location matchesLoc(int expectedRow, int expectedCol) {
         EasyMock.reportMatcher(new org.easymock.IArgumentMatcher() {
             @Override
