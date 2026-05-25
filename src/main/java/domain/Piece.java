@@ -74,11 +74,15 @@ public class Piece {
         int colDiff = to.getCol() - from.getCol();
 
         boolean isStraightLine = (rowDiff != 0 && colDiff == 0) || (colDiff != 0 && rowDiff == 0);
+        if (!isStraightLine) { return false; }
 
-        if (!isStraightLine) {
-            return false;
-        }
+        if (isStraightPathObstructed(board, from, to, rowDiff, colDiff)) { return false; }
 
+        Piece target = board.getPiece(to);
+        return target == null || target.getColor() != this.getColor();
+    }
+
+    private boolean isStraightPathObstructed(Board board, Location from, Location to, int rowDiff, int colDiff) {
         int rowStep = Integer.compare(rowDiff, 0);
         int colStep = Integer.compare(colDiff, 0);
 
@@ -86,15 +90,13 @@ public class Piece {
         int currentCol = from.getCol() + colStep;
 
         while (currentRow != to.getRow() || currentCol != to.getCol()) {
-            Location intermediate = new Location(currentRow, currentCol);
-            if (board.getPiece(intermediate) != null) {
-                return false;
+            if (board.getPiece(new Location(currentRow, currentCol)) != null) {
+                return true;
             }
             currentRow += rowStep;
             currentCol += colStep;
         }
 
-        Piece target = board.getPiece(to);
-        return target == null || target.getColor() != this.getColor();
+        return false;
     }
 }
