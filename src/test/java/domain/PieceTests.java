@@ -213,6 +213,46 @@ class PieceTests {
         );
     }
 
+    @ParameterizedTest(name = "Diagonal forward invalid: {0}")
+    @MethodSource("provideInvalidDiagonalCases")
+    void pawnDiagonal_emptyOrFriendDest_invalid(
+            String testName,
+            boolean hasMoved,
+            int fromRow, int fromCol,
+            int toRow, int toCol,
+            Piece destPiece
+    ) {
+        Piece pawn = new Piece(PieceType.PAWN, PieceColor.WHITE);
+        pawn.setMoved(hasMoved);
+
+        // Tell the board mock what to return at the destination square
+        EasyMock.expect(board.getPiece(matchesLoc(toRow, toCol))).andReturn(destPiece).anyTimes();
+        EasyMock.replay(board);
+
+        // This diagonal move should always be denied (false)
+        assertFalse(pawn.canMove(board, new Location(fromRow, fromCol), new Location(toRow, toCol)));
+
+        EasyMock.verify(board);
+    }
+
+    private static Stream<Arguments> provideInvalidDiagonalCases() {
+        Piece friend = new Piece(PieceType.PAWN, PieceColor.WHITE);
+
+        return Stream.of(
+                // Empty destination cases
+                Arguments.of("PTC19: moved, right, empty",   true,  2, 1, 3, 2, null),
+                Arguments.of("PTC20: moved, left, empty",    true,  2, 1, 3, 0, null),
+                Arguments.of("PTC21: not moved, right, empty", false, 1, 1, 2, 2, null),
+                Arguments.of("PTC22: not moved, left, empty",  false, 1, 1, 2, 0, null),
+
+                // Friend-occupied destination cases
+                Arguments.of("PTC23: moved, right, friend",  true,  2, 1, 3, 2, friend),
+                Arguments.of("PTC24: moved, left, friend",   true,  2, 1, 3, 0, friend),
+                Arguments.of("PTC25: not moved, right, friend",false, 1, 1, 2, 2, friend),
+                Arguments.of("PTC26: not moved, left, friend", false, 1, 1, 2, 0, friend)
+        );
+    }
+
     private static Location matchesLoc(int expectedRow, int expectedCol) {
         EasyMock.reportMatcher(new org.easymock.IArgumentMatcher() {
             @Override

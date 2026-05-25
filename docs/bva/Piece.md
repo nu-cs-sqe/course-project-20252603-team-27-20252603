@@ -103,35 +103,35 @@ Expected output: false
 
 ## Invalid move case 5: one space forward diagonal to empty or friend-occupied position
 
-PTC19: Pawn moves one space forward-right, hasMoved, to empty position
+PTC19: Pawn moves one space forward-right, hasMoved, to empty position (:X:)
 State of the system: from (2,1) to (3,2), hasMoved, isEmpty at (3,2)
 Expected output: false
 
-PTC20: Pawn moves one space forward-left, hasMoved, to empty position
+PTC20: Pawn moves one space forward-left, hasMoved, to empty position (:X:)
 State of the system: from (2,1) to (3,0), hasMoved, isEmpty at (3,0)
 Expected output: false
 
-PTC21: Pawn moves one space forward-right, !hasMoved, to empty position
+PTC21: Pawn moves one space forward-right, !hasMoved, to empty position (:X:)
 State of the system: from (1,1) to (2,2), !hasMoved, isEmpty at (2,2)
 Expected output: false
 
-PTC22: Pawn moves one space forward-left, !hasMoved, to empty position
+PTC22: Pawn moves one space forward-left, !hasMoved, to empty position (:X:)
 State of the system: from (1,1) to (2,0), !hasMoved, isEmpty at (2,0)
 Expected output: false
 
-PTC23: Pawn moves one space forward-right, hasMoved, to friend-occupied position
+PTC23: Pawn moves one space forward-right, hasMoved, to friend-occupied position (:X:)
 State of the system: from (2,1) to (3,2), hasMoved, !isEmpty at (3,2), friend at (3,2)
 Expected output: false
 
-PTC24: Pawn moves one space forward-left, hasMoved, to friend-occupied position
+PTC24: Pawn moves one space forward-left, hasMoved, to friend-occupied position (:X:)
 State of the system: from (2,1) to (3,0), hasMoved, !isEmpty at (3,0), friend at (3,0)
 Expected output: false
 
-PTC25: Pawn moves one space forward-right, !hasMoved, to friend-occupied position
+PTC25: Pawn moves one space forward-right, !hasMoved, to friend-occupied position (:X:)
 State of the system: from (1,1) to (2,2), !hasMoved, !isEmpty at (2,2), friend at (2,2)
 Expected output: false
 
-PTC26: Pawn moves one space forward-left, !hasMoved, to friend-occupied position
+PTC26: Pawn moves one space forward-left, !hasMoved, to friend-occupied position (:X:)
 State of the system: from (1,1) to (2,0), !hasMoved, !isEmpty at (2,0), friend at (2,0)
 Expected output: false
 
