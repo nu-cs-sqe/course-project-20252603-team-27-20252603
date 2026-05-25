@@ -682,35 +682,35 @@ Expected output: true
 
 ## Valid moves case 4: to foe-occupied positions, path friend-obstructed
 
-KTC25: Knight moves in valid forward-left L-shape to foe-occupied position, friend-obstructed
+KTC25: Knight moves in valid forward-left L-shape to foe-occupied position, friend-obstructed (:X:)
 State of the system: from (3,3) to (5,4), !isEmpty at (5,4), foe at (5,4), !isEmpty at (4,3), friend at (4,3)
 Expected output: true
 
-KTC26: Knight moves in valid forward-right L-shape to foe-occupied position, friend-obstructed
+KTC26: Knight moves in valid forward-right L-shape to foe-occupied position, friend-obstructed (:X:)
 State of the system: from (3,3) to (5,2), !isEmpty at (5,2), foe at (5,2), !isEmpty at (4,3), friend at (4,3)
 Expected output: true
 
-KTC27: Knight moves in valid right-forward L-shape to foe-occupied position, friend-obstructed
-State of the system: from (3,3) to (4,1), !isEmpty at (4,1), foe at (5,2), !isEmpty at (3,2), friend at (3,2)
+KTC27: Knight moves in valid right-forward L-shape to foe-occupied position, friend-obstructed (:X:)
+State of the system: from (3,3) to (4,1), !isEmpty at (4,1), foe at (4,1), !isEmpty at (3,2), friend at (3,2)
 Expected output: true
 
-KTC28: Knight moves in valid right-backward L-shape to foe-occupied position, friend-obstructed
+KTC28: Knight moves in valid right-backward L-shape to foe-occupied position, friend-obstructed (:X:)
 State of the system: from (3,3) to (2,1), !isEmpty at (2,1), foe at (2,1), !isEmpty at (3,2), friend at (3,2)
 Expected output: true
 
-KTC29: Knight moves in valid backward-left L-shape to foe-occupied position, friend-obstructed
+KTC29: Knight moves in valid backward-left L-shape to foe-occupied position, friend-obstructed (:X:)
 State of the system: from (3,3) to (1,4), !isEmpty at (1,4), foe at (1,4), !isEmpty at (2,3), friend at (2,3)
 Expected output: true
 
-KTC30: Knight moves in valid backward-right L-shape to foe-occupied position, friend-obstructed
+KTC30: Knight moves in valid backward-right L-shape to foe-occupied position, friend-obstructed (:X:)
 State of the system: from (3,3) to (1,2), !isEmpty at (1,2), foe at (1,2), !isEmpty at (2,3), friend at (2,3)
 Expected output: true
 
-KTC31: Knight moves in valid left-forward L-shape to foe-occupied position, friend-obstructed
+KTC31: Knight moves in valid left-forward L-shape to foe-occupied position, friend-obstructed (:X:)
 State of the system: from (3,3) to (4,5), !isEmpty at (4,5), foe at (4,5), !isEmpty at (3,4), friend at (3,4)
 Expected output: true
 
-KTC32: Knight moves in valid left-backward L-shape to foe-occupied position, friend-obstructed
+KTC32: Knight moves in valid left-backward L-shape to foe-occupied position, friend-obstructed (:X:)
 State of the system: from (3,3) to (2,5), !isEmpty at (2,5), foe at (2,5), !isEmpty at (3,4), friend at (3,4)
 Expected output: true
 

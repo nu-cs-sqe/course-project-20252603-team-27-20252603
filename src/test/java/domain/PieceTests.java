@@ -910,6 +910,51 @@ class PieceTests {
         );
     }
 
+    @ParameterizedTest(name = "Valid Knight jump capture: {0}")
+    @MethodSource("provideValidKnightFriendObstructedCaptureCases")
+    void knightLMove_friendObstructedPath_foeOccupied_valid(
+            String testName,
+            int fromRow, int fromCol,
+            int blockRow, int blockCol,
+            int toRow, int toCol
+    ) {
+        Piece knight = new Piece(PieceType.KNIGHT, PieceColor.WHITE);
+        Piece friendBlocker = new Piece(PieceType.PAWN, PieceColor.WHITE);
+        Piece foe = new Piece(PieceType.PAWN, PieceColor.BLACK);
+
+        // 1. Specific Rule: Place a friendly piece on the intermediate path
+        EasyMock.expect(board.getPiece(matchesLoc(blockRow, blockCol)))
+                .andReturn(friendBlocker).anyTimes();
+
+        // 2. Specific Rule: Place an enemy piece at the final destination target
+        EasyMock.expect(board.getPiece(matchesLoc(toRow, toCol)))
+                .andReturn(foe).anyTimes();
+
+        // 3. Generic Rule: Any other lookup falls back to empty
+        EasyMock.expect(board.getPiece(EasyMock.anyObject(Location.class)))
+                .andReturn(null).anyTimes();
+
+        EasyMock.replay(board);
+
+        // Path obstructions are ignored, and foe destinations are valid capture zones
+        assertTrue(knight.canMove(board, new Location(fromRow, fromCol), new Location(toRow, toCol)));
+
+        EasyMock.verify(board);
+    }
+
+    private static Stream<Arguments> provideValidKnightFriendObstructedCaptureCases() {
+        return Stream.of(
+                Arguments.of("KTC25: forward-left, jump enemy capture",  3, 3,  4, 3,  5, 4),
+                Arguments.of("KTC26: forward-right, jump enemy capture", 3, 3,  4, 3,  5, 2),
+                Arguments.of("KTC27: right-forward, jump enemy capture", 3, 3,  3, 2,  4, 1),
+                Arguments.of("KTC28: right-backward, jump enemy capture",3, 3,  3, 2,  2, 1),
+                Arguments.of("KTC29: backward-left, jump enemy capture", 3, 3,  2, 3,  1, 4),
+                Arguments.of("KTC30: backward-right, jump enemy capture",3, 3,  2, 3,  1, 2),
+                Arguments.of("KTC31: left-forward, jump enemy capture",  3, 3,  3, 4,  4, 5),
+                Arguments.of("KTC32: left-backward, jump enemy capture", 3, 3,  3, 4,  2, 5)
+        );
+    }
+
     private static Location matchesLoc(int expectedRow, int expectedCol) {
         EasyMock.reportMatcher(new org.easymock.IArgumentMatcher() {
             @Override
