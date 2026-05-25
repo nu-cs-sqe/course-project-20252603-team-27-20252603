@@ -714,6 +714,51 @@ class PieceTests {
         );
     }
 
+    @ParameterizedTest(name = "Invalid Rook diagonal move: {0}")
+    @MethodSource("provideDiagonalRookCases")
+    void rookDiagonalMove_invalid(
+            String testName,
+            int fromRow, int fromCol,
+            int toRow, int toCol,
+            Piece destPiece
+    ) {
+        Piece rook = new Piece(PieceType.ROOK, PieceColor.WHITE);
+
+        // Mock whatever state the destination square is in
+        EasyMock.expect(board.getPiece(matchesLoc(toRow, toCol))).andReturn(destPiece).anyTimes();
+        EasyMock.replay(board);
+
+        // Any non-orthogonal move attempt must return false
+        assertFalse(rook.canMove(board, new Location(fromRow, fromCol), new Location(toRow, toCol)));
+
+        EasyMock.verify(board);
+    }
+
+    private static Stream<Arguments> provideDiagonalRookCases() {
+        Piece friend = new Piece(PieceType.PAWN, PieceColor.WHITE);
+        Piece foe = new Piece(PieceType.PAWN, PieceColor.BLACK);
+
+        return Stream.of(
+                // --- Empty Destination Squares ---
+                Arguments.of("RTC49: forward-right, empty",  3, 4, 4, 3, null),
+                Arguments.of("RTC50: forward-left, empty",   3, 4, 4, 5, null),
+                Arguments.of("RTC51: backward-left, empty",  3, 4, 2, 5, null),
+                Arguments.of("RTC52: backward-right, empty", 3, 4, 2, 3, null),
+
+                // --- Friend-Occupied Destination Squares ---
+                Arguments.of("RTC53: forward-right, friend",  3, 4, 4, 3, friend),
+                Arguments.of("RTC54: forward-left, friend",   3, 4, 4, 5, friend),
+                Arguments.of("RTC55: backward-left, friend",  3, 4, 2, 5, friend),
+                Arguments.of("RTC56: backward-right, friend", 3, 4, 2, 3, friend),
+
+                // --- Foe-Occupied Destination Squares ---
+                Arguments.of("RTC57: forward-right, foe",  3, 4, 4, 3, foe),
+                Arguments.of("RTC58: forward-left, foe",   3, 4, 4, 5, foe),
+                Arguments.of("RTC59: backward-left, foe",  3, 4, 2, 5, foe),
+                Arguments.of("RTC60: backward-right, foe", 3, 4, 2, 3, foe)
+        );
+    }
+
     private static Location matchesLoc(int expectedRow, int expectedCol) {
         EasyMock.reportMatcher(new org.easymock.IArgumentMatcher() {
             @Override

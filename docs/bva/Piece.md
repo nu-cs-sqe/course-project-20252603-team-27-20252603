@@ -503,51 +503,51 @@ Expectation: false
 
 ## Invalid case 5: improper shape, one-space, to empty/friend/foe-occupied position
 
-RTC49: Rook moves forward-right one space to empty position
+RTC49: Rook moves forward-right one space to empty position  (:X:)
 State: from (3,4) to (4,3), isEmpty at (4,3)
 Expectation: false
 
-RTC50: Rook moves forward-left one space to empty position
+RTC50: Rook moves forward-left one space to empty position (:X:)
 State: from (3,4) to (4,5), isEmpty at (4,5)
 Expectation: false
 
-RTC51: Rook moves backward-left one space to empty position
+RTC51: Rook moves backward-left one space to empty position (:X:)
 State: from (3,4) to (2,5), isEmpty at (2,5)
 Expectation: false
 
-RTC52: Rook moves backward-right one space to empty position
+RTC52: Rook moves backward-right one space to empty position (:X:)
 State: from (3,4) to (2,3), isEmpty at (2,3)
 Expectation: false
 
-RTC53: Rook moves forward-right one space to friend-occupied position
+RTC53: Rook moves forward-right one space to friend-occupied position (:X:)
 State: from (3,4) to (4,3), !isEmpty at (4,3), friend at (4,3)
 Expectation: false
 
-RTC54: Rook moves forward-left one space to friend-occupied position
+RTC54: Rook moves forward-left one space to friend-occupied position (:X:)
 State: from (3,4) to (4,5), !isEmpty at (4,5), friend at (4,5)
 Expectation: false
 
-RTC55: Rook moves backward-left one space to friend-occupied position
+RTC55: Rook moves backward-left one space to friend-occupied position (:X:)
 State: from (3,4) to (2,5), !isEmpty at (2,5), friend at (2,5)
 Expectation: false
 
-RTC56: Rook moves backward-right one space to friend-occupied position
+RTC56: Rook moves backward-right one space to friend-occupied position (:X:)
 State: from (3,4) to (2,3), !isEmpty at (2,3), friend at (2,3)
 Expectation: false
 
-RTC57: Rook moves forward-right one space to foe-occupied position
+RTC57: Rook moves forward-right one space to foe-occupied position (:X:)
 State: from (3,4) to (4,3), !isEmpty at (4,3), foe at (4,3)
 Expectation: false
 
-RTC58: Rook moves forward-left one space to foe-occupied position
+RTC58: Rook moves forward-left one space to foe-occupied position (:X:)
 State: from (3,4) to (4,5), !isEmpty at (4,5), foe at (4,5)
 Expectation: false
 
-RTC59: Rook moves backward-left one space to foe-occupied position
+RTC59: Rook moves backward-left one space to foe-occupied position (:X:)
 State: from (3,4) to (2,5), !isEmpty at (2,5), foe at (2,5)
 Expectation: false
 
-RTC60: Rook moves backward-right one space to foe-occupied position
+RTC60: Rook moves backward-right one space to foe-occupied position (:X:)
 State: from (3,4) to (2,3), !isEmpty at (2,3), foe at (2,3)
 Expectation: false
 
