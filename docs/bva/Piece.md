@@ -163,75 +163,75 @@ Expected output: false
 
 ## Invalid move case 7: backward movement
 
-PTC33: Pawn moves one space backward, hasMoved, to empty position
+PTC33: Pawn moves one space backward, hasMoved, to empty position (:X:)
 State of the system: from (2,0) to (1,0), hasMoved, isEmpty at (1,0)
 Expected output: false
 
-PTC34: Pawn moves one space backward, hasMoved, to foe-occupied position
+PTC34: Pawn moves one space backward, hasMoved, to foe-occupied position (:X:)
 State of the system: from (2,0) to (1,0), hasMoved, !isEmpty at (1,0), foe at (1,0)
 Expected output: false
 
-PTC35: Pawn moves one space backward, hasMoved, to friend-occupied position
+PTC35: Pawn moves one space backward, hasMoved, to friend-occupied position (:X:)
 State of the system: from (2,0) to (1,0), hasMoved, !isEmpty at (1,0), friend at (1,0)
 Expected output: false
 
-PTC36: Pawn moves one space backward-right, hasMoved, to empty position
+PTC36: Pawn moves one space backward-right, hasMoved, to empty position (:X:)
 State of the system: from (2,1) to (1,2), hasMoved, isEmpty at (1,2)
 Expected output: false
 
-PTC37: Pawn moves one space backward-right, hasMoved, to foe-occupied position
+PTC37: Pawn moves one space backward-right, hasMoved, to foe-occupied position (:X:)
 State of the system: from (2,1) to (1,2), hasMoved, !isEmpty at (1,2), foe at (1,2)
 Expected output: false
 
-PTC38: Pawn moves one space backward-right, hasMoved, to friend-occupied position
+PTC38: Pawn moves one space backward-right, hasMoved, to friend-occupied position (:X:)
 State of the system: from (2,1) to (1,2), hasMoved, !isEmpty at (1,2), friend at (1,2)
 Expected output: false
 
-PTC39: Pawn moves one space backward-left, hasMoved, to empty position
+PTC39: Pawn moves one space backward-left, hasMoved, to empty position (:X:)
 State of the system: from (2,1) to (1,0), hasMoved, isEmpty at (1,0)
 Expected output: false
 
-PTC40: Pawn moves one space backward-left, hasMoved, to foe-occupied position
+PTC40: Pawn moves one space backward-left, hasMoved, to foe-occupied position (:X:)
 State of the system: from (2,1) to (1,0), hasMoved, !isEmpty at (1,0), foe at (1,0)
 Expected output: false
 
-PTC41: Pawn moves one space backward-left, hasMoved, to friend-occupied position
+PTC41: Pawn moves one space backward-left, hasMoved, to friend-occupied position (:X:)
 State of the system: from (2,1) to (1,0), hasMoved, !isEmpty at (1,0), friend at (1,0)
 Expected output: false
 
-PTC42: Pawn moves one space backward, !hasMoved, to empty position
+PTC42: Pawn moves one space backward, !hasMoved, to empty position (:X:)
 State of the system: from (1,0) to (0,0), !hasMoved, isEmpty at (0,0)
 Expected output: false
 
-PTC43: Pawn moves one space backward, !hasMoved, to foe-occupied position
+PTC43: Pawn moves one space backward, !hasMoved, to foe-occupied position (:X:)
 State of the system: from (1,0) to (0,0), !hasMoved, !isEmpty at (0,0), foe at (0,0)
 Expected output: false
 
-PTC44: Pawn moves one space backward, !hasMoved, to friend-occupied position
+PTC44: Pawn moves one space backward, !hasMoved, to friend-occupied position (:X:)
 State of the system: from (1,0) to (0,0), !hasMoved, !isEmpty at (0,0), friend at (0,0)
 Expected output: false
 
-PTC45: Pawn moves one space backward-right, !hasMoved, to empty position
+PTC45: Pawn moves one space backward-right, !hasMoved, to empty position (:X:)
 State of the system: from (1,1) to (0,2), !hasMoved, isEmpty at (0,2)
 Expected output: false
 
-PTC46: Pawn moves one space backward-right, !hasMoved, to foe-occupied position
+PTC46: Pawn moves one space backward-right, !hasMoved, to foe-occupied position (:X:)
 State of the system: from (1,1) to (0,2), !hasMoved, !isEmpty at (0,2), foe at (0,2)
 Expected output: false
 
-PTC47: Pawn moves one space backward-right, !hasMoved, to friend-occupied position
+PTC47: Pawn moves one space backward-right, !hasMoved, to friend-occupied position (:X:)
 State of the system: from (1,1) to (0,2), !hasMoved, !isEmpty at (0,2), friend at (0,2)
 Expected output: false
 
-PTC48: Pawn moves one space backward-left, !hasMoved, to empty position
+PTC48: Pawn moves one space backward-left, !hasMoved, to empty position (:X:)
 State of the system: from (1,1) to (0,0), !hasMoved, isEmpty at (0,0)
 Expected output: false
 
-PTC49: Pawn moves one space backward-left, !hasMoved, to foe-occupied position
+PTC49: Pawn moves one space backward-left, !hasMoved, to foe-occupied position (:X:)
 State of the system: from (1,1) to (0,0), !hasMoved, !isEmpty at (0,0), foe at (0,0)
 Expected output: false
 
-PTC50: Pawn moves one space backward-left, !hasMoved, to friend-occupied position
+PTC50: Pawn moves one space backward-left, !hasMoved, to friend-occupied position (:X:)
 State of the system: from (1,1) to (0,0), !hasMoved, !isEmpty at (0,0), friend at (0,0)
 Expected output: false
 

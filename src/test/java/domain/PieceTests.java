@@ -293,6 +293,62 @@ class PieceTests {
         );
     }
 
+    @ParameterizedTest(name = "Backward move invalid: {0}")
+    @MethodSource("provideInvalidBackwardCases")
+    void pawnBackwardMove_invalid(
+            String testName,
+            boolean hasMoved,
+            int fromRow, int fromCol,
+            int toRow, int toCol,
+            Piece destPiece
+    ) {
+        Piece pawn = new Piece(PieceType.PAWN, PieceColor.WHITE);
+        pawn.setMoved(hasMoved);
+
+        // Tell the board mock what to return at the destination square
+        EasyMock.expect(board.getPiece(matchesLoc(toRow, toCol))).andReturn(destPiece).anyTimes();
+        EasyMock.replay(board);
+
+        // Any attempt to move a pawn to a lower row (-row direction) must return false
+        assertFalse(pawn.canMove(board, new Location(fromRow, fromCol), new Location(toRow, toCol)));
+
+        EasyMock.verify(board);
+    }
+
+    private static Stream<Arguments> provideInvalidBackwardCases() {
+        Piece foe = new Piece(PieceType.PAWN, PieceColor.BLACK);
+        Piece friend = new Piece(PieceType.PAWN, PieceColor.WHITE);
+
+        return Stream.of(
+                // --- PAWN HAS MOVED (true) ---
+                // Straight back
+                Arguments.of("PTC33: moved, straight back, empty",     true, 2, 0, 1, 0, null),
+                Arguments.of("PTC34: moved, straight back, foe",       true, 2, 0, 1, 0, foe),
+                Arguments.of("PTC35: moved, straight back, friend",    true, 2, 0, 1, 0, friend),
+                // Backward-Right
+                Arguments.of("PTC36: moved, backward-right, empty",   true, 2, 1, 1, 2, null),
+                Arguments.of("PTC37: moved, backward-right, foe",     true, 2, 1, 1, 2, foe),
+                Arguments.of("PTC38: moved, backward-right, friend",  true, 2, 1, 1, 2, friend),
+                // Backward-Left
+                Arguments.of("PTC39: moved, backward-left, empty",    true, 2, 1, 1, 0, null),
+                Arguments.of("PTC40: moved, backward-left, foe",      true, 2, 1, 1, 0, foe),
+                Arguments.of("PTC41: moved, backward-left, friend",   true, 2, 1, 1, 0, friend),
+
+                // --- PAWN HAS NOT MOVED (false) ---
+                // Straight back
+                Arguments.of("PTC42: not moved, straight back, empty",  false, 1, 0, 0, 0, null),
+                Arguments.of("PTC43: not moved, straight back, foe",    false, 1, 0, 0, 0, foe),
+                Arguments.of("PTC44: not moved, straight back, friend", false, 1, 0, 0, 0, friend),
+                // Backward-Right
+                Arguments.of("PTC45: not moved, backward-right, empty", false, 1, 1, 0, 2, null),
+                Arguments.of("PTC46: not moved, backward-right, foe",   false, 1, 1, 0, 2, foe),
+                Arguments.of("PTC47: not moved, backward-right, friend",false, 1, 1, 0, 2, friend),
+                // Backward-Left
+                Arguments.of("PTC48: not moved, backward-left, empty",  false, 1, 1, 0, 0, null),
+                Arguments.of("PTC49: not moved, backward-left, foe",    false, 1, 1, 0, 0, foe),
+                Arguments.of("PTC50: not moved, backward-left, friend", false, 1, 1, 0, 0, friend)
+        );
+    }
 
     private static Location matchesLoc(int expectedRow, int expectedCol) {
         EasyMock.reportMatcher(new org.easymock.IArgumentMatcher() {
