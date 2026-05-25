@@ -1133,35 +1133,35 @@ Expectation: false
 
 ## Invalid move case 4: max spaces, friend/foe-obstructed path, to friend-occupied position
 
-BTC33: Move diagonally forward-right, max spaces, to friend-occupied position, unclear path
+BTC33: Move diagonally forward-right, max spaces, to friend-occupied position, unclear path (:X:)
 State: from (0,0) to (7,7), !isEmpty at (1,1), friend at (1,1), !isEmpty at (7,7), friend at (7,7)
 Expectation: false
 
-BTC34: Move diagonally forward-right, max spaces, to friend-occupied position, unclear path
+BTC34: Move diagonally forward-right, max spaces, to friend-occupied position, unclear path (:X:)
 State: from (0,0) to (7,7), !isEmpty at (1,1), foe at (1,1), !isEmpty at (7,7), friend at (7,7)
 Expectation: false
 
-BTC35: Move diagonally forward-left, max spaces, to friend-occupied position, unclear path
+BTC35: Move diagonally forward-left, max spaces, to friend-occupied position, unclear path (:X:)
 State: from (0,7) to (7,0), !isEmpty at (1,6), friend at (1,6), !isEmpty at (7,0), friend at (7,0)
 Expectation: false
 
-BTC36: Move diagonally forward-left, max spaces, to friend-occupied position, unclear path
+BTC36: Move diagonally forward-left, max spaces, to friend-occupied position, unclear path (:X:)
 State: from (0,7) to (7,0), !isEmpty at (1,6), foe at (1,6), !isEmpty at (7,0), friend at (7,0)
 Expectation: false
 
-BTC37: Move diagonally backward-right, max spaces, to friend-occupied position, unclear path
+BTC37: Move diagonally backward-right, max spaces, to friend-occupied position, unclear path (:X:)
 State: from (7,0) to (0,7), !isEmpty at (6,1), friend at (6,1), !isEmpty at (0,7), friend at (0,7)
 Expectation: false
 
-BTC38: Move diagonally backward-right, max spaces, to friend-occupied position, unclear path
+BTC38: Move diagonally backward-right, max spaces, to friend-occupied position, unclear path (:X:)
 State: from (7,0) to (0,7), !isEmpty at (6,1), foe at (6,1), !isEmpty at (0,7), friend at (0,7)
 Expectation: false
 
-BTC39: Move diagonally backward-left, max spaces, to friend-occupied position, unclear path
+BTC39: Move diagonally backward-left, max spaces, to friend-occupied position, unclear path (:X:)
 State: from (7,7) to (0,0), !isEmpty at (6,6), friend at (6,6), !isEmpty at (0,0), friend at (0,0)
 Expectation: false
 
-BTC40: Move diagonally backward-left, max spaces, to friend-occupied position, unclear path
+BTC40: Move diagonally backward-left, max spaces, to friend-occupied position, unclear path (:X:)
 State: from (7,7) to (0,0), !isEmpty at (6,6), foe at (6,6), !isEmpty at (0,0), friend at (0,0)
 Expectation: false
 

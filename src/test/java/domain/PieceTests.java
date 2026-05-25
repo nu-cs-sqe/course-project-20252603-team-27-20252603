@@ -1464,6 +1464,60 @@ class PieceTests {
         );
     }
 
+    @ParameterizedTest(name = "Invalid Bishop combination block: {0}")
+    @MethodSource("provideObstructedPathFriendDestBishopCases")
+    void bishopMaxMove_obstructedPath_friendDest_invalid(
+            String testName,
+            int fromRow, int fromCol,
+            int blockRow, int blockCol, Piece blockerPiece,
+            int toRow, int toCol
+    ) {
+        Piece bishop = new Piece(PieceType.BISHOP, PieceColor.WHITE);
+        Piece friendDest = new Piece(PieceType.PAWN, PieceColor.WHITE);
+
+        // 1. SPECIFIC RULE FIRST: Place the path obstruction piece (friend or foe)
+        EasyMock.expect(board.getPiece(matchesLoc(blockRow, blockCol)))
+                .andReturn(blockerPiece).anyTimes();
+
+        // 2. SPECIFIC RULE SECOND: Place a friendly teammate at the destination
+        EasyMock.expect(board.getPiece(matchesLoc(toRow, toCol)))
+                .andReturn(friendDest).anyTimes();
+
+        // 3. GENERIC RULE LAST: Assume all other remaining cells are empty
+        EasyMock.expect(board.getPiece(EasyMock.anyObject(Location.class)))
+                .andReturn(null).anyTimes();
+
+        EasyMock.replay(board);
+
+        // Multiple rule violations must reliably return false
+        assertFalse(bishop.canMove(board, new Location(fromRow, fromCol), new Location(toRow, toCol)));
+
+        EasyMock.verify(board);
+    }
+
+    private static Stream<Arguments> provideObstructedPathFriendDestBishopCases() {
+        Piece friend = new Piece(PieceType.PAWN, PieceColor.WHITE);
+        Piece foe = new Piece(PieceType.PAWN, PieceColor.BLACK);
+
+        return Stream.of(
+                // Forward-Right max vectors (From 0,0 to 7,7 | Blocker at 1,1)
+                Arguments.of("BTC33: forward-right, path friend-blocked, dest friend", 0, 0,  1, 1, friend,  7, 7),
+                Arguments.of("BTC34: forward-right, path foe-blocked, dest friend",    0, 0,  1, 1, foe,     7, 7),
+
+                // Forward-Left max vectors (From 0,7 to 7,0 | Blocker at 1,6)
+                Arguments.of("BTC35: forward-left, path friend-blocked, dest friend",  0, 7,  1, 6, friend,  7, 0),
+                Arguments.of("BTC36: forward-left, path foe-blocked, dest friend",     0, 7,  1, 6, foe,     7, 0),
+
+                // Backward-Right max vectors (From 7,0 to 0,7 | Blocker at 6,1)
+                Arguments.of("BTC37: backward-right, path friend-blocked, dest friend",7, 0,  6, 1, friend,  0, 7),
+                Arguments.of("BTC38: backward-right, path foe-blocked, dest friend",   7, 0,  6, 1, foe,     0, 7),
+
+                // Backward-Left max vectors (From 7,7 to 0,0 | Blocker at 6,6)
+                Arguments.of("BTC39: backward-left, path friend-blocked, dest friend", 7, 7,  6, 6, friend,  0, 0),
+                Arguments.of("BTC40: backward-left, path foe-blocked, dest friend",    7, 7,  6, 6, foe,     0, 0)
+        );
+    }
+
     private static Location matchesLoc(int expectedRow, int expectedCol) {
         EasyMock.reportMatcher(new org.easymock.IArgumentMatcher() {
             @Override
