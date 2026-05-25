@@ -59,7 +59,7 @@ PTC9: Pawn moves one space forward, hasMoved, to friend-occupied position (:X:)
 State of the system: from (2,0) to (3,0), hasMoved, !isEmpty at (3,0), friend at (3,0)
 Expected output: false
 
-PTC10: Pawn moves one space forward, !hasMoved, to foe-occupied position
+PTC10: Pawn moves one space forward, !hasMoved, to foe-occupied position (:X:)
 State of the system: from (1,0) to (2,0), !hasMoved, !isEmpty at (2,0), foe at (2,0)
 Expected output: false
 

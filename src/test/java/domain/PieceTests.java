@@ -112,5 +112,13 @@ class PieceTests {
         assertFalse(pawn.canMove(board, new Location(2, 0), new Location(3, 0)));
     }
 
+    @Test
+    void PTC10_pawnOneForward_notMoved_foeDest() {
+        Piece pawn = new Piece(PieceType.PAWN, PieceColor.WHITE);
+        Piece foePawn = new Piece(PieceType.PAWN, PieceColor.BLACK);
+        EasyMock.expect(board.getPiece(EasyMock.anyObject(Location.class))).andReturn(foePawn);
+        EasyMock.replay(board);
+        assertFalse(pawn.canMove(board, new Location(1, 0), new Location(2, 0)));
+    }
 }
 
