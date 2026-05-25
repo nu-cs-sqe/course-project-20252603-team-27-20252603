@@ -333,35 +333,35 @@ Expectation: true
 
 ## Valid moves case 2: max-spaces forward/backward/left/right to empty/foe position
 
-RTC9: Rook moves forward maximum spaces, clear path, to empty position
+RTC9: Rook moves forward maximum spaces, clear path, to empty position (:X:)
 State: from (0,0) to (7,0), isEmpty at (7,0), isEmpty at (1,0) to (7,0)
 Expectation: true
 
-RTC10: Rook moves forward maximum spaces, clear path, to foe-occupied position
+RTC10: Rook moves forward maximum spaces, clear path, to foe-occupied position (:X:)
 State: from (0,0) to (7,0), isEmpty from (1,0) to (6,0), !isEmpty at (7,0), foe at (7,0)
 Expectation: true
 
-RTC11: Rook moves backward maximum spaces, clear path, to empty position
+RTC11: Rook moves backward maximum spaces, clear path, to empty position (:X:)
 State: from (7,0) to (0,0), isEmpty at (0,0), isEmpty at (1,0) to (7,0)
 Expectation: true
 
-RTC12: Rook moves backward maximum spaces, clear path, to foe-occupied position
+RTC12: Rook moves backward maximum spaces, clear path, to foe-occupied position (:X:)
 State: from (7,0) to (0,0), isEmpty from (1,0) to (6,0), !isEmpty at (0,0), foe at (0,0)
 Expectation: true
 
-RTC13: Rook moves right maximum spaces, clear path, to empty position
+RTC13: Rook moves right maximum spaces, clear path, to empty position (:X:)
 State: from (7,0) to (7,7), isEmpty at (7,7), isEmpty at (7,1) to (7,7)
 Expectation: true
 
-RTC14: Rook moves right maximum spaces, clear path, to foe-occupied position
+RTC14: Rook moves right maximum spaces, clear path, to foe-occupied position (:X:)
 State: from (7,0) to (7,7), isEmpty from (7,0) to (7,6), !isEmpty at (7,7), foe at (7,7)
 Expectation: true
 
-RTC15: Rook moves left maximum spaces, clear path, to empty position
+RTC15: Rook moves left maximum spaces, clear path, to empty position (:X:)
 State: from (7,7) to (7,0), isEmpty at (7,0), isEmpty at (7,6) to (7,1)
 Expectation: true
 
-RTC16: Rook moves left maximum spaces, clear path, to foe-occupied position
+RTC16: Rook moves left maximum spaces, clear path, to foe-occupied position (:X:)
 State: from (7,7) to (7,0), isEmpty from (7,6) to (7,1), !isEmpty at (7,0), foe at (7,0)
 Expectation: true
 

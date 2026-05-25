@@ -484,6 +484,54 @@ class PieceTests {
         );
     }
 
+    @ParameterizedTest(name = "Valid Rook max slide: {0}")
+    @MethodSource("provideValidRookMaxMoves")
+    void rookMaxMove_clearPath_valid(
+            String testName,
+            int fromRow, int fromCol,
+            int toRow, int toCol,
+            Piece destPiece
+    ) {
+        Piece rook = new Piece(PieceType.ROOK, PieceColor.WHITE);
+
+        // 1. Setup a default baseline: assume the entire board/path is clear (null)
+        EasyMock.expect(board.getPiece(EasyMock.anyObject(Location.class)))
+                .andReturn(null).anyTimes();
+
+        // 2. Override the destination square with our specific target piece (or null)
+        EasyMock.expect(board.getPiece(matchesLoc(toRow, toCol)))
+                .andReturn(destPiece).anyTimes();
+
+        EasyMock.replay(board);
+
+        // Full-board sliding moves across a clear path to empty/foe targets must return true
+        assertTrue(rook.canMove(board, new Location(fromRow, fromCol), new Location(toRow, toCol)));
+
+        EasyMock.verify(board);
+    }
+
+    private static Stream<Arguments> provideValidRookMaxMoves() {
+        Piece foe = new Piece(PieceType.PAWN, PieceColor.BLACK);
+
+        return Stream.of(
+                // Forward max slides (Row 0 -> Row 7)
+                Arguments.of("RTC9: forward max, empty", 0, 0, 7, 0, null),
+                Arguments.of("RTC10: forward max, foe",   0, 0, 7, 0, foe),
+
+                // Backward max slides (Row 7 -> Row 0)
+                Arguments.of("RTC11: backward max, empty",7, 0, 0, 0, null),
+                Arguments.of("RTC12: backward max, foe",  7, 0, 0, 0, foe),
+
+                // Right max slides (Col 0 -> Col 7)
+                Arguments.of("RTC13: right max, empty",   7, 0, 7, 7, null),
+                Arguments.of("RTC14: right max, foe",     7, 0, 7, 7, foe),
+
+                // Left max slides (Col 7 -> Col 0)
+                Arguments.of("RTC15: left max, empty",    7, 7, 7, 0, null),
+                Arguments.of("RTC16: left max, foe",      7, 7, 7, 0, foe)
+        );
+    }
+
     private static Location matchesLoc(int expectedRow, int expectedCol) {
         EasyMock.reportMatcher(new org.easymock.IArgumentMatcher() {
             @Override
