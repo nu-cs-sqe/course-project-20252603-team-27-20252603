@@ -850,51 +850,51 @@ Expected output: false
 
 ## Invalid move case 4: straight line, one-space, to friend/foe/empty
 
-KTC65: Knight moves one space forward, to empty position
+KTC65: Knight moves one space forward, to empty position (:X:)
 State of the system: from (3,3) to (4,3), isEmpty at (4,3)
 Expected output: false
 
-KTC66: Knight moves one space forward, to friend-occupied position
+KTC66: Knight moves one space forward, to friend-occupied position (:X:)
 State of the system: from (3,3) to (4,3), !isEmpty at (4,3), friend at (4,3)
 Expected output: false
 
-KTC67: Knight moves one space forward, to foe-occupied position
+KTC67: Knight moves one space forward, to foe-occupied position (:X:)
 State of the system: from (3,3) to (4,3), !isEmpty at (4,3), foe at (4,3)
 Expected output: false
 
-KTC68: Knight moves one space backward, to empty position
+KTC68: Knight moves one space backward, to empty position (:X:)
 State of the system: from (3,3) to (2,3), isEmpty at (2,3)
 Expected output: false
 
-KTC69: Knight moves one space backward, to friend-occupied position
+KTC69: Knight moves one space backward, to friend-occupied position (:X:)
 State of the system: from (3,3) to (2,3), !isEmpty at (2,3), friend at (2,3)
 Expected output: false
 
-KTC70: Knight moves one space backward, to foe-occupied position
+KTC70: Knight moves one space backward, to foe-occupied position (:X:)
 State of the system: from (3,3) to (2,3), !isEmpty at (2,3), foe at (2,3)
 Expected output: false
 
-KTC71: Knight moves one space left, to empty position
+KTC71: Knight moves one space left, to empty position (:X:)
 State of the system: from (3,3) to (3,2), isEmpty at (3,2)
 Expected output: false
 
-KTC72: Knight moves one space left, to friend-occupied position
+KTC72: Knight moves one space left, to friend-occupied position (:X:)
 State of the system: from (3,3) to (3,2), !isEmpty at (3,2), friend at (3,2)
 Expected output: false
 
-KTC73: Knight moves one space left, to foe-occupied position
+KTC73: Knight moves one space left, to foe-occupied position (:X:)
 State of the system: from (3,3) to (3,2), !isEmpty at (3,2), foe at (3,2)
 Expected output: false
 
-KTC74: Knight moves one space right, to empty position
+KTC74: Knight moves one space right, to empty position (:X:)
 State of the system: from (3,3) to (3,4), isEmpty at (3,4)
 Expected output: false
 
-KTC75: Knight moves one space right, to friend-occupied position
+KTC75: Knight moves one space right, to friend-occupied position (:X:)
 State of the system: from (3,3) to (3,4), !isEmpty at (3,4), friend at (3,4)
 Expected output: false
 
-KTC76: Knight moves one space right, to foe-occupied position
+KTC76: Knight moves one space right, to foe-occupied position (:X:)
 State of the system: from (3,3) to (3,4), !isEmpty at (3,4), foe at (3,4)
 Expected output: false
 

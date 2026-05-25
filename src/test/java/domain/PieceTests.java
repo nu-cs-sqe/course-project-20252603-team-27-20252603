@@ -1082,6 +1082,53 @@ class PieceTests {
         );
     }
 
+    @ParameterizedTest(name = "Invalid Knight single-orthogonal move: {0}")
+    @MethodSource("provideInvalidKnightSingleOrthogonalMoves")
+    void knightMove_singleOrthogonal_invalid(
+            String testName,
+            int fromRow, int fromCol,
+            int toRow, int toCol,
+            Piece destPiece
+    ) {
+        Piece knight = new Piece(PieceType.KNIGHT, PieceColor.WHITE);
+
+        // Mock the exact piece status of the destination square
+        EasyMock.expect(board.getPiece(matchesLoc(toRow, toCol))).andReturn(destPiece).anyTimes();
+        EasyMock.replay(board);
+
+        // One-space orthogonal steps must return false
+        assertFalse(knight.canMove(board, new Location(fromRow, fromCol), new Location(toRow, toCol)));
+
+        EasyMock.verify(board);
+    }
+
+    private static Stream<Arguments> provideInvalidKnightSingleOrthogonalMoves() {
+        Piece friend = new Piece(PieceType.PAWN, PieceColor.WHITE);
+        Piece foe = new Piece(PieceType.PAWN, PieceColor.BLACK);
+
+        return Stream.of(
+                // Forward (4,3) variants
+                Arguments.of("KTC65: forward one space, empty",  3, 3, 4, 3, null),
+                Arguments.of("KTC66: forward one space, friend", 3, 3, 4, 3, friend),
+                Arguments.of("KTC67: forward one space, foe",    3, 3, 4, 3, foe),
+
+                // Backward (2,3) variants
+                Arguments.of("KTC68: backward one space, empty", 3, 3, 2, 3, null),
+                Arguments.of("KTC69: backward one space, friend",3, 3, 2, 3, friend),
+                Arguments.of("KTC70: backward one space, foe",   3, 3, 2, 3, foe),
+
+                // Left (3,2) variants
+                Arguments.of("KTC71: left one space, empty",     3, 3, 3, 2, null),
+                Arguments.of("KTC72: left one space, friend",    3, 3, 3, 2, friend),
+                Arguments.of("KTC73: left one space, foe",       3, 3, 3, 2, foe),
+
+                // Right (3,4) variants
+                Arguments.of("KTC74: right one space, empty",    3, 3, 3, 4, null),
+                Arguments.of("KTC75: right one space, friend",   3, 3, 3, 4, friend),
+                Arguments.of("KTC76: right one space, foe",      3, 3, 3, 4, foe)
+        );
+    }
+
     private static Location matchesLoc(int expectedRow, int expectedCol) {
         EasyMock.reportMatcher(new org.easymock.IArgumentMatcher() {
             @Override
