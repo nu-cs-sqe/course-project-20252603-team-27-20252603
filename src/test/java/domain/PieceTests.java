@@ -1882,6 +1882,48 @@ class PieceTests {
         );
     }
 
+    @ParameterizedTest(name = "Invalid King two-space diagonal: {0}")
+    @MethodSource("provideInvalidKingTwoSpaceDiagonalMoves")
+    void kingMove_twoSpaceDiagonal_invalid(
+            String testName,
+            int fromRow, int fromCol,
+            int toRow, int toCol,
+            Piece destPiece
+    ) {
+        Piece king = new Piece(PieceType.KING, PieceColor.WHITE);
+
+        // Mock the target destination cell piece configuration
+        EasyMock.expect(board.getPiece(matchesLoc(toRow, toCol))).andReturn(destPiece).anyTimes();
+        EasyMock.replay(board);
+
+        // Two-space diagonal leaps must return false unconditionally
+        assertFalse(king.canMove(board, new Location(fromRow, fromCol), new Location(toRow, toCol)));
+
+        EasyMock.verify(board);
+    }
+
+    private static Stream<Arguments> provideInvalidKingTwoSpaceDiagonalMoves() {
+        Piece foe = new Piece(PieceType.PAWN, PieceColor.BLACK);
+
+        return Stream.of(
+                // Forward-Left two spaces (5,1) variants
+                Arguments.of("KiTC35: forward-left two spaces, empty",  3, 3, 5, 1, null),
+                Arguments.of("KiTC36: forward-left two spaces, foe",    3, 3, 5, 1, foe),
+
+                // Forward-Right two spaces (5,5) variants
+                Arguments.of("KiTC37: forward-right two spaces, empty", 3, 3, 5, 5, null),
+                Arguments.of("KiTC38: forward-right two spaces, foe",   3, 3, 5, 5, foe),
+
+                // Backward-Left two spaces (1,1) variants
+                Arguments.of("KiTC39: backward-left two spaces, empty", 3, 3, 1, 1, null),
+                Arguments.of("KiTC40: backward-left two spaces, foe",   3, 3, 1, 1, foe),
+
+                // Backward-Right two spaces (1,5) variants
+                Arguments.of("KiTC41: backward-right two spaces, empty",3, 3, 1, 5, null),
+                Arguments.of("KiTC42: backward-right two spaces, foe",  3, 3, 1, 5, foe)
+        );
+    }
+
     private static Location matchesLoc(int expectedRow, int expectedCol) {
         EasyMock.reportMatcher(new org.easymock.IArgumentMatcher() {
             @Override
