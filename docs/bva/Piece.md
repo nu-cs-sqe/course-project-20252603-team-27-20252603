@@ -1271,7 +1271,7 @@ Expectation: false
 
 ## Invalid move case 8: movement to current position (no movement)
 
-BTC64: Bishop moves to its own current square (distance zero)
+BTC65: Bishop moves to its own current square (distance zero) (:X:)
 State of the system: from (3,3) to (3,3)
 Expected output: false
 
