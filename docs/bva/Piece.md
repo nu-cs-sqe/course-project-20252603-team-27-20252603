@@ -1358,19 +1358,19 @@ Expected output: true
 
 ## Invalid move case 1: one-space forward/backward/left/right to friend-occupied position
 
-KiTC19: King moves one space forward, to friend-occupied position
+KiTC19: King moves one space forward, to friend-occupied position (:X:)
 State of the system: from (3,3) to (4,3), !isEmpty at (4,3), friend at (4,3)
 Expected output: false
 
-KiTC20: King moves one space backward, to friend-occupied position
+KiTC20: King moves one space backward, to friend-occupied position (:X:)
 State of the system: from (3,3) to (2,3), !isEmpty at (2,3), friend at (2,3)
 Expected output: false
 
-KiTC21: King moves one space left, to friend-occupied position
+KiTC21: King moves one space left, to friend-occupied position (:X:)
 State of the system: from (3,3) to (3,2), !isEmpty at (3,2), friend at (3,2)
 Expected output: false
 
-KiTC22: King moves one space right, to friend-occupied position
+KiTC22: King moves one space right, to friend-occupied position (:X:)
 State of the system: from (3,3) to (3,4), !isEmpty at (3,4), friend at (3,4)
 Expected output: false
 
