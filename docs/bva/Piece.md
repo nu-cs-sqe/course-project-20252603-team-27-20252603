@@ -1008,19 +1008,19 @@ Expectation: true
 
 ## Valid move case 2: one space to foe-occupied position
 
-BTC5: Move diagonally forward-right one space to foe-occupied position
+BTC5: Move diagonally forward-right one space to foe-occupied position  (:X:)
 State: from (1,1) to (2,0), !isEmpty at (2,0), foe at (2,0)
 Expectation: true
 
-BTC6: Move diagonally forward-left one space to foe-occupied position
+BTC6: Move diagonally forward-left one space to foe-occupied position (:X:)
 State: from (1,1) to (2,2), !isEmpty at (2,2), foe at (2,2)
 Expectation: true
 
-BTC7: Move diagonally backward-left one space to foe-occupied position
+BTC7: Move diagonally backward-left one space to foe-occupied position (:X:)
 State: from (1,1) to (0,2), !isEmpty at (0,2), foe at (0,2)
 Expectation: true
 
-BTC8: Move diagonally backward-right one space to foe-occupied position
+BTC8: Move diagonally backward-right one space to foe-occupied position (:X:)
 State: from (1,1) to (0,0), !isEmpty at (0,0), foe at (0,0)
 Expectation: true
 

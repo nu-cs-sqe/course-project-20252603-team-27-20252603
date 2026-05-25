@@ -1259,6 +1259,35 @@ class PieceTests {
         );
     }
 
+    @ParameterizedTest(name = "Valid Bishop single capture: {0}")
+    @MethodSource("provideValidBishopSingleFoeMoves")
+    void bishopSingleMove_foeOccupied_valid(
+            String testName,
+            int fromRow, int fromCol,
+            int toRow, int toCol
+    ) {
+        Piece bishop = new Piece(PieceType.BISHOP, PieceColor.WHITE);
+        Piece foe = new Piece(PieceType.PAWN, PieceColor.BLACK);
+
+        // Mock an enemy piece sitting directly at the destination square
+        EasyMock.expect(board.getPiece(matchesLoc(toRow, toCol))).andReturn(foe).anyTimes();
+        EasyMock.replay(board);
+
+        // One-space diagonal steps ending on a foe must return true
+        assertTrue(bishop.canMove(board, new Location(fromRow, fromCol), new Location(toRow, toCol)));
+
+        EasyMock.verify(board);
+    }
+
+    private static Stream<Arguments> provideValidBishopSingleFoeMoves() {
+        return Stream.of(
+                Arguments.of("BTC5: forward-left capture (row+1, col-1)",   1, 1, 2, 0),
+                Arguments.of("BTC6: forward-right capture (row+1, col+1)",  1, 1, 2, 2),
+                Arguments.of("BTC7: backward-right capture (row-1, col+1)", 1, 1, 0, 2),
+                Arguments.of("BTC8: backward-left capture (row-1, col-1)",  1, 1, 0, 0)
+        );
+    }
+
     private static Location matchesLoc(int expectedRow, int expectedCol) {
         EasyMock.reportMatcher(new org.easymock.IArgumentMatcher() {
             @Override
