@@ -833,6 +833,39 @@ class PieceTests {
         );
     }
 
+    @ParameterizedTest(name = "Valid Knight capture: {0}")
+    @MethodSource("provideValidKnightFoeMoves")
+    void knightLMove_foeOccupied_valid(
+            String testName,
+            int fromRow, int fromCol,
+            int toRow, int toCol
+    ) {
+        Piece knight = new Piece(PieceType.KNIGHT, PieceColor.WHITE);
+        Piece foe = new Piece(PieceType.PAWN, PieceColor.BLACK);
+
+        // Mock an enemy piece sitting directly at the destination square
+        EasyMock.expect(board.getPiece(matchesLoc(toRow, toCol))).andReturn(foe).anyTimes();
+        EasyMock.replay(board);
+
+        // Standard L-shape translations ending on a foe must return true
+        assertTrue(knight.canMove(board, new Location(fromRow, fromCol), new Location(toRow, toCol)));
+
+        EasyMock.verify(board);
+    }
+
+    private static Stream<Arguments> provideValidKnightFoeMoves() {
+        return Stream.of(
+                Arguments.of("KTC9: forward-left, foe",   3, 3, 5, 4),
+                Arguments.of("KTC10: forward-right, foe", 3, 3, 5, 2),
+                Arguments.of("KTC11: right-forward, foe", 3, 3, 4, 1),
+                Arguments.of("KTC12: right-backward, foe",3, 3, 2, 1),
+                Arguments.of("KTC13: backward-left, foe", 3, 3, 1, 4),
+                Arguments.of("KTC14: backward-right, foe",3, 3, 1, 2),
+                Arguments.of("KTC15: left-forward, foe",  3, 3, 4, 5),
+                Arguments.of("KTC16: left-backward, foe", 3, 3, 2, 5)
+        );
+    }
+
     private static Location matchesLoc(int expectedRow, int expectedCol) {
         EasyMock.reportMatcher(new org.easymock.IArgumentMatcher() {
             @Override

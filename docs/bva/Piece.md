@@ -614,35 +614,35 @@ Expected output: true
 
 ## Valid moves case 2: to foe-occupied positions
 
-KTC9: Knight moves in valid forward-left L-shape to foe-occupied position
+KTC9: Knight moves in valid forward-left L-shape to foe-occupied position (:X:)
 State of the system: from (3,3) to (5,4), !isEmpty at (5,4), foe at (5,4)
 Expected output: true
 
-KTC10: Knight moves in valid forward-right L-shape to foe-occupied position
+KTC10: Knight moves in valid forward-right L-shape to foe-occupied position (:X:)
 State of the system: from (3,3) to (5,2), !isEmpty at (5,2), foe at (5,2)
 Expected output: true
 
-KTC11: Knight moves in valid right-forward L-shape to foe-occupied position
+KTC11: Knight moves in valid right-forward L-shape to foe-occupied position (:X:)
 State of the system: from (3,3) to (4,1), !isEmpty at (4,1), foe at (4,1)
 Expected output: true
 
-KTC12: Knight moves in valid right-backward L-shape to foe-occupied position
+KTC12: Knight moves in valid right-backward L-shape to foe-occupied position (:X:)
 State of the system: from (3,3) to (2,1), !isEmpty at (2,1), foe at (2,1)
 Expected output: true
 
-KTC13: Knight moves in valid backward-left L-shape to foe-occupied position
+KTC13: Knight moves in valid backward-left L-shape to foe-occupied position (:X:)
 State of the system: from (3,3) to (1,4), !isEmpty at (1,4), foe at (1,4)
 Expected output: true
 
-KTC14: Knight moves in valid backward-right L-shape to foe-occupied position
+KTC14: Knight moves in valid backward-right L-shape to foe-occupied position (:X:)
 State of the system: from (3,3) to (1,2), !isEmpty at (1,2), foe at (1,2)
 Expected output: true
 
-KTC15: Knight moves in valid left-forward L-shape to foe-occupied position
+KTC15: Knight moves in valid left-forward L-shape to foe-occupied position (:X:)
 State of the system: from (3,3) to (4,5), !isEmpty at (4,5), foe at (4,5)
 Expected output: true
 
-KTC16: Knight moves in valid left-backward L-shape to foe-occupied position
+KTC16: Knight moves in valid left-backward L-shape to foe-occupied position (:X:)
 State of the system: from (3,3) to (2,5), !isEmpty at (2,5), foe at (2,5)
 Expected output: true
 
