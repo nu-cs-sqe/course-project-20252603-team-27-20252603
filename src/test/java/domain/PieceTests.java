@@ -1981,6 +1981,38 @@ class PieceTests {
         EasyMock.verify(board);
     }
 
+    @ParameterizedTest(name = "Valid Queen single move: {0}")
+    @MethodSource("provideValidQueenSingleEmptyMoves")
+    void queenSingleMove_empty_valid(
+            String testName,
+            int fromRow, int fromCol,
+            int toRow, int toCol
+    ) {
+        Piece queen = new Piece(PieceType.QUEEN, PieceColor.WHITE);
+
+        // Every target square in this batch is empty (null)
+        EasyMock.expect(board.getPiece(matchesLoc(toRow, toCol))).andReturn(null).anyTimes();
+        EasyMock.replay(board);
+
+        // One-space radial translations must evaluate to true
+        assertTrue(queen.canMove(board, new Location(fromRow, fromCol), new Location(toRow, toCol)));
+
+        EasyMock.verify(board);
+    }
+
+    private static Stream<Arguments> provideValidQueenSingleEmptyMoves() {
+        return Stream.of(
+                Arguments.of("QTC1: forward one space",       3, 3, 4, 3),
+                Arguments.of("QTC2: backward one space",      3, 3, 2, 3),
+                Arguments.of("QTC3: left one space",          3, 3, 3, 2),
+                Arguments.of("QTC4: right one space",         3, 3, 3, 4),
+                Arguments.of("QTC5: forward-left one space",  3, 3, 4, 2),
+                Arguments.of("QTC6: forward-right one space", 3, 3, 4, 4),
+                Arguments.of("QTC7: backward-left one space", 3, 3, 2, 2),
+                Arguments.of("QTC8: backward-right one space",3, 3, 2, 4)
+        );
+    }
+
     private static Location matchesLoc(int expectedRow, int expectedCol) {
         EasyMock.reportMatcher(new org.easymock.IArgumentMatcher() {
             @Override

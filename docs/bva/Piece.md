@@ -1521,35 +1521,35 @@ Expected output: false
 
 ## Valid move case 1: one-space in all 8 directions, to empty position
 
-QTC1: Queen moves one space forward, to empty position
+QTC1: Queen moves one space forward, to empty position (:X:)
 State of the system: from (3,3) to (4,3), isEmpty at (4,3)
 Expected output: true
 
-QTC2: Queen moves one space backward, to empty position
+QTC2: Queen moves one space backward, to empty position (:X:)
 State of the system: from (3,3) to (2,3), isEmpty at (2,3)
 Expected output: true
 
-QTC3: Queen moves one space left, to empty position
+QTC3: Queen moves one space left, to empty position (:X:)
 State of the system: from (3,3) to (3,2), isEmpty at (3,2)
 Expected output: true
 
-QTC4: Queen moves one space right, to empty position
+QTC4: Queen moves one space right, to empty position (:X:)
 State of the system: from (3,3) to (3,4), isEmpty at (3,4)
 Expected output: true
 
-QTC5: Queen moves one space forward-left, to empty position
+QTC5: Queen moves one space forward-left, to empty position (:X:)
 State of the system: from (3,3) to (4,2), isEmpty at (4,2)
 Expected output: true
 
-QTC6: Queen moves one space forward-right, to empty position
+QTC6: Queen moves one space forward-right, to empty position (:X:)
 State of the system: from (3,3) to (4,4), isEmpty at (4,4)
 Expected output: true
 
-QTC7: Queen moves one space backward-left, to empty position
+QTC7: Queen moves one space backward-left, to empty position (:X:)
 State of the system: from (3,3) to (2,2), isEmpty at (2,2)
 Expected output: true
 
-QTC8: Queen moves one space backward-right, to empty position
+QTC8: Queen moves one space backward-right, to empty position (:X:)
 State of the system: from (3,3) to (2,4), isEmpty at (2,4)
 Expected output: true
 

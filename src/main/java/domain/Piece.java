@@ -41,6 +41,10 @@ public class Piece {
             return isValidKingMove(board, from, to);
         }
 
+        if (this.pieceType == PieceType.QUEEN) {
+            return isValidQueenMove(board, from, to);
+        }
+
         return false;
     }
 
@@ -190,5 +194,15 @@ public class Piece {
         }
 
         return true;
+    }
+
+    private boolean isValidQueenMove(Board board, Location from, Location to) {
+        int rowDiff = to.getRow() - from.getRow();
+        int colDiff = to.getCol() - from.getCol();
+
+        boolean isStraightLine = (Math.abs(rowDiff) == 1 && colDiff == 0) || (Math.abs(colDiff) == 1 && rowDiff == 0);
+        boolean isValidDiagonal = Math.abs(rowDiff) == Math.abs(colDiff) && Math.abs(rowDiff) == 1;
+
+        return (isStraightLine || isValidDiagonal);
     }
 }
