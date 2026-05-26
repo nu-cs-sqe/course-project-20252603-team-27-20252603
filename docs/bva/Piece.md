@@ -2031,51 +2031,51 @@ Expected output: false
 
 ## Invalid move case 12: out-of-bounds
 
-QTC121: Queen moves out-of-bounds, top boundary, forward
+QTC121: Queen moves out-of-bounds, top boundary, forward (:X:)
 State of the system: from (7,3) to (8,3)
 Expected output: false
 
-QTC122: Queen moves out-of-bounds, top boundary, forward-left
+QTC122: Queen moves out-of-bounds, top boundary, forward-left (:X:)
 State of the system: from (7,3) to (8,2)
 Expected output: false
 
-QTC123: Queen moves out-of-bounds, top boundary, forward-right
+QTC123: Queen moves out-of-bounds, top boundary, forward-right (:X:)
 State of the system: from (7,3) to (8,4)
 Expected output: false
 
-QTC124: Queen moves out-of-bounds, bottom boundary, backward
+QTC124: Queen moves out-of-bounds, bottom boundary, backward (:X:)
 State of the system: from (0,3) to (-1,3)
 Expected output: false
 
-QTC125: Queen moves out-of-bounds, bottom boundary, backward-left
+QTC125: Queen moves out-of-bounds, bottom boundary, backward-left (:X:)
 State of the system: from (0,3) to (-1,2)
 Expected output: false
 
-QTC126: Queen moves out-of-bounds, bottom boundary, backward-right
+QTC126: Queen moves out-of-bounds, bottom boundary, backward-right (:X:)
 State of the system: from (0,3) to (-1,4)
 Expected output: false
 
-QTC127: Queen moves out-of-bounds, left boundary, left
+QTC127: Queen moves out-of-bounds, left boundary, left (:X:)
 State of the system: from (3,0) to (3,-1)
 Expected output: false
 
-QTC128: Queen moves out-of-bounds, left boundary, forward-left
+QTC128: Queen moves out-of-bounds, left boundary, forward-left (:X:)
 State of the system: from (3,0) to (4,-1)
 Expected output: false
 
-QTC129: Queen moves out-of-bounds, left boundary, backward-left
+QTC129: Queen moves out-of-bounds, left boundary, backward-left (:X:)
 State of the system: from (3,0) to (2,-1)
 Expected output: false
 
-QTC130: Queen moves out-of-bounds, right boundary, right
+QTC130: Queen moves out-of-bounds, right boundary, right (:X:)
 State of the system: from (3,7) to (3,8)
 Expected output: false
 
-QTC131: Queen moves out-of-bounds, right boundary, forward-right
+QTC131: Queen moves out-of-bounds, right boundary, forward-right (:X:)
 State of the system: from (3,7) to (4,8)
 Expected output: false
 
-QTC132: Queen moves out-of-bounds, right boundary, backward-right
+QTC132: Queen moves out-of-bounds, right boundary, backward-right (:X:)
 State of the system: from (3,7) to (2,8)
 Expected output: false
 

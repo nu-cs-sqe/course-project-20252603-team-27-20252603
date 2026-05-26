@@ -2560,6 +2560,49 @@ class PieceTests {
         );
     }
 
+    @ParameterizedTest(name = "Invalid Queen out-of-bounds: {0}")
+    @MethodSource("provideOutOfBoundsQueenCases")
+    void queenOutOfBoundsMove_invalid(
+            String testName,
+            int fromRow, int fromCol,
+            int toRow, int toCol
+    ) {
+        Piece queen = new Piece(PieceType.QUEEN, PieceColor.WHITE);
+
+        // Standard clear board wildcard configuration for safety
+        EasyMock.expect(board.getPiece(EasyMock.anyObject(Location.class))).andReturn(null).anyTimes();
+        EasyMock.replay(board);
+
+        // Moving outside of matrix boundaries [0-7] must evaluate to false
+        assertFalse(queen.canMove(board, new Location(fromRow, fromCol), new Location(toRow, toCol)));
+
+        EasyMock.verify(board);
+    }
+
+    private static Stream<Arguments> provideOutOfBoundsQueenCases() {
+        return Stream.of(
+                // Top Boundary Overruns (row 7 -> row 8)
+                Arguments.of("QTC121: top boundary, straight forward",     7, 3,  8, 3),
+                Arguments.of("QTC122: top boundary, diagonal forward-left", 7, 3,  8, 2),
+                Arguments.of("QTC123: top boundary, diagonal forward-right",7, 3,  8, 4),
+
+                // Bottom Boundary Overruns (row 0 -> row -1)
+                Arguments.of("QTC124: bottom boundary, straight backward",     0, 3, -1, 3),
+                Arguments.of("QTC125: bottom boundary, diagonal backward-left", 0, 3, -1, 2),
+                Arguments.of("QTC126: bottom boundary, diagonal backward-right",0, 3, -1, 4),
+
+                // Left Boundary Overruns (col 0 -> col -1)
+                Arguments.of("QTC127: left boundary, straight left",      3, 0,  3, -1),
+                Arguments.of("QTC128: left boundary, diagonal forward-left",  3, 0,  4, -1),
+                Arguments.of("QTC129: left boundary, diagonal backward-left", 3, 0,  2, -1),
+
+                // Right Boundary Overruns (col 7 -> col 8)
+                Arguments.of("QTC132: right boundary, straight right",       3, 7,  3, 8),
+                Arguments.of("QTC131: right boundary, diagonal forward-right", 3, 7,  4, 8),
+                Arguments.of("QTC132: right boundary, diagonal backward-right",3, 7,  2, 8)
+        );
+    }
+
     private static Location matchesLoc(int expectedRow, int expectedCol) {
         EasyMock.reportMatcher(new org.easymock.IArgumentMatcher() {
             @Override
