@@ -1526,7 +1526,7 @@ KiTC57: King attempts castling, but target rook belongs to the enemy team (:X:)
 State of the system: from (0,4) to (0,6), piece at (0,7) != null, pieceColor at (0,7) == BLACK
 Expected output: false
 
-KiTC58: King attempts castling, but target rook has already moved previously in the match
+KiTC58: King attempts castling, but target rook has already moved previously in the match (:X:)
 State of the system: from (0,4) to (0,6), piece at (0,7) != null, rook.hasMoved() == true
 Expected output: false
 
