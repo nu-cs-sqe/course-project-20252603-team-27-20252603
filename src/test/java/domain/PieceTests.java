@@ -2527,6 +2527,39 @@ class PieceTests {
         );
     }
 
+    @ParameterizedTest(name = "Invalid Queen Knight L-shape foe capture: {0}")
+    @MethodSource("provideInvalidQueenKnightFoeMoves")
+    void queenMove_knightShapeFoeOccupied_invalid(
+            String testName,
+            int fromRow, int fromCol,
+            int toRow, int toCol
+    ) {
+        Piece queen = new Piece(PieceType.QUEEN, PieceColor.WHITE);
+        Piece foe = new Piece(PieceType.PAWN, PieceColor.BLACK);
+
+        // Mock an enemy piece sitting directly at the destination square
+        EasyMock.expect(board.getPiece(matchesLoc(toRow, toCol))).andReturn(foe).anyTimes();
+        EasyMock.replay(board);
+
+        // Structural shape filtering must reject L-moves regardless of target faction
+        assertFalse(queen.canMove(board, new Location(fromRow, fromCol), new Location(toRow, toCol)));
+
+        EasyMock.verify(board);
+    }
+
+    private static Stream<Arguments> provideInvalidQueenKnightFoeMoves() {
+        return Stream.of(
+                Arguments.of("QTC113: forward-left L-shape, foe target",   3, 3, 5, 2),
+                Arguments.of("QTC114: forward-right L-shape, foe target",  3, 3, 5, 4),
+                Arguments.of("QTC115: right-forward L-shape, foe target",  3, 3, 4, 5),
+                Arguments.of("QTC116: right-backward L-shape, foe target", 3, 3, 2, 5),
+                Arguments.of("QTC117: backward-right L-shape, foe target", 3, 3, 1, 4),
+                Arguments.of("QTC118: backward-left L-shape, foe target",  3, 3, 1, 2),
+                Arguments.of("QTC119: left-backward L-shape, foe target",  3, 3, 2, 1),
+                Arguments.of("QTC120: left-forward L-shape, foe target",   3, 3, 4, 1)
+        );
+    }
+
     private static Location matchesLoc(int expectedRow, int expectedCol) {
         EasyMock.reportMatcher(new org.easymock.IArgumentMatcher() {
             @Override

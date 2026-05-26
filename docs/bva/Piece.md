@@ -1997,35 +1997,35 @@ Expected output: false
 
 ## Invalid move case 11: knight L-shape, to foe-occupied position
 
-QTC113: Queen moves in forward-left L-shape, to foe-occupied position
+QTC113: Queen moves in forward-left L-shape, to foe-occupied position (:X:)
 State of the system: from (3,3) to (5,2), !isEmpty at (5,2), foe at (5,2)
 Expected output: false
 
-QTC114: Queen moves in forward-right L-shape, to foe-occupied position
+QTC114: Queen moves in forward-right L-shape, to foe-occupied position (:X:)
 State of the system: from (3,3) to (5,4), !isEmpty at (5,4), foe at (5,4)
 Expected output: false
 
-QTC115: Queen moves in right-forward L-shape, to foe-occupied position
+QTC115: Queen moves in right-forward L-shape, to foe-occupied position (:X:)
 State of the system: from (3,3) to (4,5), !isEmpty at (4,5), foe at (4,5)
 Expected output: false
 
-QTC116: Queen moves in right-backward L-shape, to foe-occupied position
+QTC116: Queen moves in right-backward L-shape, to foe-occupied position (:X:)
 State of the system: from (3,3) to (2,5), !isEmpty at (2,5), foe at (2,5)
 Expected output: false
 
-QTC117: Queen moves in backward-right L-shape, to foe-occupied position
+QTC117: Queen moves in backward-right L-shape, to foe-occupied position (:X:)
 State of the system: from (3,3) to (1,4), !isEmpty at (1,4), foe at (1,4)
 Expected output: false
 
-QTC118: Queen moves in backward-left L-shape, to foe-occupied position
+QTC118: Queen moves in backward-left L-shape, to foe-occupied position (:X:)
 State of the system: from (3,3) to (1,2), !isEmpty at (1,2), foe at (1,2)
 Expected output: false
 
-QTC119: Queen moves in left-backward L-shape, to foe-occupied position
+QTC119: Queen moves in left-backward L-shape, to foe-occupied position (:X:)
 State of the system: from (3,3) to (2,1), !isEmpty at (2,1), foe at (2,1)
 Expected output: false
 
-QTC120: Queen moves in left-forward L-shape, to foe-occupied position
+QTC120: Queen moves in left-forward L-shape, to foe-occupied position (:X:)
 State of the system: from (3,3) to (4,1), !isEmpty at (4,1), foe at (4,1)
 Expected output: false
 
