@@ -55,10 +55,20 @@ Here are 2 formats as references. You can use any of them or a revised version o
 - **TC1: startNewGame_prepareBoard** ()
 - **State of the system:** player1=P1，player2=p2
 - **Expected output:** a board with two player, initiate all data
-- **Implemented:** 
+- **Implemented:*implemented* 
 
 - **TC1: startNewGame_sameInput** ()
 - **State of the system:** player1=p1，player2=p1
 - **Expected output:** throw Error shows need two different player
-- **Implemented:** 
+- **Implemented:*implemented* 
+
+- **TC1: makeMove_validMove** ()
+- **State of the system:** piece=Rook,source=(0,3),destination=(0,5)
+- **Expected output:** valid
+- **Implemented:*implemented* 
+- 
+- **TC1: makeMove_InCheck** ()
+- **State of the system:** piece=Pawn,source=(0,3),destination=(0，4),king position (0,5)
+- **Expected output:** CHECK
+- **Implemented:*implemented* 
 

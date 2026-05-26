@@ -7,4 +7,7 @@ public class Player {
 
 	public void setColor(Color color) {
 	}
+	public Color getColor(){
+		throw new UnsupportedOperationException("Not implemented yet");
+	}
 }
