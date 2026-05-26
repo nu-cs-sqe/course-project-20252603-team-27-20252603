@@ -41,11 +41,7 @@ public class Piece {
             return isValidKingMove(board, from, to);
         }
 
-        if (this.pieceType == PieceType.QUEEN) {
-            return isValidQueenMove(board, from, to);
-        }
-
-        return false;
+        return isValidQueenMove(board, from, to);
     }
 
     private boolean isOutOfBounds(Location loc) {
