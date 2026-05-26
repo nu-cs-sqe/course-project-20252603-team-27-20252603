@@ -200,8 +200,8 @@ public class Piece {
         int rowDiff = to.getRow() - from.getRow();
         int colDiff = to.getCol() - from.getCol();
 
-        boolean isStraightLine = (Math.abs(rowDiff) == 1 && colDiff == 0) || (Math.abs(colDiff) == 1 && rowDiff == 0);
-        boolean isValidDiagonal = Math.abs(rowDiff) == Math.abs(colDiff) && Math.abs(rowDiff) == 1;
+        boolean isStraightLine = (Math.abs(rowDiff) != 0 && colDiff == 0) || (Math.abs(colDiff) != 0 && rowDiff == 0);
+        boolean isValidDiagonal = Math.abs(rowDiff) == Math.abs(colDiff) && rowDiff != 0;
 
         return (isStraightLine || isValidDiagonal);
     }

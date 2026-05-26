@@ -2046,6 +2046,37 @@ class PieceTests {
         );
     }
 
+    @ParameterizedTest(name = "Valid Queen max slide: {0}")
+    @MethodSource("provideValidQueenMaxEmptyMoves")
+    void queenMaxMove_empty_valid(
+            String testName,
+            int fromRow, int fromCol,
+            int toRow, int toCol
+    ) {
+        Piece queen = new Piece(PieceType.QUEEN, PieceColor.WHITE);
+
+        // Entire board is clear for these open line-of-sight tests
+        EasyMock.expect(board.getPiece(EasyMock.anyObject(Location.class))).andReturn(null).anyTimes();
+        EasyMock.replay(board);
+
+        // Max range slides down open vectors must return true
+        assertTrue(queen.canMove(board, new Location(fromRow, fromCol), new Location(toRow, toCol)));
+
+        EasyMock.verify(board);
+    }
+
+    private static Stream<Arguments> provideValidQueenMaxEmptyMoves() {
+        return Stream.of(
+                Arguments.of("QTC17: max forward (0,3 to 7,3)",       0, 3, 7, 3),
+                Arguments.of("QTC18: max backward (7,3 to 0,3)",      7, 3, 0, 3),
+                Arguments.of("QTC19: max left (3,7 to 3,0)",          3, 7, 3, 0),
+                Arguments.of("QTC20: max right (3,0 to 3,7)",         3, 0, 3, 7),
+                Arguments.of("QTC21: max forward-left (0,7 to 7,0)",  0, 7, 7, 0),
+                Arguments.of("QTC22: max forward-right (0,0 to 7,7)", 0, 0, 7, 7),
+                Arguments.of("QTC23: max backward-left (7,7 to 0,0)", 7, 7, 0, 0),
+                Arguments.of("QTC24: max backward-right (7,0 to 0,7)",7, 0, 0, 7)
+        );
+    }
     private static Location matchesLoc(int expectedRow, int expectedCol) {
         EasyMock.reportMatcher(new org.easymock.IArgumentMatcher() {
             @Override

@@ -1589,35 +1589,35 @@ Expected output: true
 
 ## Valid move case 3: max-space in all 8 directions, clear path, to empty position
 
-QTC17: Queen moves max spaces forward, clear path, to empty position
+QTC17: Queen moves max spaces forward, clear path, to empty position (:X:)
 State of the system: from (0,3) to (7,3), isEmpty from (1,3) to (7,3)
 Expected output: true
 
-QTC18: Queen moves max spaces backward, clear path, to empty position
+QTC18: Queen moves max spaces backward, clear path, to empty position (:X:)
 State of the system: from (7,3) to (0,3), isEmpty from (6,3) to (0,3)
 Expected output: true
 
-QTC19: Queen moves max spaces left, clear path, to empty position
+QTC19: Queen moves max spaces left, clear path, to empty position (:X:)
 State of the system: from (3,7) to (3,0), isEmpty from (3,6) to (3,0)
 Expected output: true
 
-QTC20: Queen moves max spaces right, clear path, to empty position
+QTC20: Queen moves max spaces right, clear path, to empty position (:X:)
 State of the system: from (3,0) to (3,7), isEmpty from (3,1) to (3,7)
 Expected output: true
 
-QTC21: Queen moves max spaces forward-left, clear path, to empty position
+QTC21: Queen moves max spaces forward-left, clear path, to empty position (:X:)
 State of the system: from (0,7) to (7,0), isEmpty from (1,6) to (7,0)
 Expected output: true
 
-QTC22: Queen moves max spaces forward-right, clear path, to empty position
+QTC22: Queen moves max spaces forward-right, clear path, to empty position (:X:)
 State of the system: from (0,0) to (7,7), isEmpty from (1,1) to (7,7)
 Expected output: true
 
-QTC23: Queen moves max spaces backward-left, clear path, to empty position
+QTC23: Queen moves max spaces backward-left, clear path, to empty position (:X:)
 State of the system: from (7,7) to (0,0), isEmpty from (6,6) to (0,0)
 Expected output: true
 
-QTC24: Queen moves max spaces backward-right, clear path, to empty position
+QTC24: Queen moves max spaces backward-right, clear path, to empty position (:X:)
 State of the system: from (7,0) to (0,7), isEmpty from (6,1) to (0,7)
 Expected output: true
 
