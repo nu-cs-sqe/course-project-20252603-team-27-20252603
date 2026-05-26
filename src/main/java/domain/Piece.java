@@ -200,9 +200,18 @@ public class Piece {
         int rowDiff = to.getRow() - from.getRow();
         int colDiff = to.getCol() - from.getCol();
 
-        boolean isStraightLine = (Math.abs(rowDiff) != 0 && colDiff == 0) || (Math.abs(colDiff) != 0 && rowDiff == 0);
+        boolean isStraightLine = (rowDiff != 0 && colDiff == 0) || (colDiff != 0 && rowDiff == 0);
         boolean isValidDiagonal = Math.abs(rowDiff) == Math.abs(colDiff) && rowDiff != 0;
 
-        return (isStraightLine || isValidDiagonal);
+        if (!isStraightLine && !isValidDiagonal) {
+            return false;
+        }
+
+        if (isStraightPathObstructed(board, from, to, rowDiff, colDiff)) {
+            return false;
+        }
+
+        Piece target = board.getPiece(to);
+        return target == null || target.getColor() != this.getColor();
     }
 }

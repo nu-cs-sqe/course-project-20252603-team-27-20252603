@@ -2114,6 +2114,40 @@ class PieceTests {
                 Arguments.of("QTC32: max backward-right capture (7,0 to 0,7)",7, 0, 0, 7)
         );
     }
+
+    @ParameterizedTest(name = "Invalid Queen single friend landing: {0}")
+    @MethodSource("provideInvalidQueenSingleFriendMoves")
+    void queenSingleMove_friendOccupied_invalid(
+            String testName,
+            int fromRow, int fromCol,
+            int toRow, int toCol
+    ) {
+        Piece queen = new Piece(PieceType.QUEEN, PieceColor.WHITE);
+        Piece friend = new Piece(PieceType.PAWN, PieceColor.WHITE);
+
+        // Mock a friendly piece sitting directly at the destination square
+        EasyMock.expect(board.getPiece(matchesLoc(toRow, toCol))).andReturn(friend).anyTimes();
+        EasyMock.replay(board);
+
+        // Landing on a friendly piece in any direction must return false
+        assertFalse(queen.canMove(board, new Location(fromRow, fromCol), new Location(toRow, toCol)));
+
+        EasyMock.verify(board);
+    }
+
+    private static Stream<Arguments> provideInvalidQueenSingleFriendMoves() {
+        return Stream.of(
+                Arguments.of("QTC33: forward, friend blocked",        3, 3, 4, 3),
+                Arguments.of("QTC34: backward, friend blocked",       3, 3, 2, 3),
+                Arguments.of("QTC35: left, friend blocked",           3, 3, 3, 2),
+                Arguments.of("QTC36: right, friend blocked",          3, 3, 3, 4),
+                Arguments.of("QTC37: forward-left, friend blocked",   3, 3, 4, 2),
+                Arguments.of("QTC38: forward-right, friend blocked",  3, 3, 4, 4),
+                Arguments.of("QTC39: backward-left, friend blocked",  3, 3, 2, 2),
+                Arguments.of("QTC40: backward-right, friend blocked", 3, 3, 2, 4)
+        );
+    }
+
     private static Location matchesLoc(int expectedRow, int expectedCol) {
         EasyMock.reportMatcher(new org.easymock.IArgumentMatcher() {
             @Override

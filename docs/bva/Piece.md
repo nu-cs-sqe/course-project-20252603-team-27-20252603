@@ -1657,35 +1657,35 @@ Expected output: true
 
 ## Invalid move case 1: one-space in all 8 directions, to friend-occupied position
 
-QTC33: Queen moves one space forward, to friend-occupied position
+QTC33: Queen moves one space forward, to friend-occupied position (:X:)
 State of the system: from (3,3) to (4,3), !isEmpty at (4,3), friend at (4,3)
 Expected output: false
 
-QTC34: Queen moves one space backward, to friend-occupied position
+QTC34: Queen moves one space backward, to friend-occupied position (:X:)
 State of the system: from (3,3) to (2,3), !isEmpty at (2,3), friend at (2,3)
 Expected output: false
 
-QTC35: Queen moves one space left, to friend-occupied position
+QTC35: Queen moves one space left, to friend-occupied position (:X:)
 State of the system: from (3,3) to (3,2), !isEmpty at (3,2), friend at (3,2)
 Expected output: false
 
-QTC36: Queen moves one space right, to friend-occupied position
+QTC36: Queen moves one space right, to friend-occupied position (:X:)
 State of the system: from (3,3) to (3,4), !isEmpty at (3,4), friend at (3,4)
 Expected output: false
 
-QTC37: Queen moves one space forward-left, to friend-occupied position
+QTC37: Queen moves one space forward-left, to friend-occupied position (:X:)
 State of the system: from (3,3) to (4,2), !isEmpty at (4,2), friend at (4,2)
 Expected output: false
 
-QTC38: Queen moves one space forward-right, to friend-occupied position
+QTC38: Queen moves one space forward-right, to friend-occupied position (:X:)
 State of the system: from (3,3) to (4,4), !isEmpty at (4,4), friend at (4,4)
 Expected output: false
 
-QTC39: Queen moves one space backward-left, to friend-occupied position
+QTC39: Queen moves one space backward-left, to friend-occupied position (:X:)
 State of the system: from (3,3) to (2,2), !isEmpty at (2,2), friend at (2,2)
 Expected output: false
 
-QTC40: Queen moves one space backward-right, to friend-occupied position
+QTC40: Queen moves one space backward-right, to friend-occupied position (:X:)
 State of the system: from (3,3) to (2,4), !isEmpty at (2,4), friend at (2,4)
 Expected output: false
 
