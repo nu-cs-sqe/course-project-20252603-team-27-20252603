@@ -22,9 +22,9 @@ application {
     mainClass = "domain"
 }
 
-tasks.build {
-    dependsOn("pitest")
-}
+//tasks.build {
+//    dependsOn("pitest")
+//}
 
 dependencies {
     testImplementation(platform("org.junit:junit-bom:5.10.0"))
