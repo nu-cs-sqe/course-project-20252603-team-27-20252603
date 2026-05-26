@@ -2367,6 +2367,53 @@ class PieceTests {
         );
     }
 
+    @ParameterizedTest(name = "Invalid Queen fully friend-blocked move: {0}")
+    @MethodSource("provideFriendObstructedPathFriendDestQueenCases")
+    void queenMaxMove_friendObstructedPath_friendDest_invalid(
+            String testName,
+            int fromRow, int fromCol,
+            int blockRow, int blockCol,
+            int toRow, int toCol
+    ) {
+        Piece queen = new Piece(PieceType.QUEEN, PieceColor.WHITE);
+        Piece friendPiece = new Piece(PieceType.PAWN, PieceColor.WHITE);
+
+        // 1. SPECIFIC RULE FIRST: Place the friendly blocker on the intermediate path
+        EasyMock.expect(board.getPiece(matchesLoc(blockRow, blockCol)))
+                .andReturn(friendPiece).anyTimes();
+
+        // 2. SPECIFIC RULE SECOND: Place another friendly piece at the final destination
+        EasyMock.expect(board.getPiece(matchesLoc(toRow, toCol)))
+                .andReturn(friendPiece).anyTimes();
+
+        // 3. GENERIC RULE LAST: Assume all other remaining cells are empty
+        EasyMock.expect(board.getPiece(EasyMock.anyObject(Location.class)))
+                .andReturn(null).anyTimes();
+
+        EasyMock.replay(board);
+
+        // Multiple rule violations must reliably return false
+        assertFalse(queen.canMove(board, new Location(fromRow, fromCol), new Location(toRow, toCol)));
+
+        EasyMock.verify(board);
+    }
+
+    private static Stream<Arguments> provideFriendObstructedPathFriendDestQueenCases() {
+        return Stream.of(
+                // Orthogonal vectors
+                Arguments.of("QTC81: forward, path friend-blocked, dest friend",  0, 3,  1, 3,  7, 3),
+                Arguments.of("QTC82: backward, path friend-blocked, dest friend", 7, 3,  6, 3,  0, 3),
+                Arguments.of("QTC83: left, path friend-blocked, dest friend",     3, 7,  3, 6,  3, 0),
+                Arguments.of("QTC84: right, path friend-blocked, dest friend",    3, 0,  3, 1,  3, 7),
+
+                // Diagonal vectors
+                Arguments.of("QTC85: forward-left, path friend-blocked, dest friend",   0, 7,  1, 6,  7, 0),
+                Arguments.of("QTC86: forward-right, path friend-blocked, dest friend",  0, 0,  1, 1,  7, 7),
+                Arguments.of("QTC87: backward-left, path friend-blocked, dest friend",  7, 7,  6, 6,  0, 0),
+                Arguments.of("QTC88: backward-right, path friend-blocked, dest friend", 7, 0,  6, 1,  0, 7)
+        );
+    }
+
     private static Location matchesLoc(int expectedRow, int expectedCol) {
         EasyMock.reportMatcher(new org.easymock.IArgumentMatcher() {
             @Override
