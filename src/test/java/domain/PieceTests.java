@@ -2617,6 +2617,34 @@ class PieceTests {
         EasyMock.verify(board);
     }
 
+    @Test
+    void castling_pathObstructed_returnsFalse() {
+        Piece king = new Piece(PieceType.KING, PieceColor.WHITE);
+        Piece blocker = new Piece(PieceType.PAWN, PieceColor.WHITE);
+
+        Location from = new Location(0, 4);
+        Location to = new Location(0, 6);
+
+        // Explicitly check locations inside the loop expectation
+        EasyMock.expect(board.getPiece(EasyMock.anyObject(Location.class))).andAnswer(() -> {
+            Location loc = (Location) EasyMock.getCurrentArguments()[0];
+            // The loop checks (0,5) and (0,6). Let's put a blocker at (0,5)
+            if (loc.getRow() == 0 && loc.getCol() == 5) {
+                return blocker;
+            }
+            // Return the valid rook at column 7
+            if (loc.getRow() == 0 && loc.getCol() == 7) {
+                return new Piece(PieceType.ROOK, PieceColor.WHITE);
+            }
+            return null; // All other squares empty
+        }).anyTimes();
+
+        EasyMock.replay(board);
+
+        assertFalse(king.canMove(board, from, to));
+        EasyMock.verify(board);
+    }
+
     private static Location matchesLoc(int expectedRow, int expectedCol) {
         EasyMock.reportMatcher(new org.easymock.IArgumentMatcher() {
             @Override

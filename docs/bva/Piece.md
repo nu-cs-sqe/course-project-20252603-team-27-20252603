@@ -1518,7 +1518,7 @@ Expected output: false
 
 ## Invalid move case 7: castling attempts 
 
-KiC56: King attempts castling, but intermediate path is obstructed by another piece
+KiC56: King attempts castling, but intermediate path is obstructed by another piece (:X:)
 State of the system: from (0,4) to (0,6), piece at (0,5) != null, rook at (0,7)
 Expected output: false
 
