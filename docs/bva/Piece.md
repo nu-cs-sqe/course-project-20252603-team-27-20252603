@@ -1555,35 +1555,35 @@ Expected output: true
 
 ## Valid move case 2: one-space in all 8 directions, to foe-occupied position
 
-QTC9: Queen moves one space forward, to foe-occupied position
+QTC9: Queen moves one space forward, to foe-occupied position (:X:)
 State of the system: from (3,3) to (4,3), !isEmpty at (4,3), foe at (4,3)
 Expected output: true
 
-QTC10: Queen moves one space backward, to foe-occupied position
+QTC10: Queen moves one space backward, to foe-occupied position (:X:)
 State of the system: from (3,3) to (2,3), !isEmpty at (2,3), foe at (2,3)
 Expected output: true
 
-QTC11: Queen moves one space left, to foe-occupied position
+QTC11: Queen moves one space left, to foe-occupied position (:X:)
 State of the system: from (3,3) to (3,2), !isEmpty at (3,2), foe at (3,2)
 Expected output: true
 
-QTC12: Queen moves one space right, to foe-occupied position
+QTC12: Queen moves one space right, to foe-occupied position (:X:)
 State of the system: from (3,3) to (3,4), !isEmpty at (3,4), foe at (3,4)
 Expected output: true
 
-QTC13: Queen moves one space forward-left, to foe-occupied position
+QTC13: Queen moves one space forward-left, to foe-occupied position (:X:)
 State of the system: from (3,3) to (4,2), !isEmpty at (4,2), foe at (4,2)
 Expected output: true
 
-QTC14: Queen moves one space forward-right, to foe-occupied position
+QTC14: Queen moves one space forward-right, to foe-occupied position (:X:)
 State of the system: from (3,3) to (4,4), !isEmpty at (4,4), foe at (4,4)
 Expected output: true
 
-QTC15: Queen moves one space backward-left, to foe-occupied position
+QTC15: Queen moves one space backward-left, to foe-occupied position (:X:)
 State of the system: from (3,3) to (2,2), !isEmpty at (2,2), foe at (2,2)
 Expected output: true
 
-QTC16: Queen moves one space backward-right, to foe-occupied position
+QTC16: Queen moves one space backward-right, to foe-occupied position (:X:)
 State of the system: from (3,3) to (2,4), !isEmpty at (2,4), foe at (2,4)
 Expected output: true
 

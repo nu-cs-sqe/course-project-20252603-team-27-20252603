@@ -2013,6 +2013,39 @@ class PieceTests {
         );
     }
 
+    @ParameterizedTest(name = "Valid Queen single capture: {0}")
+    @MethodSource("provideValidQueenSingleFoeMoves")
+    void queenSingleMove_foeOccupied_valid(
+            String testName,
+            int fromRow, int fromCol,
+            int toRow, int toCol
+    ) {
+        Piece queen = new Piece(PieceType.QUEEN, PieceColor.WHITE);
+        Piece foe = new Piece(PieceType.PAWN, PieceColor.BLACK);
+
+        // Mock an enemy piece sitting directly at the destination square
+        EasyMock.expect(board.getPiece(matchesLoc(toRow, toCol))).andReturn(foe).anyTimes();
+        EasyMock.replay(board);
+
+        // One-space radial translations ending on a foe must evaluate to true
+        assertTrue(queen.canMove(board, new Location(fromRow, fromCol), new Location(toRow, toCol)));
+
+        EasyMock.verify(board);
+    }
+
+    private static Stream<Arguments> provideValidQueenSingleFoeMoves() {
+        return Stream.of(
+                Arguments.of("QTC9: forward capture",        3, 3, 4, 3),
+                Arguments.of("QTC10: backward capture",      3, 3, 2, 3),
+                Arguments.of("QTC11: left capture",          3, 3, 3, 2),
+                Arguments.of("QTC12: right capture",         3, 3, 3, 4),
+                Arguments.of("QTC13: forward-left capture",  3, 3, 4, 2),
+                Arguments.of("QTC14: forward-right capture", 3, 3, 4, 4),
+                Arguments.of("QTC15: backward-left capture", 3, 3, 2, 2),
+                Arguments.of("QTC16: backward-right capture",3, 3, 2, 4)
+        );
+    }
+
     private static Location matchesLoc(int expectedRow, int expectedCol) {
         EasyMock.reportMatcher(new org.easymock.IArgumentMatcher() {
             @Override
