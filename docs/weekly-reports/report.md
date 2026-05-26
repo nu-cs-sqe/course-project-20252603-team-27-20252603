@@ -37,6 +37,16 @@
 2. [todo]
    - All: Continue work on BVA documentation and testing for classes
 
+# Week 8 (05/18/2026-05/25/2026)
+**Planning and Progress Tracking**:
+1. [done]
+    - Initial implementations of Piece and Board Class, PRs created for team review
+        - Olivia: Piece Class
+        - Jerome: Board Class
+2. [todo]
+    - All: UI and Player classes
+    - Mutation and coverage testing for classes currently in progress
+
 # Week X (XX/XX/2026-XX/XX/2026) TEMPLATE (You can change the format to whatever the team likes better)
 **Planning and Progress Tracking**:
 1. [done] Person: Task (Links to PR)
