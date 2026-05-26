@@ -1538,7 +1538,7 @@ KiTC60: King attempts castling, but target corner piece is an invalid piece type
 State of the system: from (0,4) to (0,6), piece at (0,7) != null, pieceType at (0,7) == PAWN
 Expected output: false
 
-KiTC61: King attempts queenside castling, but target queenside corner position contains no piece (null)
+KiTC61: King attempts queenside castling, but target queenside corner position contains no piece (null) (:X:)
 State of the system: from (0,4) to (0,2), piece at (0,0) == null
 Expected output: false
 

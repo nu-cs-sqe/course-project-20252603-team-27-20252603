@@ -2707,6 +2707,21 @@ class PieceTests {
         EasyMock.verify(board);
     }
 
+    @Test
+    void KiTC61_castling_queensideRookNull_returnsFalse() {
+        Piece king = new Piece(PieceType.KING, PieceColor.WHITE);
+
+        Location from = new Location(0, 4);
+        Location to = new Location(0, 2); // Queenside attempt
+
+        // Force the queenside corner square (0,0) to return null
+        EasyMock.expect(board.getPiece(new Location(0, 0))).andReturn(null).anyTimes();
+        EasyMock.replay(board);
+
+        assertFalse(king.canMove(board, from, to));
+        EasyMock.verify(board);
+    }
+
     private static Location matchesLoc(int expectedRow, int expectedCol) {
         EasyMock.reportMatcher(new org.easymock.IArgumentMatcher() {
             @Override
