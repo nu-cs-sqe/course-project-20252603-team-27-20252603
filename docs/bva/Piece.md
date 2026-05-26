@@ -1623,35 +1623,35 @@ Expected output: true
 
 ## Valid move case 4: max-space in all 8 directions, clear path, to foe-occupied position
 
-QTC25: Queen moves max spaces forward, clear path, to foe-occupied position
+QTC25: Queen moves max spaces forward, clear path, to foe-occupied position (:X:)
 State of the system: from (0,3) to (7,3), isEmpty from (1,3) to (6,3), !isEmpty at (7,3), foe at (7,3)
 Expected output: true
 
-QTC26: Queen moves max spaces backward, clear path, to foe-occupied position
+QTC26: Queen moves max spaces backward, clear path, to foe-occupied position (:X:)
 State of the system: from (7,3) to (0,3), isEmpty from (6,3) to (1,3), !isEmpty at (0,3), foe at (0,3)
 Expected output: true
 
-QTC27: Queen moves max spaces left, clear path, to foe-occupied position
+QTC27: Queen moves max spaces left, clear path, to foe-occupied position (:X:)
 State of the system: from (3,7) to (3,0), isEmpty from (3,6) to (3,1), !isEmpty at (3,0), foe at (3,0)
 Expected output: true
 
-QTC28: Queen moves max spaces right, clear path, to foe-occupied position
+QTC28: Queen moves max spaces right, clear path, to foe-occupied position (:X:)
 State of the system: from (3,0) to (3,7), isEmpty from (3,1) to (3,6), !isEmpty at (3,7), foe at (3,7)
 Expected output: true
 
-QTC29: Queen moves max spaces forward-left, clear path, to foe-occupied position
+QTC29: Queen moves max spaces forward-left, clear path, to foe-occupied position (:X:)
 State of the system: from (0,7) to (7,0), isEmpty from (1,6) to (6,1), !isEmpty at (7,0), foe at (7,0)
 Expected output: true
 
-QTC30: Queen moves max spaces forward-right, clear path, to foe-occupied position
+QTC30: Queen moves max spaces forward-right, clear path, to foe-occupied position (:X:)
 State of the system: from (0,0) to (7,7), isEmpty from (1,1) to (6,6), !isEmpty at (7,7), foe at (7,7)
 Expected output: true
 
-QTC31: Queen moves max spaces backward-left, clear path, to foe-occupied position
+QTC31: Queen moves max spaces backward-left, clear path, to foe-occupied position (:X:)
 State of the system: from (7,7) to (0,0), isEmpty from (6,6) to (1,1), !isEmpty at (0,0), foe at (0,0)
 Expected output: true
 
-QTC32: Queen moves max spaces backward-right, clear path, to foe-occupied position
+QTC32: Queen moves max spaces backward-right, clear path, to foe-occupied position (:X:)
 State of the system: from (7,0) to (0,7), isEmpty from (6,1) to (1,6), !isEmpty at (0,7), foe at (0,7)
 Expected output: true
 
