@@ -106,18 +106,10 @@ tasks.register<JacocoReport>("applicationCodeCoverageReport") {
 }
 
 pitest {
-    targetClasses = setOf("domain.*") //by default "${project.group}.*"
+    targetClasses = setOf("domain.*")
     targetTests = setOf("domain.*")
     junit5PluginVersion = "1.2.1"
-    pitestVersion = "1.19.0" //not needed when a default PIT version should be used
-
     threads = 4
     outputFormats = setOf("HTML")
     timestampedReports = false
-    testSourceSets.set(listOf(sourceSets.test.get()))
-    mainSourceSets.set(listOf(sourceSets.main.get()))
-    jvmArgs.set(listOf("-Xmx1024m"))
-    useClasspathFile.set(true) //useful with bigger projects on Windows
-    fileExtensionsToFilter.addAll("xml")
-    exportLineCoverage = true
 }
