@@ -1725,35 +1725,35 @@ Expected output: false
 
 ## Invalid move case 3: max-space, friend-obstructed path, to empty position
 
-QTC49: Queen moves max spaces forward, friend-obstructed path, to empty position
+QTC49: Queen moves max spaces forward, friend-obstructed path, to empty position (:X:)
 State of the system: from (0,3) to (7,3), !isEmpty at (1,3), friend at (1,3), isEmpty at (7,3)
 Expected output: false
 
-QTC50: Queen moves max spaces backward, friend-obstructed path, to empty position
+QTC50: Queen moves max spaces backward, friend-obstructed path, to empty position (:X:)
 State of the system: from (7,3) to (0,3), !isEmpty at (6,3), friend at (6,3), isEmpty at (0,3)
 Expected output: false
 
-QTC51: Queen moves max spaces left, friend-obstructed path, to empty position
+QTC51: Queen moves max spaces left, friend-obstructed path, to empty position (:X:)
 State of the system: from (3,7) to (3,0), !isEmpty at (3,6), friend at (3,6), isEmpty at (3,0)
 Expected output: false
 
-QTC52: Queen moves max spaces right, friend-obstructed path, to empty position
+QTC52: Queen moves max spaces right, friend-obstructed path, to empty position (:X:)
 State of the system: from (3,0) to (3,7), !isEmpty at (3,1), friend at (3,1), isEmpty at (3,7)
 Expected output: false
 
-QTC53: Queen moves max spaces forward-left, friend-obstructed path, to empty position
+QTC53: Queen moves max spaces forward-left, friend-obstructed path, to empty position (:X:)
 State of the system: from (0,7) to (7,0), !isEmpty at (1,6), friend at (1,6), isEmpty at (7,0)
 Expected output: false
 
-QTC54: Queen moves max spaces forward-right, friend-obstructed path, to empty position
+QTC54: Queen moves max spaces forward-right, friend-obstructed path, to empty position (:X:)
 State of the system: from (0,0) to (7,7), !isEmpty at (1,1), friend at (1,1), isEmpty at (7,7)
 Expected output: false
 
-QTC55: Queen moves max spaces backward-left, friend-obstructed path, to empty position
+QTC55: Queen moves max spaces backward-left, friend-obstructed path, to empty position (:X:)
 State of the system: from (7,7) to (0,0), !isEmpty at (6,6), friend at (6,6), isEmpty at (0,0)
 Expected output: false
 
-QTC56: Queen moves max spaces backward-right, friend-obstructed path, to empty position
+QTC56: Queen moves max spaces backward-right, friend-obstructed path, to empty position (:X:)
 State of the system: from (7,0) to (0,7), !isEmpty at (6,1), friend at (6,1), isEmpty at (0,7)
 Expected output: false
 

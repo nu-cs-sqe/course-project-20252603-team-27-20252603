@@ -2185,6 +2185,49 @@ class PieceTests {
         );
     }
 
+    @ParameterizedTest(name = "Invalid Queen path friend blocked: {0}")
+    @MethodSource("provideFriendObstructedPathQueenCases")
+    void queenMaxMove_friendObstructedPath_invalid(
+            String testName,
+            int fromRow, int fromCol,
+            int blockRow, int blockCol,
+            int toRow, int toCol
+    ) {
+        Piece queen = new Piece(PieceType.QUEEN, PieceColor.WHITE);
+        Piece friendBlocker = new Piece(PieceType.PAWN, PieceColor.WHITE);
+
+        // 1. SPECIFIC RULE FIRST: Place the friendly blocker on the intermediate path
+        EasyMock.expect(board.getPiece(matchesLoc(blockRow, blockCol)))
+                .andReturn(friendBlocker).anyTimes();
+
+        // 2. GENERIC RULE LAST: Assume all other squares (including destination) are empty
+        EasyMock.expect(board.getPiece(EasyMock.anyObject(Location.class)))
+                .andReturn(null).anyTimes();
+
+        EasyMock.replay(board);
+
+        // A blocked intermediate path must immediately return false
+        assertFalse(queen.canMove(board, new Location(fromRow, fromCol), new Location(toRow, toCol)));
+
+        EasyMock.verify(board);
+    }
+
+    private static Stream<Arguments> provideFriendObstructedPathQueenCases() {
+        return Stream.of(
+                // Orthogonal path block vectors
+                Arguments.of("QTC49: forward path blocked",  0, 3,  1, 3,  7, 3),
+                Arguments.of("QTC50: backward path blocked", 7, 3,  6, 3,  0, 3),
+                Arguments.of("QTC51: left path blocked",     3, 7,  3, 6,  3, 0),
+                Arguments.of("QTC52: right path blocked",    3, 0,  3, 1,  3, 7),
+
+                // Diagonal path block vectors
+                Arguments.of("QTC53: forward-left path blocked",   0, 7,  1, 6,  7, 0),
+                Arguments.of("QTC54: forward-right path blocked",  0, 0,  1, 1,  7, 7),
+                Arguments.of("QTC55: backward-left path blocked",  7, 7,  6, 6,  0, 0),
+                Arguments.of("QTC56: backward-right path blocked", 7, 0,  6, 1,  0, 7)
+        );
+    }
+
     private static Location matchesLoc(int expectedRow, int expectedCol) {
         EasyMock.reportMatcher(new org.easymock.IArgumentMatcher() {
             @Override
