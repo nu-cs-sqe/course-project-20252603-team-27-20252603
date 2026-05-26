@@ -2414,6 +2414,54 @@ class PieceTests {
         );
     }
 
+    @ParameterizedTest(name = "Invalid Queen foe-blocked path to friend landing: {0}")
+    @MethodSource("provideFoeObstructedPathFriendDestQueenCases")
+    void queenMaxMove_foeObstructedPath_friendDest_invalid(
+            String testName,
+            int fromRow, int fromCol,
+            int blockRow, int blockCol,
+            int toRow, int toCol
+    ) {
+        Piece queen = new Piece(PieceType.QUEEN, PieceColor.WHITE);
+        Piece foeBlocker = new Piece(PieceType.PAWN, PieceColor.BLACK);
+        Piece friendDest = new Piece(PieceType.PAWN, PieceColor.WHITE);
+
+        // 1. SPECIFIC RULE FIRST: Place the enemy blocker on the intermediate path
+        EasyMock.expect(board.getPiece(matchesLoc(blockRow, blockCol)))
+                .andReturn(foeBlocker).anyTimes();
+
+        // 2. SPECIFIC RULE SECOND: Place a friendly teammate piece at the destination square
+        EasyMock.expect(board.getPiece(matchesLoc(toRow, toCol)))
+                .andReturn(friendDest).anyTimes();
+
+        // 3. GENERIC RULE LAST: Assume all other remaining cells are empty
+        EasyMock.expect(board.getPiece(EasyMock.anyObject(Location.class)))
+                .andReturn(null).anyTimes();
+
+        EasyMock.replay(board);
+
+        // Path obstructions must reliably trigger a false response before evaluation of the target tile
+        assertFalse(queen.canMove(board, new Location(fromRow, fromCol), new Location(toRow, toCol)));
+
+        EasyMock.verify(board);
+    }
+
+    private static Stream<Arguments> provideFoeObstructedPathFriendDestQueenCases() {
+        return Stream.of(
+                // Orthogonal vectors
+                Arguments.of("QTC89: forward, foe path blocker, friend target",  0, 3,  1, 3,  7, 3),
+                Arguments.of("QTC90: backward, foe path blocker, friend target", 7, 3,  6, 3,  0, 3),
+                Arguments.of("QTC91: left, foe path blocker, friend target",     3, 7,  3, 6,  3, 0),
+                Arguments.of("QTC92: right, foe path blocker, friend target",    3, 0,  3, 1,  3, 7),
+
+                // Diagonal vectors
+                Arguments.of("QTC93: forward-left, foe path blocker, friend target",   0, 7,  1, 6,  7, 0),
+                Arguments.of("QTC94: forward-right, foe path blocker, friend target",  0, 0,  1, 1,  7, 7),
+                Arguments.of("QTC95: backward-left, foe path blocker, friend target",  7, 7,  6, 6,  0, 0),
+                Arguments.of("QTC96: backward-right, foe path blocker, friend target", 7, 0,  6, 1,  0, 7)
+        );
+    }
+
     private static Location matchesLoc(int expectedRow, int expectedCol) {
         EasyMock.reportMatcher(new org.easymock.IArgumentMatcher() {
             @Override
