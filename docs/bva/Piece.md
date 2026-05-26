@@ -1522,7 +1522,7 @@ KiC56: King attempts castling, but intermediate path is obstructed by another pi
 State of the system: from (0,4) to (0,6), piece at (0,5) != null, rook at (0,7)
 Expected output: false
 
-KiTC57: King attempts castling, but target rook belongs to the enemy team
+KiTC57: King attempts castling, but target rook belongs to the enemy team (:X:)
 State of the system: from (0,4) to (0,6), piece at (0,7) != null, pieceColor at (0,7) == BLACK
 Expected output: false
 

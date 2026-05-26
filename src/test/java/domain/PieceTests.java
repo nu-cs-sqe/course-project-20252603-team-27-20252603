@@ -2645,6 +2645,21 @@ class PieceTests {
         EasyMock.verify(board);
     }
 
+    @Test
+    void castling_enemyRook_returnsFalse() {
+        Piece king = new Piece(PieceType.KING, PieceColor.WHITE);
+        Piece enemyRook = new Piece(PieceType.ROOK, PieceColor.BLACK); // Wrong color!
+
+        Location from = new Location(0, 4);
+        Location to = new Location(0, 6);
+
+        EasyMock.expect(board.getPiece(new Location(0, 7))).andReturn(enemyRook).anyTimes();
+        EasyMock.replay(board);
+
+        assertFalse(king.canMove(board, from, to));
+        EasyMock.verify(board);
+    }
+
     private static Location matchesLoc(int expectedRow, int expectedCol) {
         EasyMock.reportMatcher(new org.easymock.IArgumentMatcher() {
             @Override
