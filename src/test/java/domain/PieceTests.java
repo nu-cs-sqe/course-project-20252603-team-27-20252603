@@ -2148,6 +2148,43 @@ class PieceTests {
         );
     }
 
+    @ParameterizedTest(name = "Invalid Queen max friend landing: {0}")
+    @MethodSource("provideInvalidQueenMaxFriendMoves")
+    void queenMaxMove_friendOccupied_invalid(
+            String testName,
+            int fromRow, int fromCol,
+            int toRow, int toCol
+    ) {
+        Piece queen = new Piece(PieceType.QUEEN, PieceColor.WHITE);
+        Piece friend = new Piece(PieceType.PAWN, PieceColor.WHITE);
+
+        // 1. SPECIFIC RULE FIRST: Place the friendly teammate at the landing destination
+        EasyMock.expect(board.getPiece(matchesLoc(toRow, toCol))).andReturn(friend).anyTimes();
+
+        // 2. GENERIC RULE LAST: Assume all intermediate path squares are empty (null)
+        EasyMock.expect(board.getPiece(EasyMock.anyObject(Location.class))).andReturn(null).anyTimes();
+
+        EasyMock.replay(board);
+
+        // Landing on a friendly piece at max distance must return false
+        assertFalse(queen.canMove(board, new Location(fromRow, fromCol), new Location(toRow, toCol)));
+
+        EasyMock.verify(board);
+    }
+
+    private static Stream<Arguments> provideInvalidQueenMaxFriendMoves() {
+        return Stream.of(
+                Arguments.of("QTC41: max forward, friend blocked (0,3 to 7,3)",       0, 3, 7, 3),
+                Arguments.of("QTC42: max backward, friend blocked (7,3 to 0,3)",      7, 3, 0, 3),
+                Arguments.of("QTC43: max left, friend blocked (3,7 to 3,0)",          3, 7, 3, 0),
+                Arguments.of("QTC44: max right, friend blocked (3,0 to 3,7)",         3, 0, 3, 7),
+                Arguments.of("QTC45: max forward-left, friend blocked (0,7 to 7,0)",  0, 7, 7, 0),
+                Arguments.of("QTC46: max forward-right, friend blocked (0,0 to 7,7)", 0, 0, 7, 7),
+                Arguments.of("QTC47: max backward-left, friend blocked (7,7 to 0,0)", 7, 7, 0, 0),
+                Arguments.of("QTC48: max backward-right, friend blocked (7,0 to 0,7)",7, 0, 0, 7)
+        );
+    }
+
     private static Location matchesLoc(int expectedRow, int expectedCol) {
         EasyMock.reportMatcher(new org.easymock.IArgumentMatcher() {
             @Override
