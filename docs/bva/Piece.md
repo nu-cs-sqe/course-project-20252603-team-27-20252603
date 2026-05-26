@@ -1963,35 +1963,35 @@ Expected output: false
 
 ## Invalid move case 10: knight L-shape, to friend-occupied position
 
-QTC105: Queen moves in forward-left L-shape, to friend-occupied position
+QTC105: Queen moves in forward-left L-shape, to friend-occupied position (:X:)
 State of the system: from (3,3) to (5,2), !isEmpty at (5,2), friend at (5,2)
 Expected output: false
 
-QTC106: Queen moves in forward-right L-shape, to friend-occupied position
+QTC106: Queen moves in forward-right L-shape, to friend-occupied position (:X:)
 State of the system: from (3,3) to (5,4), !isEmpty at (5,4), friend at (5,4)
 Expected output: false
 
-QTC107: Queen moves in right-forward L-shape, to friend-occupied position
+QTC107: Queen moves in right-forward L-shape, to friend-occupied position (:X:)
 State of the system: from (3,3) to (4,5), !isEmpty at (4,5), friend at (4,5)
 Expected output: false
 
-QTC108: Queen moves in right-backward L-shape, to friend-occupied position
+QTC108: Queen moves in right-backward L-shape, to friend-occupied position (:X:)
 State of the system: from (3,3) to (2,5), !isEmpty at (2,5), friend at (2,5)
 Expected output: false
 
-QTC109: Queen moves in backward-right L-shape, to friend-occupied position
+QTC109: Queen moves in backward-right L-shape, to friend-occupied position (:X:)
 State of the system: from (3,3) to (1,4), !isEmpty at (1,4), friend at (1,4)
 Expected output: false
 
-QTC110: Queen moves in backward-left L-shape, to friend-occupied position
+QTC110: Queen moves in backward-left L-shape, to friend-occupied position (:X:)
 State of the system: from (3,3) to (1,2), !isEmpty at (1,2), friend at (1,2)
 Expected output: false
 
-QTC111: Queen moves in left-backward L-shape, to friend-occupied position
+QTC111: Queen moves in left-backward L-shape, to friend-occupied position (:X:)
 State of the system: from (3,3) to (2,1), !isEmpty at (2,1), friend at (2,1)
 Expected output: false
 
-QTC112: Queen moves in left-forward L-shape, to friend-occupied position
+QTC112: Queen moves in left-forward L-shape, to friend-occupied position (:X:)
 State of the system: from (3,3) to (4,1), !isEmpty at (4,1), friend at (4,1)
 Expected output: false
 

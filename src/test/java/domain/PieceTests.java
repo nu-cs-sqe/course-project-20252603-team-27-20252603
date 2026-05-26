@@ -2494,6 +2494,39 @@ class PieceTests {
         );
     }
 
+    @ParameterizedTest(name = "Invalid Queen Knight L-shape friend landing: {0}")
+    @MethodSource("provideInvalidQueenKnightFriendMoves")
+    void queenMove_knightShapeFriendOccupied_invalid(
+            String testName,
+            int fromRow, int fromCol,
+            int toRow, int toCol
+    ) {
+        Piece queen = new Piece(PieceType.QUEEN, PieceColor.WHITE);
+        Piece friend = new Piece(PieceType.PAWN, PieceColor.WHITE);
+
+        // Mock a friendly piece sitting directly at the destination square
+        EasyMock.expect(board.getPiece(matchesLoc(toRow, toCol))).andReturn(friend).anyTimes();
+        EasyMock.replay(board);
+
+        // Knight L-shapes must return false regardless of destination occupancy
+        assertFalse(queen.canMove(board, new Location(fromRow, fromCol), new Location(toRow, toCol)));
+
+        EasyMock.verify(board);
+    }
+
+    private static Stream<Arguments> provideInvalidQueenKnightFriendMoves() {
+        return Stream.of(
+                Arguments.of("QTC105: forward-left L-shape, friend block",   3, 3, 5, 2),
+                Arguments.of("QTC106: forward-right L-shape, friend block",  3, 3, 5, 4),
+                Arguments.of("QTC107: right-forward L-shape, friend block",  3, 3, 4, 5),
+                Arguments.of("QTC108: right-backward L-shape, friend block", 3, 3, 2, 5),
+                Arguments.of("QTC109: backward-right L-shape, friend block", 3, 3, 1, 4),
+                Arguments.of("QTC110: backward-left L-shape, friend block",  3, 3, 1, 2),
+                Arguments.of("QTC111: left-backward L-shape, friend block",  3, 3, 2, 1),
+                Arguments.of("QTC112: left-forward L-shape, friend block",   3, 3, 4, 1)
+        );
+    }
+
     private static Location matchesLoc(int expectedRow, int expectedCol) {
         EasyMock.reportMatcher(new org.easymock.IArgumentMatcher() {
             @Override
