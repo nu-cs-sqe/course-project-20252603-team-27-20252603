@@ -2462,6 +2462,38 @@ class PieceTests {
         );
     }
 
+    @ParameterizedTest(name = "Invalid Queen Knight L-shape leap: {0}")
+    @MethodSource("provideInvalidQueenKnightShapes")
+    void queenMove_knightShape_invalid(
+            String testName,
+            int fromRow, int fromCol,
+            int toRow, int toCol
+    ) {
+        Piece queen = new Piece(PieceType.QUEEN, PieceColor.WHITE);
+
+        // All target squares are open/empty
+        EasyMock.expect(board.getPiece(matchesLoc(toRow, toCol))).andReturn(null).anyTimes();
+        EasyMock.replay(board);
+
+        // Knight L-shapes must return false unconditionally
+        assertFalse(queen.canMove(board, new Location(fromRow, fromCol), new Location(toRow, toCol)));
+
+        EasyMock.verify(board);
+    }
+
+    private static Stream<Arguments> provideInvalidQueenKnightShapes() {
+        return Stream.of(
+                Arguments.of("QTC97: forward-left L-shape",   3, 3, 5, 2),
+                Arguments.of("QTC98: forward-right L-shape",  3, 3, 5, 4),
+                Arguments.of("QTC99: right-forward L-shape",  3, 3, 4, 5),
+                Arguments.of("QTC100: right-backward L-shape",3, 3, 2, 5),
+                Arguments.of("QTC101: backward-right L-shape",3, 3, 1, 4),
+                Arguments.of("QTC102: backward-left L-shape", 3, 3, 1, 2),
+                Arguments.of("QTC103: left-backward L-shape", 3, 3, 2, 1),
+                Arguments.of("QTC104: left-forward L-shape",  3, 3, 4, 1)
+        );
+    }
+
     private static Location matchesLoc(int expectedRow, int expectedCol) {
         EasyMock.reportMatcher(new org.easymock.IArgumentMatcher() {
             @Override

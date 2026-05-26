@@ -1929,35 +1929,35 @@ Expected output: false
 
 ## Invalid move case 9: knight L-shape, to empty position
 
-QTC97: Queen moves in forward-left L-shape, to empty position
+QTC97: Queen moves in forward-left L-shape, to empty position (:X:)
 State of the system: from (3,3) to (5,2), isEmpty at (5,2)
 Expected output: false
 
-QTC98: Queen moves in forward-right L-shape, to empty position
+QTC98: Queen moves in forward-right L-shape, to empty position (:X:)
 State of the system: from (3,3) to (5,4), isEmpty at (5,4)
 Expected output: false
 
-QTC99: Queen moves in right-forward L-shape, to empty position
+QTC99: Queen moves in right-forward L-shape, to empty position (:X:)
 State of the system: from (3,3) to (4,5), isEmpty at (4,5)
 Expected output: false
 
-QTC100: Queen moves in right-backward L-shape, to empty position
+QTC100: Queen moves in right-backward L-shape, to empty position (:X:)
 State of the system: from (3,3) to (2,5), isEmpty at (2,5)
 Expected output: false
 
-QTC101: Queen moves in backward-right L-shape, to empty position
+QTC101: Queen moves in backward-right L-shape, to empty position (:X:)
 State of the system: from (3,3) to (1,4), isEmpty at (1,4)
 Expected output: false
 
-QTC102: Queen moves in backward-left L-shape, to empty position
+QTC102: Queen moves in backward-left L-shape, to empty position (:X:)
 State of the system: from (3,3) to (1,2), isEmpty at (1,2)
 Expected output: false
 
-QTC103: Queen moves in left-backward L-shape, to empty position
+QTC103: Queen moves in left-backward L-shape, to empty position (:X:)
 State of the system: from (3,3) to (2,1), isEmpty at (2,1)
 Expected output: false
 
-QTC104: Queen moves in left-forward L-shape, to empty position
+QTC104: Queen moves in left-forward L-shape, to empty position (:X:)
 State of the system: from (3,3) to (4,1), isEmpty at (4,1)
 Expected output: false
 
