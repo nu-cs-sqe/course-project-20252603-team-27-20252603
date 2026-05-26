@@ -1530,15 +1530,15 @@ KiTC58: King attempts castling, but target rook has already moved previously in 
 State of the system: from (0,4) to (0,6), piece at (0,7) != null, rook.hasMoved() == true
 Expected output: false
 
-KiTC58: King attempts castling, but target kingside corner position contains no piece (null)
+KiTC59: King attempts castling, but target kingside corner position contains no piece (null) (:X:)
 State of the system: from (0,4) to (0,6), piece at (0,7) == null
 Expected output: false
 
-KiTC59: King attempts castling, but target corner piece is an invalid piece type
+KiTC60: King attempts castling, but target corner piece is an invalid piece type
 State of the system: from (0,4) to (0,6), piece at (0,7) != null, pieceType at (0,7) == PAWN
 Expected output: false
 
-KiTC60: King attempts queenside castling, but target queenside corner position contains no piece (null)
+KiTC61: King attempts queenside castling, but target queenside corner position contains no piece (null)
 State of the system: from (0,4) to (0,2), piece at (0,0) == null
 Expected output: false
 
