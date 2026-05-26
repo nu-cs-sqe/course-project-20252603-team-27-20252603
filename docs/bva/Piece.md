@@ -2081,6 +2081,6 @@ Expected output: false
 
 ## Invalid move case 13: no movement
 
-QTC133: Queen moves to its own current square (distance zero)
+QTC133: Queen moves to its own current square (distance zero) (:X:)
 State of the system: from (3,3) to (3,3)
 Expected output: false
