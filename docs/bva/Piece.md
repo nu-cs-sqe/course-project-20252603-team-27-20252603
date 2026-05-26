@@ -1827,35 +1827,35 @@ Expected output: false
 
 ## Invalid move case 6: max-space, foe-obstructed path, to foe-occupied position
 
-QTC73: Queen moves max spaces forward, foe-obstructed path, to foe-occupied position
+QTC73: Queen moves max spaces forward, foe-obstructed path, to foe-occupied position (:X:)
 State of the system: from (0,3) to (7,3), !isEmpty at (1,3), foe at (1,3), !isEmpty at (7,3), foe at (7,3)
 Expected output: false
 
-QTC74: Queen moves max spaces backward, foe-obstructed path, to foe-occupied position
+QTC74: Queen moves max spaces backward, foe-obstructed path, to foe-occupied position (:X:)
 State of the system: from (7,3) to (0,3), !isEmpty at (6,3), foe at (6,3), !isEmpty at (0,3), foe at (0,3)
 Expected output: false
 
-QTC75: Queen moves max spaces left, foe-obstructed path, to foe-occupied position
+QTC75: Queen moves max spaces left, foe-obstructed path, to foe-occupied position (:X:)
 State of the system: from (3,7) to (3,0), !isEmpty at (3,6), foe at (3,6), !isEmpty at (3,0), foe at (3,0)
 Expected output: false
 
-QTC76: Queen moves max spaces right, foe-obstructed path, to foe-occupied position
+QTC76: Queen moves max spaces right, foe-obstructed path, to foe-occupied position (:X:)
 State of the system: from (3,0) to (3,7), !isEmpty at (3,1), foe at (3,1), !isEmpty at (3,7), foe at (3,7)
 Expected output: false
 
-QTC77: Queen moves max spaces forward-left, foe-obstructed path, to foe-occupied position
+QTC77: Queen moves max spaces forward-left, foe-obstructed path, to foe-occupied position (:X:)
 State of the system: from (0,7) to (7,0), !isEmpty at (1,6), foe at (1,6), !isEmpty at (7,0), foe at (7,0)
 Expected output: false
 
-QTC78: Queen moves max spaces forward-right, foe-obstructed path, to foe-occupied position
+QTC78: Queen moves max spaces forward-right, foe-obstructed path, to foe-occupied position (:X:)
 State of the system: from (0,0) to (7,7), !isEmpty at (1,1), foe at (1,1), !isEmpty at (7,7), foe at (7,7)
 Expected output: false
 
-QTC79: Queen moves max spaces backward-left, foe-obstructed path, to foe-occupied position
+QTC79: Queen moves max spaces backward-left, foe-obstructed path, to foe-occupied position (:X:)
 State of the system: from (7,7) to (0,0), !isEmpty at (6,6), foe at (6,6), !isEmpty at (0,0), foe at (0,0)
 Expected output: false
 
-QTC80: Queen moves max spaces backward-right, foe-obstructed path, to foe-occupied position
+QTC80: Queen moves max spaces backward-right, foe-obstructed path, to foe-occupied position (:X:)
 State of the system: from (7,0) to (0,7), !isEmpty at (6,1), foe at (6,1), !isEmpty at (0,7), foe at (0,7)
 Expected output: false
 
