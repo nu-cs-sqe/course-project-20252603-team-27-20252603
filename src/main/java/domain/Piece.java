@@ -125,18 +125,14 @@ public class Piece {
     private boolean isDiagonalPathObstructed(Board board, Location from, Location to, int rowDiff, int colDiff) {
         int rowStep = Integer.compare(rowDiff, 0);
         int colStep = Integer.compare(colDiff, 0);
+        int steps = Math.abs(rowDiff);
 
-        int currentRow = from.getRow() + rowStep;
-        int currentCol = from.getCol() + colStep;
-
-        while (currentRow != to.getRow() || currentCol != to.getCol()) {
-            if (board.getPiece(new Location(currentRow, currentCol)) != null) {
+        for (int i = 1; i < steps; i++) {
+            if (board.getPiece(new Location(from.getRow() + i * rowStep,
+                    from.getCol() + i * colStep)) != null) {
                 return true;
             }
-            currentRow += rowStep;
-            currentCol += colStep;
         }
-
         return false;
     }
 
