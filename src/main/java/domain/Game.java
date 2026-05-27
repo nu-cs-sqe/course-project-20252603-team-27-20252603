@@ -43,33 +43,40 @@ public class Game {
 		Piece piece=board.getPiece(from);
 		Piece object=board.getPiece(to);
 		if(piece.getType()!=PieceType.PAWN){
-			if (piece.getColor().equals(currentPlayer.getColor())){
-				if(piece.canMove(board,from,to) && (object==null
-						|| object.getColor()!=piece.getColor())){
-					board.movePiece(from,to);
-					if (currentPlayer==white){
-						if (isInCheck(Color.BLACK)){
-//							throw new IllegalArgumentException("3");
-							currentPlayer=black;
-							return MoveResult.CHECK;
-						}
-						currentPlayer=black;
-					}else{
-						if (isInCheck(Color.WHITE)){
-							currentPlayer=white;
-							return MoveResult.CHECK;
-						}
-						currentPlayer=white;
-					}
-					return MoveResult.VALID;
+			if (piece.getColor().equals(currentPlayer.getColor()) &&
+					piece.canMove(board,from,to) &&
+					((object==null) || object.getColor()!=piece.getColor())){
+				halfMoveClock+=1;
+//				Move move=new Move(from,to);
+//				moveHistory.add(move);
+				board.movePiece(from,to);
+				switchTurn();
+				if (isInCheck(currentPlayer.getColor())){
+					return  MoveResult.CHECK;
 				}
+				else if (isCheckmate(currentPlayer.getColor())){
+					return MoveResult.CHECKMATE;
+				} else if (isStalemate(currentPlayer.getColor())){
+					return MoveResult.STALEMATE;
+				}
+				return MoveResult.VALID;
+			}else if(object.getColor()==piece.getColor()){
+				return MoveResult.INVALID_SAME_COLOR_CAPTURE;
 			}
 		}
-		throw new UnsupportedOperationException("1");
+		throw new UnsupportedOperationException("pawn error");
+	}
+	public void switchTurn(){
+		if (currentPlayer==white){
+			status=GameStatus.BLACK_TURN;
+			currentPlayer=black;
+		}else{
+			status=GameStatus.WHITE_TURN;
+			currentPlayer=white;
+		}
 	}
 	public boolean isInCheck(Color color) {
 		Location kingLocation = board.findKing(color);
-
 		if (kingLocation == null) {
 			return false;
 		}
@@ -77,13 +84,10 @@ public class Game {
 		if(color==Color.WHITE){
 			opponentColor = Color.BLACK;
 		}
-
-
 		for (int row = 0; row < 8; row++) {
 			for (int col = 0; col < 8; col++) {
 				Location from = new Location(row, col);
 				Piece piece = board.getPiece(from);
-
 				if (piece != null && piece.getColor() == opponentColor) {
 					if (piece.canMove(board, from, kingLocation)) {
 						return true;
@@ -91,6 +95,12 @@ public class Game {
 				}
 			}
 		}
+		return false;
+	}
+	public boolean isCheckmate(Color color){
+		return false;
+	}
+	public boolean isStalemate(Color color){
 		return false;
 	}
 }

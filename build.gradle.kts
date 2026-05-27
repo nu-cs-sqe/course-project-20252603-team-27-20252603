@@ -1,13 +1,14 @@
-//import com.github.spotbugs.snom.Confidence
-//import com.github.spotbugs.snom.Effort
+import com.github.spotbugs.snom.Confidence
+import com.github.spotbugs.snom.Effort
 
 plugins {
-    application
     id("java")
-    checkstyle
-//    id("com.github.spotbugs") version "6.0.25"
     jacoco
-    id("info.solidsoft.pitest") version "1.15.0"
+    application
+    checkstyle
+    id("com.github.spotbugs") version "6.0.25"
+//    id("java") //or 'java-library' - depending on your needs
+    id("info.solidsoft.pitest") version "1.19.0"
 }
 
 group = "nu.csse.sqe"
@@ -18,13 +19,17 @@ repositories {
 }
 
 application {
-    mainClass = "Code.Main"
+    mainClass = "domain"
 }
+
+//tasks.build {
+//    dependsOn("pitest")
+//}
 
 dependencies {
     testImplementation(platform("org.junit:junit-bom:5.10.0"))
     testImplementation("org.junit.jupiter:junit-jupiter")
-    testImplementation("org.easymock:easymock:5.4.0")
+    testImplementation("org.easymock:easymock:5.2.0")
 }
 
 java {
@@ -36,10 +41,6 @@ java {
 tasks.compileJava {
     options.release = 11
 }
-
-tasks.test {
-    useJUnitPlatform()
-}
 tasks.withType<Checkstyle>().configureEach {
     reports {
         xml.required = false
@@ -47,65 +48,68 @@ tasks.withType<Checkstyle>().configureEach {
         html.stylesheet = resources.text.fromFile("config/xsl/checkstyle-noframes-severity-sorted.xsl")
     }
 }
-
 checkstyle{
+    toolVersion = "10.12.5"
     isIgnoreFailures = false
+    configFile = file("config/checkstyle/checkstyle.xml")
 }
-//spotbugs {
-//    ignoreFailures = false
-//    showStackTraces = true
-//    showProgress = true
-//    effort = Effort.DEFAULT
-//    reportLevel = Confidence.DEFAULT
-//    //omitVisitors = listOf("FindNonShortCircuit")
-//    reportsDir = file("spotbugs")
-//    //onlyAnalyze = listOf("com.foobar.MyClass", "com.foobar.mypkg.*")
-//    maxHeapSize = "1g"
-//    extraArgs = listOf("-nested:false")
-//    //jvmArgs = listOf("-Duser.language=ja") // set user language to japanese
-//}
 
-//tasks.spotbugsMain {
-//    reports.create("html") {
-//        required = true
-//        outputLocation = layout.buildDirectory.file("reports/spotbugs/spotbugs.html")
-//        setStylesheet("fancy-hist.xsl")
-//    }
-//}
+tasks.test {
+    useJUnitPlatform()
+}
+tasks.test {
+    finalizedBy(tasks.jacocoTestReport)// report is always generated after tests run
+    finalizedBy(tasks.pitest)
+}
+tasks.jacocoTestReport {
+    dependsOn(tasks.test) // tests are required to run before generating the report
+}
+jacoco {
+    toolVersion = "0.8.14"
+    reportsDirectory = layout.buildDirectory.dir("customJacocoReportDir")
+}
+spotbugs {
+    ignoreFailures = false
+    showStackTraces = true
+    showProgress = true
+    effort = Effort.DEFAULT
+    reportLevel = Confidence.DEFAULT
+    //omitVisitors = listOf("FindNonShortCircuit")
+    reportsDir = file("spotbugs")
+    //onlyAnalyze = listOf("com.foobar.MyClass", "com.foobar.mypkg.*")
+    maxHeapSize = "1g"
+    extraArgs = listOf("-nested:false")
+    //jvmArgs = listOf("-Duser.language=ja") // set user language to japanese
+}
 
+tasks.spotbugsMain {
+    reports.create("html") {
+        required = true
+        outputLocation = layout.buildDirectory.file("reports/spotbugs/spotbugs.html")
+        setStylesheet("fancy-hist.xsl")
+    }
+}
 tasks.jacocoTestReport {
     reports {
         xml.required = false
         csv.required = false
-        html.outputLocation = layout.buildDirectory.dir("reports/jacoco")
+        html.outputLocation = layout.buildDirectory.dir("jacocoHtml")
     }
 }
-
-tasks.build {
-    dependsOn("pitest")
-}
-tasks.test {
-    finalizedBy(tasks.jacocoTestReport) // report is always generated after tests run
-    finalizedBy(tasks.pitest)
+jacoco {
+    applyTo(tasks.run.get())
 }
 
-
-tasks.jacocoTestReport {
-    dependsOn(tasks.test) // tests are required to run before generating the report
+tasks.register<JacocoReport>("applicationCodeCoverageReport") {
+    executionData(tasks.run.get())
+    sourceSets(sourceSets.main.get())
 }
+
 pitest {
-    targetClasses = setOf("domain.*") //by default "${project.group}.*"
+    targetClasses = setOf("domain.*")
     targetTests = setOf("domain.*")
     junit5PluginVersion = "1.2.1"
-    pitestVersion = "1.15.0" //not needed when a default PIT version should be used
-
     threads = 4
     outputFormats = setOf("HTML")
     timestampedReports = false
-    testSourceSets.set(listOf(sourceSets.test.get()))
-    mainSourceSets.set(listOf(sourceSets.main.get()))
-    jvmArgs.set(listOf("-Xmx1024m"))
-    useClasspathFile.set(true) //useful with bigger projects on Windows
-    fileExtensionsToFilter.addAll("xml")
-    exportLineCoverage = true
 }
