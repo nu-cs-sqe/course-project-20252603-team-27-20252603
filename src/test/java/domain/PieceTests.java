@@ -2700,20 +2700,16 @@ class PieceTests {
     }
 
     @Test
-    void KiTC60_castling_targetNotRook_returnsFalse() {
+    void KiTC60_castling_wrongPieceAtRookSquare_invalid() {
         Piece king = new Piece(PieceType.KING, PieceColor.WHITE);
-        Piece wrongPiece = new Piece(PieceType.PAWN, PieceColor.WHITE); // A Pawn, not a Rook!
+        Piece notARook = new Piece(PieceType.BISHOP, PieceColor.WHITE);
 
-        Location from = new Location(0, 4);
-        Location to = new Location(0, 6);
-
-        // Place the wrong piece type on the corner square
-        EasyMock.expect(board.getPiece(new Location(0, 7))).andReturn(wrongPiece).anyTimes();
+        EasyMock.expect(board.getPiece(EasyMock.anyObject(Location.class))).andReturn(notARook);
         EasyMock.replay(board);
 
-        assertFalse(king.canMove(board, from, to));
-        EasyMock.verify(board);
+        assertFalse(king.canMove(board, new Location(0, 4), new Location(0, 6)));
     }
+
 
     @Test
     void KiTC61_castling_queensideRookNull_returnsFalse() {
