@@ -2722,6 +2722,15 @@ class PieceTests {
         EasyMock.verify(board);
     }
 
+    @Test
+    void KiTC62_king_hasMoved_castlingAttempt_invalid() {
+        Piece king = new Piece(PieceType.KING, PieceColor.WHITE);
+        king.setMoved(true);
+        EasyMock.replay(board);
+        assertFalse(king.canMove(board, new Location(0, 4), new Location(0, 6)));
+    }
+
+
     private static Location matchesLoc(int expectedRow, int expectedCol) {
         EasyMock.reportMatcher(new org.easymock.IArgumentMatcher() {
             @Override
