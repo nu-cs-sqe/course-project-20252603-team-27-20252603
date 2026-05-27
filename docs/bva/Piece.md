@@ -1542,6 +1542,9 @@ KiTC61: King attempts queenside castling, but target queenside corner position c
 State of the system: from (0,4) to (0,2), piece at (0,0) == null
 Expected output: false
 
+KiTC62: King attempts castling, but King has already previously moved
+State of the system: from (0,4) to (0,6), king.hasMoved() 
+Expected output: false
 
 ### PieceType under test: Queen
 
