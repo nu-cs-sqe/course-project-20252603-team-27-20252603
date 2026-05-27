@@ -13,6 +13,40 @@
    - All: Decided our project will be Chess, met to talk about group planning logistics
    - Olivia: Wrote basic user stories in separate document to be evaluated and edited by teammates.
 
+# Week 5 (04/27/2026-05/03/2026)
+**Planning and Progress Tracking**:
+1. [done]
+   - All: Chose mock method implementation to use in our project, and began thinking about how to split up work
+
+# Week 6 (05/04/2026-05/10/2026)
+**Planning and Progress Tracking**:
+1. [done]
+   - All: Met with Dr. Yiji for a sanity check on our implementation design
+2. [todo]
+   - Decide seperation of group work
+
+# Week 7 (05/11/2026-05/18/2026)
+**Planning and Progress Tracking**:
+1. [done]
+   - All: Decided on how to split classes between group members and began work on them.
+     - Olivia: Piece Class
+     - Jerome: Board Class
+     - Muye: Game Class
+     - Rishi: Move Class
+     - In the Future: Decide how to split remaining classes (Location, Player, UI)
+2. [todo]
+   - All: Continue work on BVA documentation and testing for classes
+
+# Week 8 (05/18/2026-05/25/2026)
+**Planning and Progress Tracking**:
+1. [done]
+    - Initial implementations of Piece and Board Class, PRs created for team review
+        - Olivia: Piece Class
+        - Jerome: Board Class
+2. [todo]
+    - All: UI and Player classes
+    - Mutation and coverage testing for classes currently in progress
+
 # Week X (XX/XX/2026-XX/XX/2026) TEMPLATE (You can change the format to whatever the team likes better)
 **Planning and Progress Tracking**:
 1. [done] Person: Task (Links to PR)
