@@ -294,6 +294,10 @@ PTC63: Pawn moves to its own current square (distance zero), hasn’t moved befo
 State of the system: from (2,0) to (2,0), !hasMoved
 Expected output: false
 
+## Invalid move case 11: improper L-shape movement
+PTC64: Pawn moved in improper K-shape
+State of the system: from (2,0) to (3,2)
+Expected output: false
 
 ### PieceType under test: Rook
 
