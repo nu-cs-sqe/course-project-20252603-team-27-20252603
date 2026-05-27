@@ -1,4 +1,5 @@
 package domain;
 
-public enum PieceColor { WHITE, BLACK
+public enum PieceColor {
+	WHITE, BLACK
 }

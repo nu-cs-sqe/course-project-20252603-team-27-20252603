@@ -1,11 +1,10 @@
 package domain;
 
 public class Game {
-	public int pass_pitest(int a){
-		if (a>5){
+	public int pass_pitest(int a) {
+		if (a > 5) {
 			return a;
-		}
-		else{
+		} else {
 			return 0;
 		}
 	}
