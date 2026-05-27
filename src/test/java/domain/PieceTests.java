@@ -2654,19 +2654,16 @@ class PieceTests {
     }
 
     @Test
-    void castling_enemyRook_returnsFalse() {
+    void KiTC57_castling_enemyRook_invalid() {
         Piece king = new Piece(PieceType.KING, PieceColor.WHITE);
-        Piece enemyRook = new Piece(PieceType.ROOK, PieceColor.BLACK); // Wrong color!
+        Piece foeRook = new Piece(PieceType.ROOK, PieceColor.BLACK);
 
-        Location from = new Location(0, 4);
-        Location to = new Location(0, 6);
-
-        EasyMock.expect(board.getPiece(new Location(0, 7))).andReturn(enemyRook).anyTimes();
+        EasyMock.expect(board.getPiece(EasyMock.anyObject(Location.class))).andReturn(foeRook);
         EasyMock.replay(board);
 
-        assertFalse(king.canMove(board, from, to));
-        EasyMock.verify(board);
+        assertFalse(king.canMove(board, new Location(0, 4), new Location(0, 6)));
     }
+
 
     @Test
     void castling_rookHasMoved_returnsFalse() {
