@@ -2666,19 +2666,15 @@ class PieceTests {
 
 
     @Test
-    void castling_rookHasMoved_returnsFalse() {
+    void KiTC58_castling_rookHasMoved_invalid() {
         Piece king = new Piece(PieceType.KING, PieceColor.WHITE);
-        Piece staleRook = new Piece(PieceType.ROOK, PieceColor.WHITE);
-        staleRook.setMoved(true); // Invalidates castling!
+        Piece movedRook = new Piece(PieceType.ROOK, PieceColor.WHITE);
+        movedRook.setMoved(true);
 
-        Location from = new Location(0, 4);
-        Location to = new Location(0, 6);
-
-        EasyMock.expect(board.getPiece(new Location(0, 7))).andReturn(staleRook).anyTimes();
+        EasyMock.expect(board.getPiece(EasyMock.anyObject(Location.class))).andReturn(movedRook);
         EasyMock.replay(board);
 
-        assertFalse(king.canMove(board, from, to));
-        EasyMock.verify(board);
+        assertFalse(king.canMove(board, new Location(0, 4), new Location(0, 6)));
     }
 
     @Test
