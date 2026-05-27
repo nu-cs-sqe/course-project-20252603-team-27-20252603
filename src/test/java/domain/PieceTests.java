@@ -442,6 +442,14 @@ class PieceTests {
         );
     }
 
+    @Test
+    void PTC64_pawn_diagonalTwoColumns_invalid() {
+        Piece pawn = new Piece(PieceType.PAWN, PieceColor.WHITE);
+        EasyMock.replay(board);
+        assertFalse(pawn.canMove(board, new Location(2, 0), new Location(3, 2)));
+    }
+
+
     @ParameterizedTest(name = "Valid Rook single move: {0}")
     @MethodSource("provideValidRookSingleMoves")
     void rookSingleMove_valid(

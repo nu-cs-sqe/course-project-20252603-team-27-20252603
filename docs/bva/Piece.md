@@ -295,7 +295,7 @@ State of the system: from (2,0) to (2,0), !hasMoved
 Expected output: false
 
 ## Invalid move case 11: improper L-shape movement
-PTC64: Pawn moved in improper K-shape
+PTC64: Pawn moved in improper K-shape (:X:)
 State of the system: from (2,0) to (3,2)
 Expected output: false
 
@@ -1546,7 +1546,7 @@ KiTC61: King attempts queenside castling, but target queenside corner position c
 State of the system: from (0,4) to (0,2), piece at (0,0) == null
 Expected output: false
 
-KiTC62: King attempts castling, but King has already previously moved
+KiTC62: King attempts castling, but King has already previously moved (:X:)
 State of the system: from (0,4) to (0,6), king.hasMoved() 
 Expected output: false
 
