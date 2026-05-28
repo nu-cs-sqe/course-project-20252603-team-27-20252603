@@ -41,11 +41,17 @@ public class Game {
 	}
 	public MoveResult makeMove(Location from, Location to, PieceType type){
 		Piece piece=board.getPiece(from);
+		if(piece==null){
+			return MoveResult.INVALID_EMPTY_SOURCE;
+		}
 		Piece object=board.getPiece(to);
 		if(piece.getType()!=PieceType.PAWN){
-			if (piece.getColor().equals(currentPlayer.getColor()) &&
-					piece.canMove(board,from,to) &&
-					((object==null) || object.getColor()!=piece.getColor())){
+			if (object!=null && object.getColor()==piece.getColor()){
+				return MoveResult.INVALID_SAME_COLOR_CAPTURE;
+			} else if (!piece.getColor().equals(currentPlayer.getColor())){
+				return MoveResult.INVALID_WRONG_TURN;
+			} else if (piece.getColor().equals(currentPlayer.getColor()) &&
+					piece.canMove(board,from,to)){
 				halfMoveClock+=1;
 //				Move move=new Move(from,to);
 //				moveHistory.add(move);
@@ -60,8 +66,6 @@ public class Game {
 					return MoveResult.STALEMATE;
 				}
 				return MoveResult.VALID;
-			}else if(object.getColor()==piece.getColor()){
-				return MoveResult.INVALID_SAME_COLOR_CAPTURE;
 			}
 		}
 		throw new UnsupportedOperationException("pawn error");
@@ -77,9 +81,9 @@ public class Game {
 	}
 	public boolean isInCheck(Color color) {
 		Location kingLocation = board.findKing(color);
-		if (kingLocation == null) {
-			return false;
-		}
+//		if (kingLocation == null) {
+//			return false;
+//		}
 		Color opponentColor=Color.WHITE;
 		if(color==Color.WHITE){
 			opponentColor = Color.BLACK;

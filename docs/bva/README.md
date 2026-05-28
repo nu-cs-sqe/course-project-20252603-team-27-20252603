@@ -33,11 +33,21 @@ However, you are only required to document Step 4.
 
 - **TC6: makeMove_Stalemate_white** ()
 - **State of the system:** piece=knight, from (0,0) to (7,7) to stalemate, white turn
-- **Expected output:** CHECKMATE
+- **Expected output:** Stalemate
 - **Implemented:*implemented* 
 
 - **TC7: makeMove_sameColorCapture_white** ()
-- **State of the system:** piece=knight, from (7,7) to (0,7) to stalemate, white turn
-- **Expected output:** CHECKMATE
+- **State of the system:** piece=knight, white turn
+- **Expected output:** INVALID_SAME_COLOR_CAPTURE
+- **Implemented:*implemented* 
+
+- **TC8: makeMove_emptySource_white** ()
+- **State of the system:**  white turn
+- **Expected output:** INVALID_EMPTY_SOURCE
+- **Implemented:*implemented* 
+
+- **TC8: makeMove_wrongTurn_white** ()
+- **State of the system:**  piece=Bishop, from (0,0) to (1,7), white turn, black move
+- **Expected output:** INVALID_EMPTY_SOURCE
 - **Implemented:*implemented* 
 
