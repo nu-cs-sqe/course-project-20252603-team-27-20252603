@@ -18,12 +18,14 @@ public class Game {
 				GameStatus status,
 				List<Move> moveHistory,
 				Move lastMove,
-				int halfMoveClock) {
+				int halfMoveClock,
+				Map<String, Integer> positionHistory) {
 		this.board = board;
 		this.status = status;
 		this.moveHistory = moveHistory;
 		this.lastMove = lastMove;
 		this.halfMoveClock = halfMoveClock;
+		this.positionHistory=positionHistory;
 	}
 
 	public void startNewGame(Player p1, Player p2)throws IllegalArgumentException {
@@ -46,16 +48,22 @@ public class Game {
 		}
 		Piece object=board.getPiece(to);
 		if(piece.getType()!=PieceType.PAWN){
-			if (object!=null && object.getColor()==piece.getColor()){
+			if (object!=null && (object.getColor()==piece.getColor())){
+				System.out.println(object.getColor());
 				return MoveResult.INVALID_SAME_COLOR_CAPTURE;
 			} else if (!piece.getColor().equals(currentPlayer.getColor())){
 				return MoveResult.INVALID_WRONG_TURN;
 			} else if (piece.getColor().equals(currentPlayer.getColor()) &&
 					piece.canMove(board,from,to)){
 				halfMoveClock+=1;
-//				Move move=new Move(from,to);
-//				moveHistory.add(move);
+				Move move=new Move(from,to);
+				lastMove=move;
+				moveHistory.add(move);
 				board.movePiece(from,to);
+//				positionHistory.add(board.toPositionString);
+				int count = positionHistory.getOrDefault
+						(board.toPositionString(), 0);
+				positionHistory.put(board.toPositionString(), count + 1);
 				switchTurn();
 				if (isInCheck(currentPlayer.getColor())){
 					return  MoveResult.CHECK;

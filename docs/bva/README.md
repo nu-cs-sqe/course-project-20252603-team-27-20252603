@@ -17,37 +17,42 @@ However, you are only required to document Step 4.
 - **Implemented:*implemented* 
 
 - **TC3: makeMove_validMove** ()
-- **State of the system:** piece=Rook, valid move
-- **Expected output:** valid
+- **State of the system:** piece=Rook, valid move, halfMoveClock=0
+- **Expected output:** valid, halfMoveClock=1, last move equal this move, add move to movehistory and positionhistory
 - **Implemented:*implemented* 
 - 
 - **TC4: makeMove_InCheck_white** ()
-- **State of the system:** piece=Rook, from (7,0) to (0,0) to check, white turn
-- **Expected output:** CHECK
+- **State of the system:** piece=Rook, from (7,0) to (0,0) to check, white turn, halfMoveClock=0
+- **Expected output:** CHECK, halfMoveClock=1, last move equal this move, add move to movehistory and positionhistory
 - **Implemented:*implemented* 
 - 
 - **TC5: makeMove_Checkmate_black** ()
-- **State of the system:** piece=knight, from (0,0) to (7,0) to checkmate, black turn
-- **Expected output:** CHECKMATE
+- **State of the system:** piece=knight, from (0,0) to (7,0) to checkmate, black turn, halfMoveClock=0
+- **Expected output:** CHECKMATE, halfMoveClock=1, last move equal this move, add move to movehistory and positionhistory
 - **Implemented:*implemented* 
 
 - **TC6: makeMove_Stalemate_white** ()
-- **State of the system:** piece=knight, from (0,0) to (7,7) to stalemate, white turn
-- **Expected output:** Stalemate
+- **State of the system:** piece=knight, from (0,0) to (7,7) to stalemate, white turn, halfMoveClock=1
+- **Expected output:** Stalemate, halfMoveClock=1, last move equal this move, add move to movehistory and positionhistory
 - **Implemented:*implemented* 
 
 - **TC7: makeMove_sameColorCapture_white** ()
 - **State of the system:** piece=knight, white turn
-- **Expected output:** INVALID_SAME_COLOR_CAPTURE
+- **Expected output:** INVALID_SAME_COLOR_CAPTURE, last move is null
 - **Implemented:*implemented* 
 
 - **TC8: makeMove_emptySource_white** ()
 - **State of the system:**  white turn
-- **Expected output:** INVALID_EMPTY_SOURCE
+- **Expected output:** INVALID_EMPTY_SOURCE, last move is null
 - **Implemented:*implemented* 
 
-- **TC8: makeMove_wrongTurn_white** ()
+- **TC9: makeMove_wrongTurn_white** ()
 - **State of the system:**  piece=Bishop, from (0,0) to (1,7), white turn, black move
-- **Expected output:** INVALID_EMPTY_SOURCE
+- **Expected output:** INVALID_EMPTY_SOURCE, last move is null
+- **Implemented:*implemented* 
+
+- **TC10: makeMove_Capture_white** ()
+- **State of the system:** piece=knight, white turn, halfMoveClock=INT_MAX-1
+- **Expected output:** VALID, halfMoveClock=INT_MAX, last move equal this move, add move to movehistory and positionhistory
 - **Implemented:*implemented* 
 

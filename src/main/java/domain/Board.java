@@ -10,4 +10,7 @@ public class Board {
 	public Location findKing(Color color){
 		throw new UnsupportedOperationException("Not implemented yet");
 	}
+	public String toPositionString(){
+		return "position";
+	}
 }
