@@ -8,11 +8,11 @@ public class King extends Piece{
 	@Override
 	public PieceType getType() {
 
-		return PieceType.ROOK;
+		return PieceType.KING;
 	}
 
 	@Override
 	public Piece makeCopy() {
-		return new Rook(getColor());
+		return new King(getColor());
 	}
 }

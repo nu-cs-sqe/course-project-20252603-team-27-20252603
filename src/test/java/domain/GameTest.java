@@ -130,6 +130,7 @@ public class GameTest {
 				.addMockedMethod("isCheckmate", Color.class)
 				.addMockedMethod("isStalemate", Color.class)
 				.createMock();
+		EasyMock.expect(game.isInCheck(Color.WHITE)).andReturn(false);
 		EasyMock.expect(game.isInCheck(Color.BLACK)).andReturn(false);
 		EasyMock.expect(game.isCheckmate(Color.BLACK)).andReturn(false);
 		EasyMock.expect(game.isStalemate(Color.BLACK)).andReturn(false);
@@ -144,12 +145,13 @@ public class GameTest {
 		game.startNewGame(player1, player2);
 		MoveResult result=game.makeMove(source,destination,PieceType.KNIGHT);
 		Move last=new Move(source,destination);
-		target.put("last",1);
+		target.put("lastp1",1);
 		assertTrue(target.equals(game.positionHistory));
-		assertTrue(last.equal(game.lastMove));
+		assertTrue(last.equals(game.lastMove));
 		moveHistory.add(last);
 		assertTrue(moveHistory.equals(game.moveHistory));
 		assertEquals(game.halfMoveClock,1);
+		assertEquals(game.currentPlayer.getColor(),Color.BLACK);
 		assertEquals(result,MoveResult.VALID);
 		EasyMock.verify(player1, player2, board,rook,game);
 	}
@@ -250,17 +252,19 @@ public class GameTest {
 		EasyMock.expect(piece.canMove(board, from, to)).andReturn(true);
 		board.movePiece(from, to);
 		EasyMock.expectLastCall();
+		EasyMock.expect(game.isInCheck(Color.WHITE)).andReturn(false);
 		EasyMock.expect(game.isInCheck(Color.BLACK)).andReturn(true);
 		EasyMock.replay(board, player1, player2, piece, game);
 		game.startNewGame(player1, player2);
 		MoveResult result = game.makeMove(from, to, null);
 		Move last=new Move(from,to);
 		Map<String, Integer> target = new HashMap<>();
-		target.put("last", 1);
+		target.put("lastp1", 1);
 		assertTrue(target.equals(game.positionHistory));
-		assertTrue(last.equal(game.lastMove));
+		assertTrue(last.equals(game.lastMove));
 		moveHistory.add(last);
 		assertTrue(moveHistory.equals(game.moveHistory));
+		assertEquals(game.currentPlayer.getColor(),Color.BLACK);
 		assertEquals(game.halfMoveClock,1);
 		assertEquals(MoveResult.CHECK, result);
 		EasyMock.verify(board, player1, player2, piece, game);
@@ -316,6 +320,7 @@ public class GameTest {
 		EasyMock.expect(piece.canMove(board, from, to)).andReturn(true);
 		board.movePiece(from, to);
 		EasyMock.expectLastCall();
+		EasyMock.expect(game.isInCheck(Color.BLACK)).andStubReturn(false);
 		EasyMock.expect(game.isInCheck(Color.WHITE)).andReturn(false);
 		EasyMock.expect(game.isCheckmate(Color.WHITE)).andReturn(true);
 		EasyMock.replay(board, player1, player2, piece, game);
@@ -325,13 +330,14 @@ public class GameTest {
 		Move last=new Move(from,to);
 		Map<String, Integer> target = new HashMap<>();
 		target.put("first",2);
-		target.put("last", 1);
+		target.put("lastp2", 1);
 		assertTrue(target.equals(game.positionHistory));
-		assertTrue(last.equal(game.lastMove));
+		assertTrue(last.equals(game.lastMove));
 		moveHistory.add(last);
 		assertTrue(moveHistory.equals(game.moveHistory));
 		assertEquals(game.halfMoveClock,1);
 		assertEquals(MoveResult.CHECKMATE, result);
+		assertEquals(game.currentPlayer.getColor(),Color.WHITE);
 		EasyMock.verify(board, player1, player2, piece, game);
 	}
 	@Test
@@ -385,6 +391,7 @@ public class GameTest {
 		EasyMock.expect(piece.canMove(board, from, to)).andReturn(true);
 		board.movePiece(from, to);
 		EasyMock.expectLastCall();
+		EasyMock.expect(game.isInCheck(Color.WHITE)).andStubReturn(false);
 		EasyMock.expect(game.isInCheck(Color.BLACK)).andReturn(false);
 		EasyMock.expect(game.isCheckmate(Color.BLACK)).andReturn(false);
 		EasyMock.expect(game.isStalemate(Color.BLACK)).andReturn(true);
@@ -394,13 +401,14 @@ public class GameTest {
 		MoveResult result = game.makeMove(from, to, null);
 		Move last=new Move(from,to);
 		Map<String, Integer> target = new HashMap<>();
-		target.put("last", 1);
+		target.put("lastp1", 1);
 		assertTrue(target.equals(game.positionHistory));
-		assertTrue(last.equal(game.lastMove));
+		assertTrue(last.equals(game.lastMove));
 		moveHistory.add(last);
 		assertTrue(moveHistory.equals(game.moveHistory));
 		assertEquals(game.halfMoveClock,2);
 		assertEquals(MoveResult.STALEMATE, result);
+		assertEquals(game.currentPlayer.getColor(),Color.BLACK);
 		EasyMock.verify(board, player1, player2, piece, game);
 	}
 	@Test
@@ -453,6 +461,7 @@ public class GameTest {
 		assertEquals(game.halfMoveClock, halfMoveClock);
 		assertTrue(positionHistory.equals(game.positionHistory));
 		assertEquals(MoveResult.INVALID_SAME_COLOR_CAPTURE, result);
+		assertEquals(game.currentPlayer.getColor(),Color.WHITE);
 		EasyMock.verify(board, player1, player2, piece);
 	}
 	@Test
@@ -504,6 +513,7 @@ public class GameTest {
 		assertTrue(moveHistory.equals(game.moveHistory));
 		assertEquals(game.halfMoveClock, halfMoveClock);
 		assertTrue(positionHistory.equals(game.positionHistory));
+		assertEquals(game.currentPlayer.getColor(),Color.WHITE);
 		assertEquals(MoveResult.INVALID_EMPTY_SOURCE, result);
 		EasyMock.verify(board, player1, player2);
 	}
@@ -557,6 +567,7 @@ public class GameTest {
 		assertEquals(game.halfMoveClock, halfMoveClock);
 		assertTrue(positionHistory.equals(game.positionHistory));
 		assertEquals(MoveResult.INVALID_WRONG_TURN, result);
+		assertEquals(game.currentPlayer.getColor(),Color.WHITE);
 		EasyMock.verify(board, player1, player2, piece);
 	}
 	@Test
@@ -570,7 +581,7 @@ public class GameTest {
 		Move lastMove = null;
 		Map<String, Integer> positionHistory=new HashMap<>();
 		Map<String, Integer> target=new HashMap<>();
-		int halfMoveClock = Integer.MAX_VALUE-1;
+		int halfMoveClock = 99;
 		Game game = EasyMock.partialMockBuilder(Game.class)
 				.withConstructor(
 						Board.class,
@@ -616,6 +627,7 @@ public class GameTest {
 		EasyMock.expect(piece.canMove(board, from, to)).andReturn(true);
 		board.movePiece(from, to);
 		EasyMock.expectLastCall();
+		EasyMock.expect(game.isInCheck(Color.WHITE)).andReturn(false);
 		EasyMock.expect(game.isInCheck(Color.BLACK)).andReturn(false);
 		EasyMock.expect(game.isCheckmate(Color.BLACK)).andReturn(false);
 		EasyMock.expect(game.isStalemate(Color.BLACK)).andReturn(false);
@@ -623,14 +635,15 @@ public class GameTest {
 		game.startNewGame(player1, player2);
 //		game.switchTurn();
 		MoveResult result = game.makeMove(from, to, null);
-		assertEquals(game.halfMoveClock,Integer.MAX_VALUE);
-		target.put("last",1);
+		assertEquals(game.halfMoveClock,100);
+		target.put("lastp1",1);
 		assertTrue(target.equals(game.positionHistory));
 		moveHistory.add(last);
 		assertTrue(moveHistory.equals(game.moveHistory));
 //		assertEquals(moveHistory,Integer.MAX_VALUE);
-		assertTrue(last.equal(game.lastMove));
+		assertTrue(last.equals(game.lastMove));
 		assertEquals(MoveResult.VALID, result);
+		assertEquals(game.currentPlayer.getColor(),Color.BLACK);
 		EasyMock.verify(board, player1, player2, piece, piece1,game);
 	}
 	@Test
@@ -701,9 +714,356 @@ public class GameTest {
 		assertTrue(target.equals(game.positionHistory));
 //		moveHistory.add(last);
 		assertTrue(moveHistory.equals(game.moveHistory));
+		assertEquals(game.currentPlayer.getColor(),Color.BLACK);
 //		assertEquals(moveHistory,Integer.MAX_VALUE);
 		assertEquals(game.lastMove,null);
 		assertEquals(MoveResult.INVALID_OUT_OF_BOUNDS, result);
+		EasyMock.verify(board, player1, player2, piece, piece1,game);
+	}
+	@Test
+	public void makeMove_outOfBound_white(){
+		Board board = EasyMock.createMock(Board.class);
+		Player player1 = EasyMock.createMock(Player.class);
+		Player player2 = EasyMock.createMock(Player.class);
+		Piece piece = EasyMock.createMock(Piece.class);
+		Piece piece1 = EasyMock.createMock(Piece.class);
+		List<Move> moveHistory = new ArrayList<>();
+		Move lastMove = null;
+		Map<String, Integer> positionHistory=new HashMap<>();
+		Map<String, Integer> target=new HashMap<>();
+		int halfMoveClock = Integer.MAX_VALUE-1;
+		Game game = EasyMock.partialMockBuilder(Game.class)
+				.withConstructor(
+						Board.class,
+						GameStatus.class,
+						List.class,
+						Move.class,
+						int.class,
+						Map.class)
+				.withArgs(
+						board,
+						GameStatus.WHITE_TURN,
+						moveHistory,
+						null,
+						halfMoveClock,
+						positionHistory)
+				.addMockedMethod("isInCheck", Color.class)
+				.addMockedMethod("isCheckmate", Color.class)
+				.addMockedMethod("isStalemate", Color.class)
+				.createMock();
+		Location from = new Location(0, -1);
+		Location to = new Location(0, 0);
+		Move last=new Move(from,to);
+//		EasyMock.expect(last.getNotation).andReturn("last").anyTimes();
+		EasyMock.expect(board.toPositionString()).andReturn("last").anyTimes();
+		EasyMock.expect(board.isInsideBoard(from)).andReturn(TRUE).anyTimes();
+		EasyMock.expect(board.isInsideBoard(to)).andReturn(FALSE).anyTimes();
+		EasyMock.expect(player1.getName()).andReturn("p1").anyTimes();
+		EasyMock.expect(player2.getName()).andReturn("p2").anyTimes();
+		player1.setColor(Color.WHITE);
+		EasyMock.expectLastCall();
+		player2.setColor(Color.BLACK);
+		EasyMock.expectLastCall();
+		EasyMock.expect(player1.getColor()).andReturn(Color.WHITE).anyTimes();
+		EasyMock.expect(player2.getColor()).andReturn(Color.BLACK).anyTimes();
+		board.initBoard();
+		EasyMock.expectLastCall();
+		EasyMock.replay(board, player1, player2, piece, piece1,game);
+		game.startNewGame(player1, player2);
+//		game.switchTurn();
+		MoveResult result = game.makeMove(from, to, null);
+		assertEquals(game.currentPlayer.getColor(),Color.WHITE);
+		assertEquals(game.halfMoveClock,Integer.MAX_VALUE-1);
+//		target.put("last",1);
+		assertTrue(target.equals(game.positionHistory));
+//		moveHistory.add(last);
+		assertTrue(moveHistory.equals(game.moveHistory));
+//		assertEquals(moveHistory,Integer.MAX_VALUE);
+		assertEquals(game.lastMove,null);
+		assertEquals(MoveResult.INVALID_OUT_OF_BOUNDS, result);
+		EasyMock.verify(board, player1, player2, piece, piece1,game);
+	}
+	@Test
+	public void makeMove_illegalMove_black(){
+		Board board = EasyMock.createMock(Board.class);
+		Player player1 = EasyMock.createMock(Player.class);
+		Player player2 = EasyMock.createMock(Player.class);
+		Piece piece = EasyMock.createMock(Piece.class);
+		Piece piece1 = EasyMock.createMock(Piece.class);
+		List<Move> moveHistory = new ArrayList<>();
+		Move lastMove = null;
+		Map<String, Integer> positionHistory=new HashMap<>();
+		Map<String, Integer> target=new HashMap<>();
+		int halfMoveClock = Integer.MAX_VALUE-1;
+		Game game = new Game(
+						board,
+						GameStatus.WHITE_TURN,
+						moveHistory,
+						null,
+						halfMoveClock,
+						positionHistory);
+		Location from = new Location(7, 1);
+		Location to = new Location(1, 0);
+		Move last=new Move(from,to);
+//		EasyMock.expect(last.getNotation).andReturn("last").anyTimes();
+		EasyMock.expect(board.toPositionString()).andReturn("last").anyTimes();
+		EasyMock.expect(board.isInsideBoard(from)).andReturn(TRUE).anyTimes();
+		EasyMock.expect(board.isInsideBoard(to)).andReturn(TRUE).anyTimes();
+		EasyMock.expect(board.getPiece(from)).andReturn(piece);
+		EasyMock.expect(board.getPiece(to)).andReturn(piece1);
+		EasyMock.expect(piece.getType()).andReturn(PieceType.KNIGHT);
+		EasyMock.expect(piece.getColor()).andReturn(Color.BLACK).anyTimes();
+//		EasyMock.expect(piece1.getType()).andReturn(PieceType.PAWN);
+		EasyMock.expect(piece1.getColor()).andReturn(Color.WHITE).anyTimes();
+		EasyMock.expect(piece.canMove(board, from, to)).andReturn(false).anyTimes();
+//		board.movePiece(from, to);
+//		EasyMock.expectLastCall();
+//		EasyMock.expect(game.isInCheck(Color.BLACK)).andReturn(false);
+//		EasyMock.expect(game.isCheckmate(Color.BLACK)).andReturn(false);
+//		EasyMock.expect(game.isStalemate(Color.BLACK)).andReturn(false);
+		EasyMock.expect(player1.getName()).andReturn("p1").anyTimes();
+		EasyMock.expect(player2.getName()).andReturn("p2").anyTimes();
+		player1.setColor(Color.WHITE);
+		EasyMock.expectLastCall();
+		player2.setColor(Color.BLACK);
+		EasyMock.expectLastCall();
+		EasyMock.expect(player1.getColor()).andReturn(Color.WHITE).anyTimes();
+		EasyMock.expect(player2.getColor()).andReturn(Color.BLACK).anyTimes();
+		board.initBoard();
+		EasyMock.expectLastCall();
+		EasyMock.replay(board, player1, player2, piece, piece1);
+		game.startNewGame(player1, player2);
+		game.switchTurn();
+		MoveResult result = game.makeMove(from, to, null);
+		assertEquals(game.currentPlayer.getColor(),Color.BLACK);
+		assertEquals(game.halfMoveClock,Integer.MAX_VALUE-1);
+//		target.put("last",1);
+		assertTrue(target.equals(game.positionHistory));
+//		moveHistory.add(last);
+		assertTrue(moveHistory.equals(game.moveHistory));
+//		assertEquals(moveHistory,Integer.MAX_VALUE);
+		assertEquals(game.lastMove,null);
+		assertEquals(MoveResult.INVALID_ILLEGAL_PIECE_MOVE, result);
+		EasyMock.verify(board, player1, player2, piece, piece1);
+	}
+	@Test
+	public void makeMove_threefoldRepetition_white(){
+		Board board = EasyMock.createMock(Board.class);
+		Player player1 = EasyMock.createMock(Player.class);
+		Player player2 = EasyMock.createMock(Player.class);
+		Piece piece = EasyMock.createMock(Piece.class);
+		Piece piece1 = EasyMock.createMock(Piece.class);
+		List<Move> moveHistory = new ArrayList<>();
+		Move lastMove = null;
+		Map<String, Integer> positionHistory=new HashMap<>();
+		positionHistory.put("lastp1",2);
+		Map<String, Integer> target=new HashMap<>();
+		int halfMoveClock = 99;
+		Game game = EasyMock.partialMockBuilder(Game.class)
+				.withConstructor(
+						Board.class,
+						GameStatus.class,
+						List.class,
+						Move.class,
+						int.class,
+						Map.class)
+				.withArgs(
+						board,
+						GameStatus.WHITE_TURN,
+						moveHistory,
+						null,
+						halfMoveClock,
+						positionHistory)
+				.addMockedMethod("isInCheck", Color.class)
+				.createMock();
+		Location from = new Location(7, 1);
+		Location to = new Location(1, 0);
+		Move last=new Move(from,to);
+//		EasyMock.expect(last.getNotation).andReturn("last").anyTimes();
+		EasyMock.expect(board.toPositionString()).andReturn("last").anyTimes();
+		EasyMock.expect(board.isInsideBoard(from)).andReturn(TRUE).anyTimes();
+		EasyMock.expect(board.isInsideBoard(to)).andReturn(TRUE).anyTimes();
+		EasyMock.expect(board.getPiece(from)).andReturn(piece);
+		EasyMock.expect(board.getPiece(to)).andReturn(piece1);
+		EasyMock.expect(piece.getType()).andReturn(PieceType.QUEEN);
+		EasyMock.expect(piece.getColor()).andReturn(Color.WHITE).anyTimes();
+//		EasyMock.expect(piece1.getType()).andReturn(PieceType.PAWN);
+		EasyMock.expect(piece1.getColor()).andReturn(Color.BLACK).anyTimes();
+		EasyMock.expect(piece.canMove(board, from, to)).andReturn(true).anyTimes();
+		board.movePiece(from, to);
+		EasyMock.expectLastCall();
+		EasyMock.expect(game.isInCheck(Color.WHITE)).andReturn(false);
+//		EasyMock.expect(game.isCheckmate(Color.BLACK)).andReturn(false);
+//		EasyMock.expect(game.isStalemate(Color.BLACK)).andReturn(false);
+		EasyMock.expect(player1.getName()).andReturn("p1").anyTimes();
+		EasyMock.expect(player2.getName()).andReturn("p2").anyTimes();
+		player1.setColor(Color.WHITE);
+		EasyMock.expectLastCall();
+		player2.setColor(Color.BLACK);
+		EasyMock.expectLastCall();
+		EasyMock.expect(player1.getColor()).andReturn(Color.WHITE).anyTimes();
+		EasyMock.expect(player2.getColor()).andReturn(Color.BLACK).anyTimes();
+		board.initBoard();
+		EasyMock.expectLastCall();
+		EasyMock.replay(board, player1, player2, piece, piece1);
+		game.startNewGame(player1, player2);
+//		game.switchTurn();
+		MoveResult result = game.makeMove(from, to, null);
+		assertEquals(game.currentPlayer.getColor(),Color.WHITE);
+		assertEquals(game.halfMoveClock,100);
+		target.put("lastp1",3);
+		assertTrue(target.equals(game.positionHistory));
+		List<Move> history = new ArrayList<>();
+		history.add(last);
+//		System.out.println(history);
+		assertTrue(history.equals(game.moveHistory));
+		assertEquals(game.lastMove,last);
+		assertEquals(MoveResult.DRAW, result);
+		EasyMock.verify(board, player1, player2, piece, piece1);
+	}
+	@Test
+	public void makeMove_50Move_white(){
+		Board board = EasyMock.createMock(Board.class);
+		Player player1 = EasyMock.createMock(Player.class);
+		Player player2 = EasyMock.createMock(Player.class);
+		Piece piece = EasyMock.createMock(Piece.class);
+		Piece piece1 = EasyMock.createMock(Piece.class);
+		List<Move> moveHistory = new ArrayList<>();
+		Move lastMove = null;
+		Map<String, Integer> positionHistory=new HashMap<>();
+		positionHistory.put("lastp1",1);
+		Map<String, Integer> target=new HashMap<>();
+		int halfMoveClock = 100;
+		Game game = EasyMock.partialMockBuilder(Game.class)
+				.withConstructor(
+						Board.class,
+						GameStatus.class,
+						List.class,
+						Move.class,
+						int.class,
+						Map.class)
+				.withArgs(
+						board,
+						GameStatus.WHITE_TURN,
+						moveHistory,
+						null,
+						halfMoveClock,
+						positionHistory)
+				.addMockedMethod("isInCheck", Color.class)
+				.createMock();
+		Location from = new Location(7, 1);
+		Location to = new Location(1, 0);
+		Move last=new Move(from,to);
+//		EasyMock.expect(last.getNotation).andReturn("last").anyTimes();
+		EasyMock.expect(board.toPositionString()).andReturn("last").anyTimes();
+		EasyMock.expect(board.isInsideBoard(from)).andReturn(TRUE).anyTimes();
+		EasyMock.expect(board.isInsideBoard(to)).andReturn(TRUE).anyTimes();
+		EasyMock.expect(board.getPiece(from)).andReturn(piece);
+		EasyMock.expect(board.getPiece(to)).andReturn(piece1);
+		EasyMock.expect(piece.getType()).andReturn(PieceType.QUEEN);
+		EasyMock.expect(piece.getColor()).andReturn(Color.WHITE).anyTimes();
+//		EasyMock.expect(piece1.getType()).andReturn(PieceType.PAWN);
+		EasyMock.expect(piece1.getColor()).andReturn(Color.BLACK).anyTimes();
+		EasyMock.expect(piece.canMove(board, from, to)).andReturn(true).anyTimes();
+//		board.movePiece(from, to);
+//		EasyMock.expectLastCall();
+		EasyMock.expect(game.isInCheck(Color.WHITE)).andReturn(false);
+//		EasyMock.expect(game.isCheckmate(Color.BLACK)).andReturn(false);
+//		EasyMock.expect(game.isStalemate(Color.BLACK)).andReturn(false);
+		EasyMock.expect(player1.getName()).andReturn("p1").anyTimes();
+		EasyMock.expect(player2.getName()).andReturn("p2").anyTimes();
+		player1.setColor(Color.WHITE);
+		EasyMock.expectLastCall();
+		player2.setColor(Color.BLACK);
+		EasyMock.expectLastCall();
+		EasyMock.expect(player1.getColor()).andReturn(Color.WHITE).anyTimes();
+		EasyMock.expect(player2.getColor()).andReturn(Color.BLACK).anyTimes();
+		board.initBoard();
+		EasyMock.expectLastCall();
+		EasyMock.replay(board, player1, player2, piece, piece1, game);
+		game.startNewGame(player1, player2);
+//		game.switchTurn();
+		MoveResult result = game.makeMove(from, to, null);
+		assertEquals(game.currentPlayer.getColor(),Color.WHITE);
+		assertEquals(game.halfMoveClock,101);
+		target.put("lastp1",1);
+		assertTrue(target.equals(game.positionHistory));
+		List<Move> history = new ArrayList<>();
+		history.add(last);
+//		System.out.println(history);
+		assertTrue(history.equals(game.moveHistory));
+		assertEquals(game.lastMove,last);
+		assertEquals(MoveResult.DRAW, result);
+		EasyMock.verify(board, player1, player2, piece, piece1, game);
+	}
+	@Test
+	public void makeMove_selfCheck_white(){
+		Board board = EasyMock.createMock(Board.class);
+		Player player1 = EasyMock.createMock(Player.class);
+		Player player2 = EasyMock.createMock(Player.class);
+		Piece piece = EasyMock.createMock(Piece.class);
+		Piece piece1 = EasyMock.createMock(Piece.class);
+		List<Move> moveHistory = new ArrayList<>();
+		Move lastMove = null;
+		Map<String, Integer> positionHistory=new HashMap<>();
+		Map<String, Integer> target=new HashMap<>();
+		int halfMoveClock = 100;
+		Game game = EasyMock.partialMockBuilder(Game.class)
+				.withConstructor(
+						Board.class,
+						GameStatus.class,
+						List.class,
+						Move.class,
+						int.class,
+						Map.class)
+				.withArgs(
+						board,
+						GameStatus.WHITE_TURN,
+						moveHistory,
+						null,
+						halfMoveClock,
+						positionHistory)
+				.addMockedMethod("isInCheck", Color.class)
+//				.addMockedMethod("isCheckmate", Color.class)
+//				.addMockedMethod("isStalemate", Color.class)
+				.createMock();
+		Location from = new Location(0, -1);
+		Location to = new Location(0, 0);
+		Move last=new Move(from,to);
+//		EasyMock.expect(last.getNotation).andReturn("last").anyTimes();
+		EasyMock.expect(board.toPositionString()).andReturn("last").anyTimes();
+		EasyMock.expect(board.isInsideBoard(from)).andReturn(TRUE).anyTimes();
+		EasyMock.expect(board.isInsideBoard(to)).andReturn(TRUE).anyTimes();
+		EasyMock.expect(board.getPiece(from)).andReturn(piece).anyTimes();
+		EasyMock.expect(board.getPiece(to)).andStubReturn(null);
+		EasyMock.expect(piece.canMove(board,from,to)).andReturn(true);
+		EasyMock.expect(player1.getName()).andReturn("p1").anyTimes();
+		EasyMock.expect(player2.getName()).andReturn("p2").anyTimes();
+		player1.setColor(Color.WHITE);
+		EasyMock.expectLastCall();
+		player2.setColor(Color.BLACK);
+		EasyMock.expectLastCall();
+//		EasyMock.expect(game.isInCheck(Color.WHITE)).andReturn(true).anyTimes();
+		EasyMock.expect(player1.getColor()).andReturn(Color.WHITE).anyTimes();
+		EasyMock.expect(player2.getColor()).andReturn(Color.BLACK).anyTimes();
+		EasyMock.expect(piece.getType()).andReturn(PieceType.QUEEN);
+		EasyMock.expect(piece.getColor()).andReturn(Color.WHITE).anyTimes();
+		board.initBoard();
+		EasyMock.expectLastCall();
+		EasyMock.expect(game.isInCheck(Color.WHITE)).andReturn(true);
+		EasyMock.replay(board, player1, player2, piece, piece1,game);
+		game.startNewGame(player1, player2);
+//		game.switchTurn();
+		MoveResult result = game.makeMove(from, to, null);
+		assertEquals(game.currentPlayer.getColor(),Color.WHITE);
+		assertEquals(game.halfMoveClock,100);
+//		target.put("last",1);
+		assertTrue(target.equals(game.positionHistory));
+//		moveHistory.add(last);
+		assertTrue(moveHistory.equals(game.moveHistory));
+//		assertEquals(moveHistory,Integer.MAX_VALUE);
+		assertEquals(game.lastMove,null);
+		assertEquals(MoveResult.INVALID_SELF_CHECK, result);
 		EasyMock.verify(board, player1, player2, piece, piece1,game);
 	}
 }

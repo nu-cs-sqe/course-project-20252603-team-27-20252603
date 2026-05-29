@@ -52,12 +52,38 @@ However, you are only required to document Step 4.
 - **Implemented:*implemented* 
 
 - **TC10: makeMove_capture_white** ()
-- **State of the system:** piece=knight, from (7,7) to (0,7),white turn, halfMoveClock=INT_MAX-1
-- **Expected output:** VALID, halfMoveClock=INT_MAX, last move equal this move, add move to movehistory and positionhistory
+- **State of the system:** piece=knight, from (7,7) to (0,7),white turn, halfMoveClock=99
+- **Expected output:** VALID, halfMoveClock=100, last move equal this move, add move to movehistory and positionhistory
 - **Implemented:*implemented* 
 
-- **TC10: makeMove_outOfBound_black** ()
-- **State of the system:** piece=knight, black turn, from (0,-1) to (0,0)
+- **TC11: makeMove_outOfBound_black** ()
+- **State of the system:** black turn, from (0,-1) to (0,0)
 - **Expected output:** out of bound error
 - **Implemented:*implemented* 
+
+- **TC12: makeMove_outOfBound_white** ()
+- **State of the system:** black turn, from (7,7) to (8,0)
+- **Expected output:** out of bound error
+- **Implemented:*implemented* 
+
+- **TC13: makeMove_illegalMove_black** ()
+- **State of the system:** piece=knight, black turn, from (7,1) to (1,0)
+- **Expected output:** illegal move error
+- **Implemented:*implemented* 
+
+- **TC14: makeMove_threefoldRepetition_white** ()
+- **State of the system:** piece=QUEEN, white turn, from (7,1) to (1,0)
+- **Expected output:** draw
+- **Implemented:*implemented* 
+
+- **TC15: makeMove_50Move_white** ()
+- **State of the system:** piece=QUEEN, white turn, from (7,1) to (1,0)
+- **Expected output:** draw
+- **Implemented:*implemented* 
+
+- **TC15: makeMove_selfCheck_white** ()
+- **State of the system:** piece=QUEEN, white turn, from (7,1) to (1,0)
+- **Expected output:** self-check
+- **Implemented:*implemented* 
+
 

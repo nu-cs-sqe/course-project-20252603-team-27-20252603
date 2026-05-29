@@ -1,18 +1,18 @@
 package domain;
 
-public class Knight extends Piece{
-	public Knight(Color color) {
+public class Queen extends Piece{
+	public Queen(Color color) {
 		super(color);
 	}
 
 	@Override
 	public PieceType getType() {
 
-		return PieceType.KNIGHT;
+		return PieceType.QUEEN;
 	}
 
 	@Override
 	public Piece makeCopy() {
-		return new Knight(getColor());
+		return new Queen(getColor());
 	}
 }

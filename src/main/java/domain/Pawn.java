@@ -13,6 +13,6 @@ public class Pawn extends Piece{
 
 	@Override
 	public Piece makeCopy() {
-		return new Rook(getColor());
+		return new Pawn(getColor());
 	}
 }

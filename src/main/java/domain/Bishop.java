@@ -8,11 +8,11 @@ public class Bishop extends Piece{
 	@Override
 	public PieceType getType() {
 
-		return PieceType.ROOK;
+		return PieceType.BISHOP;
 	}
 
 	@Override
 	public Piece makeCopy() {
-		return new Rook(getColor());
+		return new Bishop(getColor());
 	}
 }
