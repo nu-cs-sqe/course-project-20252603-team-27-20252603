@@ -37,22 +37,27 @@ However, you are only required to document Step 4.
 - **Implemented:*implemented* 
 
 - **TC7: makeMove_sameColorCapture_white** ()
-- **State of the system:** piece=knight, white turn
+- **State of the system:** piece=knight, white turn, from (7,7) to (0,7)
 - **Expected output:** INVALID_SAME_COLOR_CAPTURE, last move is null
 - **Implemented:*implemented* 
 
 - **TC8: makeMove_emptySource_white** ()
 - **State of the system:**  white turn
-- **Expected output:** INVALID_EMPTY_SOURCE, last move is null
+- **Expected output:** INVALID_EMPTY_SOURCE, from (7,7) to (0,7), last move is null
 - **Implemented:*implemented* 
 
 - **TC9: makeMove_wrongTurn_white** ()
-- **State of the system:**  piece=Bishop, from (0,0) to (1,7), white turn, black move
+- **State of the system:**  piece=Bishop, from (7,7) to (1,7), white turn, black move
 - **Expected output:** INVALID_EMPTY_SOURCE, last move is null
 - **Implemented:*implemented* 
 
-- **TC10: makeMove_Capture_white** ()
-- **State of the system:** piece=knight, white turn, halfMoveClock=INT_MAX-1
+- **TC10: makeMove_capture_white** ()
+- **State of the system:** piece=knight, from (7,7) to (0,7),white turn, halfMoveClock=INT_MAX-1
 - **Expected output:** VALID, halfMoveClock=INT_MAX, last move equal this move, add move to movehistory and positionhistory
+- **Implemented:*implemented* 
+
+- **TC10: makeMove_outOfBound_black** ()
+- **State of the system:** piece=knight, black turn, from (0,-1) to (0,0)
+- **Expected output:** out of bound error
 - **Implemented:*implemented* 
 

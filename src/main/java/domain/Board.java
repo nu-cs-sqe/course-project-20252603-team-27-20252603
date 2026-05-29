@@ -13,4 +13,7 @@ public class Board {
 	public String toPositionString(){
 		return "position";
 	}
+	public boolean isInsideBoard(Location location) {
+		return true;
+	}
 }

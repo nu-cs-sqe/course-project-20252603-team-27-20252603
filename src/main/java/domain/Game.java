@@ -42,6 +42,9 @@ public class Game {
 		}
 	}
 	public MoveResult makeMove(Location from, Location to, PieceType type){
+		if (!board.isInsideBoard(from) || !board.isInsideBoard(to)){
+			return MoveResult.INVALID_OUT_OF_BOUNDS;
+		}
 		Piece piece=board.getPiece(from);
 		if(piece==null){
 			return MoveResult.INVALID_EMPTY_SOURCE;
@@ -49,7 +52,6 @@ public class Game {
 		Piece object=board.getPiece(to);
 		if(piece.getType()!=PieceType.PAWN){
 			if (object!=null && (object.getColor()==piece.getColor())){
-				System.out.println(object.getColor());
 				return MoveResult.INVALID_SAME_COLOR_CAPTURE;
 			} else if (!piece.getColor().equals(currentPlayer.getColor())){
 				return MoveResult.INVALID_WRONG_TURN;

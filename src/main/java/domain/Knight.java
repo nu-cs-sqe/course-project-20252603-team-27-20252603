@@ -1,14 +1,14 @@
 package domain;
 
-public class Pawn extends Piece{
-	public Pawn(Color color) {
+public class Knight extends Piece{
+	public Knight(Color color) {
 		super(color);
 	}
 
 	@Override
 	public PieceType getType() {
 
-		return PieceType.PAWN;
+		return PieceType.KNIGHT;
 	}
 
 	@Override
