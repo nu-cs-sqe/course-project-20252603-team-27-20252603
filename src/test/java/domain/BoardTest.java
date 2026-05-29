@@ -8,9 +8,17 @@ import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertNotSame;
 import static org.junit.jupiter.api.Assertions.assertSame;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 class BoardTest {
+    @Test
+    void constructorNullPiecesCreatesEmptyBoard() {
+        Board board = new Board(null);
+
+        assertTrue(board.isEmpty(new Location(0, 0)));
+    }
+
     @Test
     void isInsideBoardBothIndicesMinValidReturnTrue() {
         Board board = new Board();
@@ -80,6 +88,26 @@ class BoardTest {
     @Test
     void initBoardCheckEmptySquareReturnsEmpty() {
         Board board = new Board();
+
+        board.initBoard();
+
+        assertTrue(board.isEmpty(new Location("e4")));
+    }
+
+    @Test
+    void initBoardCheckOccupiedSquareReturnsNotEmpty() {
+        Board board = new Board();
+
+        board.initBoard();
+
+        assertFalse(board.isEmpty(new Location("a1")));
+    }
+
+    @Test
+    void initBoardClearsExistingPiecesBeforeSetup() {
+        Piece[][] pieces = new Piece[Board.TOTAL_ROWS][Board.TOTAL_COLS];
+        pieces[4][4] = new Queen(Color.WHITE); // e4 should be empty after initBoard
+        Board board = new Board(pieces);
 
         board.initBoard();
 
@@ -167,19 +195,27 @@ class BoardTest {
     }
 
     @Test
+    void findKingThrowsWhenMissing() {
+        Board board = new Board();
+        board.clearBoard();
+
+        assertThrows(IllegalStateException.class, () -> board.findKing(Color.WHITE));
+    }
+
+    @Test
     void toPositionStringReturnsExpectedBoardLayout() {
         Board board = new Board();
         board.initBoard();
 
         String expected = String.join(System.lineSeparator(),
-                "r.......",
+                "rnbqkbnr",
+                "pppppppp",
                 "........",
                 "........",
                 "........",
                 "........",
-                "........",
-                "P.......",
-                "....K...");
+                "PPPPPPPP",
+                "RNBQKBNR");
 
         assertEquals(expected, board.toPositionString());
     }

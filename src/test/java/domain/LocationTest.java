@@ -28,6 +28,59 @@ class LocationTest {
 	}
 
 	@Test
+	void locationValidA2ReturnsRow6Col0() {
+		Location location = new Location("a2");
+
+		assertEquals(6, location.getRow());
+		assertEquals(0, location.getCol());
+	}
+
+	@Test
+	void locationValidA3ReturnsRow5Col0() {
+		Location location = new Location("a3");
+
+		assertEquals(5, location.getRow());
+		assertEquals(0, location.getCol());
+	}
+
+	@Test
+	void locationValidA7ReturnsRow1Col0() {
+		Location location = new Location("a7");
+
+		assertEquals(1, location.getRow());
+		assertEquals(0, location.getCol());
+	}
+
+	@Test
+	void locationValidA8ReturnsRow0Col0() {
+		Location location = new Location("a8");
+
+		assertEquals(0, location.getRow());
+		assertEquals(0, location.getCol());
+	}
+
+	@Test
+	void locationValidE4ReturnsRow4Col4() {
+		Location location = new Location("e4");
+
+		assertEquals(4, location.getRow());
+		assertEquals(4, location.getCol());
+	}
+
+	@Test
+	void locationValidE1ReturnsRow7Col4() {
+		Location location = new Location("e1");
+
+		assertEquals(7, location.getRow());
+		assertEquals(4, location.getCol());
+	}
+
+	@Test
+	void locationUnsupportedSquareThrowsUnsupportedOperationException() {
+		assertThrows(UnsupportedOperationException.class, () -> new Location("b2"));
+	}
+
+	@Test
 	void locationStringTooLongThrowsIllegalArgumentException() {
 		assertThrows(IllegalArgumentException.class, () -> new Location("a12"));
 	}
@@ -50,5 +103,13 @@ class LocationTest {
 	@Test
 	void locationRankJustAboveValidThrowsIllegalArgumentException() {
 		assertThrows(IllegalArgumentException.class, () -> new Location("a9"));
+	}
+
+	@Test
+	void locationIntConstructorSetsRowAndCol() {
+		Location location = new Location(3, 5);
+
+		assertEquals(3, location.getRow());
+		assertEquals(5, location.getCol());
 	}
 }
