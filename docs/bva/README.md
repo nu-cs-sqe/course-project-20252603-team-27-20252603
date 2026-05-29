@@ -90,3 +90,23 @@
   - **State of the system:** board initialized, location = "e4"
   - **Expected output:** isEmpty(location) = true
   - **Implemented:** yes
+
+## Method under test: setPiece(Location location, Piece piece)
+
+- **TC19: SetPieceReplacesExistingPieceAndReturnsPrevious** (  )
+  - **State of the system:** board initialized, location = "a2" contains a Pawn
+  - **Action:** call setPiece("a2", new Queen(same color))
+  - **Expected output:** returned Piece is the original Pawn; board.getPiece("a2") is the new Queen
+  - **Implemented:** no
+
+- **TC20: SetPieceOnEmptySquareReturnsNullAndPlacesPiece** (  )
+  - **State of the system:** board cleared, location = "e4" empty
+  - **Action:** call setPiece("e4", new Rook(WHITE))
+  - **Expected output:** returned value is null; board.getPiece("e4") is the Rook
+  - **Implemented:** no
+
+- **TC21: SetPieceWithInvalidLocationThrowsException** (  )
+  - **State of the system:** board initialized
+  - **Action:** call setPiece(Location(-1,0), piece)
+  - **Expected output:** ArrayIndexOutOfBoundsException or IllegalArgumentException
+  - **Implemented:** no
