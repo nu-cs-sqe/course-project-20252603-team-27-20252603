@@ -22,4 +22,13 @@ public class MoveTest {
         assertFalse(move.isEnPassant());
         assertEquals("", move.getNotation());
     }
+
+    @Test
+    void ctor_rejectsNullFrom() {
+        IllegalArgumentException ex = assertThrows(
+                IllegalArgumentException.class,
+                () -> new Move(null, new Location(4, 4), WHITE_PAWN, null, null)
+        );
+        assertTrue(ex.getMessage().contains("from"));
+    }
 }
