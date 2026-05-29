@@ -10,6 +10,7 @@ import static org.junit.jupiter.api.Assertions.assertNotSame;
 import static org.junit.jupiter.api.Assertions.assertSame;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.jupiter.api.Assertions.assertNull;
 
 class BoardTest {
 	@Test
@@ -34,6 +35,53 @@ class BoardTest {
 		assertTrue(board.isEmpty(new Location(0, 0)));
 		assertSame(original, board.getPiece(new Location("a2")));
 		EasyMock.verify(original);
+	}
+
+	@Test
+	void setPieceReplacesExistingPieceAndReturnsPrevious() {
+		Board board = new Board();
+		board.initBoard();
+
+		Location loc = new Location("a2");
+		Piece before = board.getPiece(loc);
+		assertNotNull(before);
+		Piece replacement = EasyMock.createMock(Piece.class);
+		EasyMock.replay(replacement);
+
+		Piece returned = board.setPiece(loc, replacement);
+
+		// Expected behavior: returned is the previous piece and board has replacement
+		assertSame(before, returned);
+		assertSame(replacement, board.getPiece(loc));
+		EasyMock.verify(replacement);
+	}
+
+	@Test
+	void setPieceOnEmptySquareReturnsNullAndPlacesPiece() {
+		Board board = new Board();
+		board.clearBoard();
+
+		Location loc = new Location("e4");
+		assertTrue(board.isEmpty(loc));
+		Piece replacement = EasyMock.createMock(Piece.class);
+		EasyMock.replay(replacement);
+
+		Piece returned = board.setPiece(loc, replacement);
+		assertNull(returned);
+		assertSame(replacement, board.getPiece(loc));
+		EasyMock.verify(replacement);
+	}
+
+	@Test
+	void setPieceWithInvalidLocationThrowsException() {
+		Board board = new Board();
+		board.initBoard();
+		Piece replacement = EasyMock.createMock(Piece.class);
+		EasyMock.replay(replacement);
+
+		assertThrows(ArrayIndexOutOfBoundsException.class,
+				() -> board.setPiece(new Location(-1, 0), replacement));
+		EasyMock.verify(replacement);
 	}
 
 	@Test

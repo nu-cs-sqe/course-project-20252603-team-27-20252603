@@ -68,6 +68,21 @@ public class Board {
 		return pieces[location.getRow()][location.getCol()];
 	}
 
+	/** Set piece at location; return previous piece (may be null). No validation. */
+	public Piece setPiece(Location location, Piece piece) {
+
+		throw new UnsupportedOperationException("setPiece not implemented");
+	}
+
+	/**
+	 * Promote a pawn at the given location by replacing it with the provided piece.
+	 * Minimal stub: not implemented yet. Throws UnsupportedOperationException so
+	 * tests written first (TDD) will fail until this is implemented.
+	 */
+	public Piece promotePawn(Location location, Piece newPiece) {
+		throw new UnsupportedOperationException("promotePawn not implemented");
+	}
+
 	public Piece[][] getSnapshot() {
 		Piece[][] snapshot = new Piece[TOTAL_ROWS][TOTAL_COLS];
 		for (int row = 0; row < TOTAL_ROWS; row++) {
