@@ -93,20 +93,20 @@
 
 ## Method under test: setPiece(Location location, Piece piece)
 
-- **TC19: SetPieceReplacesExistingPieceAndReturnsPrevious** (  )
+- **TC18: SetPieceReplacesExistingPieceAndReturnsPrevious** (  )
   - **State of the system:** board initialized, location = "a2" contains a Pawn
-  - **Action:** call setPiece("a2", new Queen(same color))
-  - **Expected output:** returned Piece is the original Pawn; board.getPiece("a2") is the new Queen
+  - **Action:** call setPiece("a2", replacementPieceMock)
+  - **Expected output:** returned Piece is the original Pawn; board.getPiece("a2") is replacementPieceMock
   - **Implemented:** no
 
-- **TC20: SetPieceOnEmptySquareReturnsNullAndPlacesPiece** (  )
+- **TC19: SetPieceOnEmptySquareReturnsNullAndPlacesPiece** (  )
   - **State of the system:** board cleared, location = "e4" empty
-  - **Action:** call setPiece("e4", new Rook(WHITE))
-  - **Expected output:** returned value is null; board.getPiece("e4") is the Rook
+  - **Action:** call setPiece("e4", replacementPieceMock)
+  - **Expected output:** returned value is null; board.getPiece("e4") is replacementPieceMock
   - **Implemented:** no
 
-- **TC21: SetPieceWithInvalidLocationThrowsException** (  )
+- **TC20: SetPieceWithInvalidLocationThrowsException** (  )
   - **State of the system:** board initialized
-  - **Action:** call setPiece(Location(-1,0), piece)
+  - **Action:** call setPiece(Location(-1,0), replacementPieceMock)
   - **Expected output:** ArrayIndexOutOfBoundsException or IllegalArgumentException
   - **Implemented:** no
