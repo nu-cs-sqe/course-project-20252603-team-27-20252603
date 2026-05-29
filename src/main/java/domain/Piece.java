@@ -1,19 +1,19 @@
 package domain;
 
 public abstract class Piece {
-    private final Color color;
+	private final Color color;
 
-    protected Piece(Color color) {
+	protected Piece(Color color) {
 
-        this.color = color;
-    }
+		this.color = color;
+	}
 
-    public Color getColor() {
+	public Color getColor() {
 
-        return color;
-    }
+		return color;
+	}
 
-    public abstract String getType();
+	public abstract String getType();
 
-    public abstract Piece makeCopy();
+	public abstract Piece makeCopy();
 }
