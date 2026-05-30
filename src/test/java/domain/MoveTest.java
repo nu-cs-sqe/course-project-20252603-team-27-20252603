@@ -81,4 +81,15 @@ public class MoveTest {
         assertTrue(move.isCastle());
         assertFalse(move.isEnPassant());
     }
+
+    @Test
+    void extendedCtor_storesEnPassantFlag() {
+        Location from = new Location(4, 4);
+        Location to = new Location(3, 3);
+        Piece captured = new Piece(PieceType.PAWN, PieceColor.BLACK);
+        Move move = new Move(from, to, WHITE_PAWN, captured, null, false, true, "");
+
+        assertFalse(move.isCastle());
+        assertTrue(move.isEnPassant());
+    }
 }

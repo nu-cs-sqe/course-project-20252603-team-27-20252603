@@ -33,3 +33,7 @@ Design reference: `Move` stores `Location from`, `Location to`, `Piece movedPiec
 - **TC7: extendedCtor_storesCastleFlag** ( :white_check_mark: )
   - **State of the system:** extended constructor called with `isCastle` true, `isEnPassant` false, empty notation; required args valid
   - **Expected output:** `Move` is created; `isCastle()` is true; `isEnPassant()` is false
+
+- **TC8: extendedCtor_storesEnPassantFlag** ( :white_check_mark: )
+  - **State of the system:** extended constructor called with `isEnPassant` true, `isCastle` false, optional captured pawn, empty notation; required args valid
+  - **Expected output:** `Move` is created; `isEnPassant()` is true; `isCastle()` is false
