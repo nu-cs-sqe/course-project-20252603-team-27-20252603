@@ -156,6 +156,7 @@ class LocationTest {
 	void equalsDifferentTypeReturnsFalse() {
 		Location a = new Location(3, 5);
 
-		assertEquals(false, a.equals("3,5"));
+		// use a plain Object to avoid SpotBugs warning about equals(String)
+		assertEquals(false, a.equals(new Object()));
 	}
 }
