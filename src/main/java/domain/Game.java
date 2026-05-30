@@ -231,4 +231,7 @@ public class Game {
 	public  GameStatus getStatus(){
 		return status;
 	}
+	public  List<Move> getMoveHistory(){
+		return moveHistory;
+	}
 }

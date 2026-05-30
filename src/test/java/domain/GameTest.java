@@ -360,7 +360,7 @@ public class GameTest {
 						Map.class)
 				.withArgs(
 						board,
-						GameStatus.WHITE_TURN,
+						GameStatus.BLACK_IN_CHECK,
 						moveHistory,
 						null,
 						halfMoveClock,
@@ -1018,7 +1018,7 @@ public class GameTest {
 						Map.class)
 				.withArgs(
 						board,
-						GameStatus.WHITE_TURN,
+						GameStatus.WHITE_IN_CHECK,
 						moveHistory,
 						null,
 						halfMoveClock,
@@ -1978,5 +1978,57 @@ public class GameTest {
 //		Location to = new Location(7, 7);
 		GameStatus result=game.getStatus();
 		assertEquals(result, GameStatus.RESIGNED);
+	}
+	@Test
+	public void getMoveHistory_empty() {
+		Board board = EasyMock.createMock(Board.class);
+		Player player1 = EasyMock.createMock(Player.class);
+		Player player2 = EasyMock.createMock(Player.class);
+		Piece piece = EasyMock.createMock(Piece.class);
+		List<Move> moveHistory = new ArrayList<>();
+		Map<String, Integer> positionHistory = new HashMap<>();
+		Move lastMove = null;
+		int halfMoveClock = 0;
+		Game game = new Game(
+				board,
+				GameStatus.WHITE_IN_CHECK,
+				moveHistory,
+				null,
+				0,
+				positionHistory);
+//		Location first=new Location(0,0);
+//		Location from = new Location(7, 7);
+//		Location to = new Location(7, 7);
+		List<Move> history=new ArrayList<>();
+		List<Move> result=game.getMoveHistory();
+		assertEquals(result, history);
+	}
+	@Test
+	public void getMoveHistory_nonEmpty() {
+		Board board = EasyMock.createMock(Board.class);
+		Player player1 = EasyMock.createMock(Player.class);
+		Player player2 = EasyMock.createMock(Player.class);
+		Piece piece = EasyMock.createMock(Piece.class);
+		List<Move> moveHistory = new ArrayList<>();
+		Map<String, Integer> positionHistory = new HashMap<>();
+		Move move=new Move(new Location(0,0),new Location(7,7));
+		moveHistory.add(move);
+		List<Move> target=new ArrayList<>();
+		target.add(move);
+		Move lastMove = null;
+		int halfMoveClock = 0;
+		Game game = new Game(
+				board,
+				GameStatus.WHITE_IN_CHECK,
+				moveHistory,
+				null,
+				0,
+				positionHistory);
+//		Location first=new Location(0,0);
+//		Location from = new Location(7, 7);
+//		Location to = new Location(7, 7);
+//		List<Move> history=new ArrayList<>();
+		List<Move> result=game.getMoveHistory();
+		assertEquals(result, target);
 	}
 }

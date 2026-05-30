@@ -205,3 +205,13 @@ However, you are only required to document Step 4.
 - **State of the system:** status=resigned
 - **Expected output:** resigned
 - **Implemented:*implemented* 
+
+- **TC41: getMoveHistory_empty** ()
+- **State of the system:** history is empty
+- **Expected output:** empty list
+- **Implemented:*implemented* 
+
+- **TC42: getMoveHistory_nonEmpty** ()
+- **State of the system:** history=(move((0,0),(7,7)))
+- **Expected output:** (move((0,0),(7,7)))
+- **Implemented:*implemented* 
