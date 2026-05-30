@@ -112,4 +112,50 @@ class LocationTest {
 		assertEquals(3, location.getRow());
 		assertEquals(5, location.getCol());
 	}
+
+	@Test
+	void locationIntConstructorStoresMaxMax() {
+		Location location = new Location(7, 7);
+
+		assertEquals(7, location.getRow());
+		assertEquals(7, location.getCol());
+	}
+
+	@Test
+	void equalsSameCoordinatesReturnsTrue() {
+		Location a = new Location(3, 5);
+		Location b = new Location(3, 5);
+
+		assertEquals(true, a.equals(b));
+	}
+
+	@Test
+	void equalsDifferentRowReturnsFalse() {
+		Location a = new Location(3, 5);
+		Location b = new Location(4, 5);
+
+		assertEquals(false, a.equals(b));
+	}
+
+	@Test
+	void equalsDifferentColReturnsFalse() {
+		Location a = new Location(3, 5);
+		Location b = new Location(3, 4);
+
+		assertEquals(false, a.equals(b));
+	}
+
+	@Test
+	void equalsNullReturnsFalse() {
+		Location a = new Location(3, 5);
+
+		assertEquals(false, a.equals(null));
+	}
+
+	@Test
+	void equalsDifferentTypeReturnsFalse() {
+		Location a = new Location(3, 5);
+
+		assertEquals(false, a.equals("3,5"));
+	}
 }
