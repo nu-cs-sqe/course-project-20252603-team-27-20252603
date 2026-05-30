@@ -19,3 +19,7 @@ Design reference: `Move` stores `Location from`, `Location to`, `Piece movedPiec
 - **TC4: ctor_rejectsNullMovedPiece** ( :white_check_mark: )
   - **State of the system:** `movedPiece` is null, `from` and `to` are valid, `capturedPiece` and `promotionType` are null
   - **Expected output:** throws `IllegalArgumentException` with message mentioning `movedPiece`
+
+- **TC5: ctor_storesCapturedPiece** ( :white_check_mark: )
+  - **State of the system:** `capturedPiece` is a non-null `Piece`, all required args valid, `promotionType` is null
+  - **Expected output:** `Move` is created; `getCapturedPiece()` returns the given piece; `getPromotionType()` is null

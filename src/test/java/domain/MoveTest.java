@@ -49,4 +49,15 @@ public class MoveTest {
         );
         assertTrue(ex.getMessage().contains("movedPiece"));
     }
+
+    @Test
+    void ctor_storesCapturedPiece() {
+        Location from = new Location(6, 4);
+        Location to = new Location(5, 3);
+        Piece captured = new Piece(PieceType.PAWN, PieceColor.BLACK);
+        Move move = new Move(from, to, WHITE_PAWN, captured, null);
+
+        assertEquals(captured, move.getCapturedPiece());
+        assertNull(move.getPromotionType());
+    }
 }
