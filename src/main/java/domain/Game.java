@@ -128,8 +128,33 @@ public class Game {
 		return false;
 	}
 	public boolean isCheckmate(Color color){
-		return false;
+		if (!isInCheck(color)){
+			return false;
+		}
+		Location kingLocation = board.findKing(color);
+		Color opponentColor=Color.WHITE;
+		if(color==Color.WHITE){
+			opponentColor = Color.BLACK;
+		}
+		for (int row = 0; row < 8; row++) {
+			for (int col = 0; col < 8; col++) {
+				Location from = new Location(row, col);
+				Piece piece = board.getPiece(from);
+				if (piece != null && piece.getColor() == color) {
+					for (int row_des = 0; row < 8; row++) {
+						for (int col_des = 0; col < 8; col++) {
+							Location to = new Location(row_des, col_des);
+							if (piece.canMove(board, from, to) && !isInCheck(color)) {
+								return false;
+							}
+						}
+					}
+				}
+			}
+		}
+		return true;
 	}
+
 	public boolean isStalemate(Color color){
 		return false;
 	}

@@ -1,5 +1,7 @@
 package domain;
 
+import java.util.Objects;
+
 public class Location {
 	private int row;
 	private int col;
@@ -70,6 +72,12 @@ public class Location {
 	public Location(int row, int col) {
 		this.row = row;
 		this.col = col;
+	}
+	@Override
+	public boolean equals(Object obj){
+		Location other = (Location) obj;
+		return Objects.equals(this.row, other.getRow())
+				&& Objects.equals(this.col, other.getCol());
 	}
 
 	public int getRow() {

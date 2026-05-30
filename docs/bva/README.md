@@ -101,3 +101,28 @@ However, you are only required to document Step 4.
 - **Expected output:** white_turn
 - **Implemented:*implemented* 
 
+- **TC20: isInCheck_check** ()
+- **State of the system:** white_turn, piece (0,1), king (0,7)
+- **Expected output:** true
+- **Implemented:*implemented* 
+
+- **TC21: isInCheck_check_firstIsNull** ()
+- **State of the system:** white_turn, piece (0,1), king (7,7)
+- **Expected output:** true
+- **Implemented:*implemented* 
+
+- **TC22: isInCheck_check_false** ()
+- **State of the system:** black_turn， piece (7,7), king (0,0)
+- **Expected output:** false
+- **Implemented:*implemented* 
+
+- **TC23: isCheckmate_true** ()
+- **State of the system:** white_turn， king at(0,0), always check
+- **Expected output:** true
+- **Implemented:*implemented* 
+
+- **TC23: isCheckmate_false** ()
+- **State of the system:** white_turn， king at(7,7), first time isincheck return true then return false
+- **Expected output:** false
+- **Implemented:*implemented* 
+
