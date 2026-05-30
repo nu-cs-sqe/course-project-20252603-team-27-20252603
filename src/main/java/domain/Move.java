@@ -14,6 +14,9 @@ public final class Move {
         if (to == null) {
             throw new IllegalArgumentException("to must not be null");
         }
+        if (movedPiece == null) {
+            throw new IllegalArgumentException("movedPiece must not be null");
+        }
         this.from = from;
         this.to = to;
         this.movedPiece = movedPiece;
