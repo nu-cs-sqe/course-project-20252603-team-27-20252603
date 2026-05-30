@@ -27,3 +27,9 @@ Design reference: `Move` stores `Location from`, `Location to`, `Piece movedPiec
 - **TC6: ctor_storesPromotionType** ( :white_check_mark: )
   - **State of the system:** `promotionType` is a non-null `PieceType` (e.g. `QUEEN`), all required args valid, `capturedPiece` is null
   - **Expected output:** `Move` is created; `getPromotionType()` returns the given type; `getCapturedPiece()` is null
+
+### Method under test: `Move(..., boolean isCastle, boolean isEnPassant, String notation)` (extended constructor)
+
+- **TC7: extendedCtor_storesCastleFlag** ( :white_check_mark: )
+  - **State of the system:** extended constructor called with `isCastle` true, `isEnPassant` false, empty notation; required args valid
+  - **Expected output:** `Move` is created; `isCastle()` is true; `isEnPassant()` is false

@@ -70,4 +70,15 @@ public class MoveTest {
         assertNull(move.getCapturedPiece());
         assertEquals(PieceType.QUEEN, move.getPromotionType());
     }
+
+    @Test
+    void extendedCtor_storesCastleFlag() {
+        Piece whiteKing = new Piece(PieceType.KING, PieceColor.WHITE);
+        Location from = new Location(7, 4);
+        Location to = new Location(7, 6);
+        Move move = new Move(from, to, whiteKing, null, null, true, false, "");
+
+        assertTrue(move.isCastle());
+        assertFalse(move.isEnPassant());
+    }
 }
