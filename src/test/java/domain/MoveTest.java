@@ -92,4 +92,13 @@ public class MoveTest {
         assertFalse(move.isCastle());
         assertTrue(move.isEnPassant());
     }
+
+    @Test
+    void extendedCtor_storesNotation() {
+        Location from = new Location(6, 4);
+        Location to = new Location(4, 4);
+        Move move = new Move(from, to, WHITE_PAWN, null, null, false, false, "e4");
+
+        assertEquals("e4", move.getNotation());
+    }
 }
