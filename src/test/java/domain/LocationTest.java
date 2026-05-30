@@ -4,6 +4,7 @@ import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 class LocationTest {
 	@Test
@@ -130,6 +131,13 @@ class LocationTest {
 	}
 
 	@Test
+	void equalsSameReferenceReturnsTrue() {
+		Location a = new Location(3, 5);
+
+		assertTrue(a.equals(a));
+	}
+
+	@Test
 	void equalsDifferentRowReturnsFalse() {
 		Location a = new Location(3, 5);
 		Location b = new Location(4, 5);
@@ -158,5 +166,13 @@ class LocationTest {
 
 		// use a plain Object to avoid SpotBugs warning about equals(String)
 		assertEquals(false, a.equals(new Object()));
+	}
+
+	@Test
+	void hashCodeEqualLocationsReturnsSameValue() {
+		Location a = new Location(3, 5);
+		Location b = new Location(3, 5);
+
+		assertEquals(a.hashCode(), b.hashCode());
 	}
 }

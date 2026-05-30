@@ -48,4 +48,4 @@
 - **TC8: HashCodeEqualLocationsMatch** (  )
   - **State of the system:** a = Location(3, 5), b = Location(3, 5)
   - **Expected output:** a.hashCode() = b.hashCode()
-  - **Implemented:** not yet
+  - **Implemented:** yes
