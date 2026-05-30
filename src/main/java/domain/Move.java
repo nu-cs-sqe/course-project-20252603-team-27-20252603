@@ -6,8 +6,16 @@ public final class Move {
     private final Piece movedPiece;
     private final Piece capturedPiece;
     private final PieceType promotionType;
+    private final boolean isCastle;
+    private final boolean isEnPassant;
+    private final String notation;
 
     public Move(Location from, Location to, Piece movedPiece, Piece capturedPiece, PieceType promotionType) {
+        this(from, to, movedPiece, capturedPiece, promotionType, false, false, "");
+    }
+
+    public Move(Location from, Location to, Piece movedPiece, Piece capturedPiece, PieceType promotionType,
+                boolean isCastle, boolean isEnPassant, String notation) {
         if (from == null) {
             throw new IllegalArgumentException("from must not be null");
         }
@@ -22,6 +30,9 @@ public final class Move {
         this.movedPiece = movedPiece;
         this.capturedPiece = capturedPiece;
         this.promotionType = promotionType;
+        this.isCastle = isCastle;
+        this.isEnPassant = isEnPassant;
+        this.notation = notation != null ? notation : "";
     }
 
     public Location getFrom() {
@@ -45,14 +56,14 @@ public final class Move {
     }
 
     public boolean isCastle() {
-        return false;
+        return isCastle;
     }
 
     public boolean isEnPassant() {
-        return false;
+        return isEnPassant;
     }
 
     public String getNotation() {
-        return "";
+        return notation;
     }
 }
