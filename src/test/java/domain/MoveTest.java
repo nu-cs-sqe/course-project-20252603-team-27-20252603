@@ -60,4 +60,14 @@ public class MoveTest {
         assertEquals(captured, move.getCapturedPiece());
         assertNull(move.getPromotionType());
     }
+
+    @Test
+    void ctor_storesPromotionType() {
+        Location from = new Location(1, 4);
+        Location to = new Location(0, 4);
+        Move move = new Move(from, to, WHITE_PAWN, null, PieceType.QUEEN);
+
+        assertNull(move.getCapturedPiece());
+        assertEquals(PieceType.QUEEN, move.getPromotionType());
+    }
 }

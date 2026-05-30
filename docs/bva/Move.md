@@ -23,3 +23,7 @@ Design reference: `Move` stores `Location from`, `Location to`, `Piece movedPiec
 - **TC5: ctor_storesCapturedPiece** ( :white_check_mark: )
   - **State of the system:** `capturedPiece` is a non-null `Piece`, all required args valid, `promotionType` is null
   - **Expected output:** `Move` is created; `getCapturedPiece()` returns the given piece; `getPromotionType()` is null
+
+- **TC6: ctor_storesPromotionType** ( :white_check_mark: )
+  - **State of the system:** `promotionType` is a non-null `PieceType` (e.g. `QUEEN`), all required args valid, `capturedPiece` is null
+  - **Expected output:** `Move` is created; `getPromotionType()` returns the given type; `getCapturedPiece()` is null
