@@ -2,10 +2,7 @@ package domain;
 
 import org.junit.jupiter.api.Test;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 import org.easymock.EasyMock;
 
@@ -1678,5 +1675,124 @@ public class GameTest {
 		Boolean result=game.isStalemate(Color.WHITE);
 		assertFalse(result);
 		EasyMock.verify(board, player1, player2, piece,game);
+	}
+	@Test
+	public void resign() {
+		Board board = EasyMock.createMock(Board.class);
+		Player player1 = EasyMock.createMock(Player.class);
+		Player player2 = EasyMock.createMock(Player.class);
+		Piece piece = EasyMock.createMock(Piece.class);
+		List<Move> moveHistory = new ArrayList<>();
+		Map<String, Integer> positionHistory = new HashMap<>();
+		Move lastMove = null;
+		int halfMoveClock = 0;
+		Game game = new Game(
+						board,
+						GameStatus.WHITE_TURN,
+						moveHistory,
+						null,
+						0,
+						positionHistory);
+//		Location first=new Location(0,0);
+//		Location from = new Location(7, 7);
+//		Location to = new Location(7, 7);
+		game.resign();
+		assertEquals(GameStatus.RESIGNED,game.status);
+	}
+	@Test
+	public void pawnPromption_Queen() {
+		Board board = EasyMock.createMock(Board.class);
+		Player player1 = EasyMock.createMock(Player.class);
+		Player player2 = EasyMock.createMock(Player.class);
+		Piece piece = EasyMock.createMock(Piece.class);
+		List<Move> moveHistory = new ArrayList<>();
+		Map<String, Integer> positionHistory = new HashMap<>();
+		Move lastMove = null;
+		int halfMoveClock = 0;
+		Game game = new Game(
+				board,
+				GameStatus.WHITE_TURN,
+				moveHistory,
+				null,
+				0,
+				positionHistory);
+//		Location first=new Location(0,0);
+//		Location from = new Location(7, 7);
+//		Location to = new Location(7, 7);
+		Piece result=game.createPromotedPiece(PieceType.QUEEN, Color.WHITE);
+		Queen queen=new Queen(Color.WHITE);
+		assertEquals(result, queen);
+	}
+	@Test
+	public void pawnPromption_Bishop() {
+		Board board = EasyMock.createMock(Board.class);
+		Player player1 = EasyMock.createMock(Player.class);
+		Player player2 = EasyMock.createMock(Player.class);
+		Piece piece = EasyMock.createMock(Piece.class);
+		List<Move> moveHistory = new ArrayList<>();
+		Map<String, Integer> positionHistory = new HashMap<>();
+		Move lastMove = null;
+		int halfMoveClock = 0;
+		Game game = new Game(
+				board,
+				GameStatus.WHITE_TURN,
+				moveHistory,
+				null,
+				0,
+				positionHistory);
+//		Location first=new Location(0,0);
+//		Location from = new Location(7, 7);
+//		Location to = new Location(7, 7);
+		Piece result=game.createPromotedPiece(PieceType.BISHOP, Color.BLACK);
+		Bishop bishop=new Bishop(Color.BLACK);
+		assertEquals(result, bishop);
+	}
+	@Test
+	public void pawnPromption_Knight() {
+		Board board = EasyMock.createMock(Board.class);
+		Player player1 = EasyMock.createMock(Player.class);
+		Player player2 = EasyMock.createMock(Player.class);
+		Piece piece = EasyMock.createMock(Piece.class);
+		List<Move> moveHistory = new ArrayList<>();
+		Map<String, Integer> positionHistory = new HashMap<>();
+		Move lastMove = null;
+		int halfMoveClock = 0;
+		Game game = new Game(
+				board,
+				GameStatus.WHITE_TURN,
+				moveHistory,
+				null,
+				0,
+				positionHistory);
+//		Location first=new Location(0,0);
+//		Location from = new Location(7, 7);
+//		Location to = new Location(7, 7);
+		Piece result=game.createPromotedPiece(PieceType.KNIGHT, Color.BLACK);
+		Knight bishop=new Knight(Color.BLACK);
+		assertEquals(result, bishop);
+	}
+	@Test
+	public void pawnPromption_Rook() {
+		Board board = EasyMock.createMock(Board.class);
+		Player player1 = EasyMock.createMock(Player.class);
+		Player player2 = EasyMock.createMock(Player.class);
+		Piece piece = EasyMock.createMock(Piece.class);
+		List<Move> moveHistory = new ArrayList<>();
+		Map<String, Integer> positionHistory = new HashMap<>();
+		Move lastMove = null;
+		int halfMoveClock = 0;
+		Game game = new Game(
+				board,
+				GameStatus.WHITE_TURN,
+				moveHistory,
+				null,
+				0,
+				positionHistory);
+//		Location first=new Location(0,0);
+//		Location from = new Location(7, 7);
+//		Location to = new Location(7, 7);
+		Piece result=game.createPromotedPiece(PieceType.ROOK, Color.WHITE);
+		Rook bishop=new Rook(Color.WHITE);
+		assertEquals(result, bishop);
 	}
 }

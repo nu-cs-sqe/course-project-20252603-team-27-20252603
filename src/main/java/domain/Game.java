@@ -88,7 +88,13 @@ public class Game {
 			} else if (isInCheck(currentPlayer.getColor())) {
 				return MoveResult.CHECK;
 			} else if (isStalemate(currentPlayer.getColor())) {
+				status=GameStatus.DRAW;
 				return MoveResult.STALEMATE;
+			}
+			if (currentPlayer.getColor()==Color.WHITE){
+				status=GameStatus.WHITE_TURN;
+			}else{
+				status=GameStatus.BLACK_TURN;
 			}
 			return MoveResult.VALID;
 //		} else if (!piece.canMove(board, from,to)) {
@@ -121,6 +127,11 @@ public class Game {
 				Piece piece = board.getPiece(from);
 				if (piece != null && piece.getColor() == opponentColor) {
 					if (piece.canMove(board, from, kingLocation)) {
+						if (opponentColor==Color.WHITE){
+							status=GameStatus.BLACK_IN_CHECK;
+						}else{
+							status=GameStatus.WHITE_IN_CHECK;
+						}
 						return true;
 					}
 				}
@@ -159,6 +170,11 @@ public class Game {
 				}
 			}
 		}
+		if (opponentColor==Color.WHITE){
+			status=GameStatus.WHITE_WIN;
+		}else {
+			status=GameStatus.BLACK_WIN;
+		}
 		return true;
 	}
 
@@ -194,9 +210,10 @@ public class Game {
 				}
 			}
 		}
+		status=GameStatus.DRAW;
 		return true;
 	}
-	private Piece createPromotedPiece(PieceType promotionType, Color color) {
+	public Piece createPromotedPiece(PieceType promotionType, Color color) {
 		switch (promotionType) {
 			case QUEEN:
 				return new Queen(color);
@@ -207,5 +224,8 @@ public class Game {
 			default:
 				return new Knight(color);
 		}
+	}
+	public void  resign(){
+		status=GameStatus.RESIGNED;
 	}
 }

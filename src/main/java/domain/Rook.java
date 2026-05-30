@@ -15,4 +15,11 @@ public class Rook extends Piece{
 	public Piece makeCopy() {
 		return new Rook(getColor());
 	}
+	@Override
+	public boolean equals(Object obj){
+		if (this == obj) return true;
+		if (obj == null || getClass() != obj.getClass()) return false;
+		Rook queen = (Rook) obj;
+		return getColor() == queen.getColor();
+	}
 }

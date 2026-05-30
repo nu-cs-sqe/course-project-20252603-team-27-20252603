@@ -15,4 +15,11 @@ public class Queen extends Piece{
 	public Piece makeCopy() {
 		return new Queen(getColor());
 	}
+	@Override
+	public boolean equals(Object obj){
+		if (this == obj) return true;
+		if (obj == null || getClass() != obj.getClass()) return false;
+		Queen queen = (Queen) obj;
+		return getColor() == queen.getColor();
+	}
 }

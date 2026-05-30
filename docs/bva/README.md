@@ -141,3 +141,27 @@ However, you are only required to document Step 4.
 - **Expected output:** False
 - **Implemented:*implemented* 
 
+- **TC27: resign** ()
+- **State of the system:** 
+- **Expected output:** moveresult=RESIGN
+- **Implemented:*implemented* 
+
+- **TC28: pawnPromption_Queen** ()
+- **State of the system:** color=white, chose Queen
+- **Expected output:** create Queen
+- **Implemented:*implemented* 
+
+- **TC29: pawnPromption_Bishop** ()
+- **State of the system:** color=black, choose Bishop
+- **Expected output:** create Bishop
+- **Implemented:*implemented* 
+
+- **TC30: pawnPromption_Knight** ()
+- **State of the system:** color=black, choose Knight
+- **Expected output:** create Knight
+- **Implemented:*implemented* 
+
+- **TC31: pawnPromption_Rook** ()
+- **State of the system:** color=white, choose Rook
+- **Expected output:** create Rook
+- **Implemented:*implemented* 
