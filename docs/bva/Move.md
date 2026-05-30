@@ -8,6 +8,10 @@ Design reference: `Move` stores `Location from`, `Location to`, `Piece movedPiec
   - **State of the system:** `from` and `to` are valid `Location` objects, `movedPiece` is a non-null `Piece`, `capturedPiece` is null, `promotionType` is null
   - **Expected output:** `Move` is created; `getFrom()`/`getTo()`/`getMovedPiece()` return the given values; `getCapturedPiece()` and `getPromotionType()` are null; `isCastle()` and `isEnPassant()` are false; `getNotation()` is empty
 
-- **TC2: ctor_rejectsNullFrom** ( :x: )
+- **TC2: ctor_rejectsNullFrom** ( :white_check_mark: )
   - **State of the system:** `from` is null, all other required args are valid
   - **Expected output:** throws `IllegalArgumentException` with message mentioning `from`
+
+- **TC3: ctor_rejectsNullTo** ( :white_check_mark: )
+  - **State of the system:** `to` is null, all other required args are valid
+  - **Expected output:** throws `IllegalArgumentException` with message mentioning `to`

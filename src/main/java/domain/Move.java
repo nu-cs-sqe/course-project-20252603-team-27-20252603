@@ -8,6 +8,12 @@ public final class Move {
     private final PieceType promotionType;
 
     public Move(Location from, Location to, Piece movedPiece, Piece capturedPiece, PieceType promotionType) {
+        if (from == null) {
+            throw new IllegalArgumentException("from must not be null");
+        }
+        if (to == null) {
+            throw new IllegalArgumentException("to must not be null");
+        }
         this.from = from;
         this.to = to;
         this.movedPiece = movedPiece;
