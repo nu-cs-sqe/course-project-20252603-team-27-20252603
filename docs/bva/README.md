@@ -121,8 +121,23 @@ However, you are only required to document Step 4.
 - **Expected output:** true
 - **Implemented:*implemented* 
 
-- **TC23: isCheckmate_false** ()
-- **State of the system:** white_turn， king at(7,7), first time isincheck return true then return false
+- **TC24: isCheckmate_false** ()
+- **State of the system:** black_turn， king at(7,7), first time isincheck return true then return false
 - **Expected output:** false
+- **Implemented:*implemented* 
+
+- **TC25: isStalemate_allCheck_true** ()
+- **State of the system:** black_turn， king at(7,7), all place are check
+- **Expected output:** True
+- **Implemented:*implemented* 
+
+- **TC26: isStalemate_noMove_true** ()
+- **State of the system:** black_turn， king at(7,7), no place can move
+- **Expected output:** True
+- **Implemented:*implemented* 
+
+- **TC27: isStalemate_false** ()
+- **State of the system:** black_turn， king at(7,7), can move and not check
+- **Expected output:** False
 - **Implemented:*implemented* 
 

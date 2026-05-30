@@ -59,11 +59,6 @@ public class Game {
 			if (isInCheck(currentPlayer.getColor())) {
 				return MoveResult.INVALID_SELF_CHECK;
 			}
-			if (piece.getType() == PieceType.PAWN && from.getRow() == 7) {
-				Piece newPiece=createPromotedPiece(type,piece.getColor());
-				board.setPiece(from, newPiece);
-//				piece=type;
-			}
 			halfMoveClock += 1;
 			Move move = new Move(from, to);
 			lastMove = move;
@@ -72,6 +67,12 @@ public class Game {
 				return MoveResult.DRAW;
 			}
 			board.movePiece(from, to);
+			if ((piece.getType() == PieceType.PAWN &&piece.getColor() == Color.BLACK && to.getRow() == 7)
+					||(piece.getType() == PieceType.PAWN &&piece.getColor() == Color.WHITE && to.getRow() == 0)) {
+				Piece newPiece=createPromotedPiece(type,piece.getColor());
+				board.setPiece(to, newPiece);
+//				piece=type;
+			}
 //				positionHistory.add(board.toPositionString);
 			int count = positionHistory.getOrDefault
 					(board.toPositionString() + currentPlayer.getName(), 0);
@@ -82,10 +83,10 @@ public class Game {
 				return MoveResult.DRAW;
 			}
 			switchTurn();
-			if (isInCheck(currentPlayer.getColor())) {
-				return MoveResult.CHECK;
-			} else if (isCheckmate(currentPlayer.getColor())) {
+			if (isCheckmate(currentPlayer.getColor())) {
 				return MoveResult.CHECKMATE;
+			} else if (isInCheck(currentPlayer.getColor())) {
+				return MoveResult.CHECK;
 			} else if (isStalemate(currentPlayer.getColor())) {
 				return MoveResult.STALEMATE;
 			}
@@ -144,8 +145,14 @@ public class Game {
 					for (int row_des = 0; row < 8; row++) {
 						for (int col_des = 0; col < 8; col++) {
 							Location to = new Location(row_des, col_des);
-							if (piece.canMove(board, from, to) && !isInCheck(color)) {
-								return false;
+							if (piece.canMove(board, from, to)){
+								Piece target = board.getPiece(to);
+								board.movePiece(from, to);
+								if (!isInCheck(color)) {
+									board.movePiece(to, from);
+									board.setPiece(to, target);
+									return false;
+								}
 							}
 						}
 					}
@@ -156,7 +163,38 @@ public class Game {
 	}
 
 	public boolean isStalemate(Color color){
-		return false;
+		if (isInCheck(color)){
+			return false;
+		}
+//		Location kingLocation = board.findKing(color);
+//		Color opponentColor=Color.WHITE;
+//		if(color==Color.WHITE){
+//			opponentColor = Color.BLACK;
+//		}
+		for (int row = 0; row < 8; row++) {
+			for (int col = 0; col < 8; col++) {
+				Location from = new Location(row, col);
+				Piece piece = board.getPiece(from);
+				if (piece != null && piece.getColor() == color) {
+					for (int row_des = 0; row < 8; row++) {
+						for (int col_des = 0; col < 8; col++) {
+							Location to = new Location(row_des, col_des);
+							if (piece.canMove(board, from, to)){
+								Piece target=board.getPiece(to);
+								board.movePiece(from, to);
+								if(!isInCheck(color)){
+									board.movePiece(to, from);
+									board.setPiece(to, target);
+									return false;
+								}
+
+							}
+						}
+					}
+				}
+			}
+		}
+		return true;
 	}
 	private Piece createPromotedPiece(PieceType promotionType, Color color) {
 		switch (promotionType) {

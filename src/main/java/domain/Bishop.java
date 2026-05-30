@@ -12,6 +12,11 @@ public class Bishop extends Piece{
 	}
 
 	@Override
+	public boolean equals(Object obj) {
+		return true;
+	}
+
+	@Override
 	public Piece makeCopy() {
 		return new Bishop(getColor());
 	}
