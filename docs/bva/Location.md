@@ -21,24 +21,24 @@
 - **TC3: EqualsSameCoordinatesReturnsTrue** (  )
   - **State of the system:** a = Location(3, 5), b = Location(3, 5)
   - **Expected output:** a.equals(b) = true
-  - **Implemented:** no
+  - **Implemented:** yes
 
 - **TC4: EqualsDifferentRowReturnsFalse** (  )
   - **State of the system:** a = Location(3, 5), b = Location(4, 5)
   - **Expected output:** a.equals(b) = false
-  - **Implemented:** no
+  - **Implemented:** yes
 
 - **TC5: EqualsDifferentColReturnsFalse** (  )
   - **State of the system:** a = Location(3, 5), b = Location(3, 4)
   - **Expected output:** a.equals(b) = false
-  - **Implemented:** no
+  - **Implemented:** yes
 
 - **TC6: EqualsNullReturnsFalse** (  )
   - **State of the system:** a = Location(3, 5), other = null
   - **Expected output:** a.equals(null) = false
-  - **Implemented:** no
+  - **Implemented:** yes
 
 - **TC7: EqualsDifferentTypeReturnsFalse** (  )
   - **State of the system:** a = Location(3, 5), other = "3,5"
   - **Expected output:** a.equals(other) = false
-  - **Implemented:** no
+  - **Implemented:** yes
