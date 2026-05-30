@@ -81,9 +81,23 @@ However, you are only required to document Step 4.
 - **Expected output:** draw
 - **Implemented:*implemented* 
 
-- **TC15: makeMove_selfCheck_white** ()
+- **TC16: makeMove_selfCheck_white** ()
 - **State of the system:** piece=QUEEN, white turn, from (7,1) to (1,0)
 - **Expected output:** self-check
 - **Implemented:*implemented* 
 
+- **TC17: makeMove_pawnPromoption_white** ()
+- **State of the system:** piece=Pawn, white turn, from (6,1) to (7,1)
+- **Expected output:** check
+- **Implemented:*implemented* 
+
+- **TC18: switchTurn_white** ()
+- **State of the system:** white_turn
+- **Expected output:** black_turn
+- **Implemented:*implemented* 
+
+- **TC19: switchTurn_black** ()
+- **State of the system:** black_turn
+- **Expected output:** white_turn
+- **Implemented:*implemented* 
 

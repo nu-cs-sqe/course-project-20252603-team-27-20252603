@@ -16,4 +16,7 @@ public class Board {
 	public boolean isInsideBoard(Location location) {
 		return true;
 	}
+	public void setPiece(Location location, Piece piece){
+		throw new UnsupportedOperationException("Not implemented yet");
+	}
 }

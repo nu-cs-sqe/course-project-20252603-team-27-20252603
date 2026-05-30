@@ -50,49 +50,52 @@ public class Game {
 			return MoveResult.INVALID_EMPTY_SOURCE;
 		}
 		Piece object=board.getPiece(to);
-		if(piece.getType()!=PieceType.PAWN){
-			if (object!=null && (object.getColor()==piece.getColor())){
-				return MoveResult.INVALID_SAME_COLOR_CAPTURE;
-			} else if (!piece.getColor().equals(currentPlayer.getColor())){
-				return MoveResult.INVALID_WRONG_TURN;
-			} else if (piece.getColor().equals(currentPlayer.getColor()) &&
-					piece.canMove(board,from,to)){
-				if (isInCheck(currentPlayer.getColor())){
-					return MoveResult.INVALID_SELF_CHECK;
-				}
-				halfMoveClock+=1;
-				Move move=new Move(from,to);
-				lastMove=move;
-				moveHistory.add(move);
-				if (halfMoveClock>100){
-					return  MoveResult.DRAW;
-				}
-				board.movePiece(from,to);
-//				positionHistory.add(board.toPositionString);
-				int count = positionHistory.getOrDefault
-						(board.toPositionString()+currentPlayer.getName(), 0);
-				positionHistory.put(
-						board.toPositionString()+currentPlayer.getName(), count + 1);
-				if (positionHistory.getOrDefault(
-						board.toPositionString()+currentPlayer.getName(),0)==3){
-					return MoveResult.DRAW;
-				}
-				switchTurn();
-				if (isInCheck(currentPlayer.getColor())){
-					return  MoveResult.CHECK;
-				}
-				else if (isCheckmate(currentPlayer.getColor())){
-					return MoveResult.CHECKMATE;
-				} else if (isStalemate(currentPlayer.getColor())){
-					return MoveResult.STALEMATE;
-				}
-				return MoveResult.VALID;
-			} else if (!piece.canMove(board, from,to)) {
-				return MoveResult.INVALID_ILLEGAL_PIECE_MOVE;
+		if (object!=null && (object.getColor()==piece.getColor())){
+			return MoveResult.INVALID_SAME_COLOR_CAPTURE;
+		} else if (!piece.getColor().equals(currentPlayer.getColor())){
+			return MoveResult.INVALID_WRONG_TURN;
+		} else if (piece.getColor().equals(currentPlayer.getColor()) &&
+				piece.canMove(board,from,to)) {
+			if (isInCheck(currentPlayer.getColor())) {
+				return MoveResult.INVALID_SELF_CHECK;
 			}
+			if (piece.getType() == PieceType.PAWN && from.getRow() == 7) {
+				Piece newPiece=createPromotedPiece(type,piece.getColor());
+				board.setPiece(from, newPiece);
+//				piece=type;
+			}
+			halfMoveClock += 1;
+			Move move = new Move(from, to);
+			lastMove = move;
+			moveHistory.add(move);
+			if (halfMoveClock > 100) {
+				return MoveResult.DRAW;
+			}
+			board.movePiece(from, to);
+//				positionHistory.add(board.toPositionString);
+			int count = positionHistory.getOrDefault
+					(board.toPositionString() + currentPlayer.getName(), 0);
+			positionHistory.put(
+					board.toPositionString() + currentPlayer.getName(), count + 1);
+			if (positionHistory.getOrDefault(
+					board.toPositionString() + currentPlayer.getName(), 0) == 3) {
+				return MoveResult.DRAW;
+			}
+			switchTurn();
+			if (isInCheck(currentPlayer.getColor())) {
+				return MoveResult.CHECK;
+			} else if (isCheckmate(currentPlayer.getColor())) {
+				return MoveResult.CHECKMATE;
+			} else if (isStalemate(currentPlayer.getColor())) {
+				return MoveResult.STALEMATE;
+			}
+			return MoveResult.VALID;
+//		} else if (!piece.canMove(board, from,to)) {
+		}else{
+			return MoveResult.INVALID_ILLEGAL_PIECE_MOVE;
 		}
-		throw new UnsupportedOperationException("pawn error");
 	}
+
 	public void switchTurn(){
 		if (currentPlayer==white){
 			status=GameStatus.BLACK_TURN;
@@ -129,5 +132,17 @@ public class Game {
 	}
 	public boolean isStalemate(Color color){
 		return false;
+	}
+	private Piece createPromotedPiece(PieceType promotionType, Color color) {
+		switch (promotionType) {
+			case QUEEN:
+				return new Queen(color);
+			case ROOK:
+				return new Rook(color);
+			case BISHOP:
+				return new Bishop(color);
+			default:
+				return new Knight(color);
+		}
 	}
 }
