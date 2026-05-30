@@ -15,3 +15,7 @@ Design reference: `Move` stores `Location from`, `Location to`, `Piece movedPiec
 - **TC3: ctor_rejectsNullTo** ( :white_check_mark: )
   - **State of the system:** `to` is null, all other required args are valid
   - **Expected output:** throws `IllegalArgumentException` with message mentioning `to`
+
+- **TC4: ctor_rejectsNullMovedPiece** ( :white_check_mark: )
+  - **State of the system:** `movedPiece` is null, `from` and `to` are valid, `capturedPiece` and `promotionType` are null
+  - **Expected output:** throws `IllegalArgumentException` with message mentioning `movedPiece`

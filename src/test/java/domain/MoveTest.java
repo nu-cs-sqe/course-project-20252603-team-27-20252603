@@ -40,4 +40,13 @@ public class MoveTest {
         );
         assertTrue(ex.getMessage().contains("to"));
     }
+
+    @Test
+    void ctor_rejectsNullMovedPiece() {
+        IllegalArgumentException ex = assertThrows(
+                IllegalArgumentException.class,
+                () -> new Move(new Location(6, 4), new Location(4, 4), null, null, null)
+        );
+        assertTrue(ex.getMessage().contains("movedPiece"));
+    }
 }
