@@ -228,4 +228,7 @@ public class Game {
 	public void  resign(){
 		status=GameStatus.RESIGNED;
 	}
+	public  GameStatus getStatus(){
+		return status;
+	}
 }

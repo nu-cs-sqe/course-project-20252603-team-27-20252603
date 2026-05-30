@@ -141,27 +141,67 @@ However, you are only required to document Step 4.
 - **Expected output:** False
 - **Implemented:*implemented* 
 
-- **TC27: resign** ()
+- **TC28: resign** ()
 - **State of the system:** 
 - **Expected output:** moveresult=RESIGN
 - **Implemented:*implemented* 
 
-- **TC28: pawnPromption_Queen** ()
+- **TC29: pawnPromption_Queen** ()
 - **State of the system:** color=white, chose Queen
 - **Expected output:** create Queen
 - **Implemented:*implemented* 
 
-- **TC29: pawnPromption_Bishop** ()
+- **TC30: pawnPromption_Bishop** ()
 - **State of the system:** color=black, choose Bishop
 - **Expected output:** create Bishop
 - **Implemented:*implemented* 
 
-- **TC30: pawnPromption_Knight** ()
+- **TC31: pawnPromption_Knight** ()
 - **State of the system:** color=black, choose Knight
 - **Expected output:** create Knight
 - **Implemented:*implemented* 
 
-- **TC31: pawnPromption_Rook** ()
+- **TC32: pawnPromption_Rook** ()
 - **State of the system:** color=white, choose Rook
 - **Expected output:** create Rook
+- **Implemented:*implemented* 
+
+- **TC33: getStatus_whiteTurn** ()
+- **State of the system:** status=whiteTurn
+- **Expected output:** whiteTurn
+- **Implemented:*implemented* 
+
+- **TC34: getStatus_blackTurn** ()
+- **State of the system:** status=blackTurn
+- **Expected output:** blackTurn
+- **Implemented:*implemented* 
+
+- **TC35: getStatus_whiteWin** ()
+- **State of the system:** status=whiteWin
+- **Expected output:** whiteWin
+- **Implemented:*implemented* 
+
+- **TC36: getStatus_blackWin** ()
+- **State of the system:** status=blackWin
+- **Expected output:** blackWin
+- **Implemented:*implemented* 
+
+- **TC37: getStatus_white_check** ()
+- **State of the system:** status=white_check
+- **Expected output:** white_check
+- **Implemented:*implemented* 
+- 
+- **TC38: getStatus_black_check** ()
+- **State of the system:** status=black_check
+- **Expected output:** black_check
+- **Implemented:*implemented* 
+
+- **TC39: getStatus_draw** ()
+- **State of the system:** status=draw
+- **Expected output:** draw
+- **Implemented:*implemented* 
+
+- **TC40: getStatus_resigned** ()
+- **State of the system:** status=resigned
+- **Expected output:** resigned
 - **Implemented:*implemented* 

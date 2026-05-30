@@ -1795,4 +1795,188 @@ public class GameTest {
 		Rook bishop=new Rook(Color.WHITE);
 		assertEquals(result, bishop);
 	}
+	@Test
+	public void getStatus_whiteTurn() {
+		Board board = EasyMock.createMock(Board.class);
+		Player player1 = EasyMock.createMock(Player.class);
+		Player player2 = EasyMock.createMock(Player.class);
+		Piece piece = EasyMock.createMock(Piece.class);
+		List<Move> moveHistory = new ArrayList<>();
+		Map<String, Integer> positionHistory = new HashMap<>();
+		Move lastMove = null;
+		int halfMoveClock = 0;
+		Game game = new Game(
+				board,
+				GameStatus.WHITE_TURN,
+				moveHistory,
+				null,
+				0,
+				positionHistory);
+//		Location first=new Location(0,0);
+//		Location from = new Location(7, 7);
+//		Location to = new Location(7, 7);
+		GameStatus result=game.getStatus();
+		assertEquals(result, GameStatus.WHITE_TURN);
+	}
+	@Test
+	public void getStatus_blackTurn() {
+		Board board = EasyMock.createMock(Board.class);
+		Player player1 = EasyMock.createMock(Player.class);
+		Player player2 = EasyMock.createMock(Player.class);
+		Piece piece = EasyMock.createMock(Piece.class);
+		List<Move> moveHistory = new ArrayList<>();
+		Map<String, Integer> positionHistory = new HashMap<>();
+		Move lastMove = null;
+		int halfMoveClock = 0;
+		Game game = new Game(
+				board,
+				GameStatus.BLACK_TURN,
+				moveHistory,
+				null,
+				0,
+				positionHistory);
+//		Location first=new Location(0,0);
+//		Location from = new Location(7, 7);
+//		Location to = new Location(7, 7);
+		GameStatus result=game.getStatus();
+		assertEquals(result, GameStatus.BLACK_TURN);
+	}
+	@Test
+	public void getStatus_whiteWin() {
+		Board board = EasyMock.createMock(Board.class);
+		Player player1 = EasyMock.createMock(Player.class);
+		Player player2 = EasyMock.createMock(Player.class);
+		Piece piece = EasyMock.createMock(Piece.class);
+		List<Move> moveHistory = new ArrayList<>();
+		Map<String, Integer> positionHistory = new HashMap<>();
+		Move lastMove = null;
+		int halfMoveClock = 0;
+		Game game = new Game(
+				board,
+				GameStatus.WHITE_WIN,
+				moveHistory,
+				null,
+				0,
+				positionHistory);
+//		Location first=new Location(0,0);
+//		Location from = new Location(7, 7);
+//		Location to = new Location(7, 7);
+		GameStatus result=game.getStatus();
+		assertEquals(result, GameStatus.WHITE_WIN);
+	}
+	@Test
+	public void getStatus_blackWin() {
+		Board board = EasyMock.createMock(Board.class);
+		Player player1 = EasyMock.createMock(Player.class);
+		Player player2 = EasyMock.createMock(Player.class);
+		Piece piece = EasyMock.createMock(Piece.class);
+		List<Move> moveHistory = new ArrayList<>();
+		Map<String, Integer> positionHistory = new HashMap<>();
+		Move lastMove = null;
+		int halfMoveClock = 0;
+		Game game = new Game(
+				board,
+				GameStatus.BLACK_WIN,
+				moveHistory,
+				null,
+				0,
+				positionHistory);
+//		Location first=new Location(0,0);
+//		Location from = new Location(7, 7);
+//		Location to = new Location(7, 7);
+		GameStatus result=game.getStatus();
+		assertEquals(result, GameStatus.BLACK_WIN);
+	}
+	@Test
+	public void getStatus_whiteCheck() {
+		Board board = EasyMock.createMock(Board.class);
+		Player player1 = EasyMock.createMock(Player.class);
+		Player player2 = EasyMock.createMock(Player.class);
+		Piece piece = EasyMock.createMock(Piece.class);
+		List<Move> moveHistory = new ArrayList<>();
+		Map<String, Integer> positionHistory = new HashMap<>();
+		Move lastMove = null;
+		int halfMoveClock = 0;
+		Game game = new Game(
+				board,
+				GameStatus.WHITE_IN_CHECK,
+				moveHistory,
+				null,
+				0,
+				positionHistory);
+//		Location first=new Location(0,0);
+//		Location from = new Location(7, 7);
+//		Location to = new Location(7, 7);
+		GameStatus result=game.getStatus();
+		assertEquals(result, GameStatus.WHITE_IN_CHECK);
+	}
+	@Test
+	public void getStatus_blackCheck() {
+		Board board = EasyMock.createMock(Board.class);
+		Player player1 = EasyMock.createMock(Player.class);
+		Player player2 = EasyMock.createMock(Player.class);
+		Piece piece = EasyMock.createMock(Piece.class);
+		List<Move> moveHistory = new ArrayList<>();
+		Map<String, Integer> positionHistory = new HashMap<>();
+		Move lastMove = null;
+		int halfMoveClock = 0;
+		Game game = new Game(
+				board,
+				GameStatus.BLACK_IN_CHECK,
+				moveHistory,
+				null,
+				0,
+				positionHistory);
+//		Location first=new Location(0,0);
+//		Location from = new Location(7, 7);
+//		Location to = new Location(7, 7);
+		GameStatus result=game.getStatus();
+		assertEquals(result, GameStatus.BLACK_IN_CHECK);
+	}
+	@Test
+	public void getStatus_draw() {
+		Board board = EasyMock.createMock(Board.class);
+		Player player1 = EasyMock.createMock(Player.class);
+		Player player2 = EasyMock.createMock(Player.class);
+		Piece piece = EasyMock.createMock(Piece.class);
+		List<Move> moveHistory = new ArrayList<>();
+		Map<String, Integer> positionHistory = new HashMap<>();
+		Move lastMove = null;
+		int halfMoveClock = 0;
+		Game game = new Game(
+				board,
+				GameStatus.DRAW,
+				moveHistory,
+				null,
+				0,
+				positionHistory);
+//		Location first=new Location(0,0);
+//		Location from = new Location(7, 7);
+//		Location to = new Location(7, 7);
+		GameStatus result=game.getStatus();
+		assertEquals(result, GameStatus.DRAW);
+	}
+	@Test
+	public void getStatus_resigned() {
+		Board board = EasyMock.createMock(Board.class);
+		Player player1 = EasyMock.createMock(Player.class);
+		Player player2 = EasyMock.createMock(Player.class);
+		Piece piece = EasyMock.createMock(Piece.class);
+		List<Move> moveHistory = new ArrayList<>();
+		Map<String, Integer> positionHistory = new HashMap<>();
+		Move lastMove = null;
+		int halfMoveClock = 0;
+		Game game = new Game(
+				board,
+				GameStatus.RESIGNED,
+				moveHistory,
+				null,
+				0,
+				positionHistory);
+//		Location first=new Location(0,0);
+//		Location from = new Location(7, 7);
+//		Location to = new Location(7, 7);
+		GameStatus result=game.getStatus();
+		assertEquals(result, GameStatus.RESIGNED);
+	}
 }
