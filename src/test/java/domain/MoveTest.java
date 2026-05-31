@@ -106,4 +106,13 @@ public class MoveTest {
 
 		assertEquals("e4", move.getNotation());
 	}
+
+	@Test
+	void extendedCtor_nullNotationDefaultsToEmptyString() {
+		Location from = new Location(6, 4);
+		Location to = new Location(4, 4);
+		Move move = new Move(from, to, WHITE_PAWN, null, null, false, false, null);
+
+		assertEquals("", move.getNotation());
+	}
 }
