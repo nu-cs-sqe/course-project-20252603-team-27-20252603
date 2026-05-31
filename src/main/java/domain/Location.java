@@ -2,7 +2,7 @@ package domain;
 
 import java.util.Objects;
 
-public class Location {
+public final class Location {
 	private int row;
 	private int col;
 
@@ -75,9 +75,10 @@ public class Location {
 	}
 	@Override
 	public boolean equals(Object obj){
-		Location other = (Location) obj;
-		return Objects.equals(this.row, other.getRow())
-				&& Objects.equals(this.col, other.getCol());
+		if (this == obj) return true;
+		if (obj == null || getClass() != obj.getClass()) return false;
+		Location queen = (Location) obj;
+		return queen.row==this.row && queen.col==this.col;
 	}
 
 	public int getRow() {
@@ -86,5 +87,11 @@ public class Location {
 
 	public int getCol() {
 		return col;
+	}
+
+
+	@Override
+	public int hashCode() {
+		return Objects.hash(row, col);
 	}
 }

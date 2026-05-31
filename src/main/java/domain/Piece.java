@@ -18,6 +18,6 @@ public abstract class Piece {
 	public abstract Piece makeCopy();
 
 	public boolean canMove(Board board, Location from, Location to){
-		throw new UnsupportedOperationException("Not implemented yet");
+		return true;
 	};
 }

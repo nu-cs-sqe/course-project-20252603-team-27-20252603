@@ -22,4 +22,8 @@ public class Queen extends Piece{
 		Queen queen = (Queen) obj;
 		return getColor() == queen.getColor();
 	}
+	@Override
+	public int hashCode() {
+		return getColor().hashCode();
+	}
 }

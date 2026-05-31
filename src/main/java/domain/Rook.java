@@ -22,4 +22,8 @@ public class Rook extends Piece{
 		Rook queen = (Rook) obj;
 		return getColor() == queen.getColor();
 	}
+	@Override
+	public int hashCode() {
+		return getColor().hashCode();
+	}
 }

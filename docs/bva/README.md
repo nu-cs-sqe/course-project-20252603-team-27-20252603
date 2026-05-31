@@ -17,7 +17,7 @@ However, you are only required to document Step 4.
 - **Implemented:*implemented* 
 
 - **TC3: makeMove_validMove** ()
-- **State of the system:** piece=Rook, valid move, halfMoveClock=0
+- **State of the system:** piece=Rook, valid move, halfMoveClock=0, from (7,0) to (0,7)
 - **Expected output:** valid, halfMoveClock=1, last move equal this move, add move to movehistory and positionhistory
 - **Implemented:*implemented* 
 - 
@@ -87,131 +87,167 @@ However, you are only required to document Step 4.
 - **Implemented:*implemented* 
 
 - **TC17: makeMove_pawnPromoption_white** ()
-- **State of the system:** piece=Pawn, white turn, from (6,1) to (7,1)
+- **State of the system:** piece=Pawn, white turn, from (7,0) to (0,0)
 - **Expected output:** check
 - **Implemented:*implemented* 
 
-- **TC18: switchTurn_white** ()
+- **TC18: makeMove_pawnPromoption_black** ()
+- **State of the system:** piece=Pawn, white turn, from (0,1) to (7,1)
+- **Expected output:** check
+- **Implemented:*implemented*
+
+- **TC19: switchTurn_white** ()
 - **State of the system:** white_turn
 - **Expected output:** black_turn
 - **Implemented:*implemented* 
 
-- **TC19: switchTurn_black** ()
+- **TC20: switchTurn_black** ()
 - **State of the system:** black_turn
 - **Expected output:** white_turn
 - **Implemented:*implemented* 
 
-- **TC20: isInCheck_check** ()
-- **State of the system:** white_turn, piece (0,1), king (0,7)
+- **TC21: isInCheck_check** ()
+- **State of the system:** white_turn, piece (7,?), king (0,0)
 - **Expected output:** true
 - **Implemented:*implemented* 
 
-- **TC21: isInCheck_check_firstIsNull** ()
+- **TC22: isInCheck_check_firstIsNull** ()
 - **State of the system:** white_turn, piece (0,1), king (7,7)
 - **Expected output:** true
 - **Implemented:*implemented* 
 
-- **TC22: isInCheck_check_false** ()
-- **State of the system:** black_turn， piece (7,7), king (0,0)
+- **TC23: isInCheck_check_false** ()
+- **State of the system:** black_turn, piece (7,7), king (0,0)
 - **Expected output:** false
 - **Implemented:*implemented* 
 
-- **TC23: isCheckmate_true** ()
-- **State of the system:** white_turn， king at(0,0), always check
+- **TC24: isCheckmate_true** ()
+- **State of the system:** white_turn, king at(0,0), always check
 - **Expected output:** true
 - **Implemented:*implemented* 
 
-- **TC24: isCheckmate_false** ()
-- **State of the system:** black_turn， king at(7,7), first time isincheck return true then return false
+- **TC25: isCheckmate_false** ()
+- **State of the system:** black_turn, king at(7,7), first time isincheck return true then return false
 - **Expected output:** false
 - **Implemented:*implemented* 
 
-- **TC25: isStalemate_allCheck_true** ()
-- **State of the system:** black_turn， king at(7,7), all place are check
+- **TC26: isStalemate_allCheck_true** ()
+- **State of the system:** black_turn, king at(7,7), all place are check
 - **Expected output:** True
 - **Implemented:*implemented* 
 
-- **TC26: isStalemate_noMove_true** ()
-- **State of the system:** black_turn， king at(7,7), no place can move
+- **TC27: isStalemate_noMove_true** ()
+- **State of the system:** black_turn, king at(7,7), no place can move
 - **Expected output:** True
 - **Implemented:*implemented* 
 
-- **TC27: isStalemate_false** ()
-- **State of the system:** black_turn， king at(7,7), can move and not check
+- **TC28: isStalemate_false** ()
+- **State of the system:** black_turn, king at(7,7), can move and not check
 - **Expected output:** False
 - **Implemented:*implemented* 
 
-- **TC28: resign** ()
+- **TC29: resign** ()
 - **State of the system:** 
 - **Expected output:** moveresult=RESIGN
 - **Implemented:*implemented* 
 
-- **TC29: pawnPromption_Queen** ()
+- **TC30: pawnPromption_Queen** ()
 - **State of the system:** color=white, chose Queen
 - **Expected output:** create Queen
 - **Implemented:*implemented* 
 
-- **TC30: pawnPromption_Bishop** ()
+- **TC31: pawnPromption_Bishop** ()
 - **State of the system:** color=black, choose Bishop
 - **Expected output:** create Bishop
 - **Implemented:*implemented* 
 
-- **TC31: pawnPromption_Knight** ()
+- **TC32: pawnPromption_Knight** ()
 - **State of the system:** color=black, choose Knight
 - **Expected output:** create Knight
 - **Implemented:*implemented* 
 
-- **TC32: pawnPromption_Rook** ()
+- **TC33: pawnPromption_Rook** ()
 - **State of the system:** color=white, choose Rook
 - **Expected output:** create Rook
 - **Implemented:*implemented* 
 
-- **TC33: getStatus_whiteTurn** ()
+- **TC34: getStatus_whiteTurn** ()
 - **State of the system:** status=whiteTurn
 - **Expected output:** whiteTurn
 - **Implemented:*implemented* 
 
-- **TC34: getStatus_blackTurn** ()
+- **TC35: getStatus_blackTurn** ()
 - **State of the system:** status=blackTurn
 - **Expected output:** blackTurn
 - **Implemented:*implemented* 
 
-- **TC35: getStatus_whiteWin** ()
+- **TC36: getStatus_whiteWin** ()
 - **State of the system:** status=whiteWin
 - **Expected output:** whiteWin
 - **Implemented:*implemented* 
 
-- **TC36: getStatus_blackWin** ()
+- **TC37: getStatus_blackWin** ()
 - **State of the system:** status=blackWin
 - **Expected output:** blackWin
 - **Implemented:*implemented* 
 
-- **TC37: getStatus_white_check** ()
+- **TC38: getStatus_white_check** ()
 - **State of the system:** status=white_check
 - **Expected output:** white_check
 - **Implemented:*implemented* 
 - 
-- **TC38: getStatus_black_check** ()
+- **TC39: getStatus_black_check** ()
 - **State of the system:** status=black_check
 - **Expected output:** black_check
 - **Implemented:*implemented* 
 
-- **TC39: getStatus_draw** ()
+- **TC40: getStatus_draw** ()
 - **State of the system:** status=draw
 - **Expected output:** draw
 - **Implemented:*implemented* 
 
-- **TC40: getStatus_resigned** ()
+- **TC41: getStatus_resigned** ()
 - **State of the system:** status=resigned
 - **Expected output:** resigned
 - **Implemented:*implemented* 
 
-- **TC41: getMoveHistory_empty** ()
+- **TC42: getMoveHistory_empty** ()
 - **State of the system:** history is empty
 - **Expected output:** empty list
 - **Implemented:*implemented* 
 
-- **TC42: getMoveHistory_nonEmpty** ()
+- **TC43: getMoveHistory_nonEmpty** ()
 - **State of the system:** history=(move((0,0),(7,7)))
 - **Expected output:** (move((0,0),(7,7)))
 - **Implemented:*implemented* 
+
+- **TC44: isCheckmate_notCheck** ()
+- **State of the system:** color=black
+- **Expected output:** return not check
+- **Implemented:*implemented* 
+
+- **TC45: isCheckmate_true_white** ()
+- **State of the system:** color=white
+- **Expected output:** return true
+- **Implemented:*implemented* 
+
+- **TC46: isCheckmate_outbound** ()
+- **State of the system:** color=white
+- **Expected output:** return true
+- **Implemented:*implemented*
+
+- **TC47: isCheckmate_targetOutBound** ()
+- **State of the system:** color=white, piece can move is outofbound
+- **Expected output:** return true
+- **Implemented:*implemented*
+
+- **TC48: isStalemate_false_check** ()
+- **State of the system:** color=black, isInCheck
+- **Expected output:** return false
+- **Implemented:*implemented*
+
+- **TC49: getLastMove** ()
+- **State of the system:** lastmove=Move((0,0),(7,7))
+- **Expected output:** return lastmove
+- **Implemented:*implemented*
+

@@ -10,11 +10,17 @@ public class Move {
 	}
 	@Override
 	public boolean equals(Object obj){
-		Move other = (Move) obj;
-		return Objects.equals(this.from, other.from)
-				&& Objects.equals(this.to, other.to);
+		if (this == obj) return true;
+		if (obj == null || getClass() != obj.getClass()) return false;
+		Move queen = (Move) obj;
+		return queen.from==this.from && queen.to==this.to;
 	}
 	public String getNotation(){
 		return "String";
+	}
+
+	@Override
+	public int hashCode() {
+		return Objects.hash(from, to);
 	}
 }

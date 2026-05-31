@@ -1,5 +1,6 @@
 package domain;
 
+import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import java.util.List;
 import java.util.ArrayList;
 import java.util.Map;
@@ -14,6 +15,15 @@ public class Game {
 	Move lastMove;
 	int halfMoveClock;
 	Map<String, Integer> positionHistory;
+
+	@SuppressFBWarnings(
+			value = "EI_EXPOSE_REP2",
+			justification =
+					"Board, moveHistory, lastMove, " +
+							"and positionHistory are intentionally " +
+							"injected for dependency injection " +
+							"and testing."
+	)
 	public Game(Board board,
 				GameStatus status,
 				List<Move> moveHistory,
@@ -27,7 +37,10 @@ public class Game {
 		this.halfMoveClock = halfMoveClock;
 		this.positionHistory=positionHistory;
 	}
-
+	@SuppressFBWarnings(
+			value = "EI_EXPOSE_REP2",
+			justification = "Players are intentionally injected and shared with Game."
+	)
 	public void startNewGame(Player p1, Player p2)throws IllegalArgumentException {
 		if (!p1.getName().equals(p2.getName())) {
 			this.white = p1;
@@ -41,6 +54,12 @@ public class Game {
 			throw new IllegalArgumentException("please input different player name");
 		}
 	}
+	@SuppressFBWarnings(
+			value = "RCN_REDUNDANT_NULLCHECK_OF_NONNULL_VALUE",
+			justification =
+					"Board.getPiece may return null " +
+							"when the source square is empty."
+	)
 	public MoveResult makeMove(Location from, Location to, PieceType type){
 		if (!board.isInsideBoard(from) || !board.isInsideBoard(to)){
 			return MoveResult.INVALID_OUT_OF_BOUNDS;
@@ -59,6 +78,11 @@ public class Game {
 			if (isInCheck(currentPlayer.getColor())) {
 				return MoveResult.INVALID_SELF_CHECK;
 			}
+			if(piece.getType()==PieceType.PAWN ||
+					(object!=null &&
+					object.getColor()!=piece.getColor())){
+				halfMoveClock=0;
+			}
 			halfMoveClock += 1;
 			Move move = new Move(from, to);
 			lastMove = move;
@@ -67,8 +91,10 @@ public class Game {
 				return MoveResult.DRAW;
 			}
 			board.movePiece(from, to);
-			if ((piece.getType() == PieceType.PAWN &&piece.getColor() == Color.BLACK && to.getRow() == 7)
-					||(piece.getType() == PieceType.PAWN &&piece.getColor() == Color.WHITE && to.getRow() == 0)) {
+			if ((piece.getType() == PieceType.PAWN &&
+					piece.getColor() == Color.BLACK && to.getRow() == 7)
+					||(piece.getType() == PieceType.PAWN &&piece.getColor()
+					== Color.WHITE && to.getRow() == 0)) {
 				Piece newPiece=createPromotedPiece(type,piece.getColor());
 				board.setPiece(to, newPiece);
 //				piece=type;
@@ -77,9 +103,11 @@ public class Game {
 			int count = positionHistory.getOrDefault
 					(board.toPositionString() + currentPlayer.getName(), 0);
 			positionHistory.put(
-					board.toPositionString() + currentPlayer.getName(), count + 1);
+					board.toPositionString() +
+							currentPlayer.getName(), count + 1);
 			if (positionHistory.getOrDefault(
-					board.toPositionString() + currentPlayer.getName(), 0) == 3) {
+					board.toPositionString() +
+							currentPlayer.getName(), 0) == 3) {
 				return MoveResult.DRAW;
 			}
 			switchTurn();
@@ -143,7 +171,7 @@ public class Game {
 		if (!isInCheck(color)){
 			return false;
 		}
-		Location kingLocation = board.findKing(color);
+//		Location kingLocation = board.findKing(color);
 		Color opponentColor=Color.WHITE;
 		if(color==Color.WHITE){
 			opponentColor = Color.BLACK;
@@ -153,9 +181,9 @@ public class Game {
 				Location from = new Location(row, col);
 				Piece piece = board.getPiece(from);
 				if (piece != null && piece.getColor() == color) {
-					for (int row_des = 0; row < 8; row++) {
-						for (int col_des = 0; col < 8; col++) {
-							Location to = new Location(row_des, col_des);
+					for (int row_des = 0; row_des < 8; row_des++) {
+						for (int col_des = 0; col_des < 8; col_des++) {
+							Location to=new Location(row_des, col_des);
 							if (piece.canMove(board, from, to)){
 								Piece target = board.getPiece(to);
 								board.movePiece(from, to);
@@ -163,6 +191,9 @@ public class Game {
 									board.movePiece(to, from);
 									board.setPiece(to, target);
 									return false;
+								}else{
+									board.movePiece(to, from);
+									board.setPiece(to, target);
 								}
 							}
 						}
@@ -192,9 +223,10 @@ public class Game {
 				Location from = new Location(row, col);
 				Piece piece = board.getPiece(from);
 				if (piece != null && piece.getColor() == color) {
-					for (int row_des = 0; row < 8; row++) {
-						for (int col_des = 0; col < 8; col++) {
-							Location to = new Location(row_des, col_des);
+					for (int row_des = 0; row_des < 8; row_des++) {
+						for (int col_des = 0; col_des < 8; col_des++) {
+							Location to=new Location
+									(row_des, col_des);
 							if (piece.canMove(board, from, to)){
 								Piece target=board.getPiece(to);
 								board.movePiece(from, to);
@@ -202,6 +234,9 @@ public class Game {
 									board.movePiece(to, from);
 									board.setPiece(to, target);
 									return false;
+								}else{
+									board.movePiece(to, from);
+									board.setPiece(to, target);
 								}
 
 							}
@@ -232,6 +267,9 @@ public class Game {
 		return status;
 	}
 	public  List<Move> getMoveHistory(){
-		return moveHistory;
+		return new ArrayList<>(moveHistory);
+	}
+	public Move getLastMove(){//not used in project, just for test
+		return lastMove;
 	}
 }
