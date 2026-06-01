@@ -55,6 +55,7 @@
     - Initial implementations of Piece and Board Class, PRs created for team review
         - Olivia: Piece Class
         - Jerome: Board Class
+        - Jerome: Location Class
         - Muye: Game Class
         - Rishi: Move Class
 2. [todo]
