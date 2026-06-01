@@ -62,6 +62,7 @@
     - All: UI and Player classes
     - All: Finish up Reviews
     - All: Begin integration testing
+    - All: Implement i18n
 
 # Week X (XX/XX/2026-XX/XX/2026) TEMPLATE (You can change the format to whatever the team likes better)
 **Planning and Progress Tracking**:
