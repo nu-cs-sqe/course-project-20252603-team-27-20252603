@@ -10,4 +10,10 @@ public class LocationTest {
 		Location location = new Location(0, 4);
 		assertEquals(0, location.getRow());
 	}
+
+	@Test
+	public void testGetRow_maximumBoundary() {
+		Location location = new Location(7, 4);
+		assertEquals(7, location.getRow());
+	}
 }
