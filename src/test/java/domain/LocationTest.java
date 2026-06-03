@@ -152,4 +152,10 @@ public class LocationTest {
 		Location b = new Location(0, 7);
 		assertFalse(a.equals(b));
 	}
+
+	@Test
+	public void testEquals_null_minimumBoundary() {
+		Location a = new Location(0, 0);
+		assertFalse(a.equals(null));
+	}
 }
