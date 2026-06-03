@@ -49,4 +49,11 @@ public class LocationTest {
 		assertEquals(0, location.getRow());
 		assertEquals(7, location.getCol());
 	}
+
+	@Test
+	public void testGetRowAndCol_maxRowMinCol() {
+		Location location = new Location(7, 0);
+		assertEquals(7, location.getRow());
+		assertEquals(0, location.getCol());
+	}
 }
