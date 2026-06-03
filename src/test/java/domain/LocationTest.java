@@ -205,4 +205,10 @@ public class LocationTest {
 		Location a = new Location(0, 0);
 		assertFalse(a.equals("not a location"));
 	}
+
+	@Test
+	public void testHashCode_maximumBoundaryValues() {
+		Location a = new Location(7, 7);
+		assertEquals(31 * 7 + 7, a.hashCode());
+	}
 }
