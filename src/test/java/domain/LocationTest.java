@@ -110,4 +110,11 @@ public class LocationTest {
 		Location b = new Location(6, 4);
 		assertFalse(a.equals(b));
 	}
+
+	@Test
+	public void testEquals_colDiffers_aAtMinBoundary() {
+		Location a = new Location(4, 0);
+		Location b = new Location(4, 1);
+		assertFalse(a.equals(b));
+	}
 }
