@@ -84,4 +84,10 @@ public class LocationTest {
 		Location b = new Location(7, 0);
 		assertTrue(a.equals(b));
 	}
+
+	@Test
+	public void testEquals_sameReference_minimumBoundary() {
+		Location a = new Location(0, 0);
+		assertTrue(a.equals(a));
+	}
 }
