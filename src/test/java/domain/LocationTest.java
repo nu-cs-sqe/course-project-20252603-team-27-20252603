@@ -192,4 +192,11 @@ public class LocationTest {
 		Location b = new Location(4, 6);
 		assertFalse(b.equals(a));
 	}
+
+	@Test
+	public void testHashCode_equalLocations_sameHash() {
+		Location a = new Location(0, 0);
+		Location b = new Location(0, 0);
+		assertEquals(a.hashCode(), b.hashCode());
+	}
 }
