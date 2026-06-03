@@ -145,4 +145,11 @@ public class LocationTest {
 		Location b = new Location(7, 0);
 		assertFalse(a.equals(b));
 	}
+
+	@Test
+	public void testEquals_bothDiffer_aAtMaxRowMinCol_bAtMinRowMaxCol() {
+		Location a = new Location(7, 0);
+		Location b = new Location(0, 7);
+		assertFalse(a.equals(b));
+	}
 }
