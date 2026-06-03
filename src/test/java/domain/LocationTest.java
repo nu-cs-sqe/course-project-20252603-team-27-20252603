@@ -158,4 +158,10 @@ public class LocationTest {
 		Location a = new Location(0, 0);
 		assertFalse(a.equals(null));
 	}
+
+	@Test
+	public void testEquals_null_maximumBoundary() {
+		Location a = new Location(7, 7);
+		assertFalse(a.equals(null));
+	}
 }
