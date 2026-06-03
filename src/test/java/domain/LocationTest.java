@@ -96,4 +96,11 @@ public class LocationTest {
 		Location a = new Location(7, 7);
 		assertTrue(a.equals(a));
 	}
+
+	@Test
+	public void testEquals_rowDiffers_aAtMinBoundary() {
+		Location a = new Location(0, 4);
+		Location b = new Location(1, 4);
+		assertFalse(a.equals(b));
+	}
 }
