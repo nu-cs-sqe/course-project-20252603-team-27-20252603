@@ -171,4 +171,11 @@ public class LocationTest {
 		Location b = new Location(0, 0);
 		assertTrue(b.equals(a));
 	}
+
+	@Test
+	public void testEquals_symmetric_equalLocations_maximumBoundary() {
+		Location a = new Location(7, 7);
+		Location b = new Location(7, 7);
+		assertTrue(b.equals(a));
+	}
 }
