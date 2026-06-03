@@ -21,10 +21,6 @@ application {
     mainClass.set("nu.csse.sqe.domain.Main")
 }
 
-//tasks.build {
-//    dependsOn("pitest")
-//}
-
 dependencies {
     testImplementation(platform("org.junit:junit-bom:5.10.0"))
     testImplementation("org.junit.jupiter:junit-jupiter")
@@ -47,6 +43,14 @@ tasks.withType<Checkstyle>().configureEach {
         html.stylesheet = resources.text.fromFile("config/xsl/checkstyle-noframes-severity-sorted.xsl")
     }
 }
+tasks.withType<Checkstyle>().configureEach {
+    exclude("**/*Test.java", "**/*Tests.java")
+    reports {
+        xml.required = false
+        html.required = true
+        html.stylesheet = resources.text.fromFile("config/xsl/checkstyle-noframes-severity-sorted.xsl")
+    }
+}
 checkstyle{
     toolVersion = "10.12.5"
     isIgnoreFailures = false
@@ -60,7 +64,7 @@ tasks.test {
     finalizedBy(tasks.jacocoTestReport)
 }
 tasks.jacocoTestReport {
-    dependsOn(tasks.test) // tests are required to run before generating the report
+    dependsOn(tasks.test)
 }
 jacoco {
     toolVersion = "0.8.14"
