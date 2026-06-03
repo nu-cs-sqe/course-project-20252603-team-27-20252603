@@ -28,4 +28,11 @@ public class LocationTest {
 		Location location = new Location(4, 7);
 		assertEquals(7, location.getCol());
 	}
+
+	@Test
+	public void testGetRowAndCol_bothMinimumBoundary() {
+		Location location = new Location(0, 0);
+		assertEquals(0, location.getRow());
+		assertEquals(0, location.getCol());
+	}
 }
