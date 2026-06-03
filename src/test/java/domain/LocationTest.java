@@ -35,4 +35,11 @@ public class LocationTest {
 		assertEquals(0, location.getRow());
 		assertEquals(0, location.getCol());
 	}
+
+	@Test
+	public void testGetRowAndCol_bothMaximumBoundary() {
+		Location location = new Location(7, 7);
+		assertEquals(7, location.getRow());
+		assertEquals(7, location.getCol());
+	}
 }
