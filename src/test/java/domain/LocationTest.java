@@ -63,4 +63,11 @@ public class LocationTest {
 		Location b = new Location(0, 0);
 		assertTrue(a.equals(b));
 	}
+
+	@Test
+	public void testEquals_sameMaximumBoundaryCorner() {
+		Location a = new Location(7, 7);
+		Location b = new Location(7, 7);
+		assertTrue(a.equals(b));
+	}
 }
