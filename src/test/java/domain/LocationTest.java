@@ -185,4 +185,11 @@ public class LocationTest {
 		Location b = new Location(1, 4);
 		assertFalse(b.equals(a));
 	}
+
+	@Test
+	public void testEquals_symmetric_colDiffers_maxBoundary() {
+		Location a = new Location(4, 7);
+		Location b = new Location(4, 6);
+		assertFalse(b.equals(a));
+	}
 }
