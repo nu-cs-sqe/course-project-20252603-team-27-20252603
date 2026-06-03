@@ -117,4 +117,11 @@ public class LocationTest {
 		Location b = new Location(4, 1);
 		assertFalse(a.equals(b));
 	}
+
+	@Test
+	public void testEquals_colDiffers_aAtMaxBoundary() {
+		Location a = new Location(4, 7);
+		Location b = new Location(4, 6);
+		assertFalse(a.equals(b));
+	}
 }
