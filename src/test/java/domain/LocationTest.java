@@ -199,4 +199,10 @@ public class LocationTest {
 		Location b = new Location(0, 0);
 		assertEquals(a.hashCode(), b.hashCode());
 	}
+
+	@Test
+	public void testEquals_nonLocationObject_returnsFalse() {
+		Location a = new Location(0, 0);
+		assertFalse(a.equals("not a location"));
+	}
 }
