@@ -272,4 +272,11 @@ public class Game {
 	public Move getLastMove(){//not used in project, just for test
 		return lastMove;
 	}
+	public void timeOut(){
+		if (currentPlayer.getColor()==Color.WHITE){
+			status=GameStatus.BLACK_WIN;
+		}else{
+			status=GameStatus.WHITE_WIN;
+		}
+	}
 }

@@ -2572,4 +2572,71 @@ public class GameTest {
 //		List<Move> result=game.getMoveHistory();
 		assertEquals(move, game.getLastMove());
 	}
+	@Test
+	public void timeOut_black() {
+		Board board = EasyMock.createMock(Board.class);
+		List<Move> moveHistory = new ArrayList<>();
+		Map<String, Integer> positionHistory = new HashMap<>();
+		Move move=new Move(new Location(0,0),new Location(7,7));
+		moveHistory.add(move);
+		List<Move> target=new ArrayList<>();
+		target.add(move);
+		Player player1 = EasyMock.createMock(Player.class);
+		Player player2 = EasyMock.createMock(Player.class);
+		EasyMock.expect(player1.getColor()).andReturn(Color.WHITE);
+		EasyMock.expect(player2.getColor()).andReturn(Color.BLACK);
+		player1.setColor(Color.WHITE);
+		EasyMock.expectLastCall();
+		player2.setColor(Color.BLACK);
+		EasyMock.expectLastCall();
+		EasyMock.expect(player1.getName()).andReturn("p1");
+		EasyMock.expect(player2.getName()).andReturn("p2");
+		EasyMock.replay(player1,player2);
+		Move lastMove = null;
+		int halfMoveClock = 0;
+		Game game = new Game(
+				board,
+				GameStatus.WHITE_TURN,
+				moveHistory,
+				move,
+				0,
+				positionHistory);
+		game.startNewGame(player1,player2);
+		game.timeOut();
+		assertEquals(GameStatus.BLACK_WIN, game.getStatus());
+	}
+	@Test
+	public void timeOut_white() {
+		Board board = EasyMock.createMock(Board.class);
+		List<Move> moveHistory = new ArrayList<>();
+		Map<String, Integer> positionHistory = new HashMap<>();
+		Move move=new Move(new Location(0,0),new Location(7,7));
+		moveHistory.add(move);
+		List<Move> target=new ArrayList<>();
+		target.add(move);
+		Player player1 = EasyMock.createMock(Player.class);
+		Player player2 = EasyMock.createMock(Player.class);
+		EasyMock.expect(player1.getColor()).andReturn(Color.WHITE);
+		EasyMock.expect(player2.getColor()).andReturn(Color.BLACK);
+		player1.setColor(Color.WHITE);
+		EasyMock.expectLastCall();
+		player2.setColor(Color.BLACK);
+		EasyMock.expectLastCall();
+		EasyMock.expect(player1.getName()).andReturn("p1");
+		EasyMock.expect(player2.getName()).andReturn("p2");
+		EasyMock.replay(player1,player2);
+		Move lastMove = null;
+		int halfMoveClock = 0;
+		Game game = new Game(
+				board,
+				GameStatus.WHITE_TURN,
+				moveHistory,
+				move,
+				0,
+				positionHistory);
+		game.startNewGame(player1,player2);
+		game.switchTurn();
+		game.timeOut();
+		assertEquals(GameStatus.WHITE_WIN, game.getStatus());
+	}
 }

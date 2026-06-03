@@ -251,3 +251,13 @@ However, you are only required to document Step 4.
 - **Expected output:** return lastmove
 - **Implemented:*implemented*
 
+- **TC50: timeOut_white** ()
+- **State of the system:** 
+- **Expected output:** status=black_win
+- **Implemented:*implemented*
+
+- **TC51: timeOut_black** ()
+- **State of the system:**
+- **Expected output:** status=white_win
+- **Implemented:*implemented*
+
