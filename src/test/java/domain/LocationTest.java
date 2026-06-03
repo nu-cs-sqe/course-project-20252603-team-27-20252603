@@ -77,4 +77,11 @@ public class LocationTest {
 		Location b = new Location(0, 7);
 		assertTrue(a.equals(b));
 	}
+
+	@Test
+	public void testEquals_sameMaxRowMinCol() {
+		Location a = new Location(7, 0);
+		Location b = new Location(7, 0);
+		assertTrue(a.equals(b));
+	}
 }
