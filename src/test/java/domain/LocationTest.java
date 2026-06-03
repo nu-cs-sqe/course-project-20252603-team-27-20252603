@@ -124,4 +124,11 @@ public class LocationTest {
 		Location b = new Location(4, 6);
 		assertFalse(a.equals(b));
 	}
+
+	@Test
+	public void testEquals_bothDiffer_aAtMinCorner_bAtMaxCorner() {
+		Location a = new Location(0, 0);
+		Location b = new Location(7, 7);
+		assertFalse(a.equals(b));
+	}
 }
