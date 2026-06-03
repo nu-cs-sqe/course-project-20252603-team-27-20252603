@@ -22,4 +22,10 @@ public class LocationTest {
 		Location location = new Location(4, 0);
 		assertEquals(0, location.getCol());
 	}
+
+	@Test
+	public void testGetCol_maximumBoundary() {
+		Location location = new Location(4, 7);
+		assertEquals(7, location.getCol());
+	}
 }
