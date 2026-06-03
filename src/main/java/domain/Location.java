@@ -16,4 +16,9 @@ public class Location {
 	public int getCol() {
 		return col;
 	}
+
+	public boolean equals(Location otherLocation) {
+		if (otherLocation == null) return false;
+		return this.row == otherLocation.row && this.col == otherLocation.col;
+	}
 }

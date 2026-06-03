@@ -56,4 +56,11 @@ public class LocationTest {
 		assertEquals(7, location.getRow());
 		assertEquals(0, location.getCol());
 	}
+
+	@Test
+	public void testEquals_sameMinimumBoundaryCorner() {
+		Location a = new Location(0, 0);
+		Location b = new Location(0, 0);
+		assertTrue(a.equals(b));
+	}
 }
