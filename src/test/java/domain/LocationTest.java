@@ -178,4 +178,11 @@ public class LocationTest {
 		Location b = new Location(7, 7);
 		assertTrue(b.equals(a));
 	}
+
+	@Test
+	public void testEquals_symmetric_rowDiffers_minBoundary() {
+		Location a = new Location(0, 4);
+		Location b = new Location(1, 4);
+		assertFalse(b.equals(a));
+	}
 }
