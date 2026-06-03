@@ -90,4 +90,10 @@ public class LocationTest {
 		Location a = new Location(0, 0);
 		assertTrue(a.equals(a));
 	}
+
+	@Test
+	public void testEquals_sameReference_maximumBoundary() {
+		Location a = new Location(7, 7);
+		assertTrue(a.equals(a));
+	}
 }
