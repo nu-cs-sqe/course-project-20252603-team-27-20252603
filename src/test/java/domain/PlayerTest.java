@@ -10,4 +10,11 @@ public class PlayerTest {
 		PieceColor testPlayerColor = testPlayer.getColor();
 		assertEquals(PieceColor.WHITE, testPlayerColor);
 	}
+
+	@Test
+	public void playerColorIsBlack() {
+		Player testPlayer = new Player("Alan", PieceColor.BLACK);
+		PieceColor testPlayerColor = testPlayer.getColor();
+		assertEquals(PieceColor.BLACK, testPlayerColor);
+	}
 }

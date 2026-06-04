@@ -12,7 +12,7 @@
     - **State of the system**: A `Player` has been constructed with `PieceColor.WHITE`
     - **Expected output**: `getColor()` returns `PieceColor.WHITE`
 
-- **TC2: playerColorIsBlack()** ( :X: )
+- **TC2: playerColorIsBlack()** ( :white_check_mark: )
     - **State of the system**: A `Player` has been constructed with `PieceColor.BLACK`
     - **Expected output**: `getColor()` returns `PieceColor.BLACK`
 
