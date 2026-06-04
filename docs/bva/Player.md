@@ -8,7 +8,7 @@
 
 ### Method under test: `getColor()`
 
-- **TC1: playerColorIsWhite()** ( :X: )
+- **TC1: playerColorIsWhite()** ( :white_check_mark: )
     - **State of the system**: A `Player` has been constructed with `PieceColor.WHITE`
     - **Expected output**: `getColor()` returns `PieceColor.WHITE`
 
