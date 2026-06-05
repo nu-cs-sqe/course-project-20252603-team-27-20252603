@@ -24,7 +24,7 @@
     - **State of the system**: A `Player` has been constructed with `Null`
     - **Expected output**: `IllegalArgumentException` is thrown
   
-- **TC4: playerGivenNoName()** ( :X: )
+- **TC4: playerGivenNoName()** ( :white_check_mark: )
     - **State of the system**: A `Player` has been constructed with name `""`
     - **Expected output**: `IllegalArgumentException` is thrown
 
