@@ -21,6 +21,9 @@ public class Player {
 	}
 
 	public void setColor(PieceColor color) {
+		if (color == null) {
+			throw new IllegalArgumentException("Color cannot be null");
+		}
 		this.color = color;
 	}
 }

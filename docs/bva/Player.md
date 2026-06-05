@@ -47,7 +47,7 @@
     - **State of the system**: A `Player` exists with White prior color; `setColor(PieceColor.BLACK)` is called
     - **Expected output**: `getColor()` returns `PieceColor.BLACK`
 
-- **TC9: setPlayerColorToNull_previouslyBlack()** ( :X: )
+- **TC9: setPlayerColorToNull_previouslyBlack()** ( :white_check_mark: )
     - **State of the system**: A Black `Player` exists; `setColor(null)` is called
     - **Expected output**: `IllegalArgumentException` is thrown
 
