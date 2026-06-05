@@ -35,7 +35,7 @@
 
 ### Method under test: `setColor(PieceColor color)`
 
-- **TC6: setPlayerColorToWhite_previouslyBlack()** ( :X: )
+- **TC6: setPlayerColorToWhite_previouslyBlack()** ( :white_check_mark: )
     - **State of the system**: A `Player` exists with Black prior color; `setColor(PieceColor.WHITE)` is called
     - **Expected output**: `getColor()` returns `PieceColor.WHITE`
 

@@ -36,4 +36,15 @@ public class PlayerTest {
 		assertThrows(IllegalArgumentException.class,
 				() -> new Player(null, PieceColor.BLACK));
 	}
+
+	@Test
+	public void setPlayerColorToWhite_previouslyBlack() {
+		Player testPlayer = new Player("Alan", PieceColor.BLACK);
+		PieceColor testPlayerColor = testPlayer.getColor();
+		assertEquals(PieceColor.BLACK, testPlayerColor);
+
+		testPlayer.setColor(PieceColor.WHITE);
+		PieceColor testPlayerNewColor = testPlayer.getColor();
+		assertEquals(PieceColor.WHITE, testPlayerNewColor);
+	}
 }

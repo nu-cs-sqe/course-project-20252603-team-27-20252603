@@ -19,4 +19,8 @@ public class Player {
 	public PieceColor getColor() {
 		return color;
 	}
+
+	public void setColor(PieceColor color) {
+		this.color = color;
+	}
 }
