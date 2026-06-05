@@ -20,6 +20,10 @@ public class Player {
 		return color;
 	}
 
+	public String getName() {
+		return name;
+	}
+
 	public void setColor(PieceColor color) {
 		if (color == null) {
 			throw new IllegalArgumentException("Color cannot be null");

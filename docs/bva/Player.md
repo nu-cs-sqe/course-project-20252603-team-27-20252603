@@ -58,6 +58,6 @@
 
 ### Method under test: `getName()`
 
-- **TC11: playerGivenValidName()** ( :X: )
+- **TC11: playerGivenValidName()** ( :white_check_mark: )
     - **State of the system**: A `Player` has been constructed with name `"Alice"`
     - **Expected output**: `getName()` returns `"Alice"`
