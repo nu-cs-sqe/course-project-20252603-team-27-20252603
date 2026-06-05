@@ -43,7 +43,7 @@
     - **State of the system**: A `Player` exists with White prior color; `setColor(PieceColor.WHITE)` is called
     - **Expected output**: `getColor()` returns `PieceColor.WHITE`
 
-- **TC8: setPlayerColorToBlack_previouslyWhite()** ( :X: )
+- **TC8: setPlayerColorToBlack_previouslyWhite()** ( :white_check_mark: )
     - **State of the system**: A `Player` exists with White prior color; `setColor(PieceColor.BLACK)` is called
     - **Expected output**: `getColor()` returns `PieceColor.BLACK`
 
