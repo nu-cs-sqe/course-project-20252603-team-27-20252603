@@ -47,4 +47,15 @@ public class PlayerTest {
 		PieceColor testPlayerNewColor = testPlayer.getColor();
 		assertEquals(PieceColor.WHITE, testPlayerNewColor);
 	}
+
+	@Test
+	public void setPlayerColorToWhite_previouslyWhite() {
+		Player testPlayer = new Player("Alan", PieceColor.WHITE);
+		PieceColor testPlayerColor = testPlayer.getColor();
+		assertEquals(PieceColor.WHITE, testPlayerColor);
+
+		testPlayer.setColor(PieceColor.WHITE);
+		PieceColor testPlayerNewColor = testPlayer.getColor();
+		assertEquals(PieceColor.WHITE, testPlayerNewColor);
+	}
 }
