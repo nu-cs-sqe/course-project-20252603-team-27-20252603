@@ -30,4 +30,10 @@ public class PlayerTest {
 		assertThrows(IllegalArgumentException.class,
 				() -> new Player("", PieceColor.BLACK));
 	}
+
+	@Test
+	public void playerGivenNullName() {
+		assertThrows(IllegalArgumentException.class,
+				() -> new Player(null, PieceColor.BLACK));
+	}
 }
