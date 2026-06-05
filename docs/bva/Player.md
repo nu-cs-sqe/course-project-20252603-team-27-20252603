@@ -51,7 +51,7 @@
     - **State of the system**: A Black `Player` exists; `setColor(null)` is called
     - **Expected output**: `IllegalArgumentException` is thrown
 
-- **TC10: setPlayerColorToNull_previouslyWhite()** ( :X: )
+- **TC10: setPlayerColorToNull_previouslyWhite()** ( :white_check_mark: )
     - **State of the system**: A White `Player` exists; `setColor(null)` is called
     - **Expected output**: `IllegalArgumentException` is thrown
 ---
