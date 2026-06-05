@@ -2,6 +2,7 @@ package domain;
 
 import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 public class PlayerTest {
 	@Test
@@ -16,5 +17,11 @@ public class PlayerTest {
 		Player testPlayer = new Player("Alan", PieceColor.BLACK);
 		PieceColor testPlayerColor = testPlayer.getColor();
 		assertEquals(PieceColor.BLACK, testPlayerColor);
+	}
+
+	@Test
+	public void playerColorIsNullColor() {
+		assertThrows(IllegalArgumentException.class,
+				() -> new Player("Alan", null));
 	}
 }

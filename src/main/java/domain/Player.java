@@ -5,6 +5,10 @@ public class Player {
 	private PieceColor color;
 
 	Player(String name, PieceColor color) {
+		if (color == null) {
+			throw new IllegalArgumentException("Color cannot be null");
+		}
+
 		this.name = name;
 		this.color = color;
 	}

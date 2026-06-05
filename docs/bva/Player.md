@@ -20,7 +20,7 @@
 
 ### Constructor under test
 
-- **TC3: playerColorIsNull()** ( :X: )
+- **TC3: playerColorIsNull()** ( :white_check_mark: )
     - **State of the system**: A `Player` has been constructed with `Null`
     - **Expected output**: `IllegalArgumentException` is thrown
   
