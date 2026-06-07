@@ -47,6 +47,23 @@
     - All: UI and Player classes
     - Mutation and coverage testing for classes currently in progress
 
+# Week 9 (05/25/2026-05/31/2026)
+**Planning and Progress Tracking**:
+1. [done]
+    - Added Jacoco, Pitest, and Checkstyle to main branch, for use in local repositories
+2. [done 80%]
+    - Initial implementations of Piece and Board Class, PRs created for team review
+        - Olivia: Piece Class
+        - Jerome: Board Class
+        - Jerome: Location Class
+        - Muye: Game Class
+        - Rishi: Move Class
+2. [todo]
+    - All: UI and Player classes
+    - All: Finish up Reviews
+    - All: Begin integration testing
+    - All: Implement i18n
+
 # Week X (XX/XX/2026-XX/XX/2026) TEMPLATE (You can change the format to whatever the team likes better)
 **Planning and Progress Tracking**:
 1. [done] Person: Task (Links to PR)
