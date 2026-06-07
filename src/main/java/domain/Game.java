@@ -123,13 +123,17 @@ public class Game {
 				newPiece.setMoved(true);
 			}
 			int count = positionHistory.getOrDefault
-					(board.toPositionString() + currentPlayer.getName(), 0);
-			positionHistory.put(
-					board.toPositionString() +
-							currentPlayer.getName(), count + 1);
-			if (positionHistory.getOrDefault(
-					board.toPositionString() +
-							currentPlayer.getName(), 0) == 3) {
+					(board.toPositionString() + currentPlayer.getName()+
+							String.valueOf(enPassant)+
+							String.valueOf(castle), 0);
+			positionHistory.put(board.toPositionString() +
+					currentPlayer.getName()+
+					String.valueOf(enPassant)+
+					String.valueOf(castle), count + 1);
+			if (positionHistory.getOrDefault(board.toPositionString() +
+					currentPlayer.getName()+
+					String.valueOf(enPassant)+
+					String.valueOf(castle), 0) == 3) {
 				return MoveResult.DRAW;
 			}
 			switchTurn();

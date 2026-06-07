@@ -2,6 +2,8 @@ package domain;
 
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 
+import java.util.Objects;
+
 @SuppressFBWarnings({"EI_EXPOSE_REP", "EI_EXPOSE_REP2"})
 public final class Move {
 	private final Location from;
@@ -89,5 +91,9 @@ public final class Move {
 		return queen.from==this.from &&
 				queen.to==this.to &&
 				queen.movedPiece==this.movedPiece;
+	}
+	@Override
+	public int hashCode() {
+		return Objects.hash(from, to, movedPiece);
 	}
 }

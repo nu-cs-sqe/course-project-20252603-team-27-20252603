@@ -1,5 +1,7 @@
 package domain;
 
+import java.util.Objects;
+
 public class Piece {
 
 	private final PieceType pieceType;
@@ -246,6 +248,10 @@ public class Piece {
 		if (obj == null || getClass() != obj.getClass()) return false;
 		Piece queen = (Piece) obj;
 		return queen.pieceType==this.pieceType && queen.pieceColor==this.pieceColor;
+	}
+	@Override
+	public int hashCode() {
+		return Objects.hash(pieceType, pieceColor);
 	}
 
 }

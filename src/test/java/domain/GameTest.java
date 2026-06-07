@@ -147,7 +147,7 @@ public class GameTest {
 		game.startNewGame(player1, player2);
 		MoveResult result=game.makeMove(source,destination,PieceType.KNIGHT);
 		Move last=new Move(source,destination, rook, null, PieceType.KNIGHT);
-		target.put("lastp1",1);
+		target.put("lastp100",1);
 		assertEquals(GameStatus.BLACK_TURN,game.getStatus());
 		assertTrue(target.equals(game.positionHistory));
 		assertTrue(last.equals(game.lastMove));
@@ -272,7 +272,7 @@ public class GameTest {
 		MoveResult result = game.makeMove(from, to, null);
 		Move last=new Move(from,to, piece, null, null, false, false, "notation");
 		Map<String, Integer> target = new HashMap<>();
-		target.put("lastp1", 1);
+		target.put("lastp100", 1);
 		assertTrue(target.equals(game.positionHistory));
 		assertTrue(last.equals(game.lastMove));
 		moveHistory.add(last);
@@ -350,7 +350,7 @@ public class GameTest {
 				null,false,false,"notation");
 		Map<String, Integer> target = new HashMap<>();
 		target.put("first",2);
-		target.put("lastp2", 1);
+		target.put("lastp200", 1);
 		assertTrue(target.equals(game.positionHistory));
 		assertTrue(last.equals(game.lastMove));
 		moveHistory.add(last);
@@ -429,7 +429,7 @@ public class GameTest {
 				null,null, false,
 				false, "notation");
 		Map<String, Integer> target = new HashMap<>();
-		target.put("lastp1", 1);
+		target.put("lastp100", 1);
 		assertTrue(target.equals(game.positionHistory));
 		assertTrue(last.equals(game.lastMove));
 		moveHistory.add(last);
@@ -670,7 +670,7 @@ public class GameTest {
 //		game.switchTurn();
 		MoveResult result = game.makeMove(from, to, null);
 		assertEquals(game.halfMoveClock,1);
-		target.put("lastp1",1);
+		target.put("lastp100",1);
 		assertTrue(target.equals(game.positionHistory));
 		moveHistory.add(last);
 		assertTrue(moveHistory.equals(game.moveHistory));
@@ -895,7 +895,7 @@ public class GameTest {
 		List<Move> moveHistory = new ArrayList<>();
 		Move lastMove = null;
 		Map<String, Integer> positionHistory=new HashMap<>();
-		positionHistory.put("lastp1",2);
+		positionHistory.put("lastp100",2);
 		Map<String, Integer> target=new HashMap<>();
 		int halfMoveClock = 99;
 		Game game = EasyMock.partialMockBuilder(Game.class)
@@ -957,11 +957,11 @@ public class GameTest {
 		MoveResult result = game.makeMove(from, to, null);
 		assertEquals(game.currentPlayer.getColor(),PieceColor.WHITE);
 		assertEquals(game.halfMoveClock,100);
-		target.put("lastp1",3);
+		target.put("lastp100",3);
+		System.out.println(game.positionHistory);
 		assertTrue(target.equals(game.positionHistory));
 		List<Move> history = new ArrayList<>();
 		history.add(last);
-		System.out.println(history);
 		assertTrue(history.equals(game.moveHistory));
 		assertEquals(game.lastMove,last);
 		assertEquals(MoveResult.DRAW, result);
@@ -1199,7 +1199,7 @@ public class GameTest {
 		Move last=new Move(from,to, piece, null,
 				PieceType.BISHOP, false, false, "notation");
 		Map<String, Integer> target = new HashMap<>();
-		target.put("lastp1", 1);
+		target.put("lastp100", 1);
 //		Bishop bishop=new Bishop(PieceColor.WHITE);
 		assertTrue(target.equals(game.positionHistory));
 		assertTrue(last.equals(game.lastMove));
@@ -1285,7 +1285,7 @@ public class GameTest {
 		Move last=new Move(from,to, piece, null,
 				PieceType.BISHOP, false, false, "notation");
 		Map<String, Integer> target = new HashMap<>();
-		target.put("lastp2", 1);
+		target.put("lastp200", 1);
 //		Bishop bishop=new Bishop(PieceColor.WHITE);
 		System.out.println(result);
 		assertEquals(MoveResult.CHECK, result);
@@ -2788,7 +2788,12 @@ public class GameTest {
 		Piece pawn = EasyMock.createMock(Piece.class);
 		List<Move> moveHistory = new ArrayList<>();
 		Map<String, Integer> positionHistory = new HashMap<>();
-		Game game = new Game(board, GameStatus.WHITE_TURN, moveHistory, null, 0, positionHistory);
+		Game game = new Game(board,
+				GameStatus.WHITE_TURN,
+				moveHistory,
+				null,
+				0,
+				positionHistory);
 		Location from = new Location(6, 4);
 		Location to = new Location(4, 4);
 		EasyMock.expect(pawn.getPieceType())
