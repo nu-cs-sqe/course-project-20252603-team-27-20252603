@@ -267,3 +267,13 @@
 - **State of the system:**pawn from (6,4) to (4,4)
 - **Expected output:** return pawn from (6,4) -> (4,4)
 - **Implemented:*implemented*
+
+- **TC55: createNotation_captureByEnPassant** ()
+- **State of the system:**pawn from (3,4) to (2,5)
+- **Expected output:** return pawn from (3,4) -> (2,5),captures PAWN en passant
+- **Implemented:*implemented*
+
+- **TC55: createNotation_promotion** ()
+- **State of the system:**promotion type is Bishop, from (6,4) to (7,4)
+- **Expected output:** return pawn from (6,4) -> (7,4),promotes to Bishop
+- **Implemented:*implemented*

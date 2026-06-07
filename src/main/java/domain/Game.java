@@ -381,12 +381,12 @@ public class Game {
 				+ " (" + from.getRow() + "," + from.getCol() + ")"
 				+ " -> "
 				+ "(" + to.getRow() + "," + to.getCol() + ")";
-//		if (capturedPiece != null) {
-//			notation += " captures " + capturedPiece.getPieceType();
-//		}
-//		if (isEnPassant) {
-//			notation += " en passant";
-//		}
+		if (capturedPiece != null) {
+			notation += " captures " + capturedPiece.getPieceType();
+		}
+		if (isEnPassant) {
+			notation += " en passant";
+		}
 //		if (promotionType != null) {
 //			notation += " promotes to " + promotionType;
 //		}
