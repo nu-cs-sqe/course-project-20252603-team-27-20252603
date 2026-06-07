@@ -387,9 +387,9 @@ public class Game {
 		if (isEnPassant) {
 			notation += " en passant";
 		}
-//		if (promotionType != null) {
-//			notation += " promotes to " + promotionType;
-//		}
+		if (promotionType != null) {
+			notation += " promotes to " + promotionType;
+		}
 		return notation;
 	}
 }

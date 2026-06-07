@@ -2825,4 +2825,29 @@ public class GameTest {
 		assertEquals("PAWN (3,4) -> (2,5) captures PAWN en passant", notation);
 		EasyMock.verify(board, whitePawn, blackPawn);
 	}
+	@Test
+	public void createNotation_promotion() {
+		Board board = EasyMock.createMock(Board.class);
+//		Piece whitePawn = EasyMock.createMock(Piece.class);
+		Piece blackPawn = EasyMock.createMock(Piece.class);
+		List<Move> moveHistory = new ArrayList<>();
+		Map<String, Integer> positionHistory = new HashMap<>();
+		Game game = new Game(board, GameStatus.BLACK_TURN, moveHistory, null, 0, positionHistory);
+		Location from = new Location(6, 4);
+		Location to = new Location(7, 4);
+//		EasyMock.expect(whitePawn.getPieceType()).andReturn(PieceType.PAWN);
+		EasyMock.expect(blackPawn.getPieceType()).andReturn(PieceType.PAWN);
+		EasyMock.replay(board, blackPawn);
+		String notation = game.createNotation(
+				from,
+				to,
+				blackPawn,
+				null,
+				PieceType.BISHOP,
+				false,
+				false
+		);
+		assertEquals("PAWN (6,4) -> (7,4) promotes to BISHOP", notation);
+		EasyMock.verify(board, blackPawn);
+	}
 }
