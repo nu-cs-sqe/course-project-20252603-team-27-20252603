@@ -2755,4 +2755,49 @@ public class GameTest {
 		assertEquals("O-O", notation);
 		EasyMock.verify(board, king);
 	}
+	@Test
+	public void createNotation_QueenCastle() {
+		Board board = EasyMock.createMock(Board.class);
+		Piece king = EasyMock.createMock(Piece.class);
+		List<Move> moveHistory = new ArrayList<>();
+		Map<String, Integer> positionHistory = new HashMap<>();
+		Game game = new Game(board, GameStatus.WHITE_TURN, moveHistory, null, 0, positionHistory);
+		Location from = new Location(7, 4);
+		Location to = new Location(7, 2);
+		EasyMock.replay(board, king);
+		String notation = game.createNotation(
+				from,
+				to,
+				king,
+				null,
+				null,
+				true,
+				false
+		);
+		assertEquals("O-O-O", notation);
+		EasyMock.verify(board, king);
+	}
+	@Test
+	public void createNotation_normalMove() {
+		Board board = EasyMock.createMock(Board.class);
+		Piece pawn = EasyMock.createMock(Piece.class);
+		List<Move> moveHistory = new ArrayList<>();
+		Map<String, Integer> positionHistory = new HashMap<>();
+		Game game = new Game(board, GameStatus.WHITE_TURN, moveHistory, null, 0, positionHistory);
+		Location from = new Location(6, 4);
+		Location to = new Location(4, 4);
+		EasyMock.expect(pawn.getPieceType()).andReturn(PieceType.PAWN);
+		EasyMock.replay(board, pawn);
+		String notation = game.createNotation(
+				from,
+				to,
+				pawn,
+				null,
+				null,
+				false,
+				false
+		);
+		assertEquals("PAWN (6,4) -> (4,4)", notation);
+		EasyMock.verify(board, pawn);
+	}
 }

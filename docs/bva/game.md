@@ -253,7 +253,17 @@
 - **Expected output:** status=white_win
 - **Implemented:*implemented*
 
-- **TC51: createNotation_castle** ()
+- **TC52: createNotation_castle** ()
 - **State of the system:**king from (7,4) to (7,6)
 - **Expected output:** return O-O
+- **Implemented:*implemented*
+
+- **TC53: createNotation_QueenCastle** ()
+- **State of the system:**queen from (7,4) to (7,2)
+- **Expected output:** return O-O-O
+- **Implemented:*implemented*
+
+- **TC54: createNotation_normalMove** ()
+- **State of the system:**pawn from (6,4) to (4,4)
+- **Expected output:** return pawn from (6,4) -> (4,4)
 - **Implemented:*implemented*

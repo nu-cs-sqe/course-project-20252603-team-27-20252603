@@ -377,10 +377,10 @@ public class Game {
 		if (isCastle) {
 			return to.getCol() == 6 ? "O-O" : "O-O-O";
 		}
-//		String notation = movedPiece.getPieceType()
-//				+ " (" + from.getRow() + "," + from.getCol() + ")"
-//				+ " -> "
-//				+ "(" + to.getRow() + "," + to.getCol() + ")";
+		String notation = movedPiece.getPieceType()
+				+ " (" + from.getRow() + "," + from.getCol() + ")"
+				+ " -> "
+				+ "(" + to.getRow() + "," + to.getCol() + ")";
 //		if (capturedPiece != null) {
 //			notation += " captures " + capturedPiece.getPieceType();
 //		}
@@ -390,7 +390,6 @@ public class Game {
 //		if (promotionType != null) {
 //			notation += " promotes to " + promotionType;
 //		}
-//		return notation;
-		return "";
+		return notation;
 	}
 }
