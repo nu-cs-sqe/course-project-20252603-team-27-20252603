@@ -104,8 +104,13 @@ public class Game {
 				performCastle(from,to);
 				isCastle=true;
 			}else {board.movePiece(from, to);}
-			String notation=createNotation(from,to,piece,object,type,isCastle,isEnPassant);
-			Move move = new Move(from, to, piece, object, type, isCastle, isEnPassant,notation);
+			String notation=createNotation
+					(from,to,piece,object,type
+							,isCastle,isEnPassant);
+			Move move = new Move
+					(from, to, piece, object, type,
+							isCastle, isEnPassant,
+							notation);
 			lastMove = move;
 			moveHistory.add(move);
 			piece.setMoved(true);
@@ -287,84 +292,84 @@ public class Game {
 		}
 	}
 	public boolean isEnPassantMove(Location from, Location to, Piece movingPiece) {
-		return false;
-		//		if (movingPiece == null) {
-//			return false;
-//		}
-//		if (movingPiece.getPieceType() != PieceType.PAWN) {
-//			return false;
-//		}
-//		if (lastMove == null) {
-//			return false;
-//		}
-//		Piece lastMovedPiece = lastMove.getMovedPiece();
-//		if (lastMovedPiece == null || lastMovedPiece.getPieceType() != PieceType.PAWN) {
-//			return false;
-//		}
-//		if (lastMovedPiece.getColor() == movingPiece.getColor()) {
-//			return false;
-//		}
-//		if (!board.isEmpty(to)) {
-//			return false;
-//		}
-//		int direction = movingPiece.getColor() == PieceColor.WHITE ? -1 : 1;
-//		int rowDiff = to.getRow() - from.getRow();
-//		int colDiff = Math.abs(to.getCol() - from.getCol());
-//		if (rowDiff != direction || colDiff != 1) {
-//			return false;
-//		}
-//		Location lastFrom = lastMove.getFrom();
-//		Location lastTo = lastMove.getTo();
-//		if (Math.abs(lastTo.getRow() - lastFrom.getRow()) != 2) {
-//			return false;
-//		}
-//		if (lastTo.getRow() != from.getRow()) {
-//			return false;
-//		}
-//		if (lastTo.getCol() != to.getCol()) {
-//			return false;
-//		}
-//		return true;
+//		return false;
+		if (movingPiece == null) {
+			return false;
+		}
+		if (movingPiece.getPieceType() != PieceType.PAWN) {
+			return false;
+		}
+		if (lastMove == null) {
+			return false;
+		}
+		Piece lastMovedPiece = lastMove.getMovedPiece();
+		if (lastMovedPiece == null || lastMovedPiece.getPieceType() != PieceType.PAWN) {
+			return false;
+		}
+		if (lastMovedPiece.getColor() == movingPiece.getColor()) {
+			return false;
+		}
+		if (!board.isEmpty(to)) {
+			return false;
+		}
+		int direction = movingPiece.getColor() == PieceColor.WHITE ? -1 : 1;
+		int rowDiff = to.getRow() - from.getRow();
+		int colDiff = Math.abs(to.getCol() - from.getCol());
+		if (rowDiff != direction || colDiff != 1) {
+			return false;
+		}
+		Location lastFrom = lastMove.getFrom();
+		Location lastTo = lastMove.getTo();
+		if (Math.abs(lastTo.getRow() - lastFrom.getRow()) != 2) {
+			return false;
+		}
+		if (lastTo.getRow() != from.getRow()) {
+			return false;
+		}
+		if (lastTo.getCol() != to.getCol()) {
+			return false;
+		}
+		return true;
 	}
 	public boolean isCastleMove(Location from, Location to, Piece king) {
-		return false;
-//		if (king == null || king.getPieceType() != PieceType.KING || king.hasMoved()) {
-//			return false;
-//		}
-//		if (from.getRow() != to.getRow()) {
-//			return false;
-//		}
-//		if (Math.abs(to.getCol() - from.getCol()) != 2) {
-//			return false;
-//		}
-//		int row = from.getRow();
-//		boolean kingSide = to.getCol() > from.getCol();
-//		Location rookFrom = new Location(row, kingSide ? 7 : 0);
-//		Piece rook = board.getPiece(rookFrom);
-//		if (rook == null || rook.getPieceType() != PieceType.ROOK) {
-//			return false;
-//		}
-//		if (rook.getColor() != king.getColor() || rook.hasMoved()) {
-//			return false;
-//		}
-//		int startCol = Math.min(from.getCol(), rookFrom.getCol()) + 1;
-//		int endCol = Math.max(from.getCol(), rookFrom.getCol()) - 1;
-//		for (int col = startCol; col <= endCol; col++) {
-//			if (!board.isEmpty(new Location(row, col))) {
-//				return false;
-//			}
-//		}
-//		return true;
+//		return false;
+		if (king == null || king.getPieceType() != PieceType.KING || king.hasMoved()) {
+			return false;
+		}
+		if (from.getRow() != to.getRow()) {
+			return false;
+		}
+		if (Math.abs(to.getCol() - from.getCol()) != 2) {
+			return false;
+		}
+		int row = from.getRow();
+		boolean kingSide = to.getCol() > from.getCol();
+		Location rookFrom = new Location(row, kingSide ? 7 : 0);
+		Piece rook = board.getPiece(rookFrom);
+		if (rook == null || rook.getPieceType() != PieceType.ROOK) {
+			return false;
+		}
+		if (rook.getColor() != king.getColor() || rook.hasMoved()) {
+			return false;
+		}
+		int startCol = Math.min(from.getCol(), rookFrom.getCol()) + 1;
+		int endCol = Math.max(from.getCol(), rookFrom.getCol()) - 1;
+		for (int col = startCol; col <= endCol; col++) {
+			if (!board.isEmpty(new Location(row, col))) {
+				return false;
+			}
+		}
+		return true;
 	}
 	public void performCastle(Location kingFrom, Location kingTo) {
-//		int row = kingFrom.getRow();
-//		boolean kingSide = kingTo.getCol() > kingFrom.getCol();
-//		Location rookFrom = new Location(row, kingSide ? 7 : 0);
-//		Location rookTo = new Location(row, kingSide ? 5 : 3);
-//		board.movePiece(kingFrom, kingTo);
-//		board.movePiece(rookFrom, rookTo);
-//		board.getPiece(kingTo).setMoved(true);
-//		board.getPiece(rookTo).setMoved(true);
+		int row = kingFrom.getRow();
+		boolean kingSide = kingTo.getCol() > kingFrom.getCol();
+		Location rookFrom = new Location(row, kingSide ? 7 : 0);
+		Location rookTo = new Location(row, kingSide ? 5 : 3);
+		board.movePiece(kingFrom, kingTo);
+		board.movePiece(rookFrom, rookTo);
+		board.getPiece(kingTo).setMoved(true);
+		board.getPiece(rookTo).setMoved(true);
 	}
 	public String createNotation(
 			Location from,

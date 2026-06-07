@@ -273,7 +273,57 @@
 - **Expected output:** return pawn from (3,4) -> (2,5),captures PAWN en passant
 - **Implemented:*implemented*
 
-- **TC55: createNotation_promotion** ()
+- **TC56: createNotation_promotion** ()
 - **State of the system:**promotion type is Bishop, from (6,4) to (7,4)
 - **Expected output:** return pawn from (6,4) -> (7,4),promotes to Bishop
+- **Implemented:*implemented*
+
+- **TC57: isCastleMove_false** ()
+- **State of the system:**king from (7,4) to (7,5)
+- **Expected output:** false
+- **Implemented:*implemented*
+
+- **TC58: isCastleMove_differentRow_false** ()
+- **State of the system:**king from (7,4) to (6,4)
+- **Expected output:** false
+- **Implemented:*implemented*
+
+- **TC59: isCastleMove_blocked_false** ()
+- **State of the system:**king from (7,4) rook at (7,7), blocked by rook at (7,5)
+- **Expected output:** false
+- **Implemented:*implemented*
+
+- **TC60: isCastleMove_move3Col_false** ()
+- **State of the system:**king from (7,4) to (7,7)
+- **Expected output:** false
+- **Implemented:*implemented*
+
+- **TC61: isCastleMove_true** ()
+- **State of the system:**king from (7,4), rook at (7,7)
+- **Expected output:** true
+- **Implemented:*implemented*
+
+- **TC62: performCastle** ()
+- **State of the system:**king from (7,4), rook at (7,7)
+- **Expected output:** sets both piece to moved
+- **Implemented:*implemented*
+
+- **TC63: isEnPassantMove_false** ()
+- **State of the system:**pawn from (3,4) to (2,4)
+- **Expected output:** false
+- **Implemented:*implemented*
+
+- **TC64: isEnPassantMove_cross2Col_false** ()
+- **State of the system:**pawn from (3,4) to (2,6)
+- **Expected output:** false
+- **Implemented:*implemented*
+
+- **TC65: isEnPassantMove_previousMove1Row_false** ()
+- **State of the system:**previous pawn from (2,5) to (3,5)
+- **Expected output:** false
+- **Implemented:*implemented*
+
+- **TC66: isEnPassantMove_true** ()
+- **State of the system:**previous pawn from (1,5) to (3,5), current pawn at (3,4) move to (2,5)
+- **Expected output:** true
 - **Implemented:*implemented*
