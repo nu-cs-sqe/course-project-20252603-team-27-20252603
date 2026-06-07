@@ -15,6 +15,8 @@ public class Game {
 	Move lastMove;
 	int halfMoveClock;
 	Map<String, Integer> positionHistory;
+	int enPassant;
+	int castle;
 
 	@SuppressFBWarnings(
 			value = "EI_EXPOSE_REP2",
@@ -36,6 +38,8 @@ public class Game {
 		this.lastMove = lastMove;
 		this.halfMoveClock = halfMoveClock;
 		this.positionHistory=positionHistory;
+		enPassant=0;
+		castle=0;
 	}
 	@SuppressFBWarnings(
 			value = "EI_EXPOSE_REP2",
@@ -45,8 +49,8 @@ public class Game {
 		if (!p1.getName().equals(p2.getName())) {
 			this.white = p1;
 			this.black = p2;
-			white.setColor(Color.WHITE);
-			black.setColor(Color.BLACK);
+			white.setColor(PieceColor.WHITE);
+			black.setColor(PieceColor.BLACK);
 			currentPlayer = white;
 			board.initBoard();
 		}
@@ -61,6 +65,8 @@ public class Game {
 							"when the source square is empty."
 	)
 	public MoveResult makeMove(Location from, Location to, PieceType type){
+		boolean isCastle=false;
+		boolean isEnPassant=false;
 		if (!board.isInsideBoard(from) || !board.isInsideBoard(to)){
 			return MoveResult.INVALID_OUT_OF_BOUNDS;
 		}
@@ -78,28 +84,39 @@ public class Game {
 			if (isInCheck(currentPlayer.getColor())) {
 				return MoveResult.INVALID_SELF_CHECK;
 			}
-			if(piece.getType()==PieceType.PAWN ||
+			if(piece.getPieceType()==PieceType.PAWN ||
 					(object!=null &&
 					object.getColor()!=piece.getColor())){
 				halfMoveClock=0;
 			}
 			halfMoveClock += 1;
-			Move move = new Move(from, to);
-			lastMove = move;
-			moveHistory.add(move);
 			if (halfMoveClock > 100) {
 				return MoveResult.DRAW;
 			}
-			board.movePiece(from, to);
-			if ((piece.getType() == PieceType.PAWN &&
-					piece.getColor() == Color.BLACK && to.getRow() == 7)
-					||(piece.getType() == PieceType.PAWN &&piece.getColor()
-					== Color.WHITE && to.getRow() == 0)) {
+			if (isEnPassantMove(from, to, piece)){
+				enPassant+=1;
+				Location capturedPawn = lastMove.getTo();
+				object = board.getPiece(capturedPawn);
+				board.setPiece(capturedPawn, null);
+				isEnPassant=true;
+			}
+			else if (isCastleMove(from,to,piece)){
+				performCastle(from,to);
+				isCastle=true;
+			}else {board.movePiece(from, to);}
+			String notation=createNotation(from,to,piece,object,type,isCastle,isEnPassant);
+			Move move = new Move(from, to, piece, object, type, isCastle, isEnPassant,notation);
+			lastMove = move;
+			moveHistory.add(move);
+			piece.setMoved(true);
+			if ((piece.getPieceType() == PieceType.PAWN &&
+					piece.getColor() == PieceColor.BLACK && to.getRow() == 7)
+					||(piece.getPieceType() == PieceType.PAWN &&piece.getColor()
+					== PieceColor.WHITE && to.getRow() == 0)) {
 				Piece newPiece=createPromotedPiece(type,piece.getColor());
 				board.setPiece(to, newPiece);
-//				piece=type;
+				newPiece.setMoved(true);
 			}
-//				positionHistory.add(board.toPositionString);
 			int count = positionHistory.getOrDefault
 					(board.toPositionString() + currentPlayer.getName(), 0);
 			positionHistory.put(
@@ -119,13 +136,12 @@ public class Game {
 				status=GameStatus.DRAW;
 				return MoveResult.STALEMATE;
 			}
-			if (currentPlayer.getColor()==Color.WHITE){
+			if (currentPlayer.getColor()==PieceColor.WHITE){
 				status=GameStatus.WHITE_TURN;
 			}else{
 				status=GameStatus.BLACK_TURN;
 			}
 			return MoveResult.VALID;
-//		} else if (!piece.canMove(board, from,to)) {
 		}else{
 			return MoveResult.INVALID_ILLEGAL_PIECE_MOVE;
 		}
@@ -140,14 +156,11 @@ public class Game {
 			currentPlayer=white;
 		}
 	}
-	public boolean isInCheck(Color color) {
+	public boolean isInCheck(PieceColor color) {
 		Location kingLocation = board.findKing(color);
-//		if (kingLocation == null) {
-//			return false;
-//		}
-		Color opponentColor=Color.WHITE;
-		if(color==Color.WHITE){
-			opponentColor = Color.BLACK;
+		PieceColor opponentColor=PieceColor.WHITE;
+		if(color==PieceColor.WHITE){
+			opponentColor = PieceColor.BLACK;
 		}
 		for (int row = 0; row < 8; row++) {
 			for (int col = 0; col < 8; col++) {
@@ -155,7 +168,7 @@ public class Game {
 				Piece piece = board.getPiece(from);
 				if (piece != null && piece.getColor() == opponentColor) {
 					if (piece.canMove(board, from, kingLocation)) {
-						if (opponentColor==Color.WHITE){
+						if (opponentColor==PieceColor.WHITE){
 							status=GameStatus.BLACK_IN_CHECK;
 						}else{
 							status=GameStatus.WHITE_IN_CHECK;
@@ -167,14 +180,13 @@ public class Game {
 		}
 		return false;
 	}
-	public boolean isCheckmate(Color color){
+	public boolean isCheckmate(PieceColor color){
 		if (!isInCheck(color)){
 			return false;
 		}
-//		Location kingLocation = board.findKing(color);
-		Color opponentColor=Color.WHITE;
-		if(color==Color.WHITE){
-			opponentColor = Color.BLACK;
+		PieceColor opponentColor=PieceColor.WHITE;
+		if(color==PieceColor.WHITE){
+			opponentColor = PieceColor.BLACK;
 		}
 		for (int row = 0; row < 8; row++) {
 			for (int col = 0; col < 8; col++) {
@@ -201,7 +213,7 @@ public class Game {
 				}
 			}
 		}
-		if (opponentColor==Color.WHITE){
+		if (opponentColor==PieceColor.WHITE){
 			status=GameStatus.WHITE_WIN;
 		}else {
 			status=GameStatus.BLACK_WIN;
@@ -209,15 +221,10 @@ public class Game {
 		return true;
 	}
 
-	public boolean isStalemate(Color color){
+	public boolean isStalemate(PieceColor color){
 		if (isInCheck(color)){
 			return false;
 		}
-//		Location kingLocation = board.findKing(color);
-//		Color opponentColor=Color.WHITE;
-//		if(color==Color.WHITE){
-//			opponentColor = Color.BLACK;
-//		}
 		for (int row = 0; row < 8; row++) {
 			for (int col = 0; col < 8; col++) {
 				Location from = new Location(row, col);
@@ -248,16 +255,16 @@ public class Game {
 		status=GameStatus.DRAW;
 		return true;
 	}
-	public Piece createPromotedPiece(PieceType promotionType, Color color) {
+	public Piece createPromotedPiece(PieceType promotionType, PieceColor color) {
 		switch (promotionType) {
 			case QUEEN:
-				return new Queen(color);
+				return new Piece(PieceType.QUEEN,color);
 			case ROOK:
-				return new Rook(color);
+				return new Piece(PieceType.ROOK,color);
 			case BISHOP:
-				return new Bishop(color);
+				return new Piece(PieceType.BISHOP,color);
 			default:
-				return new Knight(color);
+				return new Piece(PieceType.KNIGHT,color);
 		}
 	}
 	public void  resign(){
@@ -273,10 +280,117 @@ public class Game {
 		return lastMove;
 	}
 	public void timeOut(){
-		if (currentPlayer.getColor()==Color.WHITE){
+		if (currentPlayer.getColor()==PieceColor.WHITE){
 			status=GameStatus.BLACK_WIN;
 		}else{
 			status=GameStatus.WHITE_WIN;
 		}
+	}
+	public boolean isEnPassantMove(Location from, Location to, Piece movingPiece) {
+		return false;
+		//		if (movingPiece == null) {
+//			return false;
+//		}
+//		if (movingPiece.getPieceType() != PieceType.PAWN) {
+//			return false;
+//		}
+//		if (lastMove == null) {
+//			return false;
+//		}
+//		Piece lastMovedPiece = lastMove.getMovedPiece();
+//		if (lastMovedPiece == null || lastMovedPiece.getPieceType() != PieceType.PAWN) {
+//			return false;
+//		}
+//		if (lastMovedPiece.getColor() == movingPiece.getColor()) {
+//			return false;
+//		}
+//		if (!board.isEmpty(to)) {
+//			return false;
+//		}
+//		int direction = movingPiece.getColor() == PieceColor.WHITE ? -1 : 1;
+//		int rowDiff = to.getRow() - from.getRow();
+//		int colDiff = Math.abs(to.getCol() - from.getCol());
+//		if (rowDiff != direction || colDiff != 1) {
+//			return false;
+//		}
+//		Location lastFrom = lastMove.getFrom();
+//		Location lastTo = lastMove.getTo();
+//		if (Math.abs(lastTo.getRow() - lastFrom.getRow()) != 2) {
+//			return false;
+//		}
+//		if (lastTo.getRow() != from.getRow()) {
+//			return false;
+//		}
+//		if (lastTo.getCol() != to.getCol()) {
+//			return false;
+//		}
+//		return true;
+	}
+	public boolean isCastleMove(Location from, Location to, Piece king) {
+		return false;
+//		if (king == null || king.getPieceType() != PieceType.KING || king.hasMoved()) {
+//			return false;
+//		}
+//		if (from.getRow() != to.getRow()) {
+//			return false;
+//		}
+//		if (Math.abs(to.getCol() - from.getCol()) != 2) {
+//			return false;
+//		}
+//		int row = from.getRow();
+//		boolean kingSide = to.getCol() > from.getCol();
+//		Location rookFrom = new Location(row, kingSide ? 7 : 0);
+//		Piece rook = board.getPiece(rookFrom);
+//		if (rook == null || rook.getPieceType() != PieceType.ROOK) {
+//			return false;
+//		}
+//		if (rook.getColor() != king.getColor() || rook.hasMoved()) {
+//			return false;
+//		}
+//		int startCol = Math.min(from.getCol(), rookFrom.getCol()) + 1;
+//		int endCol = Math.max(from.getCol(), rookFrom.getCol()) - 1;
+//		for (int col = startCol; col <= endCol; col++) {
+//			if (!board.isEmpty(new Location(row, col))) {
+//				return false;
+//			}
+//		}
+//		return true;
+	}
+	public void performCastle(Location kingFrom, Location kingTo) {
+//		int row = kingFrom.getRow();
+//		boolean kingSide = kingTo.getCol() > kingFrom.getCol();
+//		Location rookFrom = new Location(row, kingSide ? 7 : 0);
+//		Location rookTo = new Location(row, kingSide ? 5 : 3);
+//		board.movePiece(kingFrom, kingTo);
+//		board.movePiece(rookFrom, rookTo);
+//		board.getPiece(kingTo).setMoved(true);
+//		board.getPiece(rookTo).setMoved(true);
+	}
+	public String createNotation(
+			Location from,
+			Location to,
+			Piece movedPiece,
+			Piece capturedPiece,
+			PieceType promotionType,
+			boolean isCastle,
+			boolean isEnPassant) {
+		if (isCastle) {
+			return to.getCol() == 6 ? "O-O" : "O-O-O";
+		}
+//		String notation = movedPiece.getPieceType()
+//				+ " (" + from.getRow() + "," + from.getCol() + ")"
+//				+ " -> "
+//				+ "(" + to.getRow() + "," + to.getCol() + ")";
+//		if (capturedPiece != null) {
+//			notation += " captures " + capturedPiece.getPieceType();
+//		}
+//		if (isEnPassant) {
+//			notation += " en passant";
+//		}
+//		if (promotionType != null) {
+//			notation += " promotes to " + promotionType;
+//		}
+//		return notation;
+		return "";
 	}
 }

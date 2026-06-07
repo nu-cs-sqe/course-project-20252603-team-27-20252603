@@ -5,9 +5,9 @@ public class Player {
 		return "";
 	}
 
-	public void setColor(Color color) {
+	public void setColor(PieceColor color) {
 	}
-	public Color getColor(){
+	public PieceColor getColor(){
 		throw new UnsupportedOperationException("Not implemented yet");
 	}
 }
