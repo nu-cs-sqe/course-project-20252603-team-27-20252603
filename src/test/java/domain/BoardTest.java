@@ -285,4 +285,24 @@ class BoardTest {
 
 		assertEquals(expected, board.toPositionString());
 	}
+
+	@Test
+	void constructorHandlesNullRowsSafely() {
+		Piece[][] pieces = new Piece[Board.TOTAL_ROWS][];
+
+		pieces[1] = new Piece[Board.TOTAL_COLS];
+		Piece mockPiece = EasyMock.createMock(Piece.class);
+		pieces[1][0] = mockPiece;
+
+		EasyMock.expect(mockPiece.getPieceType()).andStubReturn(PieceType.PAWN);
+		EasyMock.expect(mockPiece.getColor()).andStubReturn(PieceColor.WHITE);
+		EasyMock.replay(mockPiece);
+
+		Board board = new Board(pieces);
+
+		assertTrue(board.isEmpty(new Location(0, 0)));
+
+		assertNotNull(board.getPiece(new Location(1, 0)));
+		EasyMock.verify(mockPiece);
+	}
 }
