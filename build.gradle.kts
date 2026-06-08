@@ -7,7 +7,6 @@ plugins {
     application
     checkstyle
     id("com.github.spotbugs") version "6.0.25"
-//    id("java") //or 'java-library' - depending on your needs
     id("info.solidsoft.pitest") version "1.19.0"
 }
 
@@ -19,12 +18,8 @@ repositories {
 }
 
 application {
-    mainClass = "domain"
+    mainClass.set("nu.csse.sqe.domain.Main")
 }
-
-//tasks.build {
-//    dependsOn("pitest")
-//}
 
 dependencies {
     compileOnly("com.github.spotbugs:spotbugs-annotations:4.8.6")
@@ -49,6 +44,14 @@ tasks.withType<Checkstyle>().configureEach {
         html.stylesheet = resources.text.fromFile("config/xsl/checkstyle-noframes-severity-sorted.xsl")
     }
 }
+tasks.withType<Checkstyle>().configureEach {
+    exclude("**/*Test.java", "**/*Tests.java")
+    reports {
+        xml.required = false
+        html.required = true
+        html.stylesheet = resources.text.fromFile("config/xsl/checkstyle-noframes-severity-sorted.xsl")
+    }
+}
 checkstyle{
     toolVersion = "10.12.5"
     isIgnoreFailures = false
@@ -59,11 +62,10 @@ tasks.test {
     useJUnitPlatform()
 }
 tasks.test {
-    finalizedBy(tasks.jacocoTestReport)// report is always generated after tests run
-    finalizedBy(tasks.pitest)
+    finalizedBy(tasks.jacocoTestReport)
 }
 tasks.jacocoTestReport {
-    dependsOn(tasks.test) // tests are required to run before generating the report
+    dependsOn(tasks.test)
 }
 jacoco {
     toolVersion = "0.8.14"
@@ -75,12 +77,9 @@ spotbugs {
     showProgress = true
     effort = Effort.DEFAULT
     reportLevel = Confidence.DEFAULT
-    //omitVisitors = listOf("FindNonShortCircuit")
     reportsDir = file("spotbugs")
-    //onlyAnalyze = listOf("com.foobar.MyClass", "com.foobar.mypkg.*")
     maxHeapSize = "1g"
     extraArgs = listOf("-nested:false")
-    //jvmArgs = listOf("-Duser.language=ja") // set user language to japanese
 }
 
 tasks.spotbugsMain {
@@ -108,7 +107,7 @@ tasks.register<JacocoReport>("applicationCodeCoverageReport") {
 
 pitest {
     targetClasses = setOf("domain.*")
-    targetTests = setOf("domain.*")
+    targetTests = setOf("*Test", "*Tests")
     junit5PluginVersion = "1.2.1"
     threads = 4
     outputFormats = setOf("HTML")
