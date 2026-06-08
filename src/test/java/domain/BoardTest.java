@@ -26,14 +26,19 @@ class BoardTest {
 		pieces[6] = new Piece[Board.TOTAL_COLS];
 		Piece original = EasyMock.createMock(Piece.class);
 		pieces[6][0] = original;
-
-		EasyMock.expect(original.makeCopy()).andStubReturn(original);
+		
+		EasyMock.expect(original.getPieceType()).andStubReturn(PieceType.PAWN);
+		EasyMock.expect(original.getColor()).andStubReturn(PieceColor.WHITE);
 		EasyMock.replay(original);
-
+		
 		Board board = new Board(pieces);
-
 		assertTrue(board.isEmpty(new Location(0, 0)));
-		assertSame(original, board.getPiece(new Location("a2")));
+		
+		Piece copiedPiece = board.getPiece(new Location(6, 0));
+		assertNotSame(original, copiedPiece);
+		assertEquals(PieceType.PAWN, copiedPiece.getPieceType());
+		assertEquals(PieceColor.WHITE, copiedPiece.getColor());
+		
 		EasyMock.verify(original);
 	}
 
@@ -42,7 +47,7 @@ class BoardTest {
 		Board board = new Board();
 		board.initBoard();
 
-		Location loc = new Location("a2");
+		Location loc = new Location(6,0);
 		Piece before = board.getPiece(loc);
 		assertNotNull(before);
 		Piece replacement = EasyMock.createMock(Piece.class);
@@ -61,7 +66,7 @@ class BoardTest {
 		Board board = new Board();
 		board.clearBoard();
 
-		Location loc = new Location("e4");
+		Location loc = new Location(4,4);
 		assertTrue(board.isEmpty(loc));
 		Piece replacement = EasyMock.createMock(Piece.class);
 		EasyMock.replay(replacement);
@@ -132,9 +137,9 @@ class BoardTest {
 
 		board.initBoard();
 
-		Piece piece = board.getPiece(new Location("a2"));
+		Piece piece = board.getPiece(new Location(6,0));
 		assertNotNull(piece);
-		assertEquals(PieceColor.WHITE, piece.getPieceColor());
+		assertEquals(PieceColor.WHITE, piece.getColor());
 		assertEquals(PieceType.PAWN, piece.getPieceType());
 	}
 
@@ -144,9 +149,9 @@ class BoardTest {
 
 		board.initBoard();
 
-		Piece piece = board.getPiece(new Location("a8"));
+		Piece piece = board.getPiece(new Location(0,0));
 		assertNotNull(piece);
-		assertEquals(PieceColor.BLACK, piece.getPieceColor());
+		assertEquals(PieceColor.BLACK, piece.getColor());
 		assertEquals(PieceType.ROOK, piece.getPieceType());
 	}
 
@@ -156,7 +161,7 @@ class BoardTest {
 
 		board.initBoard();
 
-		assertTrue(board.isEmpty(new Location("e4")));
+		assertTrue(board.isEmpty(new Location(4,4)));
 	}
 
 	@Test
@@ -165,7 +170,7 @@ class BoardTest {
 
 		board.initBoard();
 
-		assertFalse(board.isEmpty(new Location("a1")));
+		assertFalse(board.isEmpty(new Location(7,0)));
 	}
 
 	@Test
@@ -176,7 +181,7 @@ class BoardTest {
 
 		board.initBoard();
 
-		assertTrue(board.isEmpty(new Location("e4")));
+		assertTrue(board.isEmpty(new Location(4,4)));
 	}
 
 	@Test
@@ -187,44 +192,36 @@ class BoardTest {
 
 		board.clearBoard();
 
-		assertTrue(board.isEmpty(new Location("a1")));
-		assertTrue(board.isEmpty(new Location("h8")));
+		assertTrue(board.isEmpty(new Location(7,0)));
+		assertTrue(board.isEmpty(new Location(0,7)));
 	}
 
 	@Test
 	void getSnapshotReturnsDeepCopyOfPieces() {
-		// create a mock piece and mock copy, inject into board via test constructor
 		Piece original = EasyMock.createMock(Piece.class);
-		Piece copy = EasyMock.createMock(Piece.class);
-
-		EasyMock.expect(original.makeCopy()).andReturn(copy);
-		EasyMock.expect(original.getPieceColor()).andStubReturn(PieceColor.WHITE);
+		EasyMock.expect(original.getColor()).andStubReturn(PieceColor.WHITE);
 		EasyMock.expect(original.getPieceType()).andStubReturn(PieceType.PAWN);
-		EasyMock.expect(copy.getPieceColor()).andStubReturn(PieceColor.WHITE);
-		EasyMock.expect(copy.getPieceType()).andStubReturn(PieceType.PAWN);
-
-		EasyMock.replay(original, copy);
-
+		EasyMock.replay(original);
+		
 		Piece[][] pieces = new Piece[Board.TOTAL_ROWS][Board.TOTAL_COLS];
-		pieces[6][0] = original; // a2
-
+		pieces[6][0] = original; 
 		Board board = new Board(pieces);
-
 		Piece[][] snapshot = board.getSnapshot();
-
+		
 		assertNotSame(original, snapshot[6][0]);
-		assertEquals(original.getPieceColor(), snapshot[6][0].getPieceColor());
-		assertEquals(original.getPieceType(), snapshot[6][0].getPieceType());
-		EasyMock.verify(original, copy);
+		assertEquals(PieceColor.WHITE, snapshot[6][0].getColor());
+		assertEquals(PieceType.PAWN, snapshot[6][0].getPieceType());
+		
+		EasyMock.verify(original);
 	}
 
 	@Test
 	void movePieceMovesPieceAndEmptiesSource() {
 		Board board = new Board();
 		board.initBoard();
-		Piece pawn = board.getPiece(new Location("a2"));
-		Location from = new Location("a2");
-		Location to = new Location("a3");
+		Piece pawn = board.getPiece(new Location(6,0));
+		Location from = new Location(6,0);
+		Location to = new Location(5,0);
 
 		board.movePiece(from, to);
 
@@ -236,9 +233,9 @@ class BoardTest {
 	void movePieceCapturesOpponentPiece() {
 		Board board = new Board();
 		board.initBoard();
-		Piece whitePawn = board.getPiece(new Location("a2"));
-		Location from = new Location("a2");
-		Location to = new Location("a7");
+		Piece whitePawn = board.getPiece(new Location(6,0));
+		Location from = new Location(6,0);
+		Location to = new Location(1,0);
 
 		board.movePiece(from, to);
 
@@ -252,7 +249,7 @@ class BoardTest {
 
 		board.initBoard();
 
-		Location kingLocation = new Location("e1");
+		Location kingLocation = new Location(7,4);
 		Location foundKing = board.findKing(PieceColor.WHITE);
 
 		assertEquals(kingLocation.getRow(), foundKing.getRow());
