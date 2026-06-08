@@ -40,28 +40,28 @@ public class Board {
 
 	public void initBoard() {
 		clearBoard();
-		pieces[0][0] = new Rook(Color.BLACK);
-		pieces[0][1] = new Knight(Color.BLACK);
-		pieces[0][2] = new Bishop(Color.BLACK);
-		pieces[0][3] = new Queen(Color.BLACK);
-		pieces[0][4] = new King(Color.BLACK);
-		pieces[0][5] = new Bishop(Color.BLACK);
-		pieces[0][6] = new Knight(Color.BLACK);
-		pieces[0][7] = new Rook(Color.BLACK);
+		pieces[0][0] = new Piece(PieceType.ROOK, PieceColor.BLACK);
+		pieces[0][1] = new Piece(PieceType.KNIGHT, PieceColor.BLACK);
+		pieces[0][2] = new Piece(PieceType.BISHOP, PieceColor.BLACK);
+		pieces[0][3] = new Piece(PieceType.QUEEN, PieceColor.BLACK);
+		pieces[0][4] = new Piece(PieceType.KING, PieceColor.BLACK);
+		pieces[0][5] = new Piece(PieceType.BISHOP, PieceColor.BLACK);
+		pieces[0][6] = new Piece(PieceType.KNIGHT, PieceColor.BLACK);
+		pieces[0][7] = new Piece(PieceType.ROOK, PieceColor.BLACK);
 
 		for (int col = 0; col < TOTAL_COLS; col++) {
-			pieces[1][col] = new Pawn(Color.BLACK);
-			pieces[6][col] = new Pawn(Color.WHITE);
+			pieces[1][col] = new Piece(PieceType.PAWN, PieceColor.BLACK);
+			pieces[6][col] = new Piece(PieceType.PAWN, PieceColor.WHITE);
 		}
 
-		pieces[7][0] = new Rook(Color.WHITE);
-		pieces[7][1] = new Knight(Color.WHITE);
-		pieces[7][2] = new Bishop(Color.WHITE);
-		pieces[7][3] = new Queen(Color.WHITE);
-		pieces[7][4] = new King(Color.WHITE);
-		pieces[7][5] = new Bishop(Color.WHITE);
-		pieces[7][6] = new Knight(Color.WHITE);
-		pieces[7][7] = new Rook(Color.WHITE);
+		pieces[7][0] = new Piece(PieceType.ROOK, PieceColor.WHITE);
+		pieces[7][1] = new Piece(PieceType.KNIGHT, PieceColor.WHITE);
+		pieces[7][2] = new Piece(PieceType.BISHOP, PieceColor.WHITE);
+		pieces[7][3] = new Piece(PieceType.QUEEN, PieceColor.WHITE);
+		pieces[7][4] = new Piece(PieceType.KING, PieceColor.WHITE);
+		pieces[7][5] = new Piece(PieceType.BISHOP, PieceColor.WHITE);
+		pieces[7][6] = new Piece(PieceType.KNIGHT, PieceColor.WHITE);
+		pieces[7][7] = new Piece(PieceType.ROOK, PieceColor.WHITE);
 	}
 
 	public Piece getPiece(Location location) {
@@ -98,11 +98,13 @@ public class Board {
 		return getPiece(location) == null;
 	}
 
-	public Location findKing(Color color) {
+	public Location findKing(PieceColor color) {
 		for (int row = 0; row < TOTAL_ROWS; row++) {
 			for (int col = 0; col < TOTAL_COLS; col++) {
 				Piece piece = pieces[row][col];
-				if (piece instanceof King && piece.getColor() == color) {
+				if (piece != null
+						&& piece.getPieceType() == PieceType.KING
+						&& piece.getPieceColor() == color) {
 					return new Location(row, col);
 				}
 			}
@@ -118,10 +120,8 @@ public class Board {
 				if (piece == null) {
 					builder.append('.');
 				} else {
-					char symbol = piece instanceof Knight
-							? 'N'
-							: piece.getType().charAt(0);
-					if (piece.getColor() == Color.BLACK) {
+					char symbol = piece.getPieceType().getBoardSymbol();
+					if (piece.getPieceColor() == PieceColor.BLACK) {
 						symbol = Character.toLowerCase(symbol);
 					}
 					builder.append(symbol);
