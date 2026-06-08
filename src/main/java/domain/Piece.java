@@ -1,19 +1,35 @@
 package domain;
 
-public abstract class Piece {
-	private final Color color;
+import java.util.Objects;
 
-	protected Piece(Color color) {
+public class Piece {
+	private final PieceType pieceType;
+	private final PieceColor pieceColor;
 
-		this.color = color;
+	public Piece(PieceType pieceType, PieceColor pieceColor) {
+		this.pieceType = Objects.requireNonNull(pieceType,
+				"pieceType must not be null");
+		this.pieceColor = Objects.requireNonNull(pieceColor,
+				"pieceColor must not be null");
 	}
 
-	public Color getColor() {
-
-		return color;
+	public PieceType getPieceType() {
+		return pieceType;
 	}
 
-	public abstract String getType();
+	public PieceColor getPieceColor() {
+		return pieceColor;
+	}
 
-	public abstract Piece makeCopy();
+	public PieceColor getColor() {
+		return pieceColor;
+	}
+
+	public String getType() {
+		return pieceType.getDisplayName();
+	}
+
+	public Piece makeCopy() {
+		return new Piece(pieceType, pieceColor);
+	}
 }
