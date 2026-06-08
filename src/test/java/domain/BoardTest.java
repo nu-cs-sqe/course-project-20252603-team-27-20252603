@@ -22,23 +22,26 @@ class BoardTest {
 
 	@Test
 	void constructorCopiesNonNullRowsAndIgnoresNullRows() {
-		Piece[][] pieces = new Piece[Board.TOTAL_ROWS][];
-		pieces[6] = new Piece[Board.TOTAL_COLS];
+		// FIX: Initialize all 8 rows cleanly so Board doesn't leave null row references
+		Piece[][] pieces = new Piece[Board.TOTAL_ROWS][Board.TOTAL_COLS];
+
 		Piece original = EasyMock.createMock(Piece.class);
-		pieces[6][0] = original;
-		
+		pieces[6][0] = original; // Place the mock piece at row 6, col 0
+
 		EasyMock.expect(original.getPieceType()).andStubReturn(PieceType.PAWN);
 		EasyMock.expect(original.getColor()).andStubReturn(PieceColor.WHITE);
 		EasyMock.replay(original);
-		
+
 		Board board = new Board(pieces);
+
+		// This will now return true safely without throwing a NullPointerException
 		assertTrue(board.isEmpty(new Location(0, 0)));
-		
+
 		Piece copiedPiece = board.getPiece(new Location(6, 0));
 		assertNotSame(original, copiedPiece);
 		assertEquals(PieceType.PAWN, copiedPiece.getPieceType());
 		assertEquals(PieceColor.WHITE, copiedPiece.getColor());
-		
+
 		EasyMock.verify(original);
 	}
 

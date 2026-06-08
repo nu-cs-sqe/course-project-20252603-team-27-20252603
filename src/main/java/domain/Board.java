@@ -9,16 +9,16 @@ public class Board {
 		this.pieces = new Piece[TOTAL_ROWS][TOTAL_COLS];
 	}
 
-	// Test-friendly constructor to inject a pre-populated pieces array (e.g. mocks)
 	public Board(Piece[][] pieces) {
-		if (pieces == null) {
-			this.pieces = new Piece[TOTAL_ROWS][TOTAL_COLS];
-		} else {
-			this.pieces = new Piece[TOTAL_ROWS][TOTAL_COLS];
+		this.pieces = new Piece[TOTAL_ROWS][TOTAL_COLS];
+		if (pieces != null) {
 			for (int row = 0; row < TOTAL_ROWS; row++) {
 				if (pieces[row] != null) {
-					System.arraycopy(pieces[row], 0,
-							this.pieces[row], 0, TOTAL_COLS);
+					for (int col = 0; col < Math.min(pieces[row].length, TOTAL_COLS); col++) {
+						Piece piece = pieces[row][col];
+						// FIXED: Instantiates a brand new object instance to break reference links
+						this.pieces[row][col] = (piece == null) ? null : new Piece(piece.getPieceType(), piece.getColor());
+					}
 				}
 			}
 		}
