@@ -1,115 +1,214 @@
 package domain;
 
 import org.junit.jupiter.api.Test;
+import static org.junit.jupiter.api.Assertions.*;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertThrows;
+public class LocationTest {
 
-class LocationTest {
 	@Test
-	void locationValidMinMinReturnsRow7Col0() {
-		Location location = new Location("a1");
+	public void testGetRow_minimumBoundary() {
+		Location location = new Location(0, 4);
+		assertEquals(0, location.getRow());
+	}
 
+	@Test
+	public void testGetRow_maximumBoundary() {
+		Location location = new Location(7, 4);
 		assertEquals(7, location.getRow());
+	}
+
+	@Test
+	public void testGetCol_minimumBoundary() {
+		Location location = new Location(4, 0);
 		assertEquals(0, location.getCol());
 	}
 
 	@Test
-	void locationValidMaxMaxReturnsRow0Col7() {
-		Location location = new Location("h8");
+	public void testGetCol_maximumBoundary() {
+		Location location = new Location(4, 7);
+		assertEquals(7, location.getCol());
+	}
 
+	@Test
+	public void testGetRowAndCol_bothMinimumBoundary() {
+		Location location = new Location(0, 0);
+		assertEquals(0, location.getRow());
+		assertEquals(0, location.getCol());
+	}
+
+	@Test
+	public void testGetRowAndCol_bothMaximumBoundary() {
+		Location location = new Location(7, 7);
+		assertEquals(7, location.getRow());
+		assertEquals(7, location.getCol());
+	}
+
+	@Test
+	public void testGetRowAndCol_minRowMaxCol() {
+		Location location = new Location(0, 7);
 		assertEquals(0, location.getRow());
 		assertEquals(7, location.getCol());
 	}
 
 	@Test
-	void locationEmptyStringThrowsIllegalArgumentException() {
-		assertThrows(IllegalArgumentException.class, () -> new Location(""));
-	}
-
-	@Test
-	void locationValidA2ReturnsRow6Col0() {
-		Location location = new Location("a2");
-
-		assertEquals(6, location.getRow());
-		assertEquals(0, location.getCol());
-	}
-
-	@Test
-	void locationValidA3ReturnsRow5Col0() {
-		Location location = new Location("a3");
-
-		assertEquals(5, location.getRow());
-		assertEquals(0, location.getCol());
-	}
-
-	@Test
-	void locationValidA7ReturnsRow1Col0() {
-		Location location = new Location("a7");
-
-		assertEquals(1, location.getRow());
-		assertEquals(0, location.getCol());
-	}
-
-	@Test
-	void locationValidA8ReturnsRow0Col0() {
-		Location location = new Location("a8");
-
-		assertEquals(0, location.getRow());
-		assertEquals(0, location.getCol());
-	}
-
-	@Test
-	void locationValidE4ReturnsRow4Col4() {
-		Location location = new Location("e4");
-
-		assertEquals(4, location.getRow());
-		assertEquals(4, location.getCol());
-	}
-
-	@Test
-	void locationValidE1ReturnsRow7Col4() {
-		Location location = new Location("e1");
-
+	public void testGetRowAndCol_maxRowMinCol() {
+		Location location = new Location(7, 0);
 		assertEquals(7, location.getRow());
-		assertEquals(4, location.getCol());
+		assertEquals(0, location.getCol());
 	}
 
 	@Test
-	void locationUnsupportedSquareThrowsUnsupportedOperationException() {
-		assertThrows(UnsupportedOperationException.class, () -> new Location("b2"));
+	public void testEquals_sameMinimumBoundaryCorner() {
+		Location a = new Location(0, 0);
+		Location b = new Location(0, 0);
+		assertTrue(a.equals(b));
 	}
 
 	@Test
-	void locationStringTooLongThrowsIllegalArgumentException() {
-		assertThrows(IllegalArgumentException.class, () -> new Location("a12"));
+	public void testEquals_sameMaximumBoundaryCorner() {
+		Location a = new Location(7, 7);
+		Location b = new Location(7, 7);
+		assertTrue(a.equals(b));
 	}
 
 	@Test
-	void locationFileJustBelowValidThrowsIllegalArgumentException() {
-		assertThrows(IllegalArgumentException.class, () -> new Location("`1"));
+	public void testEquals_sameMinRowMaxCol() {
+		Location a = new Location(0, 7);
+		Location b = new Location(0, 7);
+		assertTrue(a.equals(b));
 	}
 
 	@Test
-	void locationFileJustAboveValidThrowsIllegalArgumentException() {
-		assertThrows(IllegalArgumentException.class, () -> new Location("i1"));
+	public void testEquals_sameMaxRowMinCol() {
+		Location a = new Location(7, 0);
+		Location b = new Location(7, 0);
+		assertTrue(a.equals(b));
 	}
 
 	@Test
-	void locationRankJustBelowValidThrowsIllegalArgumentException() {
-		assertThrows(IllegalArgumentException.class, () -> new Location("a0"));
+	public void testEquals_sameReference_minimumBoundary() {
+		Location a = new Location(0, 0);
+		assertTrue(a.equals(a));
 	}
 
 	@Test
-	void locationRankJustAboveValidThrowsIllegalArgumentException() {
-		assertThrows(IllegalArgumentException.class, () -> new Location("a9"));
+	public void testEquals_sameReference_maximumBoundary() {
+		Location a = new Location(7, 7);
+		assertTrue(a.equals(a));
 	}
 
 	@Test
-	void locationIntConstructorSetsRowAndCol() {
-		Location location = new Location(3, 5);
+	public void testEquals_rowDiffers_aAtMinBoundary() {
+		Location a = new Location(0, 4);
+		Location b = new Location(1, 4);
+		assertFalse(a.equals(b));
+	}
 
-		assertEquals(3, location.getRow());
-		assertEquals(5, location.getCol());
+	@Test
+	public void testEquals_rowDiffers_aAtMaxBoundary() {
+		Location a = new Location(7, 4);
+		Location b = new Location(6, 4);
+		assertFalse(a.equals(b));
+	}
+
+	@Test
+	public void testEquals_colDiffers_aAtMinBoundary() {
+		Location a = new Location(4, 0);
+		Location b = new Location(4, 1);
+		assertFalse(a.equals(b));
+	}
+
+	@Test
+	public void testEquals_colDiffers_aAtMaxBoundary() {
+		Location a = new Location(4, 7);
+		Location b = new Location(4, 6);
+		assertFalse(a.equals(b));
+	}
+
+	@Test
+	public void testEquals_bothDiffer_aAtMinCorner_bAtMaxCorner() {
+		Location a = new Location(0, 0);
+		Location b = new Location(7, 7);
+		assertFalse(a.equals(b));
+	}
+
+	@Test
+	public void testEquals_bothDiffer_aAtMaxCorner_bAtMinCorner() {
+		Location a = new Location(7, 7);
+		Location b = new Location(0, 0);
+		assertFalse(a.equals(b));
+	}
+
+	@Test
+	public void testEquals_bothDiffer_aAtMinRowMaxCol_bAtMaxRowMinCol() {
+		Location a = new Location(0, 7);
+		Location b = new Location(7, 0);
+		assertFalse(a.equals(b));
+	}
+
+	@Test
+	public void testEquals_bothDiffer_aAtMaxRowMinCol_bAtMinRowMaxCol() {
+		Location a = new Location(7, 0);
+		Location b = new Location(0, 7);
+		assertFalse(a.equals(b));
+	}
+
+	@Test
+	public void testEquals_null_minimumBoundary() {
+		Location a = new Location(0, 0);
+		assertFalse(a.equals(null));
+	}
+
+	@Test
+	public void testEquals_null_maximumBoundary() {
+		Location a = new Location(7, 7);
+		assertFalse(a.equals(null));
+	}
+
+	@Test
+	public void testEquals_symmetric_equalLocations_minimumBoundary() {
+		Location a = new Location(0, 0);
+		Location b = new Location(0, 0);
+		assertTrue(b.equals(a));
+	}
+
+	@Test
+	public void testEquals_symmetric_equalLocations_maximumBoundary() {
+		Location a = new Location(7, 7);
+		Location b = new Location(7, 7);
+		assertTrue(b.equals(a));
+	}
+
+	@Test
+	public void testEquals_symmetric_rowDiffers_minBoundary() {
+		Location a = new Location(0, 4);
+		Location b = new Location(1, 4);
+		assertFalse(b.equals(a));
+	}
+
+	@Test
+	public void testEquals_symmetric_colDiffers_maxBoundary() {
+		Location a = new Location(4, 7);
+		Location b = new Location(4, 6);
+		assertFalse(b.equals(a));
+	}
+
+	@Test
+	public void testHashCode_equalLocations_sameHash() {
+		Location a = new Location(0, 0);
+		Location b = new Location(0, 0);
+		assertEquals(a.hashCode(), b.hashCode());
+	}
+
+	@Test
+	public void testEquals_nonLocationObject_returnsFalse() {
+		Location a = new Location(0, 0);
+		assertFalse(a.equals("not a location"));
+	}
+
+	@Test
+	public void testHashCode_maximumBoundaryValues() {
+		Location a = new Location(7, 7);
+		assertEquals(31 * 7 + 7, a.hashCode());
 	}
 }
