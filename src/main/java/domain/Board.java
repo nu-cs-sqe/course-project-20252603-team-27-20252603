@@ -82,7 +82,7 @@ public class Board {
 		for (int row = 0; row < TOTAL_ROWS; row++) {
 			for (int col = 0; col < TOTAL_COLS; col++) {
 				Piece piece = pieces[row][col];
-				snapshot[row][col] = piece == null ? null : new Piece(piece.getPieceType(), piece.getPieceColor());
+				snapshot[row][col] = piece == null ? null : new Piece(piece.getPieceType(), piece.getColor());
 			}
 		}
 		return snapshot;
