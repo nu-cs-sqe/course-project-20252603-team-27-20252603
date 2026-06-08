@@ -1,10 +1,8 @@
 package domain;
 
-import java.util.Objects;
-
-public final class Location {
-	private final int row;
-	private final int col;
+public class Location {
+	private int row;
+	private int col;
 
 	public Location(int row, int col) {
 		this.row = row;
@@ -20,19 +18,15 @@ public final class Location {
 	}
 
 	@Override
-	public boolean equals(Object other) {
-		if (this == other) {
-			return true;
-		}
-		if (!(other instanceof Location)) {
-			return false;
-		}
-		Location that = (Location) other;
-		return row == that.row && col == that.col;
+	public boolean equals(Object obj) {
+		if (obj == null) return false;
+		if (!(obj instanceof Location)) return false;
+		Location other = (Location) obj;
+		return this.row == other.row && this.col == other.col;
 	}
 
 	@Override
 	public int hashCode() {
-		return Objects.hash(row, col);
+		return 31 * row + col;
 	}
 }
