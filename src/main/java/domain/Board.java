@@ -82,7 +82,7 @@ public class Board {
 		for (int row = 0; row < TOTAL_ROWS; row++) {
 			for (int col = 0; col < TOTAL_COLS; col++) {
 				Piece piece = pieces[row][col];
-				snapshot[row][col] = piece == null ? null : piece.makeCopy();
+				snapshot[row][col] = piece == null ? null : new Piece(piece.getPieceType(), piece.getPieceColor());
 			}
 		}
 		return snapshot;
@@ -104,7 +104,7 @@ public class Board {
 				Piece piece = pieces[row][col];
 				if (piece != null
 						&& piece.getPieceType() == PieceType.KING
-						&& piece.getPieceColor() == color) {
+						&& piece.getColor() == color) {
 					return new Location(row, col);
 				}
 			}
@@ -120,8 +120,8 @@ public class Board {
 				if (piece == null) {
 					builder.append('.');
 				} else {
-					char symbol = piece.getPieceType().getBoardSymbol();
-					if (piece.getPieceColor() == PieceColor.BLACK) {
+					char symbol = piece.getPieceType() == PieceType.KNIGHT ? 'N' : piece.getPieceType().name().charAt(0);;
+					if (piece.getColor() == PieceColor.BLACK) {
 						symbol = Character.toLowerCase(symbol);
 					}
 					builder.append(symbol);
