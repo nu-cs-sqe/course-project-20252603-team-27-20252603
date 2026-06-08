@@ -1,9 +1,9 @@
 package domain;
 
 public class Board {
-	private Piece[][] pieces;
 	public static final int TOTAL_ROWS = 8;
 	public static final int TOTAL_COLS = 8;
+	private final Piece[][] pieces;
 
 	public Board() {
 		this.pieces = new Piece[TOTAL_ROWS][TOTAL_COLS];
@@ -14,10 +14,15 @@ public class Board {
 		if (pieces != null) {
 			for (int row = 0; row < TOTAL_ROWS; row++) {
 				if (pieces[row] != null) {
-					for (int col = 0; col < Math.min(pieces[row].length, TOTAL_COLS); col++) {
+					int maxLength = Math.min(pieces[row].length, TOTAL_COLS);
+					for (int col = 0; col < maxLength; col++) {
 						Piece piece = pieces[row][col];
-						// FIXED: Instantiates a brand new object instance to break reference links
-						this.pieces[row][col] = (piece == null) ? null : new Piece(piece.getPieceType(), piece.getColor());
+						PieceType type = (piece == null)
+								? null : piece.getPieceType();
+						PieceColor color = (piece == null)
+								? null : piece.getColor();
+						this.pieces[row][col] = (piece == null)
+								? null : new Piece(type, color);
 					}
 				}
 			}
@@ -68,7 +73,9 @@ public class Board {
 		return pieces[location.getRow()][location.getCol()];
 	}
 
-	/** Set piece at location; return previous piece (may be null). No validation. */
+	/**
+	 * Set piece at location; return previous piece (may be null). No validation.
+	 */
 	public Piece setPiece(Location location, Piece piece) {
 		int row = location.getRow();
 		int col = location.getCol();
@@ -82,7 +89,9 @@ public class Board {
 		for (int row = 0; row < TOTAL_ROWS; row++) {
 			for (int col = 0; col < TOTAL_COLS; col++) {
 				Piece piece = pieces[row][col];
-				snapshot[row][col] = piece == null ? null : new Piece(piece.getPieceType(), piece.getColor());
+				snapshot[row][col] = piece == null ? null
+						: new Piece(piece.getPieceType(),
+						piece.getColor());
 			}
 		}
 		return snapshot;
@@ -120,7 +129,8 @@ public class Board {
 				if (piece == null) {
 					builder.append('.');
 				} else {
-					char symbol = piece.getPieceType() == PieceType.KNIGHT ? 'N' : piece.getPieceType().name().charAt(0);;
+					char symbol = piece.getPieceType() == PieceType.KNIGHT ? 'N'
+							: piece.getPieceType().name().charAt(0);
 					if (piece.getColor() == PieceColor.BLACK) {
 						symbol = Character.toLowerCase(symbol);
 					}
