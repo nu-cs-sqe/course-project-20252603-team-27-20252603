@@ -80,14 +80,12 @@ public class Game {
 			return MoveResult.INVALID_SAME_COLOR_CAPTURE;
 		} else if (!piece.getColor().equals(currentPlayer.getColor())){
 			return MoveResult.INVALID_WRONG_TURN;
-		} else if (piece.getColor().equals(currentPlayer.getColor()) &&
-				(piece.canMove(board,from,to)) || isCastleMove(from,to,piece)) {
+		} else if (piece.canMove(board,from,to) || isCastleMove(from,to,piece)) {
 			if (isInCheck(currentPlayer.getColor())) {
 				return MoveResult.INVALID_SELF_CHECK;
 			}
 			if(piece.getPieceType()==PieceType.PAWN ||
-					(object.getPieceType() != PieceType.Empty &&
-					object.getColor()!=piece.getColor())){
+					(object.getPieceType() != PieceType.Empty)){
 				halfMoveClock=0;
 			}
 			halfMoveClock += 1;

@@ -1,53 +1,112 @@
-# Overall Rule
-This folder should contain the BVA analysis. There should be one .md for each class, and there should be BVA analysis for each public method.
+# BVA Analysis for Board Setup 
 
-# What to Include in each BVA Analysis File (like `MyVector.md`)
+## Method under test: Location(String algebraic)
 
-You are encouraged to document your intermediate analysis results for Steps 1-3.
-However, you are only required to document Step 4.
+- **TC1: LocationValidMinMinReturnsRow7Col0** (  )
+  - **State of the system:** algebraic = "a1"
+  - **Expected output:** row = 7, col = 0
+  - **Implemented:** Yes
 
-For each test case, you may choose **any easy-to-read format** you like. Regardless of the format, you are required to specify the following for each test case:
-1. A unique ID
-2. The method(s) under test
-3. The state of the system under test
-4. The expected output
-5. Whether it has been implemented
+- **TC2: LocationValidMaxMaxReturnsRow0Col7** (  )
+  - **State of the system:** algebraic = "h8"
+  - **Expected output:** row = 0, col = 7
+  - **Implemented:** yes
 
-Here are 2 formats as references. You can use any of them or a revised version of them.
+- **TC3: LocationEmptyStringThrowsIllegalArgumentException** (  )
+  - **State of the system:** algebraic = ""
+  - **Expected output:** IllegalArgumentException
+  - **Implemented:** yes
 
-## Format 1:
+- **TC4: LocationStringTooLongThrowsIllegalArgumentException** (  )
+  - **State of the system:** algebraic = "a12"
+  - **Expected output:** IllegalArgumentException
+  - **Implemented:** yes
 
-### Method under test: `abc()`
+- **TC5: LocationFileJustBelowValidThrowsIllegalArgumentException** (  )
+  - **State of the system:** algebraic = "`1" (ASCII before 'a')
+  - **Expected output:** IllegalArgumentException
+  - **Implemented:** yes
 
-|              | State of the System | Expected output | Implemented?              |
-|--------------|---------------------|-----------------|---------------------------|
-| Test Case 1  |                     |                 | :x: or :white_check_mark: |
-| Test Case 2  |                     |                 | :x: or :white_check_mark: |
+- **TC6: LocationFileJustAboveValidThrowsIllegalArgumentException** (  )
+  - **State of the system:** algebraic = "i1"
+  - **Expected output:** IllegalArgumentException
+  - **Implemented:** yes
 
+- **TC7: LocationRankJustBelowValidThrowsIllegalArgumentException** (  )
+  - **State of the system:** algebraic = "a0"
+  - **Expected output:** IllegalArgumentException
+  - **Implemented:** yes
 
-### Method under test: `efg()`
+- **TC8: LocationRankJustAboveValidThrowsIllegalArgumentException** (  )
+  - **State of the system:** algebraic = "a9"
+  - **Expected output:** IllegalArgumentException
+  - **Implemented:** yes
 
-|              | State of the System | Expected output | Implemented?              |
-|--------------|---------------------|-----------------|---------------------------|
-| Test Case 3  |                     |                 | :x: or :white_check_mark: |
-| Test Case 4  |                     |                 | implemented in Test Case 1 |
+## Method under test: isInsideBoard(Location location)
 
-## Format 2:
+- **TC9: IsInsideBoardBothIndicesMinValidReturnTrue** ( )
+  - **State of the system:** location = Location(0, 0)
+  - **Expected output:** true
+  - **Implemented:** yes
 
-### Method under test: `abc()`
-- **TC1: NAME OF THE TEST CASE** ( :x: or :white_check_mark: )
-    - **State of the system**: abc
-    - **Expected output**: abc
+- **TC10: IsInsideBoardBothIndicesMaxValidReturnTrue** (  )
+  - **State of the system:** location = Location(7, 7)
+  - **Expected output:** true
+  - **Implemented:** yes
 
-- **TC2: NAME OF THE TEST CASE** ( :x: or :white_check_mark: )
-    - **State of the system**: abc
-    - **Expected output**: abc
+- **TC11: IsInsideBoardRowJustBelowValidReturnFalse** (  )
+  - **State of the system:** location = Location(-1, 0)
+  - **Expected output:** false
+  - **Implemented:** yes
 
-### Method under test: `efg()`
-- **TC3: NAME OF THE TEST CASE** ( :x: or :white_check_mark: )
-    - **State of the system**: abc
-    - **Expected output**: abc
+- **TC12: IsInsideBoardColJustBelowValidReturnFalse** (  )
+  - **State of the system:** location = Location(0, -1)
+  - **Expected output:** false
+  - **Implemented:** yes
 
-- **TC4: NAME OF THE TEST CASE** ( implemented in TC1 )
-    - **State of the system**: abc
-    - **Expected output**: abc
+- **TC13: IsInsideBoardRowJustAboveValidReturnFalse** (  )
+  - **State of the system:** location = Location(8, 7)
+  - **Expected output:** false
+  - **Implemented:** yes
+
+- **TC14: IsInsideBoardColJustAboveValid_ReturnFalse** (  )
+  - **State of the system:** location = Location(7, 8)
+  - **Expected output:** false
+  - **Implemented:** yes
+
+## Method under test: initBoard()
+
+- **TC15: InitBoardCheckWhitePawnReturnsWhitePawn** (  )
+  - **State of the system:** board initialized, location = "a2"
+  - **Expected output:** Piece is not null, color is WHITE, type is Pawn
+  - **Implemented:** yes
+
+- **TC16: InitBoardCheckBlackRookReturnsBlackRook** (  )
+  - **State of the system:** board initialized, location = "a8"
+  - **Expected output:** Piece is not null, color is BLACK, type is Rook
+  - **Implemented:** yes
+
+- **TC17: InitBoardCheckEmptySquareReturnsEmpty** (  )
+  - **State of the system:** board initialized, location = "e4"
+  - **Expected output:** isEmpty(location) = true
+  - **Implemented:** yes
+
+## Method under test: setPiece(Location location, Piece piece)
+
+- **TC18: SetPieceReplacesExistingPieceAndReturnsPrevious** (  )
+  - **State of the system:** board initialized, location = "a2" contains a Pawn
+  - **Action:** call setPiece("a2", replacementPieceMock)
+  - **Expected output:** returned Piece is the original Pawn; board.getPiece("a2") is replacementPieceMock
+  - **Implemented:** yes
+
+- **TC19: SetPieceOnEmptySquareReturnsNullAndPlacesPiece** (  )
+  - **State of the system:** board cleared, location = "e4" empty
+  - **Action:** call setPiece("e4", replacementPieceMock)
+  - **Expected output:** returned value is null; board.getPiece("e4") is replacementPieceMock
+  - **Implemented:** yes
+
+- **TC20: SetPieceWithInvalidLocationThrowsException** (  )
+  - **State of the system:** board initialized
+  - **Action:** call setPiece(Location(-1,0), replacementPieceMock)
+  - **Expected output:** ArrayIndexOutOfBoundsException or IllegalArgumentException
+  - **Implemented:** yes

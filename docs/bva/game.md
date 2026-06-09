@@ -412,3 +412,38 @@
 - **State of the system:** rook is black and king is white
 - **Expected output:** false
 - **Implemented:*implemented*
+
+- **TC84: performCastle_mutant** ()
+- **State of the system:** king from(7,4) to (7,4), rook from (7,0) to (7,3)
+- **Expected output:** king and rook move
+- **Implemented:*implemented*
+
+- **TC85: makeMove_blackPawn_noPromotion** ()
+- **State of the system:** pawn from (1,0) to (2,0)
+- **Expected output:** valid move
+- **Implemented:*implemented*
+
+- **TC86: makeMove_whitePawn_noPromotion** ()
+- **State of the system:** pawn from (6,0) to (5,0)
+- **Expected output:** valid move
+- **Implemented:*implemented*
+
+- **TC87: isInCheck_check_firstSelfColor** ()
+- **State of the system:** white_turn, piece (0,1), king (7,7), (0,0) is black pawn
+- **Expected output:** true
+- **Implemented:*implemented*
+
+- **TC88: isCheckmate_true_white_opponentColor** ()
+- **State of the system:** block at (0,1) with the opponent color
+- **Expected output:** true
+- **Implemented:*implemented*
+
+- **TC89: isStalemate_allCheck_true_withEmptyCell** ()
+- **State of the system:** white_turn, (0,0) is empty
+- **Expected output:** True
+- **Implemented:*implemented*
+
+- **TC90: isStalemate_allCheck_true_withEmptyCell** ()
+- **State of the system:** white_turn, (0,0) is black pawn
+- **Expected output:** True
+- **Implemented:*implemented*
