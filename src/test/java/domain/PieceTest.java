@@ -2747,6 +2747,13 @@ class PieceTest {
 		assertNotEquals(p1, null);
 	}
 
+	@Test
+	void equals_sameReference_returnsTrue() {
+		Piece p1 = new Piece(PieceType.QUEEN, PieceColor.WHITE);
+		assertEquals(p1, p1);
+	}
+
+
 
 
 
