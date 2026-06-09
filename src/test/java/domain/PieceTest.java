@@ -2760,6 +2760,14 @@ class PieceTest {
 		assertEquals(p1.hashCode(), p2.hashCode());
 	}
 
+	@Test
+	void equals_differentColor_returnsFalse() {
+		Piece p1 = new Piece(PieceType.QUEEN, PieceColor.WHITE);
+		Piece p2 = new Piece(PieceType.QUEEN, PieceColor.BLACK);
+		assertNotEquals(p1, p2);
+	}
+
+
 
 
 
