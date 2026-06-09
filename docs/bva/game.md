@@ -99,7 +99,7 @@
 - **Implemented:*implemented*
 
 - **TC21: isInCheck_check** ()
-- **State of the system:** white_turn, piece (7,?), king (0,0)
+- **State of the system:** white_turn, piece (0,0), king (7,7)
 - **Expected output:** true
 - **Implemented:*implemented*
 
@@ -326,4 +326,89 @@
 - **TC66: isEnPassantMove_true** ()
 - **State of the system:**previous pawn from (1,5) to (3,5), current pawn at (3,4) move to (2,5)
 - **Expected output:** true
+- **Implemented:*implemented*
+
+- **TC67: makeMove_enPassant** ()
+- **State of the system:**move from (0,0) to (7,7), enPassant
+- **Expected output:** valid move
+- **Implemented:*implemented*
+
+- **TC68: makeMove_castleMove** ()
+- **State of the system:**move from (7,4) to (7,6), castle
+- **Expected output:** valid move
+- **Implemented:*implemented*
+
+- **TC69: makeMove_validMove_blackTurn** ()
+- **State of the system:** piece=Rook, valid move, halfMoveClock=0, from (7,0) to (0,7)
+- **Expected output:** valid, halfMoveClock=1, last move equal this move, add move to movehistory and positionhistory
+- **Implemented:*implemented*
+
+- **TC70: isInCheck_check_whiteInCheck** ()
+- **State of the system:** white_turn, piece (0,0), king (7,7)
+- **Expected output:** true
+- **Implemented:*implemented*
+
+- **TC71: isEnPassantMove_movingPieceNull** ()
+- **State of the system:** piece is null
+- **Expected output:** false
+- **Implemented:*implemented*
+
+- **TC72: isEnPassantMove_lastMoveNotPawn** ()
+- **State of the system:** last move is not pawn
+- **Expected output:** false
+- **Implemented:*implemented*
+
+- **TC73: isEnPassantMove_sameColor** ()
+- **State of the system:** last move has same color as current move
+- **Expected output:** false
+- **Implemented:*implemented*
+
+- **TC74: isEnPassantMove_block** ()
+- **State of the system:** the cell move to is blocked
+- **Expected output:** false
+- **Implemented:*implemented*
+
+- **TC75: isEnPassantMove_differentRow** ()
+- **State of the system:** the cell last move to is wrong row
+- **Expected output:** false
+- **Implemented:*implemented*
+
+- **TC76: isEnPassantMove_black** ()
+- **State of the system:** the piece is black
+- **Expected output:** true
+- **Implemented:*implemented*
+
+- **TC77: isEnPassantMove_wrongCol** ()
+- **State of the system:** the cell last move to is wrong col
+- **Expected output:** false
+- **Implemented:*implemented*
+
+- **TC78: isEnPassantMove_wrongDirection** ()
+- **State of the system:** the move goes to wrong direction, from (2,4) to (3,5) for white pawn
+- **Expected output:** false
+- **Implemented:*implemented*
+
+- **TC79: isCastleMove_QueenSide** ()
+- **State of the system:** move to queen side
+- **Expected output:** true
+- **Implemented:*implemented*
+
+- **TC80: isCastleMove_kingMoved** ()
+- **State of the system:** king hasMoved is true
+- **Expected output:** false
+- **Implemented:*implemented*
+
+- **TC81: isCastleMove_notRook** ()
+- **State of the system:** king hasMoved is true
+- **Expected output:** false
+- **Implemented:*implemented*
+
+- **TC82: isCastleMove_rookMoved** ()
+- **State of the system:** rook hasMoved is true
+- **Expected output:** false
+- **Implemented:*implemented*
+
+- **TC83: isCastleMove_differentColorKingRook** ()
+- **State of the system:** rook is black and king is white
+- **Expected output:** false
 - **Implemented:*implemented*

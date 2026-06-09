@@ -64,17 +64,19 @@ public class Piece {
 		int colDiff = to.getCol() - from.getCol();
 
 		if (isPawnOneForward(rowDiff, colDiff)) {
-			return board.getPiece(to) == null;
+			return board.getPiece(to).getPieceType() == PieceType.Empty;
 		}
 
 		if (isPawnTwoForwardInitial(rowDiff, colDiff)) {
 			Location intermediate = new Location(from.getRow() + 1, from.getCol());
-			return board.getPiece(intermediate) == null && board.getPiece(to) == null;
+			return board.getPiece(intermediate).getPieceType() == PieceType.Empty
+					&& board.getPiece(to).getPieceType() == PieceType.Empty;
 		}
 
+		Piece target = board.getPiece(to);
 		if (isPawnDiagonalCapture(rowDiff, colDiff)) {
-			Piece target = board.getPiece(to);
-			return target != null && target.getColor() != getColor();
+			return target.getPieceType() != PieceType.Empty
+					&& target.getColor() != getColor();
 		}
 
 		return false;
@@ -107,7 +109,7 @@ public class Piece {
 		}
 
 		Piece target = board.getPiece(to);
-		return target == null || target.getColor() != getColor();
+		return target.getPieceType() == PieceType.Empty || target.getColor() != getColor();
 	}
 
 	private boolean isStraightPathObstructed(Board board, Location from, Location to) {
@@ -121,7 +123,8 @@ public class Piece {
 		int currentCol = from.getCol() + colStep;
 
 		while (currentRow != to.getRow() || currentCol != to.getCol()) {
-			if (board.getPiece(new Location(currentRow, currentCol)) != null) {
+			if (board.getPiece(new Location(currentRow, currentCol))
+					.getPieceType() != PieceType.Empty) {
 				return true;
 			}
 			currentRow += rowStep;
@@ -141,7 +144,7 @@ public class Piece {
 			return false;
 		}
 		Piece target = board.getPiece(to);
-		return target == null || target.getColor() != getColor();
+		return target.getPieceType() == PieceType.Empty || target.getColor() != getColor();
 	}
 
 	private boolean isDiagonalPathObstructed(Board board, Location from, Location to) {
@@ -155,7 +158,8 @@ public class Piece {
 		for (int i = 1; i < steps; i++) {
 			if (board.getPiece(new Location(
 					from.getRow() + i * rowStep,
-					from.getCol() + i * colStep)) != null) {
+					from.getCol() + i * colStep)).getPieceType()
+					!= PieceType.Empty) {
 				return true;
 			}
 		}
@@ -177,7 +181,7 @@ public class Piece {
 		}
 
 		Piece target = board.getPiece(to);
-		return target == null || target.getColor() != getColor();
+		return target.getPieceType() == PieceType.Empty || target.getColor() != getColor();
 	}
 
 	private boolean isValidKingMove(Board board, Location from, Location to) {
@@ -193,7 +197,7 @@ public class Piece {
 		}
 
 		Piece target = board.getPiece(to);
-		return target == null || target.getColor() != getColor();
+		return target.getPieceType() == PieceType.Empty || target.getColor() != getColor();
 	}
 
 	private boolean isValidCastlingAttempt(Board board, Location from, Location to) {
@@ -203,8 +207,7 @@ public class Piece {
 		Location rookLocation = new Location(from.getRow(), rookSourceCol);
 		Piece rook = board.getPiece(rookLocation);
 
-		if (rook == null
-				|| rook.getPieceType() != PieceType.ROOK
+		if (rook.getPieceType() != PieceType.ROOK
 				|| rook.getColor() != getColor()
 				|| rook.hasMoved()) {
 			return false;
@@ -214,7 +217,8 @@ public class Piece {
 		int endCol = Math.max(from.getCol(), rookSourceCol);
 
 		for (int col = startCol; col < endCol; col++) {
-			if (board.getPiece(new Location(from.getRow(), col)) != null) {
+			if (board.getPiece(new Location(from.getRow(), col))
+					.getPieceType() != PieceType.Empty) {
 				return false;
 			}
 		}
@@ -240,7 +244,7 @@ public class Piece {
 		}
 
 		Piece target = board.getPiece(to);
-		return target == null || target.getColor() != getColor();
+		return target.getPieceType() == PieceType.Empty || target.getColor() != getColor();
 	}
 	@Override
 	public boolean equals(Object obj){
