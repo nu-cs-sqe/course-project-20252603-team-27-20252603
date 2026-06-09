@@ -2753,6 +2753,13 @@ class PieceTest {
 		assertEquals(p1, p1);
 	}
 
+	@Test
+	void hashCode_equalPieces_sameHash() {
+		Piece p1 = new Piece(PieceType.QUEEN, PieceColor.WHITE);
+		Piece p2 = new Piece(PieceType.QUEEN, PieceColor.WHITE);
+		assertEquals(p1.hashCode(), p2.hashCode());
+	}
+
 
 
 
