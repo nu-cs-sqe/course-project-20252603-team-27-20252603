@@ -248,7 +248,7 @@ public class Piece {
 	}
 	@Override
 	public boolean equals(Object obj){
-		if (this == obj) return true;
+    if (this == obj) return true;
 		if (obj == null || getClass() != obj.getClass()) return false;
 		Piece queen = (Piece) obj;
 		return queen.pieceType==this.pieceType && queen.pieceColor==this.pieceColor;

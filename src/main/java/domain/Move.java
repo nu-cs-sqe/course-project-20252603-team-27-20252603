@@ -2,8 +2,6 @@ package domain;
 
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 
-import java.util.Objects;
-
 @SuppressFBWarnings({"EI_EXPOSE_REP", "EI_EXPOSE_REP2"})
 public final class Move {
 	private final Location from;
@@ -82,18 +80,5 @@ public final class Move {
 
 	public String getNotation() {
 		return notation;
-	}
-	@Override
-	public boolean equals(Object obj){
-		if (this == obj) return true;
-		if (obj == null || getClass() != obj.getClass()) return false;
-		Move queen = (Move) obj;
-		return queen.from==this.from &&
-				queen.to==this.to &&
-				queen.movedPiece==this.movedPiece;
-	}
-	@Override
-	public int hashCode() {
-		return Objects.hash(from, to, movedPiece);
 	}
 }
