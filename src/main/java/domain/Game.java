@@ -71,11 +71,11 @@ public class Game {
 			return MoveResult.INVALID_OUT_OF_BOUNDS;
 		}
 		Piece piece = board.getPiece(from);
-		if(piece.getPieceType() == PieceType.Empty){
+		if(piece.getPieceType() == PieceType.EMPTY){
 			return MoveResult.INVALID_EMPTY_SOURCE;
 		}
 		Piece object = board.getPiece(to);
-		if (object.getPieceType() != PieceType.Empty
+		if (object.getPieceType() != PieceType.EMPTY
 				&& (object.getColor()==piece.getColor())){
 			return MoveResult.INVALID_SAME_COLOR_CAPTURE;
 		} else if (!piece.getColor().equals(currentPlayer.getColor())){
@@ -85,7 +85,7 @@ public class Game {
 				return MoveResult.INVALID_SELF_CHECK;
 			}
 			if(piece.getPieceType()==PieceType.PAWN ||
-					(object.getPieceType() != PieceType.Empty)){
+					(object.getPieceType() != PieceType.EMPTY)){
 				halfMoveClock=0;
 			}
 			halfMoveClock += 1;
@@ -96,7 +96,7 @@ public class Game {
 				enPassant+=1;
 				Location capturedPawn = lastMove.getTo();
 				object = board.getPiece(capturedPawn);
-				board.setPiece(capturedPawn, new Piece(PieceType.Empty, null));
+				board.setPiece(capturedPawn, new Piece(PieceType.EMPTY, null));
 				isEnPassant=true;
 				board.movePiece(from, to);
 			}
@@ -176,7 +176,7 @@ public class Game {
 			for (int col = 0; col < 8; col++) {
 				Location from = new Location(row, col);
 				Piece piece = board.getPiece(from);
-				if (piece.getPieceType() != PieceType.Empty
+				if (piece.getPieceType() != PieceType.EMPTY
 						&& piece.getColor() == opponentColor) {
 					if (piece.canMove(board, from, kingLocation)) {
 						if (opponentColor==PieceColor.WHITE){
@@ -203,7 +203,7 @@ public class Game {
 			for (int col = 0; col < 8; col++) {
 				Location from = new Location(row, col);
 				Piece piece = board.getPiece(from);
-				if (piece.getPieceType() != PieceType.Empty
+				if (piece.getPieceType() != PieceType.EMPTY
 						&& piece.getColor() == color) {
 					for (int row_des = 0; row_des < 8; row_des++) {
 						for (int col_des = 0; col_des < 8; col_des++) {
@@ -241,7 +241,7 @@ public class Game {
 			for (int col = 0; col < 8; col++) {
 				Location from = new Location(row, col);
 				Piece piece = board.getPiece(from);
-				if (piece.getPieceType() != PieceType.Empty
+				if (piece.getPieceType() != PieceType.EMPTY
 						&& piece.getColor() == color) {
 					for (int row_des = 0; row_des < 8; row_des++) {
 						for (int col_des = 0; col_des < 8; col_des++) {
@@ -391,7 +391,7 @@ public class Game {
 				+ " (" + from.getRow() + "," + from.getCol() + ")"
 				+ " -> "
 				+ "(" + to.getRow() + "," + to.getCol() + ")";
-		if (capturedPiece.getPieceType() != PieceType.Empty) {
+		if (capturedPiece.getPieceType() != PieceType.EMPTY) {
 			notation += " captures " + capturedPiece.getPieceType();
 		}
 		if (isEnPassant) {
