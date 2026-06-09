@@ -2727,6 +2727,13 @@ class PieceTest {
         assertFalse(king.canMove(board, new Location(0, 4), new Location(0, 6)));
     }
 
+	@Test
+	void equals_samePiece_returnsTrue() {
+		Piece p1 = new Piece(PieceType.QUEEN, PieceColor.WHITE);
+		Piece p2 = new Piece(PieceType.QUEEN, PieceColor.WHITE);
+		assertEquals(p1, p2);
+	}
+
 
     private static Location matchesLoc(int expectedRow, int expectedCol) {
         EasyMock.reportMatcher(new org.easymock.IArgumentMatcher() {
