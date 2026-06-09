@@ -447,3 +447,8 @@
 - **State of the system:** white_turn, (0,0) is black pawn
 - **Expected output:** True
 - **Implemented:*implemented*
+
+- **TC90: isInCheck_mutant** ()
+- **State of the system:** king at (7,4), make sure only 64 loops
+- **Expected output:** False
+- **Implemented:*implemented*
