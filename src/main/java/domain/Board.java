@@ -7,6 +7,7 @@ public class Board {
 
 	public Board() {
 		this.pieces = new Piece[TOTAL_ROWS][TOTAL_COLS];
+		clearBoard();
 	}
 
 	public Board(Piece[][] pieces) {
@@ -32,7 +33,7 @@ public class Board {
 	public void clearBoard() {
 		for (int row = 0; row < TOTAL_ROWS; row++) {
 			for (int col = 0; col < TOTAL_COLS; col++) {
-				pieces[row][col] = null;
+				pieces[row][col] = new Piece(PieceType.EMPTY, PieceColor.WHITE);
 			}
 		}
 	}
@@ -98,11 +99,12 @@ public class Board {
 	public void movePiece(Location from, Location to) {
 		Piece movingPiece = getPiece(from);
 		pieces[to.getRow()][to.getCol()] = movingPiece;
-		pieces[from.getRow()][from.getCol()] = null;
+		pieces[from.getRow()][from.getCol()] = new Piece(PieceType.EMPTY, PieceColor.WHITE);
 	}
 
 	public boolean isEmpty(Location location) {
-		return getPiece(location) == null;
+		Piece piece = getPiece(location);
+		return piece == null || piece.getPieceType() == PieceType.EMPTY;
 	}
 
 	public Location findKing(PieceColor color) {
@@ -124,7 +126,7 @@ public class Board {
 		for (int row = 0; row < TOTAL_ROWS; row++) {
 			for (int col = 0; col < TOTAL_COLS; col++) {
 				Piece piece = pieces[row][col];
-				if (piece == null) {
+				if (piece == null || piece.getPieceType() == PieceType.EMPTY) {
 					builder.append('.');
 				} else {
 					char symbol = piece.getPieceType() == PieceType.KNIGHT ? 'N'

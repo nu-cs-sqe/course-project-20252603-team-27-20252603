@@ -463,7 +463,9 @@ public class GameTest {
 		Map<String, Integer> positionHistory = new HashMap<>();
 		Game game = EasyMock.partialMockBuilder(Game.class).withConstructor(Board.class, GameStatus.class, List.class, Move.class, int.class, Map.class)
 				.withArgs(board, GameStatus.WHITE_TURN, moveHistory, null, Integer.MAX_VALUE - 1, positionHistory)
-				.addMockedMethod("isCastleMove", Location.class, Location.class, Piece.class).createMock();
+				.addMockedMethod("isCastleMove", Location.class, Location.class, Piece.class)
+				.addMockedMethod("isEnPassantMove", Location.class, Location.class, Piece.class)
+				.createMock();
 		Location from = new Location(7, 1);
 		Location to = new Location(1, 0);
 		EasyMock.expect(board.toPositionString()).andReturn("last").anyTimes();
@@ -477,6 +479,7 @@ public class GameTest {
 		EasyMock.expect(piece1.getPieceType()).andReturn(PieceType.PAWN);
 		EasyMock.expect(piece1.getColor()).andReturn(PieceColor.WHITE).anyTimes();
 		EasyMock.expect(piece.canMove(board, from, to)).andReturn(false).anyTimes();
+		EasyMock.expect(game.isEnPassantMove(from, to, piece)).andReturn(false).anyTimes();
 		board.initBoard();
 		EasyMock.expectLastCall();
 		EasyMock.replay(board, piece, piece1, game);
