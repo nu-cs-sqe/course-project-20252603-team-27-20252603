@@ -163,6 +163,7 @@ public class Game {
 			positionHistory.put(positionKey, positionCount);
 
 			if (positionCount == 3) {
+				this.status = GameStatus.DRAW;
 				return MoveResult.DRAW;
 			}
 
