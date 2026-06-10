@@ -60,12 +60,6 @@ public class Game {
 		}
 	}
 
-	//	@SuppressFBWarnings(
-//			value = "RCN_REDUNDANT_NULLCHECK_OF_NONNULL_VALUE",
-//			justification =
-//					"Board.getPiece may return null " +
-//							"when the source square is empty."
-//	)
 	public MoveResult makeMove(Location from, Location to, PieceType type) {
 		boolean isCastle = false;
 		boolean isEnPassant = false;
@@ -142,19 +136,33 @@ public class Game {
 				newPiece.setMoved(true);
 			}
 
-			int count = positionHistory.getOrDefault
-					(board.toPositionString() + currentPlayer.getName() +
-							enPassant +
-							castle, 0);
-			positionHistory.put(board.toPositionString() +
-					currentPlayer.getName() +
-					enPassant +
-					castle, count + 1);
+			String boardState = board.toPositionString();
 
-			if (positionHistory.getOrDefault(board.toPositionString() +
-					currentPlayer.getName() +
-					enPassant +
-					castle, 0) == 3) {
+			String turnColor = currentPlayer.getColor().toString();
+
+			Piece whiteKing = board.getPiece(board.findKing(PieceColor.WHITE));
+			Piece blackKing = board.getPiece(board.findKing(PieceColor.BLACK));
+			boolean wKingMoved = whiteKing != null && whiteKing.hasMoved();
+			boolean bKingMoved = blackKing != null && blackKing.hasMoved();
+			String castleRights = "WK_Moved:" + wKingMoved + ",BK_Moved:" + bKingMoved;
+
+			String epTarget = "None";
+			if (piece.getPieceType() == PieceType.PAWN) {
+				int rowDiff = Math.abs(from.getRow() - to.getRow());
+				if (rowDiff == 2) {
+					epTarget = to.toString();
+				}
+			}
+
+			String positionKey = boardState
+					+ "|" + turnColor
+					+ "|" + castleRights
+					+ "|" + epTarget;
+
+			int positionCount = positionHistory.getOrDefault(positionKey, 0) + 1;
+			positionHistory.put(positionKey, positionCount);
+
+			if (positionCount == 3) {
 				return MoveResult.DRAW;
 			}
 
@@ -334,7 +342,6 @@ public class Game {
 	}
 
 	public boolean isEnPassantMove(Location from, Location to, Piece movingPiece) {
-//		return false;
 		if (movingPiece.getPieceType() != PieceType.PAWN) {
 			return false;
 		}
@@ -369,7 +376,6 @@ public class Game {
 	}
 
 	public boolean isCastleMove(Location from, Location to, Piece king) {
-//		return false;
 		if (king.getPieceType() != PieceType.KING || king.hasMoved()) {
 			return false;
 		}
