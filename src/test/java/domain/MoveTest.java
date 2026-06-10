@@ -162,6 +162,16 @@ public class MoveTest {
 		assertNotEquals(m1, m2);
 	}
 
+	@Test
+	void equals_differentMovedPiece_returnsFalse() {
+		Location from = new Location(0,0);
+		Location to = new Location(1,1);
+		Move m1 = new Move(from, to, new Piece(PieceType.PAWN, PieceColor.WHITE), null, null);
+		Move m2 = new Move(from, to, new Piece(PieceType.ROOK, PieceColor.WHITE), null, null);
+		assertNotEquals(m1, m2);
+	}
+
+
 
 
 
