@@ -9,7 +9,7 @@ import javax.swing.*;
 import java.util.ArrayList;
 import java.util.HashMap;
 
-public class ChessUI extends JFrame {
+public final class ChessUI extends JFrame {
 
 	public ChessUI() {
 		super("Team 27 Chess");

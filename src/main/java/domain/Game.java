@@ -84,7 +84,18 @@ public class Game {
 				|| isCastleMove(from, to, piece)
 				|| isEnPassantMove(from, to, piece)) {
 
-			if (isInCheck(currentPlayer.getColor())) {
+			Piece targetPiece = board.getPiece(to);
+			GameStatus originalStatus = this.status;
+
+			board.movePiece(from, to);
+
+			boolean stillInCheck = isInCheck(currentPlayer.getColor());
+
+			board.movePiece(to, from);
+			board.setPiece(to, targetPiece);
+			this.status = originalStatus;
+
+			if (stillInCheck) {
 				return MoveResult.INVALID_SELF_CHECK;
 			}
 

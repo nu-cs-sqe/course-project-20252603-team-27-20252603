@@ -1,6 +1,7 @@
 package ui;
 
 import domain.*;
+import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 
 import javax.swing.*;
 import java.awt.*;
@@ -12,6 +13,7 @@ public class ChessBoardView extends JPanel {
 
 	private final Color lightSquareColor = new Color(240, 217, 181);
 	private final Color darkSquareColor = new Color(154, 83, 23);
+	private final Color highlightColor = new Color(186, 202, 68);
 
 	public ChessBoardView() {
 		this.squareButtons = new JButton[8][8];
@@ -57,6 +59,11 @@ public class ChessBoardView extends JPanel {
 				Piece piece = board.getPiece(new Location(row, col));
 				JButton button = squareButtons[row][col];
 
+				if ((row + col) % 2 == 0) {
+					button.setBackground(lightSquareColor);
+				} else {
+					button.setBackground(darkSquareColor);
+				}
 				if (piece == null || piece.getPieceType() == PieceType.EMPTY) {
 					button.setText("");
 				} else {
@@ -80,7 +87,15 @@ public class ChessBoardView extends JPanel {
 		}
 	}
 
+	@SuppressFBWarnings(
+			value = "EI_EXPOSE_REP2",
+			justification = "View requires a direct reference to live Controller."
+	)
 	public void setController(ChessController controller) {
 		this.controller = controller;
+	}
+
+	public void highlightSquare(int row, int col) {
+		squareButtons[row][col].setBackground(highlightColor);
 	}
 }
