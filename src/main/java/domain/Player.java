@@ -4,7 +4,7 @@ public final class Player {
 	private final String name;
 	private PieceColor color;
 
-	Player(String name, PieceColor color) {
+	public Player(String name, PieceColor color) {
 		if (name == null || name.trim().isEmpty()) {
 			throw new IllegalArgumentException("Name cannot be null or empty");
 		}

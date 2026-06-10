@@ -444,4 +444,12 @@ public class Game {
 		return notation;
 	}
 
+	@SuppressFBWarnings(
+			value = "EI_EXPOSE_REP",
+			justification = "The UI needs direct read access to the live board state."
+	)
+	public Board getBoard() {
+		return this.board;
+	}
+
 }
