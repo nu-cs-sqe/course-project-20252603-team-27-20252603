@@ -2767,10 +2767,11 @@ class PieceTest {
 		assertNotEquals(p1, p2);
 	}
 
-
-
-
-
+	@Test
+	void equals_differentClass_returnsFalse() {
+		Piece p1 = new Piece(PieceType.QUEEN, PieceColor.WHITE);
+		assertNotEquals(p1, "notAPiece");
+	}
 
 	private static Location matchesLoc(int expectedRow, int expectedCol) {
         EasyMock.reportMatcher(new org.easymock.IArgumentMatcher() {
