@@ -2773,6 +2773,13 @@ class PieceTest {
 		assertNotEquals(p1, "notAPiece");
 	}
 
+	@Test
+	void hashCode_differentPieces_differentHash() {
+		Piece p1 = new Piece(PieceType.PAWN, PieceColor.WHITE);
+		Piece p2 = new Piece(PieceType.ROOK, PieceColor.BLACK);
+		assertNotEquals(p1.hashCode(), p2.hashCode());
+	}
+
 	private static Location matchesLoc(int expectedRow, int expectedCol) {
         EasyMock.reportMatcher(new org.easymock.IArgumentMatcher() {
             @Override
