@@ -115,4 +115,10 @@ public class MoveTest {
 
 		assertEquals("", move.getNotation());
 	}
+
+	@Test
+	void equals_sameReference_returnsTrue() {
+		Move m = new Move(new Location(0,0), new Location(1,1), new Piece(PieceType.PAWN, PieceColor.WHITE), null, null);
+		assertEquals(m, m);
+	}
 }

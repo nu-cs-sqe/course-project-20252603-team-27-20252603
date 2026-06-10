@@ -88,9 +88,9 @@ public final class Move {
 		if (this == obj) return true;
 		if (obj == null || getClass() != obj.getClass()) return false;
 		Move queen = (Move) obj;
-		return queen.from==this.from &&
-				queen.to==this.to &&
-				queen.movedPiece==this.movedPiece;
+		return Objects.equals(queen.from, this.from) &&
+				Objects.equals(queen.to, this.to) &&
+				Objects.equals(queen.movedPiece, this.movedPiece);
 	}
 	@Override
 	public int hashCode() {
