@@ -1,8 +1,8 @@
 package domain;
 
 public class Location {
-	private int row;
-	private int col;
+	private final int row;
+	private final int col;
 
 	public Location(int row, int col) {
 		this.row = row;

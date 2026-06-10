@@ -2727,8 +2727,60 @@ class PieceTest {
         assertFalse(king.canMove(board, new Location(0, 4), new Location(0, 6)));
     }
 
+	@Test
+	void equals_samePiece_returnsTrue() {
+		Piece p1 = new Piece(PieceType.QUEEN, PieceColor.WHITE);
+		Piece p2 = new Piece(PieceType.QUEEN, PieceColor.WHITE);
+		assertEquals(p1, p2);
+	}
 
-    private static Location matchesLoc(int expectedRow, int expectedCol) {
+	@Test
+	void equals_differentType_returnsFalse() {
+		Piece p1 = new Piece(PieceType.QUEEN, PieceColor.WHITE);
+		Piece p2 = new Piece(PieceType.ROOK, PieceColor.WHITE);
+		assertNotEquals(p1, p2);
+	}
+
+	@Test
+	void equals_null_returnsFalse() {
+		Piece p1 = new Piece(PieceType.QUEEN, PieceColor.WHITE);
+		assertNotEquals(p1, null);
+	}
+
+	@Test
+	void equals_sameReference_returnsTrue() {
+		Piece p1 = new Piece(PieceType.QUEEN, PieceColor.WHITE);
+		assertEquals(p1, p1);
+	}
+
+	@Test
+	void hashCode_equalPieces_sameHash() {
+		Piece p1 = new Piece(PieceType.QUEEN, PieceColor.WHITE);
+		Piece p2 = new Piece(PieceType.QUEEN, PieceColor.WHITE);
+		assertEquals(p1.hashCode(), p2.hashCode());
+	}
+
+	@Test
+	void equals_differentColor_returnsFalse() {
+		Piece p1 = new Piece(PieceType.QUEEN, PieceColor.WHITE);
+		Piece p2 = new Piece(PieceType.QUEEN, PieceColor.BLACK);
+		assertNotEquals(p1, p2);
+	}
+
+	@Test
+	void equals_differentClass_returnsFalse() {
+		Piece p1 = new Piece(PieceType.QUEEN, PieceColor.WHITE);
+		assertNotEquals(p1, "notAPiece");
+	}
+
+	@Test
+	void hashCode_differentPieces_differentHash() {
+		Piece p1 = new Piece(PieceType.PAWN, PieceColor.WHITE);
+		Piece p2 = new Piece(PieceType.ROOK, PieceColor.BLACK);
+		assertNotEquals(p1.hashCode(), p2.hashCode());
+	}
+
+	private static Location matchesLoc(int expectedRow, int expectedCol) {
         EasyMock.reportMatcher(new org.easymock.IArgumentMatcher() {
             @Override
             public boolean matches(Object argument) {

@@ -76,12 +76,10 @@ public class Board {
 	/**
 	 * Set piece at location; return previous piece (may be null). No validation.
 	 */
-	public Piece setPiece(Location location, Piece piece) {
+	public void setPiece(Location location, Piece piece) {
 		int row = location.getRow();
 		int col = location.getCol();
-		Piece previous = pieces[row][col];
 		pieces[row][col] = piece;
-		return previous;
 	}
 
 	public Piece[][] getSnapshot() {

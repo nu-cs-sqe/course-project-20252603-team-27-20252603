@@ -46,7 +46,7 @@ class BoardTest {
 	}
 
 	@Test
-	void setPieceReplacesExistingPieceAndReturnsPrevious() {
+	void setPieceReplacesExistingPiece() {
 		Board board = new Board();
 		board.initBoard();
 
@@ -56,16 +56,14 @@ class BoardTest {
 		Piece replacement = EasyMock.createMock(Piece.class);
 		EasyMock.replay(replacement);
 
-		Piece returned = board.setPiece(loc, replacement);
+		board.setPiece(loc, replacement);
 
-		// Expected behavior: returned is the previous piece and board has replacement
-		assertSame(before, returned);
 		assertSame(replacement, board.getPiece(loc));
 		EasyMock.verify(replacement);
 	}
 
 	@Test
-	void setPieceOnEmptySquareReturnsNullAndPlacesPiece() {
+	void setPieceOnEmptySquarePlacesPiece() {
 		Board board = new Board();
 		board.clearBoard();
 
@@ -74,8 +72,10 @@ class BoardTest {
 		Piece replacement = EasyMock.createMock(Piece.class);
 		EasyMock.replay(replacement);
 
-		Piece returned = board.setPiece(loc, replacement);
-		assertNull(returned);
+		// FIX: Just call the void method
+		board.setPiece(loc, replacement);
+
+		// Expected behavior: board has the replacement piece
 		assertSame(replacement, board.getPiece(loc));
 		EasyMock.verify(replacement);
 	}

@@ -115,4 +115,77 @@ public class MoveTest {
 
 		assertEquals("", move.getNotation());
 	}
+
+	@Test
+	void equals_sameReference_returnsTrue() {
+		Move m = new Move(new Location(0,0), new Location(1,1), new Piece(PieceType.PAWN, PieceColor.WHITE), null, null);
+		assertEquals(m, m);
+	}
+
+	@Test
+	void equals_equalMoves_returnsTrue() {
+		Piece p = new Piece(PieceType.PAWN, PieceColor.WHITE);
+		Location from = new Location(0,0);
+		Location to = new Location(1,1);
+		Move m1 = new Move(from, to, p, null, null);
+		Move m2 = new Move(from, to, p, null, null);
+		assertEquals(m1, m2);
+	}
+
+	@Test
+	void equals_null_returnsFalse() {
+		Move m = new Move(new Location(0,0), new Location(1,1), new Piece(PieceType.PAWN, PieceColor.WHITE), null, null);
+		assertNotEquals(m, null);
+	}
+
+	@Test
+	void equals_differentClass_returnsFalse() {
+		Move m = new Move(new Location(0,0), new Location(1,1), new Piece(PieceType.PAWN, PieceColor.WHITE), null, null);
+		assertNotEquals(m, "notAMove");
+	}
+
+	@Test
+	void equals_differentFrom_returnsFalse() {
+		Piece p = new Piece(PieceType.PAWN, PieceColor.WHITE);
+		Location to = new Location(1,1);
+		Move m1 = new Move(new Location(0,0), to, p, null, null);
+		Move m2 = new Move(new Location(2,2), to, p, null, null);
+		assertNotEquals(m1, m2);
+	}
+
+	@Test
+	void equals_differentTo_returnsFalse() {
+		Piece p = new Piece(PieceType.PAWN, PieceColor.WHITE);
+		Location from = new Location(0,0);
+		Move m1 = new Move(from, new Location(1,1), p, null, null);
+		Move m2 = new Move(from, new Location(2,2), p, null, null);
+		assertNotEquals(m1, m2);
+	}
+
+	@Test
+	void equals_differentMovedPiece_returnsFalse() {
+		Location from = new Location(0,0);
+		Location to = new Location(1,1);
+		Move m1 = new Move(from, to, new Piece(PieceType.PAWN, PieceColor.WHITE), null, null);
+		Move m2 = new Move(from, to, new Piece(PieceType.ROOK, PieceColor.WHITE), null, null);
+		assertNotEquals(m1, m2);
+	}
+
+	@Test
+	void hashCode_equalMoves_sameHash() {
+		Piece p = new Piece(PieceType.PAWN, PieceColor.WHITE);
+		Location from = new Location(0,0);
+		Location to = new Location(1,1);
+		Move m1 = new Move(from, to, p, null, null);
+		Move m2 = new Move(from, to, p, null, null);
+		assertEquals(m1.hashCode(), m2.hashCode());
+	}
+
+	@Test
+	void hashCode_differentMoves_differentHash() {
+		Piece p = new Piece(PieceType.PAWN, PieceColor.WHITE);
+		Move m1 = new Move(new Location(0,0), new Location(1,1), p, null, null);
+		Move m2 = new Move(new Location(2,2), new Location(3,3), p, null, null);
+		assertNotEquals(m1.hashCode(), m2.hashCode());
+	}
 }

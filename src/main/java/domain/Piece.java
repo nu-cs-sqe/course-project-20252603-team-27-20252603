@@ -1,5 +1,7 @@
 package domain;
 
+import java.util.Objects;
+
 public class Piece {
 
 	private final PieceType pieceType;
@@ -239,5 +241,18 @@ public class Piece {
 
 		Piece target = board.getPiece(to);
 		return target == null || target.getColor() != getColor();
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj) return true;
+		if (obj == null || getClass() != obj.getClass()) return false;
+		Piece queen = (Piece) obj;
+		return queen.pieceType == this.pieceType && queen.pieceColor == this.pieceColor;
+	}
+
+	@Override
+	public int hashCode() {
+		return Objects.hash(pieceType, pieceColor);
 	}
 }
