@@ -22,7 +22,7 @@ class PieceTest {
 
     @Test
     void PTC1_pawnOneForward_hasMoved_emptyDest() {
-        Piece pawn = new Piece(PieceType.PAWN, PieceColor.WHITE);
+        Piece pawn = new Piece(PieceType.PAWN, PieceColor.BLACK);
         pawn.setMoved(true);
         EasyMock.replay(board);
         assertTrue(pawn.canMove(board, new Location(2, 0), new Location(3, 0)));
@@ -30,7 +30,7 @@ class PieceTest {
 
     @Test
     void PTC2_pawnOneForward_hasNotMoved_emptyDest() {
-        Piece pawn = new Piece(PieceType.PAWN, PieceColor.WHITE);
+        Piece pawn = new Piece(PieceType.PAWN, PieceColor.BLACK);
         pawn.setMoved(false);
         EasyMock.replay(board);
         assertTrue(pawn.canMove(board, new Location(1, 0), new Location(2, 0)));
@@ -38,7 +38,7 @@ class PieceTest {
 
     @Test
     void PTC3_pawnTwoForward_hasNotMoved_emptyDest() {
-        Piece pawn = new Piece(PieceType.PAWN, PieceColor.WHITE);
+        Piece pawn = new Piece(PieceType.PAWN, PieceColor.BLACK);
         pawn.setMoved(false);
         EasyMock.replay(board);
         assertTrue(pawn.canMove(board, new Location(1, 0), new Location(3, 0)));
@@ -46,8 +46,8 @@ class PieceTest {
 
     @Test
     void PTC4_pawnOneDiagonalForwardRight_hasMoved_foeDest() {
-        Piece pawn = new Piece(PieceType.PAWN, PieceColor.WHITE);
-        Piece foePawn = new Piece(PieceType.PAWN, PieceColor.BLACK);
+        Piece pawn = new Piece(PieceType.PAWN, PieceColor.BLACK);
+        Piece foePawn = new Piece(PieceType.PAWN, PieceColor.WHITE);
         pawn.setMoved(true);
 
         EasyMock.expect(board.getPiece(EasyMock.anyObject(Location.class))).andReturn(foePawn);
@@ -60,8 +60,8 @@ class PieceTest {
 
     @Test
     void PTC5_pawnOneDiagonalForwardLeft_hasMoved_foeDest() {
-        Piece pawn = new Piece(PieceType.PAWN, PieceColor.WHITE);
-        Piece foePawn = new Piece(PieceType.PAWN, PieceColor.BLACK);
+        Piece pawn = new Piece(PieceType.PAWN, PieceColor.BLACK);
+        Piece foePawn = new Piece(PieceType.PAWN, PieceColor.WHITE);
         pawn.setMoved(true);
 
         EasyMock.expect(board.getPiece(EasyMock.anyObject(Location.class))).andReturn(foePawn);
@@ -74,8 +74,8 @@ class PieceTest {
 
     @Test
     void PTC6_pawnOneDiagonalForwardRight_hasNotMoved_foeDest() {
-        Piece pawn = new Piece(PieceType.PAWN, PieceColor.WHITE);
-        Piece foePawn = new Piece(PieceType.PAWN, PieceColor.BLACK);
+        Piece pawn = new Piece(PieceType.PAWN, PieceColor.BLACK);
+        Piece foePawn = new Piece(PieceType.PAWN, PieceColor.WHITE);
         pawn.setMoved(false);
 
         EasyMock.expect(board.getPiece(EasyMock.anyObject(Location.class))).andReturn(foePawn);
@@ -88,8 +88,8 @@ class PieceTest {
 
     @Test
     void PTC7_pawnOneDiagonalForwardLeft_hasNotMoved_foeDest() {
-        Piece pawn = new Piece(PieceType.PAWN, PieceColor.WHITE);
-        Piece foePawn = new Piece(PieceType.PAWN, PieceColor.BLACK);
+        Piece pawn = new Piece(PieceType.PAWN, PieceColor.BLACK);
+        Piece foePawn = new Piece(PieceType.PAWN, PieceColor.WHITE);
         pawn.setMoved(false);
 
         EasyMock.expect(board.getPiece(EasyMock.anyObject(Location.class))).andReturn(foePawn);
@@ -102,8 +102,8 @@ class PieceTest {
 
     @Test
     void PTC8_pawnOneForward_hasMoved_foeDest() {
-        Piece pawn = new Piece(PieceType.PAWN, PieceColor.WHITE);
-        Piece foePawn = new Piece(PieceType.PAWN, PieceColor.BLACK);
+        Piece pawn = new Piece(PieceType.PAWN, PieceColor.BLACK);
+        Piece foePawn = new Piece(PieceType.PAWN, PieceColor.WHITE);
         pawn.setMoved(true);
         EasyMock.expect(board.getPiece(EasyMock.anyObject(Location.class))).andReturn(foePawn);
         EasyMock.replay(board);
@@ -112,8 +112,8 @@ class PieceTest {
 
     @Test
     void PTC9_pawnOneForward_hasMoved_friendDest() {
-        Piece pawn = new Piece(PieceType.PAWN, PieceColor.WHITE);
-        Piece friendPawn = new Piece(PieceType.PAWN, PieceColor.WHITE);
+        Piece pawn = new Piece(PieceType.PAWN, PieceColor.BLACK);
+        Piece friendPawn = new Piece(PieceType.PAWN, PieceColor.BLACK);
         pawn.setMoved(true);
         EasyMock.expect(board.getPiece(EasyMock.anyObject(Location.class))).andReturn(friendPawn);
         EasyMock.replay(board);
@@ -122,8 +122,8 @@ class PieceTest {
 
     @Test
     void PTC10_pawnOneForward_notMoved_foeDest() {
-        Piece pawn = new Piece(PieceType.PAWN, PieceColor.WHITE);
-        Piece foePawn = new Piece(PieceType.PAWN, PieceColor.BLACK);
+        Piece pawn = new Piece(PieceType.PAWN, PieceColor.BLACK);
+        Piece foePawn = new Piece(PieceType.PAWN, PieceColor.WHITE);
         EasyMock.expect(board.getPiece(EasyMock.anyObject(Location.class))).andReturn(foePawn);
         EasyMock.replay(board);
         assertFalse(pawn.canMove(board, new Location(1, 0), new Location(2, 0)));
@@ -131,8 +131,8 @@ class PieceTest {
 
     @Test
     void PTC11_pawnOneForward_notMoved_friendDest() {
-        Piece pawn = new Piece(PieceType.PAWN, PieceColor.WHITE);
-        Piece friendPawn = new Piece(PieceType.PAWN, PieceColor.WHITE);
+        Piece pawn = new Piece(PieceType.PAWN, PieceColor.BLACK);
+        Piece friendPawn = new Piece(PieceType.PAWN, PieceColor.BLACK);
         EasyMock.expect(board.getPiece(EasyMock.anyObject(Location.class))).andReturn(friendPawn);
         EasyMock.replay(board);
         assertFalse(pawn.canMove(board, new Location(1, 0), new Location(2, 0)));
@@ -140,8 +140,8 @@ class PieceTest {
 
     @Test
     void PTC12_pawnTwoForward_notMoved_foeDest() {
-        Piece pawn = new Piece(PieceType.PAWN, PieceColor.WHITE);
-        Piece foePawn = new Piece(PieceType.PAWN, PieceColor.BLACK);
+        Piece pawn = new Piece(PieceType.PAWN, PieceColor.BLACK);
+        Piece foePawn = new Piece(PieceType.PAWN, PieceColor.WHITE);
         EasyMock.expect(board.getPiece(EasyMock.anyObject(Location.class)))
                 .andReturn(null)      // intermediate square empty
                 .andReturn(foePawn);  // destination occupied
@@ -151,8 +151,8 @@ class PieceTest {
 
     @Test
     void PTC13_pawnTwoForward_notMoved_friendDest() {
-        Piece pawn = new Piece(PieceType.PAWN, PieceColor.WHITE);
-        Piece friendPawn = new Piece(PieceType.PAWN, PieceColor.WHITE);
+        Piece pawn = new Piece(PieceType.PAWN, PieceColor.BLACK);
+        Piece friendPawn = new Piece(PieceType.PAWN, PieceColor.BLACK);
         EasyMock.expect(board.getPiece(EasyMock.anyObject(Location.class)))
                 .andReturn(null)        // intermediate square empty
                 .andReturn(friendPawn); // destination occupied
@@ -163,7 +163,7 @@ class PieceTest {
     @ParameterizedTest(name = "Two forward blocked path: hasMoved=false, blockingPiece={0}")
     @MethodSource("providePathBlockedMoves")
     void pawnTwoForward_pathBlocked_invalid_Case3(PieceColor blockingColor) {
-        Piece pawn = new Piece(PieceType.PAWN, PieceColor.WHITE);
+        Piece pawn = new Piece(PieceType.PAWN, PieceColor.BLACK);
         pawn.setMoved(false);
 
         Piece blockingPiece = new Piece(PieceType.PAWN, blockingColor);
@@ -184,15 +184,15 @@ class PieceTest {
 
     private static Stream<Arguments> providePathBlockedMoves() {
         return Stream.of(
-                Arguments.of(PieceColor.BLACK), // PTC14: foe in path
-                Arguments.of(PieceColor.WHITE)  // PTC15: friend in path
+                Arguments.of(PieceColor.WHITE), // PTC14: foe in path
+                Arguments.of(PieceColor.BLACK)  // PTC15: friend in path
         );
     }
 
     @ParameterizedTest(name = "Two forward after moved: destination contains {0}")
     @MethodSource("provideAlreadyMovedTwoForwardCases")
     void pawnTwoForward_alreadyMoved_invalid_Case4(String caseName, Piece destPiece) {
-        Piece pawn = new Piece(PieceType.PAWN, PieceColor.WHITE);
+        Piece pawn = new Piece(PieceType.PAWN, PieceColor.BLACK);
         pawn.setMoved(true); // Crucial: the pawn HAS moved
 
         EasyMock.expect(board.getPiece(matchesLoc(3, 0))).andReturn(null).anyTimes();
@@ -208,8 +208,8 @@ class PieceTest {
     private static Stream<Arguments> provideAlreadyMovedTwoForwardCases() {
         return Stream.of(
                 Arguments.of("Empty space",  null),                                // PTC16
-                Arguments.of("Foe piece",   new Piece(PieceType.PAWN, PieceColor.BLACK)), // PTC17
-                Arguments.of("Friend piece",new Piece(PieceType.PAWN, PieceColor.WHITE))  // PTC18
+                Arguments.of("Foe piece",   new Piece(PieceType.PAWN, PieceColor.WHITE)), // PTC17
+                Arguments.of("Friend piece",new Piece(PieceType.PAWN, PieceColor.BLACK))  // PTC18
         );
     }
 
@@ -222,7 +222,7 @@ class PieceTest {
             int toRow, int toCol,
             Piece destPiece
     ) {
-        Piece pawn = new Piece(PieceType.PAWN, PieceColor.WHITE);
+        Piece pawn = new Piece(PieceType.PAWN, PieceColor.BLACK);
         pawn.setMoved(hasMoved);
 
         // Tell the board mock what to return at the destination square
@@ -236,7 +236,7 @@ class PieceTest {
     }
 
     private static Stream<Arguments> provideInvalidDiagonalCases() {
-        Piece friend = new Piece(PieceType.PAWN, PieceColor.WHITE);
+        Piece friend = new Piece(PieceType.PAWN, PieceColor.BLACK);
 
         return Stream.of(
                 // Empty destination cases
@@ -261,7 +261,7 @@ class PieceTest {
             int toRow, int toCol,
             Piece destPiece
     ) {
-        Piece pawn = new Piece(PieceType.PAWN, PieceColor.WHITE);
+        Piece pawn = new Piece(PieceType.PAWN, PieceColor.BLACK);
         pawn.setMoved(false); // Testing the first-move context explicitly
 
         // Tell the board mock what to return at the destination square
@@ -275,8 +275,8 @@ class PieceTest {
     }
 
     private static Stream<Arguments> provideInvalidTwoSpaceDiagonalCases() {
-        Piece foe = new Piece(PieceType.PAWN, PieceColor.BLACK);
-        Piece friend = new Piece(PieceType.PAWN, PieceColor.WHITE);
+        Piece foe = new Piece(PieceType.PAWN, PieceColor.WHITE);
+        Piece friend = new Piece(PieceType.PAWN, PieceColor.BLACK);
 
         return Stream.of(
                 // Empty destination cases
@@ -302,7 +302,7 @@ class PieceTest {
             int toRow, int toCol,
             Piece destPiece
     ) {
-        Piece pawn = new Piece(PieceType.PAWN, PieceColor.WHITE);
+        Piece pawn = new Piece(PieceType.PAWN, PieceColor.BLACK);
         pawn.setMoved(hasMoved);
 
         // Tell the board mock what to return at the destination square
@@ -316,8 +316,8 @@ class PieceTest {
     }
 
     private static Stream<Arguments> provideInvalidBackwardCases() {
-        Piece foe = new Piece(PieceType.PAWN, PieceColor.BLACK);
-        Piece friend = new Piece(PieceType.PAWN, PieceColor.WHITE);
+        Piece foe = new Piece(PieceType.PAWN, PieceColor.WHITE);
+        Piece friend = new Piece(PieceType.PAWN, PieceColor.BLACK);
 
         return Stream.of(
                 // --- PAWN HAS MOVED (true) ---
@@ -358,7 +358,7 @@ class PieceTest {
             int toRow, int toCol,
             Piece destPiece
     ) {
-        Piece pawn = new Piece(PieceType.PAWN, PieceColor.WHITE);
+        Piece pawn = new Piece(PieceType.PAWN, PieceColor.BLACK);
         pawn.setMoved(true); // Applied to all cases in this batch
 
         // Tell the board mock what to return at the destination square
@@ -372,8 +372,8 @@ class PieceTest {
     }
 
     private static Stream<Arguments> provideInvalidSidewaysCases() {
-        Piece foe = new Piece(PieceType.PAWN, PieceColor.BLACK);
-        Piece friend = new Piece(PieceType.PAWN, PieceColor.WHITE);
+        Piece foe = new Piece(PieceType.PAWN, PieceColor.WHITE);
+        Piece friend = new Piece(PieceType.PAWN, PieceColor.BLACK);
 
         return Stream.of(
                 // --- Moving Left (col decreases) ---
@@ -395,7 +395,7 @@ class PieceTest {
             int fromRow, int fromCol,
             int toRow, int toCol
     ) {
-        Piece pawn = new Piece(PieceType.PAWN, PieceColor.WHITE);
+        Piece pawn = new Piece(PieceType.PAWN, PieceColor.BLACK);
         pawn.setMoved(true); // Applied to all cases in this batch
 
         // Even for out-of-bounds coordinates, our mock safely says the square is empty (null)
@@ -421,7 +421,7 @@ class PieceTest {
     @ParameterizedTest(name = "Zero-distance move invalid: hasMoved={0}")
     @MethodSource("provideZeroDistanceCases")
     void pawnZeroDistanceMove_invalid(boolean hasMoved) {
-        Piece pawn = new Piece(PieceType.PAWN, PieceColor.WHITE);
+        Piece pawn = new Piece(PieceType.PAWN, PieceColor.BLACK);
         pawn.setMoved(hasMoved);
 
         // A piece is sitting on (2,0) because the pawn itself is there!
@@ -444,7 +444,7 @@ class PieceTest {
 
     @Test
     void PTC64_pawn_diagonalTwoColumns_invalid() {
-        Piece pawn = new Piece(PieceType.PAWN, PieceColor.WHITE);
+        Piece pawn = new Piece(PieceType.PAWN, PieceColor.BLACK);
         EasyMock.replay(board);
         assertFalse(pawn.canMove(board, new Location(2, 0), new Location(3, 2)));
     }

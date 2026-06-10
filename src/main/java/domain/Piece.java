@@ -60,21 +60,35 @@ public class Piece {
 	}
 
 	private boolean isValidPawnMove(Board board, Location from, Location to) {
-		int rowDiff = to.getRow() - from.getRow();
+		int actualRowDiff = to.getRow() - from.getRow();
 		int colDiff = to.getCol() - from.getCol();
 
+		int rowDiff = (getColor() == PieceColor.WHITE) ? -actualRowDiff : actualRowDiff;
+
 		if (isPawnOneForward(rowDiff, colDiff)) {
-			return board.getPiece(to) == null;
+			Piece target = board.getPiece(to);
+			return target == null || target.getPieceType() == PieceType.EMPTY;
 		}
 
 		if (isPawnTwoForwardInitial(rowDiff, colDiff)) {
-			Location intermediate = new Location(from.getRow() + 1, from.getCol());
-			return board.getPiece(intermediate) == null && board.getPiece(to) == null;
+			int step = (getColor() == PieceColor.WHITE) ? -1 : 1;
+			Location intermediate = new Location(from.getRow() + step, from.getCol());
+			Piece midPiece = board.getPiece(intermediate);
+			Piece targetPiece = board.getPiece(to);
+
+			boolean midEmpty = midPiece == null
+					|| midPiece.getPieceType() == PieceType.EMPTY;
+			boolean targetEmpty = targetPiece == null
+					|| targetPiece.getPieceType() == PieceType.EMPTY;
+
+			return midEmpty && targetEmpty;
 		}
 
 		if (isPawnDiagonalCapture(rowDiff, colDiff)) {
 			Piece target = board.getPiece(to);
-			return target != null && target.getColor() != getColor();
+			return target != null
+					&& target.getPieceType() != PieceType.EMPTY
+					&& target.getColor() != getColor();
 		}
 
 		return false;
@@ -107,7 +121,9 @@ public class Piece {
 		}
 
 		Piece target = board.getPiece(to);
-		return target == null || target.getColor() != getColor();
+		return target == null
+				|| target.getPieceType() == PieceType.EMPTY
+				|| target.getColor() != getColor();
 	}
 
 	private boolean isStraightPathObstructed(Board board, Location from, Location to) {
@@ -121,7 +137,8 @@ public class Piece {
 		int currentCol = from.getCol() + colStep;
 
 		while (currentRow != to.getRow() || currentCol != to.getCol()) {
-			if (board.getPiece(new Location(currentRow, currentCol)) != null) {
+			Piece p = board.getPiece(new Location(currentRow, currentCol));
+			if (p != null && p.getPieceType() != PieceType.EMPTY) {
 				return true;
 			}
 			currentRow += rowStep;
@@ -141,7 +158,9 @@ public class Piece {
 			return false;
 		}
 		Piece target = board.getPiece(to);
-		return target == null || target.getColor() != getColor();
+		return target == null
+				|| target.getPieceType() == PieceType.EMPTY
+				|| target.getColor() != getColor();
 	}
 
 	private boolean isDiagonalPathObstructed(Board board, Location from, Location to) {
@@ -153,9 +172,10 @@ public class Piece {
 		int steps = Math.abs(rowDiff);
 
 		for (int i = 1; i < steps; i++) {
-			if (board.getPiece(new Location(
-					from.getRow() + i * rowStep,
-					from.getCol() + i * colStep)) != null) {
+			Piece p = board.getPiece(
+					new Location(from.getRow() + i * rowStep,
+							from.getCol() + i * colStep));
+			if (p != null && p.getPieceType() != PieceType.EMPTY) {
 				return true;
 			}
 		}
@@ -177,7 +197,9 @@ public class Piece {
 		}
 
 		Piece target = board.getPiece(to);
-		return target == null || target.getColor() != getColor();
+		return target == null
+				|| target.getPieceType() == PieceType.EMPTY
+				|| target.getColor() != getColor();
 	}
 
 	private boolean isValidKingMove(Board board, Location from, Location to) {
@@ -193,7 +215,9 @@ public class Piece {
 		}
 
 		Piece target = board.getPiece(to);
-		return target == null || target.getColor() != getColor();
+		return target == null
+				|| target.getPieceType() == PieceType.EMPTY
+				|| target.getColor() != getColor();
 	}
 
 	private boolean isValidCastlingAttempt(Board board, Location from, Location to) {
@@ -214,7 +238,8 @@ public class Piece {
 		int endCol = Math.max(from.getCol(), rookSourceCol);
 
 		for (int col = startCol; col < endCol; col++) {
-			if (board.getPiece(new Location(from.getRow(), col)) != null) {
+			Piece p = board.getPiece(new Location(from.getRow(), col));
+			if (p != null && p.getPieceType() != PieceType.EMPTY) {
 				return false;
 			}
 		}
@@ -240,15 +265,18 @@ public class Piece {
 		}
 
 		Piece target = board.getPiece(to);
-		return target == null || target.getColor() != getColor();
+		return target == null
+				|| target.getPieceType() == PieceType.EMPTY
+				|| target.getColor() != getColor();
 	}
 
 	@Override
 	public boolean equals(Object obj) {
 		if (this == obj) return true;
 		if (obj == null || getClass() != obj.getClass()) return false;
-		Piece queen = (Piece) obj;
-		return queen.pieceType == this.pieceType && queen.pieceColor == this.pieceColor;
+		Piece otherPiece = (Piece) obj;
+		return otherPiece.pieceType == this.pieceType
+				&& otherPiece.pieceColor == this.pieceColor;
 	}
 
 	@Override

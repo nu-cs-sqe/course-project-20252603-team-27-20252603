@@ -60,40 +60,44 @@ public class Game {
 		}
 	}
 
-	//	@SuppressFBWarnings(
-//			value = "RCN_REDUNDANT_NULLCHECK_OF_NONNULL_VALUE",
-//			justification =
-//					"Board.getPiece may return null " +
-//							"when the source square is empty."
-//	)
 	public MoveResult makeMove(Location from, Location to, PieceType type) {
 		boolean isCastle = false;
 		boolean isEnPassant = false;
+
 		if (!board.isInsideBoard(from) || !board.isInsideBoard(to)) {
 			return MoveResult.INVALID_OUT_OF_BOUNDS;
 		}
+
 		Piece piece = board.getPiece(from);
 		if (piece.getPieceType() == PieceType.EMPTY) {
 			return MoveResult.INVALID_EMPTY_SOURCE;
 		}
+
 		Piece object = board.getPiece(to);
 		if (object.getPieceType() != PieceType.EMPTY
 				&& (object.getColor() == piece.getColor())) {
 			return MoveResult.INVALID_SAME_COLOR_CAPTURE;
 		} else if (!piece.getColor().equals(currentPlayer.getColor())) {
 			return MoveResult.INVALID_WRONG_TURN;
-		} else if (piece.canMove(board, from, to) || isCastleMove(from, to, piece)) {
+
+		} else if (piece.canMove(board, from, to)
+				|| isCastleMove(from, to, piece)
+				|| isEnPassantMove(from, to, piece)) {
+
 			if (isInCheck(currentPlayer.getColor())) {
 				return MoveResult.INVALID_SELF_CHECK;
 			}
+
 			if (piece.getPieceType() == PieceType.PAWN ||
 					(object.getPieceType() != PieceType.EMPTY)) {
 				halfMoveClock = 0;
 			}
 			halfMoveClock += 1;
+
 			if (halfMoveClock > 100) {
 				return MoveResult.DRAW;
 			}
+
 			if (isEnPassantMove(from, to, piece)) {
 				enPassant += 1;
 				Location capturedPawn = lastMove.getTo();
@@ -108,6 +112,7 @@ public class Game {
 			} else {
 				board.movePiece(from, to);
 			}
+
 			String notation = createNotation
 					(from, to, piece, object, type
 							, isCastle, isEnPassant);
@@ -118,6 +123,7 @@ public class Game {
 			lastMove = move;
 			moveHistory.add(move);
 			piece.setMoved(true);
+
 			if ((piece.getPieceType() == PieceType.PAWN &&
 					piece.getColor() == PieceColor.BLACK && to.getRow() == 7)
 					|| (piece.getPieceType()
@@ -129,21 +135,40 @@ public class Game {
 				board.setPiece(to, newPiece);
 				newPiece.setMoved(true);
 			}
-			int count = positionHistory.getOrDefault
-					(board.toPositionString() + currentPlayer.getName() +
-							enPassant +
-							castle, 0);
-			positionHistory.put(board.toPositionString() +
-					currentPlayer.getName() +
-					enPassant +
-					castle, count + 1);
-			if (positionHistory.getOrDefault(board.toPositionString() +
-					currentPlayer.getName() +
-					enPassant +
-					castle, 0) == 3) {
+
+			String boardState = board.toPositionString();
+
+			String turnColor = currentPlayer.getColor().toString();
+
+			Piece whiteKing = board.getPiece(board.findKing(PieceColor.WHITE));
+			Piece blackKing = board.getPiece(board.findKing(PieceColor.BLACK));
+			boolean wKingMoved = whiteKing != null && whiteKing.hasMoved();
+			boolean bKingMoved = blackKing != null && blackKing.hasMoved();
+			String castleRights = "WK_Moved:" + wKingMoved + ",BK_Moved:" + bKingMoved;
+
+			String epTarget = "None";
+			if (piece.getPieceType() == PieceType.PAWN) {
+				int rowDiff = Math.abs(from.getRow() - to.getRow());
+				if (rowDiff == 2) {
+					epTarget = to.toString();
+				}
+			}
+
+			String positionKey = boardState
+					+ "|" + turnColor
+					+ "|" + castleRights
+					+ "|" + epTarget;
+
+			int positionCount = positionHistory.getOrDefault(positionKey, 0) + 1;
+			positionHistory.put(positionKey, positionCount);
+
+			if (positionCount == 3) {
+				this.status = GameStatus.DRAW;
 				return MoveResult.DRAW;
 			}
+
 			switchTurn();
+
 			if (isCheckmate(currentPlayer.getColor())) {
 				return MoveResult.CHECKMATE;
 			} else if (isInCheck(currentPlayer.getColor())) {
@@ -152,11 +177,13 @@ public class Game {
 				status = GameStatus.DRAW;
 				return MoveResult.STALEMATE;
 			}
+
 			if (currentPlayer.getColor() == PieceColor.WHITE) {
 				status = GameStatus.WHITE_TURN;
 			} else {
 				status = GameStatus.BLACK_TURN;
 			}
+
 			return MoveResult.VALID;
 		} else {
 			return MoveResult.INVALID_ILLEGAL_PIECE_MOVE;
@@ -316,7 +343,6 @@ public class Game {
 	}
 
 	public boolean isEnPassantMove(Location from, Location to, Piece movingPiece) {
-//		return false;
 		if (movingPiece.getPieceType() != PieceType.PAWN) {
 			return false;
 		}
@@ -351,7 +377,6 @@ public class Game {
 	}
 
 	public boolean isCastleMove(Location from, Location to, Piece king) {
-//		return false;
 		if (king.getPieceType() != PieceType.KING || king.hasMoved()) {
 			return false;
 		}
