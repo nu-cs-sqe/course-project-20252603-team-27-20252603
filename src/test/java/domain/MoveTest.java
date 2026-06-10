@@ -132,4 +132,11 @@ public class MoveTest {
 		assertEquals(m1, m2);
 	}
 
+	@Test
+	void equals_null_returnsFalse() {
+		Move m = new Move(new Location(0,0), new Location(1,1), new Piece(PieceType.PAWN, PieceColor.WHITE), null, null);
+		assertNotEquals(m, null);
+	}
+
+
 }
