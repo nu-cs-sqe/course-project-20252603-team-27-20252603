@@ -28,11 +28,11 @@ public class Game {
 							"and testing."
 	)
 	public Game(Board board,
-	            GameStatus status,
-	            List<Move> moveHistory,
-	            Move lastMove,
-	            int halfMoveClock,
-	            Map<String, Integer> positionHistory) {
+				GameStatus status,
+				List<Move> moveHistory,
+				Move lastMove,
+				int halfMoveClock,
+				Map<String, Integer> positionHistory) {
 		this.board = board;
 		this.status = status;
 		this.moveHistory = moveHistory;
@@ -120,8 +120,11 @@ public class Game {
 			piece.setMoved(true);
 			if ((piece.getPieceType() == PieceType.PAWN &&
 					piece.getColor() == PieceColor.BLACK && to.getRow() == 7)
-					|| (piece.getPieceType() == PieceType.PAWN && piece.getColor()
-					== PieceColor.WHITE && to.getRow() == 0)) {
+					|| (piece.getPieceType()
+					== PieceType.PAWN
+					&& piece.getColor()
+					== PieceColor.WHITE
+					&& to.getRow() == 0)) {
 				Piece newPiece = createPromotedPiece(type, piece.getColor());
 				board.setPiece(to, newPiece);
 				newPiece.setMoved(true);
@@ -212,7 +215,8 @@ public class Game {
 						&& piece.getColor() == color) {
 					for (int row_des = 0; row_des < 8; row_des++) {
 						for (int col_des = 0; col_des < 8; col_des++) {
-							Location to = new Location(row_des, col_des);
+							Location to = new Location(
+									row_des, col_des);
 							if (piece.canMove(board, from, to)) {
 								Piece target = board.getPiece(to);
 								board.movePiece(from, to);
