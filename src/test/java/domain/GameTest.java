@@ -2288,4 +2288,72 @@ public class GameTest {
 
 		EasyMock.verify(board, rook, game);
 	}
+
+	@Test
+	public void makeMove_blackKingMovedForCoverage() {
+		Player player1 = new Player("p1", PieceColor.WHITE);
+		Player player2 = new Player("p2", PieceColor.BLACK);
+		Location source = new Location(7, 0);
+		Location destination = new Location(0, 7);
+		Board board = EasyMock.createMock(Board.class);
+		Piece rook = EasyMock.createMock(Piece.class);
+
+		board.initBoard();
+		EasyMock.expectLastCall();
+		board.movePiece(source, destination);
+		EasyMock.expectLastCall();
+		EasyMock.expect(board.getPiece(destination)).andStubReturn(new Piece(PieceType.EMPTY, null));
+		EasyMock.expect(board.getPiece(source)).andStubReturn(rook);
+		EasyMock.expect(board.isInsideBoard(source)).andReturn(TRUE).anyTimes();
+		EasyMock.expect(board.isInsideBoard(destination)).andReturn(TRUE).anyTimes();
+		EasyMock.expect(board.toPositionString()).andReturn("last").anyTimes();
+		EasyMock.expect(rook.canMove(board, source, destination)).andStubReturn(TRUE);
+		EasyMock.expect(rook.getPieceType()).andStubReturn(PieceType.ROOK);
+		EasyMock.expect(rook.getColor()).andStubReturn(PieceColor.WHITE);
+
+		Location wKingLoc = new Location(7, 4);
+		Location bKingLoc = new Location(0, 4);
+		EasyMock.expect(board.findKing(PieceColor.WHITE)).andStubReturn(wKingLoc);
+		EasyMock.expect(board.findKing(PieceColor.BLACK)).andStubReturn(bKingLoc);
+
+		// --- THIS IS THE FIX FOR THE FINAL BRANCH ---
+		// Create a Black King and explicitly mark it as having moved.
+		Piece movedBlackKing = new Piece(PieceType.KING, PieceColor.BLACK);
+		movedBlackKing.setMoved(true);
+
+		EasyMock.expect(board.getPiece(wKingLoc)).andStubReturn(new Piece(PieceType.KING, PieceColor.WHITE));
+		EasyMock.expect(board.getPiece(bKingLoc)).andStubReturn(movedBlackKing);
+
+		Map<String, Integer> positionHistory = new HashMap<>();
+		List<Move> moveHistory = new ArrayList<>();
+		Game game = EasyMock.partialMockBuilder(Game.class)
+				.withConstructor(Board.class, GameStatus.class, List.class, Move.class, int.class, Map.class)
+				.withArgs(board, GameStatus.WHITE_TURN, moveHistory, null, 0, positionHistory)
+				.addMockedMethod("isInCheck", PieceColor.class)
+				.addMockedMethod("isCheckmate", PieceColor.class)
+				.addMockedMethod("isStalemate", PieceColor.class)
+				.createMock();
+
+		EasyMock.expect(game.isInCheck(PieceColor.WHITE)).andReturn(false);
+		EasyMock.expect(game.isInCheck(PieceColor.BLACK)).andReturn(false);
+		EasyMock.expect(game.isCheckmate(PieceColor.BLACK)).andReturn(false);
+		EasyMock.expect(game.isStalemate(PieceColor.BLACK)).andReturn(false);
+		rook.setMoved(true);
+		EasyMock.expectLastCall();
+		EasyMock.replay(board, rook, game);
+
+		game.startNewGame(player1, player2);
+
+		MoveResult result = game.makeMove(source, destination, PieceType.KNIGHT);
+
+		Map<String, Integer> target = new HashMap<>();
+		// Notice the key now expects "BK_Moved:true" because our mocked king had moved!
+		target.put("last|WHITE|WK_Moved:false,BK_Moved:true|None", 1);
+
+		assertEquals(GameStatus.BLACK_TURN, game.getStatus());
+		assertEquals(target, game.positionHistory);
+		assertEquals(result, MoveResult.VALID);
+
+		EasyMock.verify(board, rook, game);
+	}
 }
