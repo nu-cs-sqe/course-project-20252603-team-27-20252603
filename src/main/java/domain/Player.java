@@ -1,7 +1,7 @@
 package domain;
 
 public final class Player {
-	private String name;
+	private final String name;
 	private PieceColor color;
 
 	Player(String name, PieceColor color) {
@@ -20,14 +20,14 @@ public final class Player {
 		return color;
 	}
 
-	public String getName() {
-		return name;
-	}
-
 	public void setColor(PieceColor color) {
 		if (color == null) {
 			throw new IllegalArgumentException("Color cannot be null");
 		}
 		this.color = color;
+	}
+
+	public String getName() {
+		return name;
 	}
 }

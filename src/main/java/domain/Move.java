@@ -83,8 +83,9 @@ public final class Move {
 	public String getNotation() {
 		return notation;
 	}
+
 	@Override
-	public boolean equals(Object obj){
+	public boolean equals(Object obj) {
 		if (this == obj) return true;
 		if (obj == null || getClass() != obj.getClass()) return false;
 		Move queen = (Move) obj;
@@ -92,6 +93,7 @@ public final class Move {
 				Objects.equals(queen.to, this.to) &&
 				Objects.equals(queen.movedPiece, this.movedPiece);
 	}
+
 	@Override
 	public int hashCode() {
 		return Objects.hash(from, to, movedPiece);
