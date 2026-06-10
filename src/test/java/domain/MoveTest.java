@@ -180,4 +180,12 @@ public class MoveTest {
 		Move m2 = new Move(from, to, p, null, null);
 		assertEquals(m1.hashCode(), m2.hashCode());
 	}
+
+	@Test
+	void hashCode_differentMoves_differentHash() {
+		Piece p = new Piece(PieceType.PAWN, PieceColor.WHITE);
+		Move m1 = new Move(new Location(0,0), new Location(1,1), p, null, null);
+		Move m2 = new Move(new Location(2,2), new Location(3,3), p, null, null);
+		assertNotEquals(m1.hashCode(), m2.hashCode());
+	}
 }
