@@ -138,5 +138,12 @@ public class MoveTest {
 		assertNotEquals(m, null);
 	}
 
+	@Test
+	void equals_differentClass_returnsFalse() {
+		Move m = new Move(new Location(0,0), new Location(1,1), new Piece(PieceType.PAWN, PieceColor.WHITE), null, null);
+		assertNotEquals(m, "notAMove");
+	}
+
+
 
 }
