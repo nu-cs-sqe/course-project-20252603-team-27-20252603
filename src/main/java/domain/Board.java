@@ -111,7 +111,7 @@ public class Board {
 		for (int row = 0; row < TOTAL_ROWS; row++) {
 			for (int col = 0; col < TOTAL_COLS; col++) {
 				Piece piece = pieces[row][col];
-				if (piece != null
+				if (piece.getPieceType() != PieceType.EMPTY
 						&& piece.getPieceType() == PieceType.KING
 						&& piece.getColor() == color) {
 					return new Location(row, col);
@@ -126,7 +126,7 @@ public class Board {
 		for (int row = 0; row < TOTAL_ROWS; row++) {
 			for (int col = 0; col < TOTAL_COLS; col++) {
 				Piece piece = pieces[row][col];
-				if (piece == null || piece.getPieceType() == PieceType.EMPTY) {
+				if (piece.getPieceType() == PieceType.EMPTY) {
 					builder.append('.');
 				} else {
 					char symbol = piece.getPieceType() == PieceType.KNIGHT ? 'N'
