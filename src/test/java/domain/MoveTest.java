@@ -121,4 +121,15 @@ public class MoveTest {
 		Move m = new Move(new Location(0,0), new Location(1,1), new Piece(PieceType.PAWN, PieceColor.WHITE), null, null);
 		assertEquals(m, m);
 	}
+
+	@Test
+	void equals_equalMoves_returnsTrue() {
+		Piece p = new Piece(PieceType.PAWN, PieceColor.WHITE);
+		Location from = new Location(0,0);
+		Location to = new Location(1,1);
+		Move m1 = new Move(from, to, p, null, null);
+		Move m2 = new Move(from, to, p, null, null);
+		assertEquals(m1, m2);
+	}
+
 }
