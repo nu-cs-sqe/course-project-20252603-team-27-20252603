@@ -143,8 +143,8 @@ class PieceTest {
         Piece pawn = new Piece(PieceType.PAWN, PieceColor.BLACK);
         Piece foePawn = new Piece(PieceType.PAWN, PieceColor.WHITE);
         EasyMock.expect(board.getPiece(EasyMock.anyObject(Location.class)))
-                .andReturn(null)      // intermediate square empty
-                .andReturn(foePawn);  // destination occupied
+                .andReturn(null)      
+                .andReturn(foePawn);  
         EasyMock.replay(board);
         assertFalse(pawn.canMove(board, new Location(1, 0), new Location(3, 0)));
     }
@@ -154,8 +154,8 @@ class PieceTest {
         Piece pawn = new Piece(PieceType.PAWN, PieceColor.BLACK);
         Piece friendPawn = new Piece(PieceType.PAWN, PieceColor.BLACK);
         EasyMock.expect(board.getPiece(EasyMock.anyObject(Location.class)))
-                .andReturn(null)        // intermediate square empty
-                .andReturn(friendPawn); // destination occupied
+                .andReturn(null)        
+                .andReturn(friendPawn); 
         EasyMock.replay(board);
         assertFalse(pawn.canMove(board, new Location(1, 0), new Location(3, 0)));
     }
@@ -168,15 +168,15 @@ class PieceTest {
 
         Piece blockingPiece = new Piece(PieceType.PAWN, blockingColor);
 
-        // 1. Tell the board to return the blocking piece ONLY at row 2, col 0
+        
         EasyMock.expect(board.getPiece(matchesLoc(2, 0))).andReturn(blockingPiece).anyTimes();
 
-        // 2. Tell the board to return null (empty) for the destination row 3, col 0
+        
         EasyMock.expect(board.getPiece(matchesLoc(3, 0))).andReturn(null).anyTimes();
 
         EasyMock.replay(board);
 
-        // Attempting to move from (1,0) to (3,0) should fail
+        
         assertFalse(pawn.canMove(board, new Location(1, 0), new Location(3, 0)));
 
         EasyMock.verify(board);
@@ -184,8 +184,8 @@ class PieceTest {
 
     private static Stream<Arguments> providePathBlockedMoves() {
         return Stream.of(
-                Arguments.of(PieceColor.WHITE), // PTC14: foe in path
-                Arguments.of(PieceColor.BLACK)  // PTC15: friend in path
+                Arguments.of(PieceColor.WHITE), 
+                Arguments.of(PieceColor.BLACK)  
         );
     }
 
@@ -193,7 +193,7 @@ class PieceTest {
     @MethodSource("provideAlreadyMovedTwoForwardCases")
     void pawnTwoForward_alreadyMoved_invalid_Case4(String caseName, Piece destPiece) {
         Piece pawn = new Piece(PieceType.PAWN, PieceColor.BLACK);
-        pawn.setMoved(true); // Crucial: the pawn HAS moved
+        pawn.setMoved(true); 
 
         EasyMock.expect(board.getPiece(matchesLoc(3, 0))).andReturn(null).anyTimes();
         EasyMock.expect(board.getPiece(matchesLoc(4, 0))).andReturn(destPiece).anyTimes();
@@ -207,9 +207,9 @@ class PieceTest {
 
     private static Stream<Arguments> provideAlreadyMovedTwoForwardCases() {
         return Stream.of(
-                Arguments.of("Empty space",  null),                                // PTC16
-                Arguments.of("Foe piece",   new Piece(PieceType.PAWN, PieceColor.WHITE)), // PTC17
-                Arguments.of("Friend piece",new Piece(PieceType.PAWN, PieceColor.BLACK))  // PTC18
+                Arguments.of("Empty space",  null),                                
+                Arguments.of("Foe piece",   new Piece(PieceType.PAWN, PieceColor.WHITE)), 
+                Arguments.of("Friend piece",new Piece(PieceType.PAWN, PieceColor.BLACK))  
         );
     }
 
@@ -225,11 +225,11 @@ class PieceTest {
         Piece pawn = new Piece(PieceType.PAWN, PieceColor.BLACK);
         pawn.setMoved(hasMoved);
 
-        // Tell the board mock what to return at the destination square
+        
         EasyMock.expect(board.getPiece(matchesLoc(toRow, toCol))).andReturn(destPiece).anyTimes();
         EasyMock.replay(board);
 
-        // This diagonal move should always be denied (false)
+        
         assertFalse(pawn.canMove(board, new Location(fromRow, fromCol), new Location(toRow, toCol)));
 
         EasyMock.verify(board);
@@ -239,13 +239,13 @@ class PieceTest {
         Piece friend = new Piece(PieceType.PAWN, PieceColor.BLACK);
 
         return Stream.of(
-                // Empty destination cases
+                
                 Arguments.of("PTC19: moved, right, empty",   true,  2, 1, 3, 2, null),
                 Arguments.of("PTC20: moved, left, empty",    true,  2, 1, 3, 0, null),
                 Arguments.of("PTC21: not moved, right, empty", false, 1, 1, 2, 2, null),
                 Arguments.of("PTC22: not moved, left, empty",  false, 1, 1, 2, 0, null),
 
-                // Friend-occupied destination cases
+                
                 Arguments.of("PTC23: moved, right, friend",  true,  2, 1, 3, 2, friend),
                 Arguments.of("PTC24: moved, left, friend",   true,  2, 1, 3, 0, friend),
                 Arguments.of("PTC25: not moved, right, friend",false, 1, 1, 2, 2, friend),
@@ -262,13 +262,13 @@ class PieceTest {
             Piece destPiece
     ) {
         Piece pawn = new Piece(PieceType.PAWN, PieceColor.BLACK);
-        pawn.setMoved(false); // Testing the first-move context explicitly
+        pawn.setMoved(false); 
 
-        // Tell the board mock what to return at the destination square
+        
         EasyMock.expect(board.getPiece(matchesLoc(toRow, toCol))).andReturn(destPiece).anyTimes();
         EasyMock.replay(board);
 
-        // Moving two spaces diagonally forward must always be denied (false)
+        
         assertFalse(pawn.canMove(board, new Location(fromRow, fromCol), new Location(toRow, toCol)));
 
         EasyMock.verify(board);
@@ -279,15 +279,15 @@ class PieceTest {
         Piece friend = new Piece(PieceType.PAWN, PieceColor.BLACK);
 
         return Stream.of(
-                // Empty destination cases
+                
                 Arguments.of("PTC27: forward-right, empty", 1, 0, 3, 2, null),
                 Arguments.of("PTC28: forward-left, empty",  1, 2, 3, 0, null),
 
-                // Foe-occupied destination cases
+                
                 Arguments.of("PTC29: forward-right, foe",   1, 0, 3, 2, foe),
                 Arguments.of("PTC30: forward-left, foe",    1, 2, 3, 0, foe),
 
-                // Friend-occupied destination cases
+                
                 Arguments.of("PTC31: forward-right, friend",1, 0, 3, 2, friend),
                 Arguments.of("PTC32: forward-left, friend", 1, 2, 3, 0, friend)
         );
@@ -305,11 +305,11 @@ class PieceTest {
         Piece pawn = new Piece(PieceType.PAWN, PieceColor.BLACK);
         pawn.setMoved(hasMoved);
 
-        // Tell the board mock what to return at the destination square
+        
         EasyMock.expect(board.getPiece(matchesLoc(toRow, toCol))).andReturn(destPiece).anyTimes();
         EasyMock.replay(board);
 
-        // Any attempt to move a pawn to a lower row (-row direction) must return false
+        
         assertFalse(pawn.canMove(board, new Location(fromRow, fromCol), new Location(toRow, toCol)));
 
         EasyMock.verify(board);
@@ -320,30 +320,30 @@ class PieceTest {
         Piece friend = new Piece(PieceType.PAWN, PieceColor.BLACK);
 
         return Stream.of(
-                // --- PAWN HAS MOVED (true) ---
-                // Straight back
+                
+                
                 Arguments.of("PTC33: moved, straight back, empty",     true, 2, 0, 1, 0, null),
                 Arguments.of("PTC34: moved, straight back, foe",       true, 2, 0, 1, 0, foe),
                 Arguments.of("PTC35: moved, straight back, friend",    true, 2, 0, 1, 0, friend),
-                // Backward-Right
+                
                 Arguments.of("PTC36: moved, backward-right, empty",   true, 2, 1, 1, 2, null),
                 Arguments.of("PTC37: moved, backward-right, foe",     true, 2, 1, 1, 2, foe),
                 Arguments.of("PTC38: moved, backward-right, friend",  true, 2, 1, 1, 2, friend),
-                // Backward-Left
+                
                 Arguments.of("PTC39: moved, backward-left, empty",    true, 2, 1, 1, 0, null),
                 Arguments.of("PTC40: moved, backward-left, foe",      true, 2, 1, 1, 0, foe),
                 Arguments.of("PTC41: moved, backward-left, friend",   true, 2, 1, 1, 0, friend),
 
-                // --- PAWN HAS NOT MOVED (false) ---
-                // Straight back
+                
+                
                 Arguments.of("PTC42: not moved, straight back, empty",  false, 1, 0, 0, 0, null),
                 Arguments.of("PTC43: not moved, straight back, foe",    false, 1, 0, 0, 0, foe),
                 Arguments.of("PTC44: not moved, straight back, friend", false, 1, 0, 0, 0, friend),
-                // Backward-Right
+                
                 Arguments.of("PTC45: not moved, backward-right, empty", false, 1, 1, 0, 2, null),
                 Arguments.of("PTC46: not moved, backward-right, foe",   false, 1, 1, 0, 2, foe),
                 Arguments.of("PTC47: not moved, backward-right, friend",false, 1, 1, 0, 2, friend),
-                // Backward-Left
+                
                 Arguments.of("PTC48: not moved, backward-left, empty",  false, 1, 1, 0, 0, null),
                 Arguments.of("PTC49: not moved, backward-left, foe",    false, 1, 1, 0, 0, foe),
                 Arguments.of("PTC50: not moved, backward-left, friend", false, 1, 1, 0, 0, friend)
@@ -359,13 +359,13 @@ class PieceTest {
             Piece destPiece
     ) {
         Piece pawn = new Piece(PieceType.PAWN, PieceColor.BLACK);
-        pawn.setMoved(true); // Applied to all cases in this batch
+        pawn.setMoved(true); 
 
-        // Tell the board mock what to return at the destination square
+        
         EasyMock.expect(board.getPiece(matchesLoc(toRow, toCol))).andReturn(destPiece).anyTimes();
         EasyMock.replay(board);
 
-        // Any attempt to move a pawn sideways (row stays the same, col changes) must return false
+        
         assertFalse(pawn.canMove(board, new Location(fromRow, fromCol), new Location(toRow, toCol)));
 
         EasyMock.verify(board);
@@ -376,12 +376,12 @@ class PieceTest {
         Piece friend = new Piece(PieceType.PAWN, PieceColor.BLACK);
 
         return Stream.of(
-                // --- Moving Left (col decreases) ---
+                
                 Arguments.of("PTC51: left, empty",  2, 1, 2, 0, null),
                 Arguments.of("PTC52: left, foe",    2, 1, 2, 0, foe),
                 Arguments.of("PTC53: left, friend", 2, 1, 2, 0, friend),
 
-                // --- Moving Right (col increases) ---
+                
                 Arguments.of("PTC54: right, empty", 2, 0, 2, 1, null),
                 Arguments.of("PTC55: right, foe",   2, 0, 2, 1, foe),
                 Arguments.of("PTC56: right, friend",2, 0, 2, 1, friend)
@@ -396,13 +396,13 @@ class PieceTest {
             int toRow, int toCol
     ) {
         Piece pawn = new Piece(PieceType.PAWN, PieceColor.BLACK);
-        pawn.setMoved(true); // Applied to all cases in this batch
+        pawn.setMoved(true); 
 
-        // Even for out-of-bounds coordinates, our mock safely says the square is empty (null)
+        
         EasyMock.expect(board.getPiece(matchesLoc(toRow, toCol))).andReturn(null).anyTimes();
         EasyMock.replay(board);
 
-        // Any attempt to move to a row or column outside 0-7 must return false
+        
         assertFalse(pawn.canMove(board, new Location(fromRow, fromCol), new Location(toRow, toCol)));
 
         EasyMock.verify(board);
@@ -424,12 +424,12 @@ class PieceTest {
         Piece pawn = new Piece(PieceType.PAWN, PieceColor.BLACK);
         pawn.setMoved(hasMoved);
 
-        // A piece is sitting on (2,0) because the pawn itself is there!
-        // Our mock returns the pawn itself if asked about its own square.
+        
+        
         EasyMock.expect(board.getPiece(matchesLoc(2, 0))).andReturn(pawn).anyTimes();
         EasyMock.replay(board);
 
-        // Any attempt to move from (2,0) to (2,0) must return false
+        
         assertFalse(pawn.canMove(board, new Location(2, 0), new Location(2, 0)));
 
         EasyMock.verify(board);
@@ -437,8 +437,8 @@ class PieceTest {
 
     private static Stream<Arguments> provideZeroDistanceCases() {
         return Stream.of(
-                Arguments.of(true),  // PTC62: has moved before
-                Arguments.of(false) // PTC63: hasn't moved before
+                Arguments.of(true),  
+                Arguments.of(false) 
         );
     }
 
@@ -460,11 +460,11 @@ class PieceTest {
     ) {
         Piece rook = new Piece(PieceType.ROOK, PieceColor.WHITE);
 
-        // Mock what is sitting on the destination square
+        
         EasyMock.expect(board.getPiece(matchesLoc(toRow, toCol))).andReturn(destPiece).anyTimes();
         EasyMock.replay(board);
 
-        // Single orthogonal moves to empty/foe targets must return true
+        
         assertTrue(rook.canMove(board, new Location(fromRow, fromCol), new Location(toRow, toCol)));
 
         EasyMock.verify(board);
@@ -474,19 +474,19 @@ class PieceTest {
         Piece foe = new Piece(PieceType.PAWN, PieceColor.BLACK);
 
         return Stream.of(
-                // Forward moves
+                
                 Arguments.of("RTC1: forward, empty", 0, 0, 1, 0, null),
                 Arguments.of("RTC2: forward, foe",   0, 0, 1, 0, foe),
 
-                // Backward moves
+                
                 Arguments.of("RTC3: backward, empty",1, 0, 0, 0, null),
                 Arguments.of("RTC4: backward, foe",  1, 0, 0, 0, foe),
 
-                // Right moves
+                
                 Arguments.of("RTC5: right, empty",   1, 0, 1, 1, null),
                 Arguments.of("RTC6: right, foe",     1, 0, 1, 1, foe),
 
-                // Left moves
+                
                 Arguments.of("RTC7: left, empty",    1, 1, 1, 0, null),
                 Arguments.of("RTC8: left, foe",      1, 1, 1, 0, foe)
         );
@@ -502,17 +502,17 @@ class PieceTest {
     ) {
         Piece rook = new Piece(PieceType.ROOK, PieceColor.WHITE);
 
-        // 1. Setup a default baseline: assume the entire board/path is clear (null)
+        
         EasyMock.expect(board.getPiece(EasyMock.anyObject(Location.class)))
                 .andReturn(null).anyTimes();
 
-        // 2. Override the destination square with our specific target piece (or null)
+        
         EasyMock.expect(board.getPiece(matchesLoc(toRow, toCol)))
                 .andReturn(destPiece).anyTimes();
 
         EasyMock.replay(board);
 
-        // Full-board sliding moves across a clear path to empty/foe targets must return true
+        
         assertTrue(rook.canMove(board, new Location(fromRow, fromCol), new Location(toRow, toCol)));
 
         EasyMock.verify(board);
@@ -522,19 +522,19 @@ class PieceTest {
         Piece foe = new Piece(PieceType.PAWN, PieceColor.BLACK);
 
         return Stream.of(
-                // Forward max slides (Row 0 -> Row 7)
+                
                 Arguments.of("RTC9: forward max, empty", 0, 0, 7, 0, null),
                 Arguments.of("RTC10: forward max, foe",   0, 0, 7, 0, foe),
 
-                // Backward max slides (Row 7 -> Row 0)
+                
                 Arguments.of("RTC11: backward max, empty",7, 0, 0, 0, null),
                 Arguments.of("RTC12: backward max, foe",  7, 0, 0, 0, foe),
 
-                // Right max slides (Col 0 -> Col 7)
+                
                 Arguments.of("RTC13: right max, empty",   7, 0, 7, 7, null),
                 Arguments.of("RTC14: right max, foe",     7, 0, 7, 7, foe),
 
-                // Left max slides (Col 7 -> Col 0)
+                
                 Arguments.of("RTC15: left max, empty",    7, 7, 7, 0, null),
                 Arguments.of("RTC16: left max, foe",      7, 7, 7, 0, foe)
         );
@@ -550,11 +550,11 @@ class PieceTest {
         Piece rook = new Piece(PieceType.ROOK, PieceColor.WHITE);
         Piece friend = new Piece(PieceType.PAWN, PieceColor.WHITE);
 
-        // Mock a friendly piece sitting on the destination square
+        
         EasyMock.expect(board.getPiece(matchesLoc(toRow, toCol))).andReturn(friend).anyTimes();
         EasyMock.replay(board);
 
-        // Single orthogonal moves to friendly targets must always return false
+        
         assertFalse(rook.canMove(board, new Location(fromRow, fromCol), new Location(toRow, toCol)));
 
         EasyMock.verify(board);
@@ -579,17 +579,17 @@ class PieceTest {
         Piece rook = new Piece(PieceType.ROOK, PieceColor.WHITE);
         Piece friend = new Piece(PieceType.PAWN, PieceColor.WHITE);
 
-        // 1. Specific rule FIRST: Tell EasyMock exactly what is at the destination
+        
         EasyMock.expect(board.getPiece(matchesLoc(toRow, toCol)))
                 .andReturn(friend).anyTimes();
 
-        // 2. Generic rule SECOND: Fallback wildcard for all intermediate path squares
+        
         EasyMock.expect(board.getPiece(EasyMock.anyObject(Location.class)))
                 .andReturn(null).anyTimes();
 
         EasyMock.replay(board);
 
-        // Max slides to a friendly-occupied target must always return false
+        
         assertFalse(rook.canMove(board, new Location(fromRow, fromCol), new Location(toRow, toCol)));
 
         EasyMock.verify(board);
@@ -616,21 +616,21 @@ class PieceTest {
         Piece rook = new Piece(PieceType.ROOK, PieceColor.WHITE);
         Piece friendBlocker = new Piece(PieceType.PAWN, PieceColor.WHITE);
 
-        // 1. SPECIFIC RULES FIRST: Place the friendly blocking piece on the path
+        
         EasyMock.expect(board.getPiece(matchesLoc(blockRow, blockCol)))
                 .andReturn(friendBlocker).anyTimes();
 
-        // 2. Specify what is sitting at the final destination
+        
         EasyMock.expect(board.getPiece(matchesLoc(toRow, toCol)))
                 .andReturn(destPiece).anyTimes();
 
-        // 3. GENERIC RULE LAST: Default all other random squares to empty (null)
+        
         EasyMock.expect(board.getPiece(EasyMock.anyObject(Location.class)))
                 .andReturn(null).anyTimes();
 
         EasyMock.replay(board);
 
-        // Attempting to move through a piece must always return false
+        
         assertFalse(rook.canMove(board, new Location(fromRow, fromCol), new Location(toRow, toCol)));
 
         EasyMock.verify(board);
@@ -641,22 +641,22 @@ class PieceTest {
         Piece foe = new Piece(PieceType.PAWN, PieceColor.BLACK);
 
         return Stream.of(
-                // Forward max slides (From 0,0 to 7,0 | Blocked at 1,0)
+                
                 Arguments.of("RTC25: forward max, blocked, dest empty",  0, 0,  1, 0,  7, 0, null),
                 Arguments.of("RTC26: forward max, blocked, dest friend", 0, 0,  1, 0,  7, 0, friend),
                 Arguments.of("RTC27: forward max, blocked, dest foe",    0, 0,  1, 0,  7, 0, foe),
 
-                // Backward max slides (From 7,0 to 0,0 | Blocked at 6,0)
+                
                 Arguments.of("RTC28: backward max, blocked, dest empty", 7, 0,  6, 0,  0, 0, null),
                 Arguments.of("RTC29: backward max, blocked, dest friend",7, 0,  6, 0,  0, 0, friend),
                 Arguments.of("RTC30: backward max, blocked, dest foe",   7, 0,  6, 0,  0, 0, foe),
 
-                // Left max slides (From 7,7 to 7,0 | Blocked at 7,6)
+                
                 Arguments.of("RTC31: left max, blocked, dest empty",     7, 7,  7, 6,  7, 0, null),
                 Arguments.of("RTC32: left max, blocked, dest friend",    7, 7,  7, 6,  7, 0, friend),
                 Arguments.of("RTC33: left max, blocked, dest foe",       7, 7,  7, 6,  7, 0, foe),
 
-                // Right max slides (From 7,0 to 7,7 | Blocked at 7,1)
+                
                 Arguments.of("RTC34: right max, blocked, dest empty",    7, 0,  7, 1,  7, 7, null),
                 Arguments.of("RTC35: right max, blocked, dest friend",   7, 0,  7, 1,  7, 7, friend),
                 Arguments.of("RTC36: right max, blocked, dest foe",      7, 0,  7, 1,  7, 7, foe)
@@ -675,21 +675,21 @@ class PieceTest {
         Piece rook = new Piece(PieceType.ROOK, PieceColor.WHITE);
         Piece foeBlocker = new Piece(PieceType.PAWN, PieceColor.BLACK);
 
-        // 1. SPECIFIC RULES FIRST: Place the enemy blocking piece on the intermediate path
+        
         EasyMock.expect(board.getPiece(matchesLoc(blockRow, blockCol)))
                 .andReturn(foeBlocker).anyTimes();
 
-        // 2. Specify what is sitting at the final destination square
+        
         EasyMock.expect(board.getPiece(matchesLoc(toRow, toCol)))
                 .andReturn(destPiece).anyTimes();
 
-        // 3. GENERIC RULE LAST: Default all other random path squares to empty (null)
+        
         EasyMock.expect(board.getPiece(EasyMock.anyObject(Location.class)))
                 .andReturn(null).anyTimes();
 
         EasyMock.replay(board);
 
-        // Attempting to move through an enemy piece must always return false
+        
         assertFalse(rook.canMove(board, new Location(fromRow, fromCol), new Location(toRow, toCol)));
 
         EasyMock.verify(board);
@@ -700,22 +700,22 @@ class PieceTest {
         Piece foe = new Piece(PieceType.PAWN, PieceColor.BLACK);
 
         return Stream.of(
-                // Forward max slides (From 0,0 to 7,0 | Blocked at 1,0)
+                
                 Arguments.of("RTC37: forward max, foe-blocked, dest empty",  0, 0,  1, 0,  7, 0, null),
                 Arguments.of("RTC38: forward max, foe-blocked, dest friend", 0, 0,  1, 0,  7, 0, friend),
                 Arguments.of("RTC39: forward max, foe-blocked, dest foe",    0, 0,  1, 0,  7, 0, foe),
 
-                // Backward max slides (From 7,0 to 0,0 | Blocked at 6,0)
+                
                 Arguments.of("RTC40: backward max, foe-blocked, dest empty", 7, 0,  6, 0,  0, 0, null),
                 Arguments.of("RTC41: backward max, foe-blocked, dest friend",7, 0,  6, 0,  0, 0, friend),
                 Arguments.of("RTC42: backward max, foe-blocked, dest foe",   7, 0,  6, 0,  0, 0, foe),
 
-                // Left max slides (From 7,7 to 7,0 | Blocked at 7,6)
+                
                 Arguments.of("RTC43: left max, foe-blocked, dest empty",     7, 7,  7, 6,  7, 0, null),
                 Arguments.of("RTC44: left max, foe-blocked, dest friend",    7, 7,  7, 6,  7, 0, friend),
                 Arguments.of("RTC45: left max, foe-blocked, dest foe",       7, 7,  7, 6,  7, 0, foe),
 
-                // Right max slides (From 7,0 to 7,7 | Blocked at 7,1)
+                
                 Arguments.of("RTC46: right max, foe-blocked, dest empty",    7, 0,  7, 1,  7, 7, null),
                 Arguments.of("RTC47: right max, foe-blocked, dest friend",   7, 0,  7, 1,  7, 7, friend),
                 Arguments.of("RTC48: right max, foe-blocked, dest foe",      7, 0,  7, 1,  7, 7, foe)
@@ -732,11 +732,11 @@ class PieceTest {
     ) {
         Piece rook = new Piece(PieceType.ROOK, PieceColor.WHITE);
 
-        // Mock whatever state the destination square is in
+        
         EasyMock.expect(board.getPiece(matchesLoc(toRow, toCol))).andReturn(destPiece).anyTimes();
         EasyMock.replay(board);
 
-        // Any non-orthogonal move attempt must return false
+        
         assertFalse(rook.canMove(board, new Location(fromRow, fromCol), new Location(toRow, toCol)));
 
         EasyMock.verify(board);
@@ -747,19 +747,19 @@ class PieceTest {
         Piece foe = new Piece(PieceType.PAWN, PieceColor.BLACK);
 
         return Stream.of(
-                // --- Empty Destination Squares ---
+                
                 Arguments.of("RTC49: forward-right, empty",  3, 4, 4, 3, null),
                 Arguments.of("RTC50: forward-left, empty",   3, 4, 4, 5, null),
                 Arguments.of("RTC51: backward-left, empty",  3, 4, 2, 5, null),
                 Arguments.of("RTC52: backward-right, empty", 3, 4, 2, 3, null),
 
-                // --- Friend-Occupied Destination Squares ---
+                
                 Arguments.of("RTC53: forward-right, friend",  3, 4, 4, 3, friend),
                 Arguments.of("RTC54: forward-left, friend",   3, 4, 4, 5, friend),
                 Arguments.of("RTC55: backward-left, friend",  3, 4, 2, 5, friend),
                 Arguments.of("RTC56: backward-right, friend", 3, 4, 2, 3, friend),
 
-                // --- Foe-Occupied Destination Squares ---
+                
                 Arguments.of("RTC57: forward-right, foe",  3, 4, 4, 3, foe),
                 Arguments.of("RTC58: forward-left, foe",   3, 4, 4, 5, foe),
                 Arguments.of("RTC59: backward-left, foe",  3, 4, 2, 5, foe),
@@ -776,11 +776,11 @@ class PieceTest {
     ) {
         Piece rook = new Piece(PieceType.ROOK, PieceColor.WHITE);
 
-        // Mocking an empty response for safety, though the guard clause should intercept first
+        
         EasyMock.expect(board.getPiece(EasyMock.anyObject(Location.class))).andReturn(null).anyTimes();
         EasyMock.replay(board);
 
-        // Any move target outside the 0-7 coordinate index matrix must return false
+        
         assertFalse(rook.canMove(board, new Location(fromRow, fromCol), new Location(toRow, toCol)));
 
         EasyMock.verify(board);
@@ -799,11 +799,11 @@ class PieceTest {
     void rookZeroDistanceMove_invalid() {
         Piece rook = new Piece(PieceType.ROOK, PieceColor.WHITE);
 
-        // Mock the square to return the rook itself since it is sitting there
+        
         EasyMock.expect(board.getPiece(matchesLoc(3, 3))).andReturn(rook).anyTimes();
         EasyMock.replay(board);
 
-        // A piece cannot move to the exact square it already occupies
+        
         assertFalse(rook.canMove(board, new Location(3, 3), new Location(3, 3)));
 
         EasyMock.verify(board);
@@ -818,11 +818,11 @@ class PieceTest {
     ) {
         Piece knight = new Piece(PieceType.KNIGHT, PieceColor.WHITE);
 
-        // All targets in this batch are empty positions (null)
+        
         EasyMock.expect(board.getPiece(matchesLoc(toRow, toCol))).andReturn(null).anyTimes();
         EasyMock.replay(board);
 
-        // Standard legal L-shape translations must return true
+        
         assertTrue(knight.canMove(board, new Location(fromRow, fromCol), new Location(toRow, toCol)));
 
         EasyMock.verify(board);
@@ -834,7 +834,7 @@ class PieceTest {
                 Arguments.of("KTC2: forward-right (2 up, 1 left)",  3, 3, 5, 2),
                 Arguments.of("KTC3: right-forward (1 up, 2 left)",  3, 3, 4, 1),
                 Arguments.of("KTC4: right-backward (1 down, 2 left)",3, 3, 2, 1),
-                Arguments.of("KTC5: backward-left (2 down, 1 right)",1, 4, 3, 3), // adjusted per case spec directionals
+                Arguments.of("KTC5: backward-left (2 down, 1 right)",1, 4, 3, 3), 
                 Arguments.of("KTC6: backward-right (2 down, 1 left)",3, 3, 1, 2),
                 Arguments.of("KTC7: left-forward (1 up, 2 right)",  3, 3, 4, 5),
                 Arguments.of("KTC8: left-backward (1 down, 2 right)",3, 3, 2, 5)
@@ -851,11 +851,11 @@ class PieceTest {
         Piece knight = new Piece(PieceType.KNIGHT, PieceColor.WHITE);
         Piece foe = new Piece(PieceType.PAWN, PieceColor.BLACK);
 
-        // Mock an enemy piece sitting directly at the destination square
+        
         EasyMock.expect(board.getPiece(matchesLoc(toRow, toCol))).andReturn(foe).anyTimes();
         EasyMock.replay(board);
 
-        // Standard L-shape translations ending on a foe must return true
+        
         assertTrue(knight.canMove(board, new Location(fromRow, fromCol), new Location(toRow, toCol)));
 
         EasyMock.verify(board);
@@ -885,21 +885,21 @@ class PieceTest {
         Piece knight = new Piece(PieceType.KNIGHT, PieceColor.WHITE);
         Piece friendBlocker = new Piece(PieceType.PAWN, PieceColor.WHITE);
 
-        // 1. Specific Rule: Place a friendly piece right on the intermediate path
+        
         EasyMock.expect(board.getPiece(matchesLoc(blockRow, blockCol)))
                 .andReturn(friendBlocker).anyTimes();
 
-        // 2. Specific Rule: The final destination square is completely empty (null)
+        
         EasyMock.expect(board.getPiece(matchesLoc(toRow, toCol)))
                 .andReturn(null).anyTimes();
 
-        // 3. Generic Rule: Any other lookup falls back to empty
+        
         EasyMock.expect(board.getPiece(EasyMock.anyObject(Location.class)))
                 .andReturn(null).anyTimes();
 
         EasyMock.replay(board);
 
-        // Knights jump over obstacles, so path obstructions must evaluate to true
+        
         assertTrue(knight.canMove(board, new Location(fromRow, fromCol), new Location(toRow, toCol)));
 
         EasyMock.verify(board);
@@ -930,21 +930,21 @@ class PieceTest {
         Piece friendBlocker = new Piece(PieceType.PAWN, PieceColor.WHITE);
         Piece foe = new Piece(PieceType.PAWN, PieceColor.BLACK);
 
-        // 1. Specific Rule: Place a friendly piece on the intermediate path
+        
         EasyMock.expect(board.getPiece(matchesLoc(blockRow, blockCol)))
                 .andReturn(friendBlocker).anyTimes();
 
-        // 2. Specific Rule: Place an enemy piece at the final destination target
+        
         EasyMock.expect(board.getPiece(matchesLoc(toRow, toCol)))
                 .andReturn(foe).anyTimes();
 
-        // 3. Generic Rule: Any other lookup falls back to empty
+        
         EasyMock.expect(board.getPiece(EasyMock.anyObject(Location.class)))
                 .andReturn(null).anyTimes();
 
         EasyMock.replay(board);
 
-        // Path obstructions are ignored, and foe destinations are valid capture zones
+        
         assertTrue(knight.canMove(board, new Location(fromRow, fromCol), new Location(toRow, toCol)));
 
         EasyMock.verify(board);
@@ -973,11 +973,11 @@ class PieceTest {
         Piece knight = new Piece(PieceType.KNIGHT, PieceColor.WHITE);
         Piece friend = new Piece(PieceType.PAWN, PieceColor.WHITE);
 
-        // Mock a friendly piece sitting directly at the destination square
+        
         EasyMock.expect(board.getPiece(matchesLoc(toRow, toCol))).andReturn(friend).anyTimes();
         EasyMock.replay(board);
 
-        // Legal geometric shapes ending on a friendly piece must return false
+        
         assertFalse(knight.canMove(board, new Location(fromRow, fromCol), new Location(toRow, toCol)));
 
         EasyMock.verify(board);
@@ -1006,11 +1006,11 @@ class PieceTest {
     ) {
         Piece knight = new Piece(PieceType.KNIGHT, PieceColor.WHITE);
 
-        // Mock the exact piece status of the destination square
+        
         EasyMock.expect(board.getPiece(matchesLoc(toRow, toCol))).andReturn(destPiece).anyTimes();
         EasyMock.replay(board);
 
-        // One-space diagonal steps must return false
+        
         assertFalse(knight.canMove(board, new Location(fromRow, fromCol), new Location(toRow, toCol)));
 
         EasyMock.verify(board);
@@ -1021,22 +1021,22 @@ class PieceTest {
         Piece foe = new Piece(PieceType.PAWN, PieceColor.BLACK);
 
         return Stream.of(
-                // Forward-Right (4,4) variants
+                
                 Arguments.of("KTC41: forward-right, empty",  3, 3, 4, 4, null),
                 Arguments.of("KTC42: forward-right, friend", 3, 3, 4, 4, friend),
                 Arguments.of("KTC43: forward-right, foe",    3, 3, 4, 4, foe),
 
-                // Forward-Left (4,2) variants
+                
                 Arguments.of("KTC44: forward-left, empty",   3, 3, 4, 2, null),
                 Arguments.of("KTC45: forward-left, friend",  3, 3, 4, 2, friend),
                 Arguments.of("KTC46: forward-left, foe",     3, 3, 4, 2, foe),
 
-                // Backward-Right (2,4) variants
+                
                 Arguments.of("KTC47: backward-right, empty", 3, 3, 2, 4, null),
                 Arguments.of("KTC48: backward-right, friend",3, 3, 2, 4, friend),
                 Arguments.of("KTC49: backward-right, foe",   3, 3, 2, 4, foe),
 
-                // Backward-Left (2,2) variants
+                
                 Arguments.of("KTC50: backward-left, empty",  3, 3, 2, 2, null),
                 Arguments.of("KTC51: backward-left, friend", 3, 3, 2, 2, friend),
                 Arguments.of("KTC52: backward-left, foe",    3, 3, 2, 2, foe)
@@ -1053,11 +1053,11 @@ class PieceTest {
     ) {
         Piece knight = new Piece(PieceType.KNIGHT, PieceColor.WHITE);
 
-        // Mock the exact piece status of the destination square
+        
         EasyMock.expect(board.getPiece(matchesLoc(toRow, toCol))).andReturn(destPiece).anyTimes();
         EasyMock.replay(board);
 
-        // Two-space diagonal steps must return false
+        
         assertFalse(knight.canMove(board, new Location(fromRow, fromCol), new Location(toRow, toCol)));
 
         EasyMock.verify(board);
@@ -1068,22 +1068,22 @@ class PieceTest {
         Piece foe = new Piece(PieceType.PAWN, PieceColor.BLACK);
 
         return Stream.of(
-                // Forward-Right (5,5) variants
+                
                 Arguments.of("KTC53: forward-right two-diagonals, empty",  3, 3, 5, 5, null),
                 Arguments.of("KTC54: forward-right two-diagonals, friend", 3, 3, 5, 5, friend),
                 Arguments.of("KTC55: forward-right two-diagonals, foe",    3, 3, 5, 5, foe),
 
-                // Forward-Left (5,1) variants
+                
                 Arguments.of("KTC56: forward-left two-diagonals, empty",   3, 3, 5, 1, null),
                 Arguments.of("KTC57: forward-left two-diagonals, friend",  3, 3, 5, 1, friend),
                 Arguments.of("KTC58: forward-left two-diagonals, foe",     3, 3, 5, 1, foe),
 
-                // Backward-Right (1,5) variants
+                
                 Arguments.of("KTC59: backward-right two-diagonals, empty", 3, 3, 1, 5, null),
                 Arguments.of("KTC60: backward-right two-diagonals, friend",3, 3, 1, 5, friend),
                 Arguments.of("KTC61: backward-right two-diagonals, foe",   3, 3, 1, 5, foe),
 
-                // Backward-Left (1,1) variants
+                
                 Arguments.of("KTC62: backward-left two-diagonals, empty",  3, 3, 1, 1, null),
                 Arguments.of("KTC63: backward-left two-diagonals, friend", 3, 3, 1, 1, friend),
                 Arguments.of("KTC64: backward-left two-diagonals, foe",    3, 3, 1, 1, foe)
@@ -1100,11 +1100,11 @@ class PieceTest {
     ) {
         Piece knight = new Piece(PieceType.KNIGHT, PieceColor.WHITE);
 
-        // Mock the exact piece status of the destination square
+        
         EasyMock.expect(board.getPiece(matchesLoc(toRow, toCol))).andReturn(destPiece).anyTimes();
         EasyMock.replay(board);
 
-        // One-space orthogonal steps must return false
+        
         assertFalse(knight.canMove(board, new Location(fromRow, fromCol), new Location(toRow, toCol)));
 
         EasyMock.verify(board);
@@ -1115,22 +1115,22 @@ class PieceTest {
         Piece foe = new Piece(PieceType.PAWN, PieceColor.BLACK);
 
         return Stream.of(
-                // Forward (4,3) variants
+                
                 Arguments.of("KTC65: forward one space, empty",  3, 3, 4, 3, null),
                 Arguments.of("KTC66: forward one space, friend", 3, 3, 4, 3, friend),
                 Arguments.of("KTC67: forward one space, foe",    3, 3, 4, 3, foe),
 
-                // Backward (2,3) variants
+                
                 Arguments.of("KTC68: backward one space, empty", 3, 3, 2, 3, null),
                 Arguments.of("KTC69: backward one space, friend",3, 3, 2, 3, friend),
                 Arguments.of("KTC70: backward one space, foe",   3, 3, 2, 3, foe),
 
-                // Left (3,2) variants
+                
                 Arguments.of("KTC71: left one space, empty",     3, 3, 3, 2, null),
                 Arguments.of("KTC72: left one space, friend",    3, 3, 3, 2, friend),
                 Arguments.of("KTC73: left one space, foe",       3, 3, 3, 2, foe),
 
-                // Right (3,4) variants
+                
                 Arguments.of("KTC74: right one space, empty",    3, 3, 3, 4, null),
                 Arguments.of("KTC75: right one space, friend",   3, 3, 3, 4, friend),
                 Arguments.of("KTC76: right one space, foe",      3, 3, 3, 4, foe)
@@ -1146,11 +1146,11 @@ class PieceTest {
     ) {
         Piece knight = new Piece(PieceType.KNIGHT, PieceColor.WHITE);
 
-        // Mocking an empty response for safety, though the guard clause should intercept first
+        
         EasyMock.expect(board.getPiece(EasyMock.anyObject(Location.class))).andReturn(null).anyTimes();
         EasyMock.replay(board);
 
-        // Any move target outside the 0-7 coordinate index matrix must return false
+        
         assertFalse(knight.canMove(board, new Location(fromRow, fromCol), new Location(toRow, toCol)));
 
         EasyMock.verify(board);
@@ -1158,28 +1158,28 @@ class PieceTest {
 
     private static Stream<Arguments> provideOutOfBoundsKnightCases() {
         return Stream.of(
-                // --- Top Boundary (Row > 7) ---
+                
                 Arguments.of("KTC77: top boundary, forward-left",  6, 3, 8, 2),
                 Arguments.of("KTC78: top boundary, forward-right", 6, 3, 8, 4),
                 Arguments.of("KTC79: top boundary, left-forward",  7, 3, 8, 1),
                 Arguments.of("KTC80: top boundary, right-forward", 7, 3, 8, 5),
 
-                // --- Bottom Boundary (Row < 0) ---
+                
                 Arguments.of("KTC81: bottom boundary, backward-left",  1, 3, -1, 2),
                 Arguments.of("KTC82: bottom boundary, backward-right", 1, 3, -1, 4),
                 Arguments.of("KTC83: bottom boundary, left-backward",  0, 3, -1, 1),
                 Arguments.of("KTC84: bottom boundary, right-backward", 0, 3, -1, 5),
 
-                // --- Left Boundary (Col < 0) ---
-                Arguments.of("KTC85: left boundary, forward-left",  3, 1, 5, -1), // Corrected from 5,0
-                Arguments.of("KTC86: left boundary, left-forward",  3, 1, 4, -1), // Corrected from 4,0
-                Arguments.of("KTC87: left boundary, left-backward", 3, 1, 2, -1), // Corrected from 2,0
-                Arguments.of("KTC88: left boundary, backward-left", 3, 1, 1, -1), // Corrected from 1,0
+                
+                Arguments.of("KTC85: left boundary, forward-left",  3, 1, 5, -1), 
+                Arguments.of("KTC86: left boundary, left-forward",  3, 1, 4, -1), 
+                Arguments.of("KTC87: left boundary, left-backward", 3, 1, 2, -1), 
+                Arguments.of("KTC88: left boundary, backward-left", 3, 1, 1, -1), 
 
-                // --- Right Boundary (Col > 7) ---
+                
                 Arguments.of("KTC89: right boundary, forward-right", 3, 6, 5, 8),
-                Arguments.of("KTC90: right boundary, right-forward", 3, 6, 4, 8), // Corrected from 4,7
-                Arguments.of("KTC91: right boundary, right-backward",3, 6, 2, 8), // Corrected from 2,7
+                Arguments.of("KTC90: right boundary, right-forward", 3, 6, 4, 8), 
+                Arguments.of("KTC91: right boundary, right-backward",3, 6, 2, 8), 
                 Arguments.of("KTC92: right boundary, backward-right",3, 6, 1, 8)
         );
     }
@@ -1188,11 +1188,11 @@ class PieceTest {
     void knightZeroDistanceMove_invalid() {
         Piece knight = new Piece(PieceType.KNIGHT, PieceColor.WHITE);
 
-        // Mock the square to return the knight itself since it is sitting there
+        
         EasyMock.expect(board.getPiece(matchesLoc(3, 3))).andReturn(knight).anyTimes();
         EasyMock.replay(board);
 
-        // A piece cannot move to the exact square it already occupies
+        
         assertFalse(knight.canMove(board, new Location(3, 3), new Location(3, 3)));
 
         EasyMock.verify(board);
@@ -1210,21 +1210,21 @@ class PieceTest {
         Piece knight = new Piece(PieceType.KNIGHT, PieceColor.WHITE);
         Piece foeBlocker = new Piece(PieceType.PAWN, PieceColor.BLACK);
 
-        // 1. Specific Rule: Place an enemy piece on the intermediate path
+        
         EasyMock.expect(board.getPiece(matchesLoc(blockRow, blockCol)))
                 .andReturn(foeBlocker).anyTimes();
 
-        // 2. Specific Rule: Setup the final destination target square
+        
         EasyMock.expect(board.getPiece(matchesLoc(toRow, toCol)))
                 .andReturn(destPiece).anyTimes();
 
-        // 3. Generic Rule: Fallback wildcard for any other coordinate queries
+        
         EasyMock.expect(board.getPiece(EasyMock.anyObject(Location.class)))
                 .andReturn(null).anyTimes();
 
         EasyMock.replay(board);
 
-        // Knights jump over enemy pieces equally transparently
+        
         assertTrue(knight.canMove(board, new Location(fromRow, fromCol), new Location(toRow, toCol)));
 
         EasyMock.verify(board);
@@ -1248,11 +1248,11 @@ class PieceTest {
     ) {
         Piece bishop = new Piece(PieceType.BISHOP, PieceColor.WHITE);
 
-        // All target squares in this batch are empty (null)
+        
         EasyMock.expect(board.getPiece(matchesLoc(toRow, toCol))).andReturn(null).anyTimes();
         EasyMock.replay(board);
 
-        // One-space diagonal translations must return true
+        
         assertTrue(bishop.canMove(board, new Location(fromRow, fromCol), new Location(toRow, toCol)));
 
         EasyMock.verify(board);
@@ -1277,11 +1277,11 @@ class PieceTest {
         Piece bishop = new Piece(PieceType.BISHOP, PieceColor.WHITE);
         Piece foe = new Piece(PieceType.PAWN, PieceColor.BLACK);
 
-        // Mock an enemy piece sitting directly at the destination square
+        
         EasyMock.expect(board.getPiece(matchesLoc(toRow, toCol))).andReturn(foe).anyTimes();
         EasyMock.replay(board);
 
-        // One-space diagonal steps ending on a foe must return true
+        
         assertTrue(bishop.canMove(board, new Location(fromRow, fromCol), new Location(toRow, toCol)));
 
         EasyMock.verify(board);
@@ -1305,11 +1305,11 @@ class PieceTest {
     ) {
         Piece bishop = new Piece(PieceType.BISHOP, PieceColor.WHITE);
 
-        // All squares across the board are completely empty (null)
+        
         EasyMock.expect(board.getPiece(EasyMock.anyObject(Location.class))).andReturn(null).anyTimes();
         EasyMock.replay(board);
 
-        // Full-length diagonal translations over empty paths must return true
+        
         assertTrue(bishop.canMove(board, new Location(fromRow, fromCol), new Location(toRow, toCol)));
 
         EasyMock.verify(board);
@@ -1334,15 +1334,15 @@ class PieceTest {
         Piece bishop = new Piece(PieceType.BISHOP, PieceColor.WHITE);
         Piece foe = new Piece(PieceType.PAWN, PieceColor.BLACK);
 
-        // 1. SPECIFIC RULE FIRST: Place the enemy piece right at the destination
+        
         EasyMock.expect(board.getPiece(matchesLoc(toRow, toCol))).andReturn(foe).anyTimes();
 
-        // 2. GENERIC RULE LAST: Assume all intermediate path squares are empty (null)
+        
         EasyMock.expect(board.getPiece(EasyMock.anyObject(Location.class))).andReturn(null).anyTimes();
 
         EasyMock.replay(board);
 
-        // Full-length diagonal translations ending on a foe over a clear path must return true
+        
         assertTrue(bishop.canMove(board, new Location(fromRow, fromCol), new Location(toRow, toCol)));
 
         EasyMock.verify(board);
@@ -1367,11 +1367,11 @@ class PieceTest {
         Piece bishop = new Piece(PieceType.BISHOP, PieceColor.WHITE);
         Piece friend = new Piece(PieceType.PAWN, PieceColor.WHITE);
 
-        // Mock a friendly piece sitting directly at the destination square
+        
         EasyMock.expect(board.getPiece(matchesLoc(toRow, toCol))).andReturn(friend).anyTimes();
         EasyMock.replay(board);
 
-        // One-space diagonal steps ending on a teammate must return false
+        
         assertFalse(bishop.canMove(board, new Location(fromRow, fromCol), new Location(toRow, toCol)));
 
         EasyMock.verify(board);
@@ -1396,15 +1396,15 @@ class PieceTest {
         Piece bishop = new Piece(PieceType.BISHOP, PieceColor.WHITE);
         Piece friend = new Piece(PieceType.PAWN, PieceColor.WHITE);
 
-        // 1. SPECIFIC RULE FIRST: Place the friendly piece right at the destination
+        
         EasyMock.expect(board.getPiece(matchesLoc(toRow, toCol))).andReturn(friend).anyTimes();
 
-        // 2. GENERIC RULE LAST: Assume all intermediate path squares are empty (null)
+        
         EasyMock.expect(board.getPiece(EasyMock.anyObject(Location.class))).andReturn(null).anyTimes();
 
         EasyMock.replay(board);
 
-        // Full-length diagonal translations ending on a friend must return false
+        
         assertFalse(bishop.canMove(board, new Location(fromRow, fromCol), new Location(toRow, toCol)));
 
         EasyMock.verify(board);
@@ -1429,21 +1429,21 @@ class PieceTest {
     ) {
         Piece bishop = new Piece(PieceType.BISHOP, PieceColor.WHITE);
 
-        // 1. SPECIFIC RULE FIRST: Place the path obstruction piece
+        
         EasyMock.expect(board.getPiece(matchesLoc(blockRow, blockCol)))
                 .andReturn(blockerPiece).anyTimes();
 
-        // 2. SPECIFIC RULE SECOND: Target destination is empty (null)
+        
         EasyMock.expect(board.getPiece(matchesLoc(toRow, toCol)))
                 .andReturn(null).anyTimes();
 
-        // 3. GENERIC RULE LAST: Default all other cells to empty (null)
+        
         EasyMock.expect(board.getPiece(EasyMock.anyObject(Location.class)))
                 .andReturn(null).anyTimes();
 
         EasyMock.replay(board);
 
-        // Attempting to slide through any occupied intermediate square must return false
+        
         assertFalse(bishop.canMove(board, new Location(fromRow, fromCol), new Location(toRow, toCol)));
 
         EasyMock.verify(board);
@@ -1454,19 +1454,19 @@ class PieceTest {
         Piece foe = new Piece(PieceType.PAWN, PieceColor.BLACK);
 
         return Stream.of(
-                // Forward-Right max vectors (From 0,0 to 7,7 | Blocker at 1,1)
+                
                 Arguments.of("BTC25: forward-right max, friend-blocked", 0, 0,  1, 1, friend,  7, 7),
                 Arguments.of("BTC26: forward-right max, foe-blocked",    0, 0,  1, 1, foe,     7, 7),
 
-                // Forward-Left max vectors (From 0,7 to 7,0 | Blocker at 1,6)
+                
                 Arguments.of("BTC27: forward-left max, friend-blocked",  0, 7,  1, 6, friend,  7, 0),
                 Arguments.of("BTC28: forward-left max, foe-blocked",     0, 7,  1, 6, foe,     7, 0),
 
-                // Backward-Right max vectors (From 7,0 to 0,7 | Blocker at 6,1)
+                
                 Arguments.of("BTC29: backward-right max, friend-blocked",7, 0,  6, 1, friend,  0, 7),
                 Arguments.of("BTC30: backward-right max, foe-blocked",   7, 0,  6, 1, foe,     0, 7),
 
-                // Backward-Left max vectors (From 7,7 to 0,0 | Blocker at 6,6)
+                
                 Arguments.of("BTC31: backward-left max, friend-blocked", 7, 7,  6, 6, friend,  0, 0),
                 Arguments.of("BTC32: backward-left max, foe-blocked",    7, 7,  6, 6, foe,     0, 0)
         );
@@ -1483,21 +1483,21 @@ class PieceTest {
         Piece bishop = new Piece(PieceType.BISHOP, PieceColor.WHITE);
         Piece friendDest = new Piece(PieceType.PAWN, PieceColor.WHITE);
 
-        // 1. SPECIFIC RULE FIRST: Place the path obstruction piece (friend or foe)
+        
         EasyMock.expect(board.getPiece(matchesLoc(blockRow, blockCol)))
                 .andReturn(blockerPiece).anyTimes();
 
-        // 2. SPECIFIC RULE SECOND: Place a friendly teammate at the destination
+        
         EasyMock.expect(board.getPiece(matchesLoc(toRow, toCol)))
                 .andReturn(friendDest).anyTimes();
 
-        // 3. GENERIC RULE LAST: Assume all other remaining cells are empty
+        
         EasyMock.expect(board.getPiece(EasyMock.anyObject(Location.class)))
                 .andReturn(null).anyTimes();
 
         EasyMock.replay(board);
 
-        // Multiple rule violations must reliably return false
+        
         assertFalse(bishop.canMove(board, new Location(fromRow, fromCol), new Location(toRow, toCol)));
 
         EasyMock.verify(board);
@@ -1508,19 +1508,19 @@ class PieceTest {
         Piece foe = new Piece(PieceType.PAWN, PieceColor.BLACK);
 
         return Stream.of(
-                // Forward-Right max vectors (From 0,0 to 7,7 | Blocker at 1,1)
+                
                 Arguments.of("BTC33: forward-right, path friend-blocked, dest friend", 0, 0,  1, 1, friend,  7, 7),
                 Arguments.of("BTC34: forward-right, path foe-blocked, dest friend",    0, 0,  1, 1, foe,     7, 7),
 
-                // Forward-Left max vectors (From 0,7 to 7,0 | Blocker at 1,6)
+                
                 Arguments.of("BTC35: forward-left, path friend-blocked, dest friend",  0, 7,  1, 6, friend,  7, 0),
                 Arguments.of("BTC36: forward-left, path foe-blocked, dest friend",     0, 7,  1, 6, foe,     7, 0),
 
-                // Backward-Right max vectors (From 7,0 to 0,7 | Blocker at 6,1)
+                
                 Arguments.of("BTC37: backward-right, path friend-blocked, dest friend",7, 0,  6, 1, friend,  0, 7),
                 Arguments.of("BTC38: backward-right, path foe-blocked, dest friend",   7, 0,  6, 1, foe,     0, 7),
 
-                // Backward-Left max vectors (From 7,7 to 0,0 | Blocker at 6,6)
+                
                 Arguments.of("BTC39: backward-left, path friend-blocked, dest friend", 7, 7,  6, 6, friend,  0, 0),
                 Arguments.of("BTC40: backward-left, path foe-blocked, dest friend",    7, 7,  6, 6, foe,     0, 0)
         );
@@ -1537,21 +1537,21 @@ class PieceTest {
         Piece bishop = new Piece(PieceType.BISHOP, PieceColor.WHITE);
         Piece foeDest = new Piece(PieceType.PAWN, PieceColor.BLACK);
 
-        // 1. SPECIFIC RULE FIRST: Place the path obstruction piece (friend or foe)
+        
         EasyMock.expect(board.getPiece(matchesLoc(blockRow, blockCol)))
                 .andReturn(blockerPiece).anyTimes();
 
-        // 2. SPECIFIC RULE SECOND: Place an enemy target at the final destination
+        
         EasyMock.expect(board.getPiece(matchesLoc(toRow, toCol)))
                 .andReturn(foeDest).anyTimes();
 
-        // 3. GENERIC RULE LAST: Assume all other remaining cells are empty
+        
         EasyMock.expect(board.getPiece(EasyMock.anyObject(Location.class)))
                 .andReturn(null).anyTimes();
 
         EasyMock.replay(board);
 
-        // A blocked path overrides a valid landing target; must return false
+        
         assertFalse(bishop.canMove(board, new Location(fromRow, fromCol), new Location(toRow, toCol)));
 
         EasyMock.verify(board);
@@ -1562,19 +1562,19 @@ class PieceTest {
         Piece foe = new Piece(PieceType.PAWN, PieceColor.BLACK);
 
         return Stream.of(
-                // Forward-Right max vectors (From 0,0 to 7,7 | Blocker at 1,1)
+                
                 Arguments.of("BTC41: forward-right, path friend-blocked, dest foe", 0, 0,  1, 1, friend,  7, 7),
                 Arguments.of("BTC42: forward-right, path foe-blocked, dest foe",    0, 0,  1, 1, foe,     7, 7),
 
-                // Forward-Left max vectors (From 0,7 to 7,0 | Blocker at 1,6)
+                
                 Arguments.of("BTC43: forward-left, path friend-blocked, dest foe",  0, 7,  1, 6, friend,  7, 0),
                 Arguments.of("BTC44: forward-left, path foe-blocked, dest foe",     0, 7,  1, 6, foe,     7, 0),
 
-                // Backward-Right max vectors (From 7,0 to 0,7 | Blocker at 6,1)
+                
                 Arguments.of("BTC45: backward-right, path friend-blocked, dest foe",7, 0,  6, 1, friend,  0, 7),
                 Arguments.of("BTC46: backward-right, path foe-blocked, dest foe",   7, 0,  6, 1, foe,     0, 7),
 
-                // Backward-Left max vectors (From 7,7 to 0,0 | Blocker at 6,6)
+                
                 Arguments.of("BTC47: backward-left, path friend-blocked, dest foe", 7, 7,  6, 6, friend,  0, 0),
                 Arguments.of("BTC48: backward-left, path foe-blocked, dest foe",    7, 7,  6, 6, foe,     0, 0)
         );
@@ -1590,11 +1590,11 @@ class PieceTest {
     ) {
         Piece bishop = new Piece(PieceType.BISHOP, PieceColor.WHITE);
 
-        // Mock the exact piece status of the destination square
+        
         EasyMock.expect(board.getPiece(matchesLoc(toRow, toCol))).andReturn(destPiece).anyTimes();
         EasyMock.replay(board);
 
-        // Sidelined orthogonal steps must return false
+        
         assertFalse(bishop.canMove(board, new Location(fromRow, fromCol), new Location(toRow, toCol)));
 
         EasyMock.verify(board);
@@ -1605,22 +1605,22 @@ class PieceTest {
         Piece foe = new Piece(PieceType.PAWN, PieceColor.BLACK);
 
         return Stream.of(
-                // Forward (1,0) variants from (0,0)
+                
                 Arguments.of("BTC49: forward one space, empty",  0, 0, 1, 0, null),
                 Arguments.of("BTC50: forward one space, friend", 0, 0, 1, 0, friend),
                 Arguments.of("BTC51: forward one space, foe",    0, 0, 1, 0, foe),
 
-                // Backward (0,0) variants from (1,0)
+                
                 Arguments.of("BTC52: backward one space, empty", 1, 0, 0, 0, null),
                 Arguments.of("BTC53: backward one space, friend",1, 0, 0, 0, friend),
                 Arguments.of("BTC54: backward one space, foe",   1, 0, 0, 0, foe),
 
-                // Left (0,0) variants from (0,1)
+                
                 Arguments.of("BTC55: left one space, empty",     0, 1, 0, 0, null),
                 Arguments.of("BTC56: left one space, friend",    0, 1, 0, 0, friend),
                 Arguments.of("BTC57: left one space, foe",       0, 1, 0, 0, foe),
 
-                // Right (0,1) variants from (0,0)
+                
                 Arguments.of("BTC58: right one space, empty",    0, 0, 0, 1, null),
                 Arguments.of("BTC59: right one space, friend",   0, 0, 0, 1, friend),
                 Arguments.of("BTC60: right one space, foe",      0, 0, 0, 1, foe)
@@ -1636,11 +1636,11 @@ class PieceTest {
     ) {
         Piece bishop = new Piece(PieceType.BISHOP, PieceColor.WHITE);
 
-        // Mocking an empty response fallback safely
+        
         EasyMock.expect(board.getPiece(EasyMock.anyObject(Location.class))).andReturn(null).anyTimes();
         EasyMock.replay(board);
 
-        // Any translation off the 8x8 matrix must immediately return false
+        
         assertFalse(bishop.canMove(board, new Location(fromRow, fromCol), new Location(toRow, toCol)));
 
         EasyMock.verify(board);
@@ -1659,11 +1659,11 @@ class PieceTest {
     void bishopZeroDistanceMove_invalid() {
         Piece bishop = new Piece(PieceType.BISHOP, PieceColor.WHITE);
 
-        // Mock the square to return the bishop itself since it is sitting there
+        
         EasyMock.expect(board.getPiece(matchesLoc(3, 3))).andReturn(bishop).anyTimes();
         EasyMock.replay(board);
 
-        // A piece cannot move to the exact square it already occupies
+        
         assertFalse(bishop.canMove(board, new Location(3, 3), new Location(3, 3)));
 
         EasyMock.verify(board);
@@ -1679,11 +1679,11 @@ class PieceTest {
     ) {
         Piece king = new Piece(PieceType.KING, PieceColor.WHITE);
 
-        // Mock the destination square's occupancy state (empty or foe)
+        
         EasyMock.expect(board.getPiece(matchesLoc(toRow, toCol))).andReturn(destPiece).anyTimes();
         EasyMock.replay(board);
 
-        // One-space orthogonal translations must evaluate to true
+        
         assertTrue(king.canMove(board, new Location(fromRow, fromCol), new Location(toRow, toCol)));
 
         EasyMock.verify(board);
@@ -1693,19 +1693,19 @@ class PieceTest {
         Piece foe = new Piece(PieceType.PAWN, PieceColor.BLACK);
 
         return Stream.of(
-                // Forward (4,3) variants
+                
                 Arguments.of("KiTC1: forward, empty",  3, 3, 4, 3, null),
                 Arguments.of("KiTC2: forward, foe",    3, 3, 4, 3, foe),
 
-                // Backward (2,3) variants
+                
                 Arguments.of("KiTC3: backward, empty", 3, 3, 2, 3, null),
                 Arguments.of("KiTC4: backward, foe",   3, 3, 2, 3, foe),
 
-                // Left (3,2) variants
+                
                 Arguments.of("KiTC5: left, empty",     3, 3, 3, 2, null),
                 Arguments.of("KiTC6: left, foe",       3, 3, 3, 2, foe),
 
-                // Right (3,4) variants
+                
                 Arguments.of("KiTC7: right, empty",    3, 3, 3, 4, null),
                 Arguments.of("KiTC8: right, foe",      3, 3, 3, 4, foe)
         );
@@ -1721,11 +1721,11 @@ class PieceTest {
     ) {
         Piece king = new Piece(PieceType.KING, PieceColor.WHITE);
 
-        // Mock the destination square's occupancy state (empty or foe)
+        
         EasyMock.expect(board.getPiece(matchesLoc(toRow, toCol))).andReturn(destPiece).anyTimes();
         EasyMock.replay(board);
 
-        // One-space diagonal translations must evaluate to true
+        
         assertTrue(king.canMove(board, new Location(fromRow, fromCol), new Location(toRow, toCol)));
 
         EasyMock.verify(board);
@@ -1735,19 +1735,19 @@ class PieceTest {
         Piece foe = new Piece(PieceType.PAWN, PieceColor.BLACK);
 
         return Stream.of(
-                // Forward-Left (4,2) variants
+                
                 Arguments.of("KiTC9: forward-left, empty",  3, 3, 4, 2, null),
                 Arguments.of("KiTC10: forward-left, foe",    3, 3, 4, 2, foe),
 
-                // Forward-Right (4,4) variants
+                
                 Arguments.of("KiTC11: forward-right, empty", 3, 3, 4, 4, null),
                 Arguments.of("KiTC12: forward-right, foe",   3, 3, 4, 4, foe),
 
-                // Backward-Left (2,2) variants
+                
                 Arguments.of("KiTC13: backward-left, empty", 3, 3, 2, 2, null),
                 Arguments.of("KiTC14: backward-left, foe",   3, 3, 2, 2, foe),
 
-                // Backward-Right (2,4) variants
+                
                 Arguments.of("KiTC15: backward-right, empty",3, 3, 2, 4, null),
                 Arguments.of("KiTC16: backward-right, foe",  3, 3, 2, 4, foe)
         );
@@ -1761,23 +1761,23 @@ class PieceTest {
             int toRow, int toCol,
             int rookRow, int rookCol
     ) {
-        // Create the King and set history to un-moved
+        
         Piece king = new Piece(PieceType.KING, PieceColor.WHITE);
         king.setMoved(false);
 
-        // Create the Rook and set history to un-moved
+        
         Piece castlingRook = new Piece(PieceType.ROOK, PieceColor.WHITE);
         castlingRook.setMoved(false);
 
-        // 1. SPECIFIC RULE FIRST: Place the un-moved Rook at its starting corner
+        
         EasyMock.expect(board.getPiece(matchesLoc(rookRow, rookCol))).andReturn(castlingRook).anyTimes();
 
-        // 2. GENERIC RULE LAST: Assume all intermediate spaces are empty (null)
+        
         EasyMock.expect(board.getPiece(EasyMock.anyObject(Location.class))).andReturn(null).anyTimes();
 
         EasyMock.replay(board);
 
-        // Castling moves (2-space horizontal shift on the home row) must return true
+        
         assertTrue(king.canMove(board, new Location(fromRow, fromCol), new Location(toRow, toCol)));
 
         EasyMock.verify(board);
@@ -1800,11 +1800,11 @@ class PieceTest {
         Piece king = new Piece(PieceType.KING, PieceColor.WHITE);
         Piece friend = new Piece(PieceType.PAWN, PieceColor.WHITE);
 
-        // Mock a friendly teammate sitting directly at the destination square
+        
         EasyMock.expect(board.getPiece(matchesLoc(toRow, toCol))).andReturn(friend).anyTimes();
         EasyMock.replay(board);
 
-        // Landing on a friendly piece must return false
+        
         assertFalse(king.canMove(board, new Location(fromRow, fromCol), new Location(toRow, toCol)));
 
         EasyMock.verify(board);
@@ -1829,11 +1829,11 @@ class PieceTest {
         Piece king = new Piece(PieceType.KING, PieceColor.WHITE);
         Piece friend = new Piece(PieceType.PAWN, PieceColor.WHITE);
 
-        // Mock a friendly teammate sitting directly at the diagonal destination
+        
         EasyMock.expect(board.getPiece(matchesLoc(toRow, toCol))).andReturn(friend).anyTimes();
         EasyMock.replay(board);
 
-        // Landing on a friendly piece diagonally must return false
+        
         assertFalse(king.canMove(board, new Location(fromRow, fromCol), new Location(toRow, toCol)));
 
         EasyMock.verify(board);
@@ -1858,11 +1858,11 @@ class PieceTest {
     ) {
         Piece king = new Piece(PieceType.KING, PieceColor.WHITE);
 
-        // Mock the target square status according to the test case layout
+        
         EasyMock.expect(board.getPiece(matchesLoc(toRow, toCol))).andReturn(destPiece).anyTimes();
         EasyMock.replay(board);
 
-        // Two-space straight line leaps must return false
+        
         assertFalse(king.canMove(board, new Location(fromRow, fromCol), new Location(toRow, toCol)));
 
         EasyMock.verify(board);
@@ -1872,19 +1872,19 @@ class PieceTest {
         Piece foe = new Piece(PieceType.PAWN, PieceColor.BLACK);
 
         return Stream.of(
-                // Forward two spaces (5,3) variants
+                
                 Arguments.of("KiTC27: forward two spaces, empty",  3, 3, 5, 3, null),
                 Arguments.of("KiTC28: forward two spaces, foe",    3, 3, 5, 3, foe),
 
-                // Backward two spaces (1,3) variants
+                
                 Arguments.of("KiTC29: backward two spaces, empty", 3, 3, 1, 3, null),
                 Arguments.of("KiTC30: backward two spaces, foe",   3, 3, 1, 3, foe),
 
-                // Left two spaces (3,1) variants
+                
                 Arguments.of("KiTC31: left two spaces, empty",     3, 3, 3, 1, null),
                 Arguments.of("KiTC32: left two spaces, foe",       3, 3, 3, 1, foe),
 
-                // Right two spaces (3,5) variants
+                
                 Arguments.of("KiTC33: right two spaces, empty",    3, 3, 3, 5, null),
                 Arguments.of("KiTC34: right two spaces, foe",      3, 3, 3, 5, foe)
         );
@@ -1900,11 +1900,11 @@ class PieceTest {
     ) {
         Piece king = new Piece(PieceType.KING, PieceColor.WHITE);
 
-        // Mock the target destination cell piece configuration
+        
         EasyMock.expect(board.getPiece(matchesLoc(toRow, toCol))).andReturn(destPiece).anyTimes();
         EasyMock.replay(board);
 
-        // Two-space diagonal leaps must return false unconditionally
+        
         assertFalse(king.canMove(board, new Location(fromRow, fromCol), new Location(toRow, toCol)));
 
         EasyMock.verify(board);
@@ -1914,19 +1914,19 @@ class PieceTest {
         Piece foe = new Piece(PieceType.PAWN, PieceColor.BLACK);
 
         return Stream.of(
-                // Forward-Left two spaces (5,1) variants
+                
                 Arguments.of("KiTC35: forward-left two spaces, empty",  3, 3, 5, 1, null),
                 Arguments.of("KiTC36: forward-left two spaces, foe",    3, 3, 5, 1, foe),
 
-                // Forward-Right two spaces (5,5) variants
+                
                 Arguments.of("KiTC37: forward-right two spaces, empty", 3, 3, 5, 5, null),
                 Arguments.of("KiTC38: forward-right two spaces, foe",   3, 3, 5, 5, foe),
 
-                // Backward-Left two spaces (1,1) variants
+                
                 Arguments.of("KiTC39: backward-left two spaces, empty", 3, 3, 1, 1, null),
                 Arguments.of("KiTC40: backward-left two spaces, foe",   3, 3, 1, 1, foe),
 
-                // Backward-Right two spaces (1,5) variants
+                
                 Arguments.of("KiTC41: backward-right two spaces, empty",3, 3, 1, 5, null),
                 Arguments.of("KiTC42: backward-right two spaces, foe",  3, 3, 1, 5, foe)
         );
@@ -1941,11 +1941,11 @@ class PieceTest {
     ) {
         Piece king = new Piece(PieceType.KING, PieceColor.WHITE);
 
-        // Standard empty board fallback configuration
+        
         EasyMock.expect(board.getPiece(EasyMock.anyObject(Location.class))).andReturn(null).anyTimes();
         EasyMock.replay(board);
 
-        // Moving outside the matrix indices [0-7] must return false immediately
+        
         assertFalse(king.canMove(board, new Location(fromRow, fromCol), new Location(toRow, toCol)));
 
         EasyMock.verify(board);
@@ -1953,22 +1953,22 @@ class PieceTest {
 
     private static Stream<Arguments> provideOutOfBoundsKingCases() {
         return Stream.of(
-                // Top Boundary Overruns (row 7 -> row 8)
+                
                 Arguments.of("KiTC43: top boundary, straight forward",     7, 3,  8, 3),
                 Arguments.of("KiTC44: top boundary, diagonal forward-left", 7, 3,  8, 2),
                 Arguments.of("KiTC45: top boundary, diagonal forward-right",7, 3,  8, 4),
 
-                // Bottom Boundary Overruns (row 0 -> row -1)
+                
                 Arguments.of("KiTC46: bottom boundary, straight backward",     0, 3, -1, 3),
                 Arguments.of("KiTC47: bottom boundary, diagonal backward-left", 0, 3, -1, 2),
                 Arguments.of("KiTC48: bottom boundary, diagonal backward-right",0, 3, -1, 4),
 
-                // Left Boundary Overruns (col 0 -> col -1)
+                
                 Arguments.of("KiTC49: left boundary, straight left",      3, 0,  3, -1),
-                Arguments.of("KiTC50: left boundary, diagonal forward-left",  3, 0,  4, -1), // Cleaned!
+                Arguments.of("KiTC50: left boundary, diagonal forward-left",  3, 0,  4, -1), 
                 Arguments.of("KiTC51: left boundary, diagonal backward-left", 3, 0,  2, -1),
 
-                // Right Boundary Overruns (col 7 -> col 8)
+                
                 Arguments.of("KiTC52: right boundary, straight right",       3, 7,  3, 8),
                 Arguments.of("KiTC53: right boundary, diagonal forward-right", 3, 7,  4, 8),
                 Arguments.of("KiTC54: right boundary, diagonal backward-right",3, 7,  2, 8)
@@ -1979,11 +1979,11 @@ class PieceTest {
     void kingZeroDistanceMove_invalid() {
         Piece king = new Piece(PieceType.KING, PieceColor.WHITE);
 
-        // Mock the square to return the king itself since it is sitting there
+        
         EasyMock.expect(board.getPiece(matchesLoc(3, 3))).andReturn(king).anyTimes();
         EasyMock.replay(board);
 
-        // A piece cannot move to the exact square it already occupies
+        
         assertFalse(king.canMove(board, new Location(3, 3), new Location(3, 3)));
 
         EasyMock.verify(board);
@@ -1998,11 +1998,11 @@ class PieceTest {
     ) {
         Piece queen = new Piece(PieceType.QUEEN, PieceColor.WHITE);
 
-        // Every target square in this batch is empty (null)
+        
         EasyMock.expect(board.getPiece(matchesLoc(toRow, toCol))).andReturn(null).anyTimes();
         EasyMock.replay(board);
 
-        // One-space radial translations must evaluate to true
+        
         assertTrue(queen.canMove(board, new Location(fromRow, fromCol), new Location(toRow, toCol)));
 
         EasyMock.verify(board);
@@ -2031,11 +2031,11 @@ class PieceTest {
         Piece queen = new Piece(PieceType.QUEEN, PieceColor.WHITE);
         Piece foe = new Piece(PieceType.PAWN, PieceColor.BLACK);
 
-        // Mock an enemy piece sitting directly at the destination square
+        
         EasyMock.expect(board.getPiece(matchesLoc(toRow, toCol))).andReturn(foe).anyTimes();
         EasyMock.replay(board);
 
-        // One-space radial translations ending on a foe must evaluate to true
+        
         assertTrue(queen.canMove(board, new Location(fromRow, fromCol), new Location(toRow, toCol)));
 
         EasyMock.verify(board);
@@ -2063,11 +2063,11 @@ class PieceTest {
     ) {
         Piece queen = new Piece(PieceType.QUEEN, PieceColor.WHITE);
 
-        // Entire board is clear for these open line-of-sight tests
+        
         EasyMock.expect(board.getPiece(EasyMock.anyObject(Location.class))).andReturn(null).anyTimes();
         EasyMock.replay(board);
 
-        // Max range slides down open vectors must return true
+        
         assertTrue(queen.canMove(board, new Location(fromRow, fromCol), new Location(toRow, toCol)));
 
         EasyMock.verify(board);
@@ -2096,15 +2096,15 @@ class PieceTest {
         Piece queen = new Piece(PieceType.QUEEN, PieceColor.WHITE);
         Piece foe = new Piece(PieceType.PAWN, PieceColor.BLACK);
 
-        // 1. SPECIFIC RULE FIRST: Place the enemy piece at the destination
+        
         EasyMock.expect(board.getPiece(matchesLoc(toRow, toCol))).andReturn(foe).anyTimes();
 
-        // 2. GENERIC RULE LAST: Assume all intermediate path squares are empty (null)
+        
         EasyMock.expect(board.getPiece(EasyMock.anyObject(Location.class))).andReturn(null).anyTimes();
 
         EasyMock.replay(board);
 
-        // Full-length radial translations ending on a foe over a clear path must return true
+        
         assertTrue(queen.canMove(board, new Location(fromRow, fromCol), new Location(toRow, toCol)));
 
         EasyMock.verify(board);
@@ -2133,11 +2133,11 @@ class PieceTest {
         Piece queen = new Piece(PieceType.QUEEN, PieceColor.WHITE);
         Piece friend = new Piece(PieceType.PAWN, PieceColor.WHITE);
 
-        // Mock a friendly piece sitting directly at the destination square
+        
         EasyMock.expect(board.getPiece(matchesLoc(toRow, toCol))).andReturn(friend).anyTimes();
         EasyMock.replay(board);
 
-        // Landing on a friendly piece in any direction must return false
+        
         assertFalse(queen.canMove(board, new Location(fromRow, fromCol), new Location(toRow, toCol)));
 
         EasyMock.verify(board);
@@ -2166,15 +2166,15 @@ class PieceTest {
         Piece queen = new Piece(PieceType.QUEEN, PieceColor.WHITE);
         Piece friend = new Piece(PieceType.PAWN, PieceColor.WHITE);
 
-        // 1. SPECIFIC RULE FIRST: Place the friendly teammate at the landing destination
+        
         EasyMock.expect(board.getPiece(matchesLoc(toRow, toCol))).andReturn(friend).anyTimes();
 
-        // 2. GENERIC RULE LAST: Assume all intermediate path squares are empty (null)
+        
         EasyMock.expect(board.getPiece(EasyMock.anyObject(Location.class))).andReturn(null).anyTimes();
 
         EasyMock.replay(board);
 
-        // Landing on a friendly piece at max distance must return false
+        
         assertFalse(queen.canMove(board, new Location(fromRow, fromCol), new Location(toRow, toCol)));
 
         EasyMock.verify(board);
@@ -2204,17 +2204,17 @@ class PieceTest {
         Piece queen = new Piece(PieceType.QUEEN, PieceColor.WHITE);
         Piece friendBlocker = new Piece(PieceType.PAWN, PieceColor.WHITE);
 
-        // 1. SPECIFIC RULE FIRST: Place the friendly blocker on the intermediate path
+        
         EasyMock.expect(board.getPiece(matchesLoc(blockRow, blockCol)))
                 .andReturn(friendBlocker).anyTimes();
 
-        // 2. GENERIC RULE LAST: Assume all other squares (including destination) are empty
+        
         EasyMock.expect(board.getPiece(EasyMock.anyObject(Location.class)))
                 .andReturn(null).anyTimes();
 
         EasyMock.replay(board);
 
-        // A blocked intermediate path must immediately return false
+        
         assertFalse(queen.canMove(board, new Location(fromRow, fromCol), new Location(toRow, toCol)));
 
         EasyMock.verify(board);
@@ -2222,13 +2222,13 @@ class PieceTest {
 
     private static Stream<Arguments> provideFriendObstructedPathQueenCases() {
         return Stream.of(
-                // Orthogonal path block vectors
+                
                 Arguments.of("QTC49: forward path blocked",  0, 3,  1, 3,  7, 3),
                 Arguments.of("QTC50: backward path blocked", 7, 3,  6, 3,  0, 3),
                 Arguments.of("QTC51: left path blocked",     3, 7,  3, 6,  3, 0),
                 Arguments.of("QTC52: right path blocked",    3, 0,  3, 1,  3, 7),
 
-                // Diagonal path block vectors
+                
                 Arguments.of("QTC53: forward-left path blocked",   0, 7,  1, 6,  7, 0),
                 Arguments.of("QTC54: forward-right path blocked",  0, 0,  1, 1,  7, 7),
                 Arguments.of("QTC55: backward-left path blocked",  7, 7,  6, 6,  0, 0),
@@ -2247,17 +2247,17 @@ class PieceTest {
         Piece queen = new Piece(PieceType.QUEEN, PieceColor.WHITE);
         Piece foeBlocker = new Piece(PieceType.PAWN, PieceColor.BLACK);
 
-        // 1. SPECIFIC RULE FIRST: Place the enemy blocker on the intermediate path
+        
         EasyMock.expect(board.getPiece(matchesLoc(blockRow, blockCol)))
                 .andReturn(foeBlocker).anyTimes();
 
-        // 2. GENERIC RULE LAST: Assume all other squares (including destination) are empty
+        
         EasyMock.expect(board.getPiece(EasyMock.anyObject(Location.class)))
                 .andReturn(null).anyTimes();
 
         EasyMock.replay(board);
 
-        // An intermediate foe blocking the line of sight must return false
+        
         assertFalse(queen.canMove(board, new Location(fromRow, fromCol), new Location(toRow, toCol)));
 
         EasyMock.verify(board);
@@ -2265,13 +2265,13 @@ class PieceTest {
 
     private static Stream<Arguments> provideFoeObstructedPathQueenCases() {
         return Stream.of(
-                // Orthogonal path block vectors
+                
                 Arguments.of("QTC57: forward path enemy-blocked",  0, 3,  1, 3,  7, 3),
                 Arguments.of("QTC58: backward path enemy-blocked", 7, 3,  6, 3,  0, 3),
                 Arguments.of("QTC59: left path enemy-blocked",     3, 7,  3, 6,  3, 0),
                 Arguments.of("QTC60: right path enemy-blocked",    3, 0,  3, 1,  3, 7),
 
-                // Diagonal path block vectors
+                
                 Arguments.of("QTC61: forward-left path enemy-blocked",   0, 7,  1, 6,  7, 0),
                 Arguments.of("QTC62: forward-right path enemy-blocked",  0, 0,  1, 1,  7, 7),
                 Arguments.of("QTC63: backward-left path enemy-blocked",  7, 7,  6, 6,  0, 0),
@@ -2291,21 +2291,21 @@ class PieceTest {
         Piece friendBlocker = new Piece(PieceType.PAWN, PieceColor.WHITE);
         Piece foeDest = new Piece(PieceType.PAWN, PieceColor.BLACK);
 
-        // 1. SPECIFIC RULE FIRST: Place the friendly blocker on the intermediate path
+        
         EasyMock.expect(board.getPiece(matchesLoc(blockRow, blockCol)))
                 .andReturn(friendBlocker).anyTimes();
 
-        // 2. SPECIFIC RULE SECOND: Place an enemy target piece at the destination square
+        
         EasyMock.expect(board.getPiece(matchesLoc(toRow, toCol)))
                 .andReturn(foeDest).anyTimes();
 
-        // 3. GENERIC RULE LAST: Assume all other remaining cells are empty
+        
         EasyMock.expect(board.getPiece(EasyMock.anyObject(Location.class)))
                 .andReturn(null).anyTimes();
 
         EasyMock.replay(board);
 
-        // An early path blocker overrides a valid terminal capture target; must return false
+        
         assertFalse(queen.canMove(board, new Location(fromRow, fromCol), new Location(toRow, toCol)));
 
         EasyMock.verify(board);
@@ -2313,13 +2313,13 @@ class PieceTest {
 
     private static Stream<Arguments> provideFriendObstructedPathFoeDestQueenCases() {
         return Stream.of(
-                // Orthogonal vectors
+                
                 Arguments.of("QTC65: forward, friend path blocker, foe target",  0, 3,  1, 3,  7, 3),
                 Arguments.of("QTC66: backward, friend path blocker, foe target", 7, 3,  6, 3,  0, 3),
                 Arguments.of("QTC67: left, friend path blocker, foe target",     3, 7,  3, 6,  3, 0),
                 Arguments.of("QTC68: right, friend path blocker, foe target",    3, 0,  3, 1,  3, 7),
 
-                // Diagonal vectors
+                
                 Arguments.of("QTC69: forward-left, friend path blocker, foe target",   0, 7,  1, 6,  7, 0),
                 Arguments.of("QTC70: forward-right, friend path blocker, foe target",  0, 0,  1, 1,  7, 7),
                 Arguments.of("QTC71: backward-left, friend path blocker, foe target",  7, 7,  6, 6,  0, 0),
@@ -2339,21 +2339,21 @@ class PieceTest {
         Piece foeBlocker = new Piece(PieceType.PAWN, PieceColor.BLACK);
         Piece foeDest = new Piece(PieceType.PAWN, PieceColor.BLACK);
 
-        // 1. SPECIFIC RULE FIRST: Place the enemy blocker on the intermediate path
+        
         EasyMock.expect(board.getPiece(matchesLoc(blockRow, blockCol)))
                 .andReturn(foeBlocker).anyTimes();
 
-        // 2. SPECIFIC RULE SECOND: Place another enemy target piece at the destination square
+        
         EasyMock.expect(board.getPiece(matchesLoc(toRow, toCol)))
                 .andReturn(foeDest).anyTimes();
 
-        // 3. GENERIC RULE LAST: Assume all other remaining cells are empty
+        
         EasyMock.expect(board.getPiece(EasyMock.anyObject(Location.class)))
                 .andReturn(null).anyTimes();
 
         EasyMock.replay(board);
 
-        // An early enemy blocker overrides a valid terminal capture target; must return false
+        
         assertFalse(queen.canMove(board, new Location(fromRow, fromCol), new Location(toRow, toCol)));
 
         EasyMock.verify(board);
@@ -2361,13 +2361,13 @@ class PieceTest {
 
     private static Stream<Arguments> provideFoeObstructedPathFoeDestQueenCases() {
         return Stream.of(
-                // Orthogonal vectors
+                
                 Arguments.of("QTC73: forward, foe path blocker, foe target",  0, 3,  1, 3,  7, 3),
                 Arguments.of("QTC74: backward, foe path blocker, foe target", 7, 3,  6, 3,  0, 3),
                 Arguments.of("QTC75: left, foe path blocker, foe target",     3, 7,  3, 6,  3, 0),
                 Arguments.of("QTC76: right, foe path blocker, foe target",    3, 0,  3, 1,  3, 7),
 
-                // Diagonal vectors
+                
                 Arguments.of("QTC77: forward-left, foe path blocker, foe target",   0, 7,  1, 6,  7, 0),
                 Arguments.of("QTC78: forward-right, foe path blocker, foe target",  0, 0,  1, 1,  7, 7),
                 Arguments.of("QTC79: backward-left, foe path blocker, foe target",  7, 7,  6, 6,  0, 0),
@@ -2386,21 +2386,21 @@ class PieceTest {
         Piece queen = new Piece(PieceType.QUEEN, PieceColor.WHITE);
         Piece friendPiece = new Piece(PieceType.PAWN, PieceColor.WHITE);
 
-        // 1. SPECIFIC RULE FIRST: Place the friendly blocker on the intermediate path
+        
         EasyMock.expect(board.getPiece(matchesLoc(blockRow, blockCol)))
                 .andReturn(friendPiece).anyTimes();
 
-        // 2. SPECIFIC RULE SECOND: Place another friendly piece at the final destination
+        
         EasyMock.expect(board.getPiece(matchesLoc(toRow, toCol)))
                 .andReturn(friendPiece).anyTimes();
 
-        // 3. GENERIC RULE LAST: Assume all other remaining cells are empty
+        
         EasyMock.expect(board.getPiece(EasyMock.anyObject(Location.class)))
                 .andReturn(null).anyTimes();
 
         EasyMock.replay(board);
 
-        // Multiple rule violations must reliably return false
+        
         assertFalse(queen.canMove(board, new Location(fromRow, fromCol), new Location(toRow, toCol)));
 
         EasyMock.verify(board);
@@ -2408,13 +2408,13 @@ class PieceTest {
 
     private static Stream<Arguments> provideFriendObstructedPathFriendDestQueenCases() {
         return Stream.of(
-                // Orthogonal vectors
+                
                 Arguments.of("QTC81: forward, path friend-blocked, dest friend",  0, 3,  1, 3,  7, 3),
                 Arguments.of("QTC82: backward, path friend-blocked, dest friend", 7, 3,  6, 3,  0, 3),
                 Arguments.of("QTC83: left, path friend-blocked, dest friend",     3, 7,  3, 6,  3, 0),
                 Arguments.of("QTC84: right, path friend-blocked, dest friend",    3, 0,  3, 1,  3, 7),
 
-                // Diagonal vectors
+                
                 Arguments.of("QTC85: forward-left, path friend-blocked, dest friend",   0, 7,  1, 6,  7, 0),
                 Arguments.of("QTC86: forward-right, path friend-blocked, dest friend",  0, 0,  1, 1,  7, 7),
                 Arguments.of("QTC87: backward-left, path friend-blocked, dest friend",  7, 7,  6, 6,  0, 0),
@@ -2434,21 +2434,21 @@ class PieceTest {
         Piece foeBlocker = new Piece(PieceType.PAWN, PieceColor.BLACK);
         Piece friendDest = new Piece(PieceType.PAWN, PieceColor.WHITE);
 
-        // 1. SPECIFIC RULE FIRST: Place the enemy blocker on the intermediate path
+        
         EasyMock.expect(board.getPiece(matchesLoc(blockRow, blockCol)))
                 .andReturn(foeBlocker).anyTimes();
 
-        // 2. SPECIFIC RULE SECOND: Place a friendly teammate piece at the destination square
+        
         EasyMock.expect(board.getPiece(matchesLoc(toRow, toCol)))
                 .andReturn(friendDest).anyTimes();
 
-        // 3. GENERIC RULE LAST: Assume all other remaining cells are empty
+        
         EasyMock.expect(board.getPiece(EasyMock.anyObject(Location.class)))
                 .andReturn(null).anyTimes();
 
         EasyMock.replay(board);
 
-        // Path obstructions must reliably trigger a false response before evaluation of the target tile
+        
         assertFalse(queen.canMove(board, new Location(fromRow, fromCol), new Location(toRow, toCol)));
 
         EasyMock.verify(board);
@@ -2456,13 +2456,13 @@ class PieceTest {
 
     private static Stream<Arguments> provideFoeObstructedPathFriendDestQueenCases() {
         return Stream.of(
-                // Orthogonal vectors
+                
                 Arguments.of("QTC89: forward, foe path blocker, friend target",  0, 3,  1, 3,  7, 3),
                 Arguments.of("QTC90: backward, foe path blocker, friend target", 7, 3,  6, 3,  0, 3),
                 Arguments.of("QTC91: left, foe path blocker, friend target",     3, 7,  3, 6,  3, 0),
                 Arguments.of("QTC92: right, foe path blocker, friend target",    3, 0,  3, 1,  3, 7),
 
-                // Diagonal vectors
+                
                 Arguments.of("QTC93: forward-left, foe path blocker, friend target",   0, 7,  1, 6,  7, 0),
                 Arguments.of("QTC94: forward-right, foe path blocker, friend target",  0, 0,  1, 1,  7, 7),
                 Arguments.of("QTC95: backward-left, foe path blocker, friend target",  7, 7,  6, 6,  0, 0),
@@ -2479,11 +2479,11 @@ class PieceTest {
     ) {
         Piece queen = new Piece(PieceType.QUEEN, PieceColor.WHITE);
 
-        // All target squares are open/empty
+        
         EasyMock.expect(board.getPiece(matchesLoc(toRow, toCol))).andReturn(null).anyTimes();
         EasyMock.replay(board);
 
-        // Knight L-shapes must return false unconditionally
+        
         assertFalse(queen.canMove(board, new Location(fromRow, fromCol), new Location(toRow, toCol)));
 
         EasyMock.verify(board);
@@ -2512,11 +2512,11 @@ class PieceTest {
         Piece queen = new Piece(PieceType.QUEEN, PieceColor.WHITE);
         Piece friend = new Piece(PieceType.PAWN, PieceColor.WHITE);
 
-        // Mock a friendly piece sitting directly at the destination square
+        
         EasyMock.expect(board.getPiece(matchesLoc(toRow, toCol))).andReturn(friend).anyTimes();
         EasyMock.replay(board);
 
-        // Knight L-shapes must return false regardless of destination occupancy
+        
         assertFalse(queen.canMove(board, new Location(fromRow, fromCol), new Location(toRow, toCol)));
 
         EasyMock.verify(board);
@@ -2545,11 +2545,11 @@ class PieceTest {
         Piece queen = new Piece(PieceType.QUEEN, PieceColor.WHITE);
         Piece foe = new Piece(PieceType.PAWN, PieceColor.BLACK);
 
-        // Mock an enemy piece sitting directly at the destination square
+        
         EasyMock.expect(board.getPiece(matchesLoc(toRow, toCol))).andReturn(foe).anyTimes();
         EasyMock.replay(board);
 
-        // Structural shape filtering must reject L-moves regardless of target faction
+        
         assertFalse(queen.canMove(board, new Location(fromRow, fromCol), new Location(toRow, toCol)));
 
         EasyMock.verify(board);
@@ -2577,11 +2577,11 @@ class PieceTest {
     ) {
         Piece queen = new Piece(PieceType.QUEEN, PieceColor.WHITE);
 
-        // Standard clear board wildcard configuration for safety
+        
         EasyMock.expect(board.getPiece(EasyMock.anyObject(Location.class))).andReturn(null).anyTimes();
         EasyMock.replay(board);
 
-        // Moving outside of matrix boundaries [0-7] must evaluate to false
+        
         assertFalse(queen.canMove(board, new Location(fromRow, fromCol), new Location(toRow, toCol)));
 
         EasyMock.verify(board);
@@ -2589,22 +2589,22 @@ class PieceTest {
 
     private static Stream<Arguments> provideOutOfBoundsQueenCases() {
         return Stream.of(
-                // Top Boundary Overruns (row 7 -> row 8)
+                
                 Arguments.of("QTC121: top boundary, straight forward",     7, 3,  8, 3),
                 Arguments.of("QTC122: top boundary, diagonal forward-left", 7, 3,  8, 2),
                 Arguments.of("QTC123: top boundary, diagonal forward-right",7, 3,  8, 4),
 
-                // Bottom Boundary Overruns (row 0 -> row -1)
+                
                 Arguments.of("QTC124: bottom boundary, straight backward",     0, 3, -1, 3),
                 Arguments.of("QTC125: bottom boundary, diagonal backward-left", 0, 3, -1, 2),
                 Arguments.of("QTC126: bottom boundary, diagonal backward-right",0, 3, -1, 4),
 
-                // Left Boundary Overruns (col 0 -> col -1)
+                
                 Arguments.of("QTC127: left boundary, straight left",      3, 0,  3, -1),
                 Arguments.of("QTC128: left boundary, diagonal forward-left",  3, 0,  4, -1),
                 Arguments.of("QTC129: left boundary, diagonal backward-left", 3, 0,  2, -1),
 
-                // Right Boundary Overruns (col 7 -> col 8)
+                
                 Arguments.of("QTC132: right boundary, straight right",       3, 7,  3, 8),
                 Arguments.of("QTC131: right boundary, diagonal forward-right", 3, 7,  4, 8),
                 Arguments.of("QTC132: right boundary, diagonal backward-right",3, 7,  2, 8)
@@ -2615,11 +2615,11 @@ class PieceTest {
     void queenZeroDistanceMove_invalid() {
         Piece queen = new Piece(PieceType.QUEEN, PieceColor.WHITE);
 
-        // Mock the square to return the queen itself since it is sitting there
+        
         EasyMock.expect(board.getPiece(matchesLoc(3, 3))).andReturn(queen).anyTimes();
         EasyMock.replay(board);
 
-        // A piece cannot move to the exact square it already occupies
+        
         assertFalse(queen.canMove(board, new Location(3, 3), new Location(3, 3)));
 
         EasyMock.verify(board);
@@ -2633,18 +2633,18 @@ class PieceTest {
         Location from = new Location(0, 4);
         Location to = new Location(0, 6);
 
-        // Explicitly check locations inside the loop expectation
+        
         EasyMock.expect(board.getPiece(EasyMock.anyObject(Location.class))).andAnswer(() -> {
             Location loc = (Location) EasyMock.getCurrentArguments()[0];
-            // The loop checks (0,5) and (0,6). Let's put a blocker at (0,5)
+            
             if (loc.getRow() == 0 && loc.getCol() == 5) {
                 return blocker;
             }
-            // Return the valid rook at column 7
+            
             if (loc.getRow() == 0 && loc.getCol() == 7) {
                 return new Piece(PieceType.ROOK, PieceColor.WHITE);
             }
-            return null; // All other squares empty
+            return null; 
         }).anyTimes();
 
         EasyMock.replay(board);
@@ -2684,7 +2684,7 @@ class PieceTest {
         Location from = new Location(0, 4);
         Location to = new Location(0, 6);
 
-        // Force the corner square to return null (empty)
+        
         EasyMock.expect(board.getPiece(new Location(0, 7))).andReturn(null).anyTimes();
         EasyMock.replay(board);
 
@@ -2709,9 +2709,9 @@ class PieceTest {
         Piece king = new Piece(PieceType.KING, PieceColor.WHITE);
 
         Location from = new Location(0, 4);
-        Location to = new Location(0, 2); // Queenside attempt
+        Location to = new Location(0, 2); 
 
-        // Force the queenside corner square (0,0) to return null
+        
         EasyMock.expect(board.getPiece(new Location(0, 0))).andReturn(null).anyTimes();
         EasyMock.replay(board);
 
@@ -2794,7 +2794,7 @@ class PieceTest {
                 buffer.append("matchesLoc(").append(expectedRow).append(", ").append(expectedCol).append(")");
             }
         });
-        return null; // EasyMock matchers always return a dummy value (null) during recording
+        return null; 
     }
 
 }
