@@ -6,14 +6,15 @@ import domain.GameStatus;
 import domain.Player;
 import domain.PieceColor;
 import javax.swing.*;
+import java.awt.BorderLayout;
 import java.util.ArrayList;
 import java.util.HashMap;
-
 import java.util.Locale;
-import javax.swing.JOptionPane;
-import javax.swing.SwingUtilities;
 
 public final class ChessUI extends JFrame {
+
+	private final Game game;
+	private final ChessBoardView view;
 
 	public ChessUI() {
 		super("Team 27 Chess");
@@ -22,23 +23,31 @@ public final class ChessUI extends JFrame {
 		board.initBoard();
 		Player white = new Player("Player 1", PieceColor.WHITE);
 		Player black = new Player("Player 2", PieceColor.BLACK);
-		Game game = new Game(board,
+
+		this.game = new Game(board,
 				GameStatus.WHITE_TURN,
 				new ArrayList<>(),
 				null,
 				0,
 				new HashMap<>());
-		game.startNewGame(white, black);
+		this.game.startNewGame(white, black);
 
-		ChessBoardView view = new ChessBoardView();
-		ChessController controller = new ChessController(game, view);
+		this.view = new ChessBoardView();
+		ChessController controller = new ChessController(this.game, this.view);
 
-		view.setController(controller);
-		view.updateBoardUI(board);
+		this.view.setController(controller);
+		this.view.updateBoardUI(board);
 
 		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		this.setSize(800, 800);
-		this.add(view);
+
+		this.setLayout(new BorderLayout());
+
+		GameTimerPanel timerPanel = new GameTimerPanel(this.game, this.view);
+
+		this.add(timerPanel, BorderLayout.NORTH);
+		this.add(this.view, BorderLayout.CENTER);
+
 		this.setLocationRelativeTo(null);
 	}
 
