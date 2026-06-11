@@ -43,4 +43,22 @@ public class ChessControllerTest {
 
 		EasyMock.verify(mockGame, mockView, mockBoard);
 	}
+
+	@Test
+	public void testClickEmptySquareFirst() {
+		Game mockGame = EasyMock.createMock(Game.class);
+		ChessBoardView mockView = EasyMock.createMock(ChessBoardView.class);
+		Board mockBoard = EasyMock.createMock(Board.class);
+
+		EasyMock.expect(mockGame.getBoard()).andReturn(mockBoard).anyTimes();
+
+		EasyMock.expect(mockBoard.getPiece(new Location(4, 4))).andReturn(new Piece(PieceType.EMPTY, null));
+
+		EasyMock.replay(mockGame, mockView, mockBoard);
+
+		ChessController controller = new ChessController(mockGame, mockView);
+		controller.onSquareClicked(4, 4);
+
+		EasyMock.verify(mockGame, mockView, mockBoard);
+	}
 }
