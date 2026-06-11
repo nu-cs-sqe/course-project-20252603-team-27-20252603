@@ -8,12 +8,17 @@ import domain.Piece;
 import domain.PieceColor;
 import domain.PieceType;
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
+import java.util.ResourceBundle;
+import java.awt.Window;
+import javax.swing.SwingUtilities;
+import javax.swing.JOptionPane;
 
 public class ChessController {
 
 	private final Game game;
 	private final ChessBoardView view;
 	private Location selectedSource;
+	private final ResourceBundle messages;
 
 	@SuppressFBWarnings(
 			value = "EI_EXPOSE_REP2",
@@ -23,6 +28,7 @@ public class ChessController {
 		this.game = game;
 		this.view = view;
 		this.selectedSource = null;
+		this.messages = ResourceBundle.getBundle("Messages");
 	}
 
 	public void onSquareClicked(int row, int col) {
@@ -64,6 +70,16 @@ public class ChessController {
 
 			if (isSuccessfulMove(result)) {
 				view.updateBoardUI(game.getBoard());
+				boolean whiteMated = game.isCheckmate(PieceColor.WHITE);
+				boolean blackMated = game.isCheckmate(PieceColor.BLACK);
+
+				if (whiteMated || blackMated) {
+					PieceColor winner = whiteMated ? PieceColor.BLACK : PieceColor.WHITE;
+					handleCheckmate(winner);
+				}
+				else if (game.isInCheck(PieceColor.WHITE) || game.isInCheck(PieceColor.BLACK)) {
+					view.showTemporaryMessage(messages.getString("status.check"));
+				}
 			} else {
 				System.out.println("Invalid Move: " + result);
 			}
@@ -94,5 +110,32 @@ public class ChessController {
 				result == MoveResult.CHECKMATE ||
 				result == MoveResult.DRAW ||
 				result == MoveResult.STALEMATE;
+	}
+
+	private void handleCheckmate(PieceColor winnerColor) {
+		String winnerName = (winnerColor == PieceColor.WHITE)
+				? messages.getString("color.white")
+				: messages.getString("color.black");
+
+		String checkmateText = String.format(messages.getString("status.checkmate"), winnerName);
+		String fullMessage = checkmateText + "\n\n" + messages.getString("status.playagain");
+
+		int choice = JOptionPane.showConfirmDialog(
+				null,
+				fullMessage,
+				messages.getString("status.gameover"),
+				JOptionPane.YES_NO_OPTION,
+				JOptionPane.WARNING_MESSAGE
+		);
+
+		if (choice == JOptionPane.YES_OPTION) {
+			Window currentWindow = SwingUtilities.getWindowAncestor(view);
+			if (currentWindow != null) {
+				currentWindow.dispose();
+			}
+			new ChessUI().setVisible(true);
+		} else {
+			System.exit(0);
+		}
 	}
 }

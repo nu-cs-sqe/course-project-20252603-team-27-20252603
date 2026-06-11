@@ -135,4 +135,30 @@ public class ChessBoardView extends JPanel {
 			default: return PieceType.QUEEN;
 		}
 	}
+
+	public void showTemporaryMessage(String text) {
+		JDialog dialog = new JDialog(SwingUtilities.getWindowAncestor(this));
+		dialog.setUndecorated(true);
+		dialog.setAlwaysOnTop(true);
+
+		JLabel label = new JLabel(text, SwingConstants.CENTER);
+		label.setFont(new Font("SansSerif", Font.BOLD, 48));
+		label.setForeground(Color.RED);
+		label.setOpaque(true);
+
+		label.setBackground(new Color(255, 255, 255, 220));
+		label.setBorder(BorderFactory.createCompoundBorder(
+				BorderFactory.createLineBorder(Color.RED, 4),
+				BorderFactory.createEmptyBorder(20, 40, 20, 40)
+		));
+
+		dialog.add(label);
+		dialog.pack();
+		dialog.setLocationRelativeTo(this);
+		dialog.setVisible(true);
+
+		Timer timer = new Timer(2000, e -> dialog.dispose());
+		timer.setRepeats(false);
+		timer.start();
+	}
 }
