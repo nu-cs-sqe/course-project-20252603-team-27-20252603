@@ -77,6 +77,9 @@ public class ChessController {
 					PieceColor winner = whiteMated ? PieceColor.BLACK : PieceColor.WHITE;
 					handleCheckmate(winner);
 				}
+				else if (result == MoveResult.STALEMATE) {
+					handleDraw(messages.getString("status.stalemate"));
+				}
 				else if (game.isInCheck(PieceColor.WHITE) || game.isInCheck(PieceColor.BLACK)) {
 					view.showTemporaryMessage(messages.getString("status.check"));
 				}
@@ -126,6 +129,28 @@ public class ChessController {
 				messages.getString("status.gameover"),
 				JOptionPane.YES_NO_OPTION,
 				JOptionPane.WARNING_MESSAGE
+		);
+
+		if (choice == JOptionPane.YES_OPTION) {
+			Window currentWindow = SwingUtilities.getWindowAncestor(view);
+			if (currentWindow != null) {
+				currentWindow.dispose();
+			}
+			new ChessUI().setVisible(true);
+		} else {
+			System.exit(0);
+		}
+	}
+
+	void handleDraw(String drawReasonMessage) {
+		String fullMessage = drawReasonMessage + "\n\n" + messages.getString("status.playagain");
+
+		int choice = JOptionPane.showConfirmDialog(
+				null,
+				fullMessage,
+				messages.getString("status.gameover"),
+				JOptionPane.YES_NO_OPTION,
+				JOptionPane.INFORMATION_MESSAGE
 		);
 
 		if (choice == JOptionPane.YES_OPTION) {
