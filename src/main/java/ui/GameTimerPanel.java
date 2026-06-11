@@ -8,11 +8,12 @@ import domain.Player; // We need this to recreate the players on reset
 import javax.swing.*;
 import java.awt.*;
 import java.util.ResourceBundle;
+import java.awt.Window;
 
 public class GameTimerPanel extends JPanel {
 
 	private final Game game;
-	private final ChessBoardView view; // Added so we can force a UI reset
+	private final ChessBoardView view;
 	private final JLabel whiteTimerLabel;
 	private final JLabel blackTimerLabel;
 	private final ResourceBundle messages;
@@ -91,25 +92,37 @@ public class GameTimerPanel extends JPanel {
 	}
 
 	private void handleTimeOut(PieceColor losingColor) {
-		countdownTimer.stop(); // Pause the timer while the popup is open
+		countdownTimer.stop();
 
-		String message = messages.getString("timer.gameover");
-		JOptionPane.showMessageDialog(this, message, "Time Out!", JOptionPane.INFORMATION_MESSAGE);
+		String message;
+		if (losingColor == PieceColor.WHITE) {
+			message = messages.getString("timer.timeout.blackwins");
+		} else {
+			message = messages.getString("timer.timeout.whitewins");
+		}
 
+		String title = messages.getString("timer.timeout.title");
 
-		Player p1 = new Player("Player 1", PieceColor.WHITE);
-		Player p2 = new Player("Player 2", PieceColor.BLACK);
-		game.startNewGame(p1, p2);
+		int choice = JOptionPane.showConfirmDialog(
+				this,
+				message,
+				title,
+				JOptionPane.YES_NO_OPTION,
+				JOptionPane.QUESTION_MESSAGE
+		);
 
-		whiteTimeRemaining = TURN_TIME_SECONDS;
-		blackTimeRemaining = TURN_TIME_SECONDS;
-		currentTurnColor = PieceColor.WHITE;
-		whiteTimerLabel.setText(formatTimeDisplay(PieceColor.WHITE, whiteTimeRemaining));
-		blackTimerLabel.setText(formatTimeDisplay(PieceColor.BLACK, blackTimeRemaining));
+		if (choice == JOptionPane.YES_OPTION) {
+			Window currentWindow = SwingUtilities.getWindowAncestor(this);
+			if (currentWindow != null) {
+				currentWindow.dispose();
+			}
 
-		view.updateBoardUI(game.getBoard());
+			ChessUI freshGame = new ChessUI();
+			freshGame.setVisible(true);
 
-		countdownTimer.start();
+		} else {
+			System.exit(0);
+		}
 	}
 
 	private String formatTimeDisplay(PieceColor color, int totalSeconds) {
