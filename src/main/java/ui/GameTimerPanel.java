@@ -4,6 +4,7 @@ import domain.Game;
 import domain.GameStatus;
 import domain.PieceColor;
 import domain.Player; // We need this to recreate the players on reset
+import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 
 import javax.swing.*;
 import java.awt.*;
@@ -26,6 +27,13 @@ public class GameTimerPanel extends JPanel {
 
 	private final Timer countdownTimer;
 
+	@SuppressFBWarnings(
+			value = "EI_EXPOSE_REP2",
+			justification = "Timer panel needs direct references " +
+					"to live Game and View " +
+					"to poll status " +
+					"and trigger full UI resets on timeout."
+	)
 	public GameTimerPanel(Game game, ChessBoardView view) {
 		this.game = game;
 		this.view = view;
@@ -37,12 +45,14 @@ public class GameTimerPanel extends JPanel {
 
 		Font timerFont = new Font("SansSerif", Font.BOLD, 20);
 
-		whiteTimerLabel = new JLabel(formatTimeDisplay(PieceColor.WHITE, whiteTimeRemaining));
+		whiteTimerLabel = new JLabel(formatTimeDisplay(PieceColor.WHITE,
+				whiteTimeRemaining));
 		whiteTimerLabel.setFont(timerFont);
 		whiteTimerLabel.setForeground(Color.WHITE);
 		whiteTimerLabel.setHorizontalAlignment(SwingConstants.CENTER);
 
-		blackTimerLabel = new JLabel(formatTimeDisplay(PieceColor.BLACK, blackTimeRemaining));
+		blackTimerLabel = new JLabel(formatTimeDisplay(PieceColor.BLACK,
+				blackTimeRemaining));
 		blackTimerLabel.setFont(timerFont);
 		blackTimerLabel.setForeground(Color.LIGHT_GRAY);
 		blackTimerLabel.setHorizontalAlignment(SwingConstants.CENTER);
@@ -57,8 +67,10 @@ public class GameTimerPanel extends JPanel {
 	private void tickSeconds() {
 		GameStatus currentStatus = game.getStatus();
 
-		boolean isWhiteTurn = (currentStatus == GameStatus.WHITE_TURN || currentStatus == GameStatus.WHITE_IN_CHECK);
-		boolean isBlackTurn = (currentStatus == GameStatus.BLACK_TURN || currentStatus == GameStatus.BLACK_IN_CHECK);
+		boolean isWhiteTurn = (currentStatus == GameStatus.WHITE_TURN
+				|| currentStatus == GameStatus.WHITE_IN_CHECK);
+		boolean isBlackTurn = (currentStatus == GameStatus.BLACK_TURN
+				|| currentStatus == GameStatus.BLACK_IN_CHECK);
 
 		if (!isWhiteTurn && !isBlackTurn) {
 			return;
@@ -72,19 +84,23 @@ public class GameTimerPanel extends JPanel {
 			blackTimeRemaining = TURN_TIME_SECONDS;
 			currentTurnColor = activeColor;
 
-			whiteTimerLabel.setText(formatTimeDisplay(PieceColor.WHITE, whiteTimeRemaining));
-			blackTimerLabel.setText(formatTimeDisplay(PieceColor.BLACK, blackTimeRemaining));
+			whiteTimerLabel.setText(formatTimeDisplay(PieceColor.WHITE,
+					whiteTimeRemaining));
+			blackTimerLabel.setText(formatTimeDisplay(PieceColor.BLACK,
+					blackTimeRemaining));
 		}
 
 		if (isWhiteTurn) {
 			whiteTimeRemaining--;
-			whiteTimerLabel.setText(formatTimeDisplay(PieceColor.WHITE, whiteTimeRemaining));
+			whiteTimerLabel.setText(formatTimeDisplay(PieceColor.WHITE,
+					whiteTimeRemaining));
 			if (whiteTimeRemaining <= 0) {
 				handleTimeOut(PieceColor.WHITE);
 			}
 		} else if (isBlackTurn) {
 			blackTimeRemaining--;
-			blackTimerLabel.setText(formatTimeDisplay(PieceColor.BLACK, blackTimeRemaining));
+			blackTimerLabel.setText(formatTimeDisplay(PieceColor.BLACK,
+					blackTimeRemaining));
 			if (blackTimeRemaining <= 0) {
 				handleTimeOut(PieceColor.BLACK);
 			}
@@ -121,7 +137,10 @@ public class GameTimerPanel extends JPanel {
 			freshGame.setVisible(true);
 
 		} else {
-			System.exit(0);
+			Window currentWindow = SwingUtilities.getWindowAncestor(this);
+			if (currentWindow != null) {
+				currentWindow.dispose();
+			}
 		}
 	}
 

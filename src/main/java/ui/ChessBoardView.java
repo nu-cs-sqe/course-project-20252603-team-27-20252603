@@ -7,7 +7,6 @@ import javax.swing.*;
 import java.awt.*;
 
 import java.util.ResourceBundle;
-import java.util.Locale;
 
 public class ChessBoardView extends JPanel {
 
@@ -114,8 +113,14 @@ public class ChessBoardView extends JPanel {
 		String knightLabel = messages.getString("piece.knight");
 
 		String[] options = isWhite
-				? new String[]{"♕ " + queenLabel, "♖ " + rookLabel, "♗ " + bishopLabel, "♘ " + knightLabel}
-				: new String[]{"♛ " + queenLabel, "♜ " + rookLabel, "♝ " + bishopLabel, "♞ " + knightLabel};
+				? new String[]{"♕ " + queenLabel,
+				"♖ " + rookLabel,
+				"♗ " + bishopLabel,
+				"♘ " + knightLabel}
+				: new String[]{"♛ " + queenLabel,
+				"♜ " + rookLabel,
+				"♝ " + bishopLabel,
+				"♞ " + knightLabel};
 
 		int choice = JOptionPane.showOptionDialog(
 				this,

@@ -62,11 +62,15 @@ public class ChessController {
 			PieceType promotionType = null;
 
 			if (movingPiece.getPieceType() == PieceType.PAWN &&
-					(clickedLocation.getRow() == 0 || clickedLocation.getRow() == 7)) {
+					(clickedLocation.getRow() == 0
+							|| clickedLocation.getRow() == 7)) {
 				boolean isWhite = movingPiece.getColor() == PieceColor.WHITE;
 				promotionType = view.promptForPromotion(isWhite);
 			}
-			MoveResult result = game.makeMove(selectedSource, clickedLocation, promotionType);
+			MoveResult result = game.makeMove(
+					selectedSource,
+					clickedLocation,
+					promotionType);
 
 			if (isSuccessfulMove(result)) {
 				view.updateBoardUI(game.getBoard());
@@ -74,14 +78,17 @@ public class ChessController {
 				boolean blackMated = game.isCheckmate(PieceColor.BLACK);
 
 				if (whiteMated || blackMated) {
-					PieceColor winner = whiteMated ? PieceColor.BLACK : PieceColor.WHITE;
+					PieceColor winner = whiteMated ? PieceColor.BLACK
+							: PieceColor.WHITE;
 					handleCheckmate(winner);
 				}
 				else if (result == MoveResult.STALEMATE) {
 					handleDraw(messages.getString("status.stalemate"));
 				}
-				else if (game.isInCheck(PieceColor.WHITE) || game.isInCheck(PieceColor.BLACK)) {
-					view.showTemporaryMessage(messages.getString("status.check"));
+				else if (game.isInCheck(PieceColor.WHITE)
+						|| game.isInCheck(PieceColor.BLACK)) {
+					view.showTemporaryMessage(
+							messages.getString("status.check"));
 				}
 			} else {
 				System.out.println("Invalid Move: " + result);
@@ -120,8 +127,11 @@ public class ChessController {
 				? messages.getString("color.white")
 				: messages.getString("color.black");
 
-		String checkmateText = String.format(messages.getString("status.checkmate"), winnerName);
-		String fullMessage = checkmateText + "\n\n" + messages.getString("status.playagain");
+		String checkmateText = String.format(messages.getString("status.checkmate"),
+				winnerName);
+		String fullMessage = checkmateText +
+				"\n\n" +
+				messages.getString("status.playagain");
 
 		int choice = JOptionPane.showConfirmDialog(
 				null,
@@ -138,12 +148,17 @@ public class ChessController {
 			}
 			new ChessUI().setVisible(true);
 		} else {
-			System.exit(0);
+			Window currentWindow = SwingUtilities.getWindowAncestor(view);
+			if (currentWindow != null) {
+				currentWindow.dispose();
+			}
 		}
 	}
 
 	void handleDraw(String drawReasonMessage) {
-		String fullMessage = drawReasonMessage + "\n\n" + messages.getString("status.playagain");
+		String fullMessage = drawReasonMessage +
+				"\n\n" +
+				messages.getString("status.playagain");
 
 		int choice = JOptionPane.showConfirmDialog(
 				null,
@@ -160,7 +175,10 @@ public class ChessController {
 			}
 			new ChessUI().setVisible(true);
 		} else {
-			System.exit(0);
+			Window currentWindow = SwingUtilities.getWindowAncestor(view);
+			if (currentWindow != null) {
+				currentWindow.dispose();
+			}
 		}
 	}
 }
