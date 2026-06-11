@@ -61,4 +61,32 @@ public class ChessControllerTest {
 
 		EasyMock.verify(mockGame, mockView, mockBoard);
 	}
+
+	@Test
+	public void testSwitchSelection() {
+		Game mockGame = EasyMock.createMock(Game.class);
+		ChessBoardView mockView = EasyMock.createMock(ChessBoardView.class);
+		Board mockBoard = EasyMock.createMock(Board.class);
+		Piece whitePawn1 = new Piece(PieceType.PAWN, PieceColor.WHITE);
+		Piece whitePawn2 = new Piece(PieceType.PAWN, PieceColor.WHITE);
+
+		EasyMock.expect(mockGame.getBoard()).andReturn(mockBoard).anyTimes();
+		EasyMock.expect(mockGame.getStatus()).andReturn(GameStatus.WHITE_TURN).anyTimes();
+
+		EasyMock.expect(mockBoard.getPiece(new Location(6, 0))).andReturn(whitePawn1);
+		mockView.highlightSquare(6, 0);
+		EasyMock.expectLastCall();
+
+		EasyMock.expect(mockBoard.getPiece(new Location(6, 1))).andReturn(whitePawn2);
+		mockView.highlightSquare(6, 1);
+		EasyMock.expectLastCall();
+
+		EasyMock.replay(mockGame, mockView, mockBoard);
+
+		ChessController controller = new ChessController(mockGame, mockView);
+		controller.onSquareClicked(6, 0);
+		controller.onSquareClicked(6, 1);
+
+		EasyMock.verify(mockGame, mockView, mockBoard);
+	}
 }
