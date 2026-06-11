@@ -23,17 +23,23 @@ public class ChessControllerTest {
 		EasyMock.expect(mockGame.getBoard()).andReturn(mockBoard).anyTimes();
 		EasyMock.expect(mockGame.getStatus()).andReturn(GameStatus.WHITE_TURN).anyTimes();
 
-		EasyMock.expect(mockBoard.getPiece(new Location(6, 0))).andReturn(whitePawn);
+		// -- THE FIX: Swapped to andStubReturn for double lookup safety --
+		EasyMock.expect(mockBoard.getPiece(new Location(6, 0))).andStubReturn(whitePawn);
 		mockView.highlightSquare(6, 0);
 		EasyMock.expectLastCall();
 
-		EasyMock.expect(mockBoard.getPiece(new Location(5, 0))).andReturn(new Piece(PieceType.EMPTY, null));
+		EasyMock.expect(mockBoard.getPiece(new Location(5, 0))).andStubReturn(new Piece(PieceType.EMPTY, null));
 
-		EasyMock.expect(mockGame.makeMove(new Location(6, 0), new Location(5, 0), PieceType.QUEEN))
+		// Notice we pass null here instead of PieceType.QUEEN because a basic move won't promote!
+		EasyMock.expect(mockGame.makeMove(new Location(6, 0), new Location(5, 0), null))
 				.andReturn(MoveResult.VALID);
 
 		mockView.updateBoardUI(mockBoard);
 		EasyMock.expectLastCall().times(2);
+
+		// -- THE FIX: Stub the new Phase 4 End-Game evaluations --
+		EasyMock.expect(mockGame.isCheckmate(EasyMock.anyObject(PieceColor.class))).andReturn(false).anyTimes();
+		EasyMock.expect(mockGame.isInCheck(EasyMock.anyObject(PieceColor.class))).andReturn(false).anyTimes();
 
 		EasyMock.replay(mockGame, mockView, mockBoard);
 
@@ -127,11 +133,12 @@ public class ChessControllerTest {
 		EasyMock.expect(mockGame.getBoard()).andReturn(mockBoard).anyTimes();
 		EasyMock.expect(mockGame.getStatus()).andReturn(GameStatus.WHITE_TURN).anyTimes();
 
+		// -- STUB REMEDY FOR DOUBLE LOOKUP --
 		EasyMock.expect(mockBoard.getPiece(new Location(1, 0))).andStubReturn(whitePawn);
 		mockView.highlightSquare(1, 0);
 		EasyMock.expectLastCall();
 
-		EasyMock.expect(mockBoard.getPiece(new Location(0, 0))).andReturn(new Piece(PieceType.EMPTY, null));
+		EasyMock.expect(mockBoard.getPiece(new Location(0, 0))).andStubReturn(new Piece(PieceType.EMPTY, null));
 
 		EasyMock.expect(mockView.promptForPromotion(true)).andReturn(PieceType.ROOK);
 
@@ -140,6 +147,10 @@ public class ChessControllerTest {
 
 		mockView.updateBoardUI(mockBoard);
 		EasyMock.expectLastCall().times(2);
+
+		// -- THE FIX: Stub the new Phase 4 End-Game evaluations --
+		EasyMock.expect(mockGame.isCheckmate(EasyMock.anyObject(PieceColor.class))).andReturn(false).anyTimes();
+		EasyMock.expect(mockGame.isInCheck(EasyMock.anyObject(PieceColor.class))).andReturn(false).anyTimes();
 
 		EasyMock.replay(mockGame, mockView, mockBoard);
 
