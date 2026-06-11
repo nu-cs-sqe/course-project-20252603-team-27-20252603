@@ -452,3 +452,8 @@
 - **State of the system:** king at (7,4), make sure only 64 loops
 - **Expected output:** False
 - **Implemented:*implemented*
+
+- **TC91: makeMove_whitePawnTwoStep_mutant** ()
+- **State of the system:** white pawn from (6,4) to (4,4)
+- **Expected output:** valid move
+- **Implemented:*implemented*
