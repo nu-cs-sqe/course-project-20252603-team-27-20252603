@@ -52,9 +52,15 @@ public class ChessController {
 				return;
 			}
 
-			MoveResult result = game.makeMove(selectedSource,
-					clickedLocation,
-					PieceType.QUEEN);
+			Piece movingPiece = game.getBoard().getPiece(selectedSource);
+			PieceType promotionType = null;
+
+			if (movingPiece.getPieceType() == PieceType.PAWN &&
+					(clickedLocation.getRow() == 0 || clickedLocation.getRow() == 7)) {
+				boolean isWhite = movingPiece.getColor() == PieceColor.WHITE;
+				promotionType = view.promptForPromotion(isWhite);
+			}
+			MoveResult result = game.makeMove(selectedSource, clickedLocation, promotionType);
 
 			if (isSuccessfulMove(result)) {
 				view.updateBoardUI(game.getBoard());

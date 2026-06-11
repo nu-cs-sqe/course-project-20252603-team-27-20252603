@@ -98,4 +98,28 @@ public class ChessBoardView extends JPanel {
 	public void highlightSquare(int row, int col) {
 		squareButtons[row][col].setBackground(highlightColor);
 	}
+
+	public PieceType promptForPromotion(boolean isWhite) {
+		String[] options = isWhite
+				? new String[]{"♕ Queen", "♖ Rook", "♗ Bishop", "♘ Knight"}
+				: new String[]{"♛ Queen", "♜ Rook", "♝ Bishop", "♞ Knight"};
+
+		int choice = JOptionPane.showOptionDialog(
+				this,
+				"Your pawn has reached the end of the board!\nChoose a piece to promote to:",
+				"Pawn Promotion",
+				JOptionPane.DEFAULT_OPTION,
+				JOptionPane.QUESTION_MESSAGE,
+				null,
+				options,
+				options[0]
+		);
+
+		switch (choice) {
+			case 1: return PieceType.ROOK;
+			case 2: return PieceType.BISHOP;
+			case 3: return PieceType.KNIGHT;
+			default: return PieceType.QUEEN;
+		}
+	}
 }

@@ -115,4 +115,38 @@ public class ChessControllerTest {
 
 		EasyMock.verify(mockGame, mockView, mockBoard);
 	}
+
+	@Test
+	public void testPawnPromotionTrigger() {
+		Game mockGame = EasyMock.createMock(Game.class);
+		ChessBoardView mockView = EasyMock.createMock(ChessBoardView.class);
+		Board mockBoard = EasyMock.createMock(Board.class);
+
+		Piece whitePawn = new Piece(PieceType.PAWN, PieceColor.WHITE);
+
+		EasyMock.expect(mockGame.getBoard()).andReturn(mockBoard).anyTimes();
+		EasyMock.expect(mockGame.getStatus()).andReturn(GameStatus.WHITE_TURN).anyTimes();
+
+		EasyMock.expect(mockBoard.getPiece(new Location(1, 0))).andStubReturn(whitePawn);
+		mockView.highlightSquare(1, 0);
+		EasyMock.expectLastCall();
+
+		EasyMock.expect(mockBoard.getPiece(new Location(0, 0))).andReturn(new Piece(PieceType.EMPTY, null));
+
+		EasyMock.expect(mockView.promptForPromotion(true)).andReturn(PieceType.ROOK);
+
+		EasyMock.expect(mockGame.makeMove(new Location(1, 0), new Location(0, 0), PieceType.ROOK))
+				.andReturn(MoveResult.VALID);
+
+		mockView.updateBoardUI(mockBoard);
+		EasyMock.expectLastCall().times(2);
+
+		EasyMock.replay(mockGame, mockView, mockBoard);
+
+		ChessController controller = new ChessController(mockGame, mockView);
+		controller.onSquareClicked(1, 0);
+		controller.onSquareClicked(0, 0);
+
+		EasyMock.verify(mockGame, mockView, mockBoard);
+	}
 }
