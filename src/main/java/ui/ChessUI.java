@@ -9,6 +9,10 @@ import javax.swing.*;
 import java.util.ArrayList;
 import java.util.HashMap;
 
+import java.util.Locale;
+import javax.swing.JOptionPane;
+import javax.swing.SwingUtilities;
+
 public final class ChessUI extends JFrame {
 
 	public ChessUI() {
@@ -30,18 +34,37 @@ public final class ChessUI extends JFrame {
 		ChessController controller = new ChessController(game, view);
 
 		view.setController(controller);
-		view.updateBoardUI(board); // Draw the starting layout
+		view.updateBoardUI(board);
 
 		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		this.setSize(800, 800);
-		this.add(view); // Add the board to the window
-		this.setLocationRelativeTo(null); // Center on screen
+		this.add(view);
+		this.setLocationRelativeTo(null);
 	}
 
 	public static void main(String[] args) {
 		SwingUtilities.invokeLater(() -> {
-			ChessUI window = new ChessUI();
-			window.setVisible(true);
+			String[] languages = {"English", "Français"};
+
+			int choice = JOptionPane.showOptionDialog(
+					null,
+					"Select your game language / Choisissez la langue du jeu :",
+					"Language Selection / Choix de la langue",
+					JOptionPane.DEFAULT_OPTION,
+					JOptionPane.QUESTION_MESSAGE,
+					null,
+					languages,
+					languages[0]
+			);
+
+			if (choice == 1) {
+				Locale.setDefault(new Locale("fr", "FR"));
+			} else {
+				Locale.setDefault(new Locale("en", "US"));
+			}
+
+			ChessUI mainUI = new ChessUI();
+			mainUI.setVisible(true);
 		});
 	}
 }

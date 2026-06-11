@@ -6,6 +6,9 @@ import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import javax.swing.*;
 import java.awt.*;
 
+import java.util.ResourceBundle;
+import java.util.Locale;
+
 public class ChessBoardView extends JPanel {
 
 	private ChessController controller;
@@ -14,9 +17,11 @@ public class ChessBoardView extends JPanel {
 	private final Color lightSquareColor = new Color(240, 217, 181);
 	private final Color darkSquareColor = new Color(154, 83, 23);
 	private final Color highlightColor = new Color(186, 202, 68);
+	private final ResourceBundle messages;
 
 	public ChessBoardView() {
 		this.squareButtons = new JButton[8][8];
+		this.messages = ResourceBundle.getBundle("Messages");
 		initializeGrid();
 	}
 
@@ -100,14 +105,22 @@ public class ChessBoardView extends JPanel {
 	}
 
 	public PieceType promptForPromotion(boolean isWhite) {
+		String title = messages.getString("promotion.title");
+		String message = messages.getString("promotion.message");
+
+		String queenLabel = messages.getString("piece.queen");
+		String rookLabel = messages.getString("piece.rook");
+		String bishopLabel = messages.getString("piece.bishop");
+		String knightLabel = messages.getString("piece.knight");
+
 		String[] options = isWhite
-				? new String[]{"♕ Queen", "♖ Rook", "♗ Bishop", "♘ Knight"}
-				: new String[]{"♛ Queen", "♜ Rook", "♝ Bishop", "♞ Knight"};
+				? new String[]{"♕ " + queenLabel, "♖ " + rookLabel, "♗ " + bishopLabel, "♘ " + knightLabel}
+				: new String[]{"♛ " + queenLabel, "♜ " + rookLabel, "♝ " + bishopLabel, "♞ " + knightLabel};
 
 		int choice = JOptionPane.showOptionDialog(
 				this,
-				"Your pawn has reached the end of the board!\nChoose a piece to promote to:",
-				"Pawn Promotion",
+				message,
+				title,
 				JOptionPane.DEFAULT_OPTION,
 				JOptionPane.QUESTION_MESSAGE,
 				null,
