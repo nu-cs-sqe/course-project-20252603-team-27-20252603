@@ -2524,4 +2524,23 @@ public class GameTest {
 
 		EasyMock.verify(board, rook, game);
 	}
+
+	@Test
+	public void testGetBoard_returnsCorrectInstance() {
+		Board mockBoard = EasyMock.createMock(Board.class);
+		Game game = new Game(
+				mockBoard,
+				GameStatus.WHITE_TURN,
+				new ArrayList<>(),
+				null,
+				0,
+				new HashMap<>()
+		);
+		EasyMock.replay(mockBoard);
+		Board actualBoard = game.getBoard();
+
+
+		assertNotNull(actualBoard);
+		assertSame(mockBoard, actualBoard);
+	}
 }
