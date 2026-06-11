@@ -64,6 +64,24 @@
     - All: Begin integration testing
     - All: Implement i18n
 
+# Week 10 and 11 (05/31/2026-06/10/2026)
+**Planning and Progress Tracking**:
+1. [done 100%]
+   - Reviewed the initial implementations of Piece, Move, Game, Location, and Board Class, PRs created for team review
+      - Olivia: Piece Class
+      - Jerome: Board Class
+      - Olivia: Location Class
+      - Muye: Game Class
+      - Rishi: Move Class
+2. [Done 100%]
+   - All: UI and Player classes
+   - All: Finish up Reviews
+   - All: Begin integration testing
+   - All: Implement i18n
+   - We(olivia and Jerome) used Olivia's computer to implement the UI and do the integration testing as well as implementing i18n.
+   
+3. Chess game is now fully implemented and playable.
+
 # Week X (XX/XX/2026-XX/XX/2026) TEMPLATE (You can change the format to whatever the team likes better)
 **Planning and Progress Tracking**:
 1. [done] Person: Task (Links to PR)
