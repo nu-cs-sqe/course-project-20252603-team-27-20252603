@@ -452,3 +452,28 @@
 - **State of the system:** king at (7,4), make sure only 64 loops
 - **Expected output:** False
 - **Implemented:*implemented*
+
+- **TC91: makeMove_nullKingsForCoverage** ()
+- **State of the system:** White and Black kings are evaluated as null on the board during a valid White Rook move from (7,0) to (0,7).
+- **Expected output:** Move is VALID, turn shifts to BLACK_TURN, and position history safely defaults to WK_Moved:false,BK_Moved:false.
+- **Implemented:*implemented*
+
+- **TC92: makeMove_blackKingMovedForCoverage** ()
+- **State of the system:** Black king's hasMoved flag is explicitly set to true; White king's flag is false. White Rook makes a valid move.
+- **Expected output:** Move is VALID, turn shifts to BLACK_TURN, and position history accurately reflects the exact state branch: WK_Moved:false,BK_Moved:true.
+- **Implemented:*implemented*
+
+- **TC93: testGetBoard_returnsCorrectInstance** ()
+- **State of the system:** Game instance is instantiated with a specific injected mock Board object.
+- **Expected output:** The returned board reference is strictly identical (assertSame) to the injected mock and is not null.
+- **Implemented:*implemented*
+
+- **TC94: makeMove_restoresCapturedPieceAfterSelfCheckProbe** ()
+- **State of the system:** White Rook moves to a destination natively occupied by a Black Bishop. The engine simulates the move to check for King safety.
+- **Expected output:** The captured Black Bishop is successfully restored (setPiece called exactly 1 time with the target) during the simulation rollback, yielding MoveResult.VALID.
+- **Implemented:*implemented*
+
+- **TC95: makeMove_blackPawnDoublePushComputesCorrectRowDiff** ()
+- **State of the system:** Black's turn. A Black pawn executes a 2-step double push from (1,0) to (3,0).
+- **Expected output:** Move is VALID, and the En Passant tracker successfully calculates the correct mathematical boundary, appending the destination square to the positionHistory.
+- **Implemented:*implemented*
