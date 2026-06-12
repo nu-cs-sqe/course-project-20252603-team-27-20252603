@@ -34,4 +34,39 @@ public class CastlingIntegrationTest {
 		assertTrue(board.isEmpty(new Location(7, 4))); // Old King square
 		assertTrue(board.isEmpty(new Location(7, 7))); // Old Rook square
 	}
+
+	@Test
+	public void makeMove_blackPawnPromotes_killsMutantIntegration() throws Exception {
+		Player p1 = new Player("p1", PieceColor.WHITE);
+		Player p2 = new Player("p2", PieceColor.BLACK);
+		Board board = new Board();
+		Game game = new Game(board, GameStatus.WHITE_TURN, new ArrayList<>(), null, 0, new HashMap<>());
+
+		game.startNewGame(p1, p2);
+
+		board = game.getBoard();
+		board.clearBoard();
+
+		Location from = new Location(6, 4);
+		Location to = new Location(7, 4);
+
+		board.setPiece(from, new Piece(PieceType.PAWN, PieceColor.BLACK));
+
+		board.setPiece(new Location(0, 0), new Piece(PieceType.KING, PieceColor.BLACK));
+		board.setPiece(new Location(5, 7), new Piece(PieceType.KING, PieceColor.WHITE));
+
+		java.lang.reflect.Field playerField = Game.class.getDeclaredField("currentPlayer");
+		playerField.setAccessible(true);
+		playerField.set(game, p2);
+
+		MoveResult result = game.makeMove(from, to, PieceType.QUEEN);
+
+		assertEquals(MoveResult.VALID, result);
+
+		Piece promotedPiece = board.getPiece(to);
+		assertNotNull(promotedPiece);
+		assertEquals(PieceType.QUEEN, promotedPiece.getPieceType());
+		assertEquals(PieceColor.BLACK, promotedPiece.getColor());
+	}
+
 }
