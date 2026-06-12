@@ -1,1 +1,0 @@
-Line 353 in Game class is equivalent mutants since if the to column are equal, line 349 will directly return false

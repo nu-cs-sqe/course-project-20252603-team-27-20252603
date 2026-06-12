@@ -134,7 +134,8 @@ public class Game {
 			piece.setMoved(true);
 
 			if ((piece.getPieceType() == PieceType.PAWN &&
-					piece.getColor() == PieceColor.BLACK && to.getRow() == 7)
+					piece.getColor() == PieceColor.BLACK
+					&& to.getRow() == 7)
 					|| (piece.getPieceType()
 					== PieceType.PAWN
 					&& piece.getColor()
