@@ -51,8 +51,6 @@ public class Game {
 		if (!p1.getName().equals(p2.getName())) {
 			this.white = p1;
 			this.black = p2;
-//			white.setColor(PieceColor.WHITE);
-//			black.setColor(PieceColor.BLACK);
 			currentPlayer = white;
 			board.initBoard();
 		} else {
@@ -84,7 +82,18 @@ public class Game {
 				|| isCastleMove(from, to, piece)
 				|| isEnPassantMove(from, to, piece)) {
 
-			if (isInCheck(currentPlayer.getColor())) {
+			Piece targetPiece = board.getPiece(to);
+			GameStatus originalStatus = this.status;
+
+			board.movePiece(from, to);
+
+			boolean stillInCheck = isInCheck(currentPlayer.getColor());
+
+			board.movePiece(to, from);
+			board.setPiece(to, targetPiece);
+			this.status = originalStatus;
+
+			if (stillInCheck) {
 				return MoveResult.INVALID_SELF_CHECK;
 			}
 
@@ -442,6 +451,14 @@ public class Game {
 			notation += " promotes to " + promotionType;
 		}
 		return notation;
+	}
+
+	@SuppressFBWarnings(
+			value = "EI_EXPOSE_REP",
+			justification = "The UI needs direct read access to the live board state."
+	)
+	public Board getBoard() {
+		return this.board;
 	}
 
 }

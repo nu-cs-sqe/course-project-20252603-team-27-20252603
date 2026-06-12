@@ -305,4 +305,18 @@ class BoardTest {
 		assertNotNull(board.getPiece(new Location(1, 0)));
 		EasyMock.verify(mockPiece);
 	}
+
+	@Test
+	public void testDefaultConstructor_initializesEmptyBoard() {
+		Board board = new Board();
+
+		Location topLeft = new Location(0, 0);
+		Location center = new Location(4, 4);
+		Location bottomRight = new Location(7, 7);
+
+		assertNotNull(board.getPiece(topLeft));
+		assertEquals(PieceType.EMPTY, board.getPiece(topLeft).getPieceType());
+		assertEquals(PieceType.EMPTY, board.getPiece(center).getPieceType());
+		assertEquals(PieceType.EMPTY, board.getPiece(bottomRight).getPieceType());
+	}
 }
