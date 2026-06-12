@@ -119,15 +119,23 @@ public class GameTimerPanel extends JPanel {
 
 		String title = messages.getString("timer.timeout.title");
 
-		int choice = JOptionPane.showConfirmDialog(
+		Object[] options = {
+				messages.getString("timer.timeout.yes"),
+				messages.getString("timer.timeout.no")
+		};
+
+		int choice = JOptionPane.showOptionDialog(
 				this,
 				message,
 				title,
 				JOptionPane.YES_NO_OPTION,
-				JOptionPane.QUESTION_MESSAGE
+				JOptionPane.QUESTION_MESSAGE,
+				null,
+				options,
+				options[0]
 		);
 
-		if (choice == JOptionPane.YES_OPTION) {
+		if (choice == 0) {
 			Window currentWindow = SwingUtilities.getWindowAncestor(this);
 			if (currentWindow != null) {
 				currentWindow.dispose();
