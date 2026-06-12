@@ -69,4 +69,42 @@ public class CastlingIntegrationTest {
 		assertEquals(PieceColor.BLACK, promotedPiece.getColor());
 	}
 
+	@Test
+	public void makeMove_castlingIncrementsCounter_killsCastleMutant() throws Exception {
+		Player p1 = new Player("p1", PieceColor.WHITE);
+		Player p2 = new Player("p2", PieceColor.BLACK);
+		Board board = new Board();
+		Game game = new Game(board, GameStatus.WHITE_TURN, new ArrayList<>(), null, 0, new HashMap<>());
+
+		game.startNewGame(p1, p2);
+
+		board = game.getBoard();
+		board.clearBoard();
+
+		Location kingStart = new Location(7, 4);
+		Location kingEnd = new Location(7, 6); // Standard Kingside destination
+		Location rookStart = new Location(7, 7);
+
+		Piece king = new Piece(PieceType.KING, PieceColor.WHITE);
+		Piece rook = new Piece(PieceType.ROOK, PieceColor.WHITE);
+
+		king.setMoved(false);
+		rook.setMoved(false);
+
+		board.setPiece(kingStart, king);
+		board.setPiece(rookStart, rook);
+
+		board.setPiece(new Location(0, 4), new Piece(PieceType.KING, PieceColor.BLACK));
+
+		java.lang.reflect.Field castleField = Game.class.getDeclaredField("castle");
+		castleField.setAccessible(true);
+		int initialCastleCount = (int) castleField.get(game);
+
+		MoveResult result = game.makeMove(kingStart, kingEnd, null);
+
+		assertEquals(MoveResult.VALID, result);
+
+		int finalCastleCount = (int) castleField.get(game);
+		assertEquals(initialCastleCount + 1, finalCastleCount);
+	}
 }
