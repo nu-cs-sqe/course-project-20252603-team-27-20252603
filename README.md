@@ -66,3 +66,6 @@
   - We chose not to mock the Player and Location classes. Both serve strictly as objects and value holders, containing basic state data accessed via simple getters and setters. When attempting to mock these classes (specifically Player in GameTest), we could not because the classes were `public final`. When we tried to remove the `final`, this caused other errors that cascaded throuhout the repository. After doing research online which said that value-holder classes like Player and Location are not dependencies that need to be mocked, we decided to not mock these classes in tests. 
 - Implementation of Blitz Shot-Clocks (1-Minute Timed Turns):
   - As a custom feature extension to standard gameplay rules, we integrated an active countdown timer that restricts each player to a 1-minute time limit per turn.
+- SpotBug Suppressions
+  - We suppressed some SpotBug warnings in Game.java and Move.jave. 
+  - These SpotBugs suppressions are required because the application intentionally exposes internal mutable objects (Board, Move, Player, and history collections) to allow external UI rendering, dependency injection, and test state manipulation.
