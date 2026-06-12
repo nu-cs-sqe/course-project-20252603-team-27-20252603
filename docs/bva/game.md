@@ -476,4 +476,8 @@
 - **TC95: makeMove_blackPawnDoublePushComputesCorrectRowDiff** ()
 - **State of the system:** Black's turn. A Black pawn executes a 2-step double push from (1,0) to (3,0).
 - **Expected output:** Move is VALID, and the En Passant tracker successfully calculates the correct mathematical boundary, appending the destination square to the positionHistory.
+
+- **TC96: makeMove_whitePawnTwoStep_mutant** ()
+- **State of the system:** white pawn from (6,4) to (4,4)
+- **Expected output:** valid move
 - **Implemented:*implemented*
