@@ -51,8 +51,6 @@ public class Game {
 		if (!p1.getName().equals(p2.getName())) {
 			this.white = p1;
 			this.black = p2;
-			white.setColor(PieceColor.WHITE);
-			black.setColor(PieceColor.BLACK);
 			currentPlayer = white;
 			board.initBoard();
 		} else {
