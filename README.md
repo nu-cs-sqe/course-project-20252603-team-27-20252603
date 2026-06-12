@@ -4,6 +4,9 @@
 # PROJECT NAME
 Chess
 
+# How to Play?
+Run ChessUI, located in src/main/ui/ChessUI
+
 ## Contributors
 - Olivia Mofus
 - Jerome Bizimana
