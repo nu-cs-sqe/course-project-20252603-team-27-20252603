@@ -232,7 +232,7 @@ public class ChessControllerTest {
 		view.highlightSquare(7, 1);
 		EasyMock.expectLastCall();
 		EasyMock.expect(game.makeMove(source, destination, null))
-				.andReturn(MoveResult.DRAW);
+				.andReturn(MoveResult.VALID);
 		view.updateBoardUI(board);
 		EasyMock.expectLastCall();
 		EasyMock.expect(game.isCheckmate(PieceColor.WHITE))
@@ -251,7 +251,7 @@ public class ChessControllerTest {
 		EasyMock.verify(game, board, view, controller);
 	}
 	@Test
-	public void testOnSquareClicked_triggersUIRepetitionFlow() {
+	public void testOnSquareClicked_triggersUI100ClocksFlow() {
 		Game mockGame = EasyMock.createMock(Game.class);
 		ChessBoardView mockView = EasyMock.createMock(ChessBoardView.class);
 		Board mockBoard = EasyMock.createMock(Board.class);
