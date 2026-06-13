@@ -205,7 +205,7 @@ public class ChessControllerTest {
 		EasyMock.verify(mockGame, mockView, mockBoard, controller);
 	}
 	@Test
-	public void onSquareClicked_drawStatus_callsHandleDraw() {
+	public void testOnSquareClicked_triggersUIDrawFlow() {
 		Game game = EasyMock.createMock(Game.class);
 		Board board = EasyMock.createMock(Board.class);
 		ChessBoardView view = EasyMock.createMock(ChessBoardView.class);
@@ -249,5 +249,48 @@ public class ChessControllerTest {
 		controller.onSquareClicked(7, 1);
 		controller.onSquareClicked(5, 2);
 		EasyMock.verify(game, board, view, controller);
+	}
+	@Test
+	public void testOnSquareClicked_triggersUIRepetitionFlow() {
+		Game mockGame = EasyMock.createMock(Game.class);
+		ChessBoardView mockView = EasyMock.createMock(ChessBoardView.class);
+		Board mockBoard = EasyMock.createMock(Board.class);
+
+		Piece whiteQueen = new Piece(PieceType.QUEEN, PieceColor.WHITE);
+		Location source = new Location(1, 0);
+		Location destination = new Location(2, 0);
+
+		EasyMock.expect(mockGame.getBoard()).andReturn(mockBoard).anyTimes();
+		EasyMock.expect(mockGame.getStatus()).andReturn(GameStatus.WHITE_TURN).anyTimes();
+		EasyMock.expect(mockBoard.getPiece(source)).andStubReturn(whiteQueen);
+		EasyMock.expect(mockBoard.getPiece(destination)).andStubReturn(new Piece(PieceType.EMPTY, null));
+
+		mockView.highlightSquare(1, 0);
+		EasyMock.expectLastCall();
+
+		EasyMock.expect(mockGame.makeMove(source, destination, null))
+				.andReturn(MoveResult.DRAW);
+
+		mockView.updateBoardUI(mockBoard);
+		EasyMock.expectLastCall().times(2);
+
+		EasyMock.expect(mockGame.isCheckmate(PieceColor.WHITE)).andReturn(false).anyTimes();
+		EasyMock.expect(mockGame.isCheckmate(PieceColor.BLACK)).andReturn(false).anyTimes();
+
+		ChessController controller = EasyMock.partialMockBuilder(ChessController.class)
+				.withConstructor(Game.class, ChessBoardView.class)
+				.withArgs(mockGame, mockView)
+				.addMockedMethod("handleDraw", String.class)
+				.createMock();
+
+		controller.handleDraw(EasyMock.anyObject(String.class));
+		EasyMock.expectLastCall().once();
+
+		EasyMock.replay(mockGame, mockView, mockBoard, controller);
+
+		controller.onSquareClicked(1, 0);
+		controller.onSquareClicked(2, 0);
+
+		EasyMock.verify(mockGame, mockView, mockBoard, controller);
 	}
 }
