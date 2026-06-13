@@ -82,7 +82,9 @@ public class ChessController {
 							: PieceColor.WHITE;
 					handleCheckmate(winner);
 				}
-				else if (result == MoveResult.STALEMATE) {
+				else if (result == MoveResult.STALEMATE ||
+						game.getStatus() == GameStatus.DRAW ||
+						result == MoveResult.DRAW) {
 					handleDraw(messages.getString("status.stalemate"));
 				}
 				else if (game.isInCheck(PieceColor.WHITE)

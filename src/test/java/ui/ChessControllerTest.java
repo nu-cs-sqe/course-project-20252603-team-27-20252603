@@ -204,4 +204,93 @@ public class ChessControllerTest {
 
 		EasyMock.verify(mockGame, mockView, mockBoard, controller);
 	}
+	@Test
+	public void testOnSquareClicked_triggersUIDrawFlow() {
+		Game game = EasyMock.createMock(Game.class);
+		Board board = EasyMock.createMock(Board.class);
+		ChessBoardView view = EasyMock.createMock(ChessBoardView.class);
+		Location source = new Location(7, 1);
+		Location destination = new Location(5, 2);
+		Piece whiteKnight =
+				new Piece(PieceType.KNIGHT, PieceColor.WHITE);
+		Piece empty =
+				new Piece(PieceType.EMPTY, null);
+		ChessController controller =
+				EasyMock.partialMockBuilder(ChessController.class)
+						.withConstructor(Game.class, ChessBoardView.class)
+						.withArgs(game, view)
+						.addMockedMethod("handleDraw", String.class)
+						.createMock();
+		EasyMock.expect(game.getBoard())
+				.andStubReturn(board);
+		EasyMock.expect(board.getPiece(source))
+				.andStubReturn(whiteKnight);
+		EasyMock.expect(board.getPiece(destination))
+				.andStubReturn(empty);
+		EasyMock.expect(game.getStatus())
+				.andReturn(GameStatus.WHITE_TURN);
+		view.highlightSquare(7, 1);
+		EasyMock.expectLastCall();
+		EasyMock.expect(game.makeMove(source, destination, null))
+				.andReturn(MoveResult.VALID);
+		view.updateBoardUI(board);
+		EasyMock.expectLastCall();
+		EasyMock.expect(game.isCheckmate(PieceColor.WHITE))
+				.andReturn(false);
+		EasyMock.expect(game.isCheckmate(PieceColor.BLACK))
+				.andReturn(false);
+		EasyMock.expect(game.getStatus())
+				.andReturn(GameStatus.DRAW);
+		controller.handleDraw(EasyMock.anyString());
+		EasyMock.expectLastCall();
+		view.updateBoardUI(board);
+		EasyMock.expectLastCall();
+		EasyMock.replay(game, board, view, controller);
+		controller.onSquareClicked(7, 1);
+		controller.onSquareClicked(5, 2);
+		EasyMock.verify(game, board, view, controller);
+	}
+	@Test
+	public void testOnSquareClicked_triggersUI100ClocksFlow() {
+		Game mockGame = EasyMock.createMock(Game.class);
+		ChessBoardView mockView = EasyMock.createMock(ChessBoardView.class);
+		Board mockBoard = EasyMock.createMock(Board.class);
+
+		Piece whiteQueen = new Piece(PieceType.QUEEN, PieceColor.WHITE);
+		Location source = new Location(1, 0);
+		Location destination = new Location(2, 0);
+
+		EasyMock.expect(mockGame.getBoard()).andReturn(mockBoard).anyTimes();
+		EasyMock.expect(mockGame.getStatus()).andReturn(GameStatus.WHITE_TURN).anyTimes();
+		EasyMock.expect(mockBoard.getPiece(source)).andStubReturn(whiteQueen);
+		EasyMock.expect(mockBoard.getPiece(destination)).andStubReturn(new Piece(PieceType.EMPTY, null));
+
+		mockView.highlightSquare(1, 0);
+		EasyMock.expectLastCall();
+
+		EasyMock.expect(mockGame.makeMove(source, destination, null))
+				.andReturn(MoveResult.DRAW);
+
+		mockView.updateBoardUI(mockBoard);
+		EasyMock.expectLastCall().times(2);
+
+		EasyMock.expect(mockGame.isCheckmate(PieceColor.WHITE)).andReturn(false).anyTimes();
+		EasyMock.expect(mockGame.isCheckmate(PieceColor.BLACK)).andReturn(false).anyTimes();
+
+		ChessController controller = EasyMock.partialMockBuilder(ChessController.class)
+				.withConstructor(Game.class, ChessBoardView.class)
+				.withArgs(mockGame, mockView)
+				.addMockedMethod("handleDraw", String.class)
+				.createMock();
+
+		controller.handleDraw(EasyMock.anyObject(String.class));
+		EasyMock.expectLastCall().once();
+
+		EasyMock.replay(mockGame, mockView, mockBoard, controller);
+
+		controller.onSquareClicked(1, 0);
+		controller.onSquareClicked(2, 0);
+
+		EasyMock.verify(mockGame, mockView, mockBoard, controller);
+	}
 }
