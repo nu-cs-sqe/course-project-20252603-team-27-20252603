@@ -133,15 +133,23 @@ public class ChessController {
 				"\n\n" +
 				messages.getString("status.playagain");
 
-		int choice = JOptionPane.showConfirmDialog(
+		Object[] options = {
+				messages.getString("timer.timeout.yes"),
+				messages.getString("timer.timeout.no")
+		};
+
+		int choice = JOptionPane.showOptionDialog(
 				null,
 				fullMessage,
 				messages.getString("status.gameover"),
 				JOptionPane.YES_NO_OPTION,
-				JOptionPane.WARNING_MESSAGE
+				JOptionPane.WARNING_MESSAGE,
+				null,
+				options,
+				options[0]
 		);
 
-		if (choice == JOptionPane.YES_OPTION) {
+		if (choice == 0) {
 			Window currentWindow = SwingUtilities.getWindowAncestor(view);
 			if (currentWindow != null) {
 				currentWindow.dispose();
@@ -160,15 +168,23 @@ public class ChessController {
 				"\n\n" +
 				messages.getString("status.playagain");
 
-		int choice = JOptionPane.showConfirmDialog(
+		Object[] options = {
+				messages.getString("timer.timeout.yes"),
+				messages.getString("timer.timeout.no")
+		};
+
+		int choice = JOptionPane.showOptionDialog(
 				null,
 				fullMessage,
 				messages.getString("status.gameover"),
 				JOptionPane.YES_NO_OPTION,
-				JOptionPane.INFORMATION_MESSAGE
+				JOptionPane.INFORMATION_MESSAGE,
+			null,
+				options,
+				options[0]
 		);
 
-		if (choice == JOptionPane.YES_OPTION) {
+		if (choice == 0) {
 			Window currentWindow = SwingUtilities.getWindowAncestor(view);
 			if (currentWindow != null) {
 				currentWindow.dispose();
